@@ -22,7 +22,7 @@
 
   outputs = { nixpkgs, home-manager, ... }@inputs: {
     # NixOS configuration entrypoint
-    # Available through 'nixos-rebuild --flake .#your-hostname'
+    # Available through 'sudo nixos-rebuild --flake .#your-hostname'
     nixosConfigurations = {
       alan-desktop = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; }; # Pass flake inputs to our config
@@ -37,7 +37,7 @@
     };
 
     # Standalone home-manager configuration entrypoint
-    # Available through 'home-manager --flake .#your-username@your-hostname'
+    # Available through 'home-manager switch --flake .#your-username@your-hostname'
     homeConfigurations = {
       "alan@alan-desktop" = home-manager.lib.homeManagerConfiguration {
         pkgs =

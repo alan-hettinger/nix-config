@@ -106,12 +106,8 @@
     # python311Packages.pip ## broke for some reason
 
     haskell-language-server # #installing here because haskellPackages.haskell-language-server didn't cooperate
-
-    ## extras:
-    # nyxt
   ];
 
-  # TODO: Set your username
   home = {
     username = "alan";
     homeDirectory = "/home/alan";
