@@ -45,7 +45,7 @@
     settings = {
       # Enable flakes and new 'nix' command
       experimental-features = "nix-command flakes";
-      substituters = [ "https://cachix.cachix.org" ];
+      # substituters = [ "https://cachix.cachix.org" ];
       # Deduplicate and optimize nix store
       auto-optimise-store = true;
     };
@@ -54,6 +54,7 @@
       automatic = true;
       options = "--delete-older-than 30d";
     };
+    package = pkgs.nixVersions.unstable;
   };
 
   boot = {
@@ -96,7 +97,6 @@
   services.xserver = {
     enable = true;
     displayManager = {
-      # sddm.enable = true;
       lightdm = {
         enable = true;
         greeters.slick = {
@@ -214,7 +214,6 @@
     gh
     stow
     alacritty
-    # wezterm
     wget
     xdg-utils
     xorg.setxkbmap
@@ -227,7 +226,6 @@
     coreutils
     terminus_font
     xorg.xrandr
-    # lightlocker
     xorg.xwininfo
   ];
 

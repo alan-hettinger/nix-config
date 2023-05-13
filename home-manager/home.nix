@@ -43,11 +43,13 @@
 
   gtk = {
     enable = true;
-    cursorTheme = {
-      package = pkgs.catppuccin-cursors.macchiatoDark;
-      name = "macchiatoDark";
-      size = 48;
-    };
+    # cursorTheme = {
+    # package = pkgs.vanilla-dmz;
+    # name = "Vanilla-DMZ";
+    # package = pkgs.catppuccin-cursors.frappeRed;
+    # name = "frappeRed";
+    # size = 48;
+    # };
     theme = {
       name = "Catppuccin-Macchiato-Compact-Rosewater-Dark";
       package = pkgs.catppuccin-gtk.override {
@@ -64,8 +66,10 @@
   };
 
   home.pointerCursor = {
-    package = pkgs.catppuccin-cursors.macchiatoDark;
-    name = "macchiatoDark";
+    # package = pkgs.catppuccin-cursors.macchiatoDark;
+    # name = "macchiatoDark";
+    package = pkgs.vanilla-dmz;
+    name = "Vanilla-DMZ";
     gtk.enable = true;
     x11.enable = true;
     size = 48;
@@ -96,14 +100,12 @@
   };
 
   home.packages = with pkgs; [
-    # basic utilities
     ripgrep
     fd
     fzf
-    unclutter-xfixes
     haskellPackages.greenclip
-    gnome.gnome-font-viewer
     # python311Packages.pip ## broke for some reason
+    unclutter-xfixes
 
     haskell-language-server # #installing here because haskellPackages.haskell-language-server didn't cooperate
   ];
