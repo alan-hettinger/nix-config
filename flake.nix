@@ -12,7 +12,6 @@
       "github:nix-community/home-manager/master"; # # remove the /master if switching to stable
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    # TODO: Add any other flake you might need
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
     # Shameless plug: looking for a way to nixify your themes and make

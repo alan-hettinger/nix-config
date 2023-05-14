@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
 
   home.packages = with pkgs; [
     emacs
@@ -29,6 +29,16 @@
     socketActivation.enable = true;
     startWithUserSession = true;
     # extraOptions = [  ];
+  };
+
+  home.file.".doom.d" = {
+    source = ./dotfiles/doom.d;
+    recursive = true;
+  };
+
+  home.file.".config/awesome" = {
+    source = ./dotfiles/awesome;
+    recursive = true;
   };
 
 }

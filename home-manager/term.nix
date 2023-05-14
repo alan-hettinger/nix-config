@@ -2,16 +2,14 @@
 
   home.packages = with pkgs; [
     tmux
-    # python311Packages.libtmux
     neovim
     # neovide
-    zsh-nix-shell
-    zsh-autopair
+    zsh-nix-shell # FIXME what does this do
+    zsh-autopair # FIXME not currently sourced
     exa
     most
     cava
     bat
-    # python311Packages.pygments
     fzf
     w3m
     bottom
