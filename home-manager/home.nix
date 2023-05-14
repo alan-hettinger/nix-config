@@ -88,7 +88,6 @@
     QT_QPA_PLATFORMTHEME = "qt5ct";
     TERM = "alacritty";
     RANGER_LOAD_DEFAULT_RC = "false";
-    XCURSOR_SIZE = "48";
   };
 
   home.packages = with pkgs; [

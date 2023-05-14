@@ -6,12 +6,7 @@
     neovim
     # neovide
     zsh-nix-shell
-    zsh-autosuggestions
-    zsh-autocomplete
     zsh-autopair
-    zsh-syntax-highlighting
-    starship
-    oh-my-zsh
     exa
     most
     cava
@@ -25,16 +20,56 @@
     lm_sensors
     nvtop
     unzip
+    cbonsai
   ];
 
-  # programs.zsh = {
-  #   enable = true;
-  #   enableAutosuggestions = true;
-  #   enableCompletion = true;
-  #   enableSyntaxHighlighting = true;
-  #   enableVteIntegration = true;
-  # };
-  #
+  home.shellAliases = {
+    ## applies across all shells
+    cat = "bat";
+    ls = "exa -la";
+    catppuccin = "inkcat latte,frappe,macchiato,mocha";
+    catppucciny = "inkcat";
+    bonsai = "cbonsai -i -l --time=2";
+  };
+
+  programs.zsh = {
+    enable = true;
+    enableAutosuggestions = true;
+    enableCompletion = true;
+    enableSyntaxHighlighting = true;
+    enableVteIntegration = true;
+    autocd = true;
+    history = { ignoreDups = true; };
+    shellAliases = {
+      ## note home.shellAliases above
+      ## this is for zsh-specific aliases
+
+    };
+    sessionVariables = {
+      ## envvars
+    };
+    ## .zshrc extras:
+    initExtra = ''
+      # Function to cd and ls in one command
+      cl () {
+          if [ "$#" -eq 0 ]; then
+              "cd" || return
+          else
+              "cd" "$1" || return
+          fi
+          ls -A --color=auto
+      }
+
+      # some functions copied from the fzf github page https://github.com/junegunn/fzf/wiki/Examples
+      # fh - repeat history
+      fh() {
+        print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf --height 50% --reverse --border +s --tac | sed -E 's/ *[0-9]*\*? *//' | sed -E 's/\\/\\\\/g')
+      }
+    '';
+    localVariables = {
+      ## variables in .zshrc
+    };
+  };
 
   programs.starship = {
     enable = true;
