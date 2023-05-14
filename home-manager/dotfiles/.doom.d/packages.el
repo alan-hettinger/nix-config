@@ -1,0 +1,8 @@
+(package! tldr)
+(package! pandoc)
+(package! nov)
+(package! evil-better-visual-line)
+(package! catppuccin-theme)
+(package! dired-subtree)
+(package! dired-single)
+(package! dired-open)

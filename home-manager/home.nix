@@ -6,7 +6,6 @@
     ./media.nix
     ./term.nix
     ./dev.nix
-    ./font.nix
     ./lang/go.nix
     ./lang/lisp.nix
     ./lang/misc.nix
@@ -36,20 +35,13 @@
     };
   };
 
-  # qt = {
+  # qt = { ## FIXME
   #   enable = true;
   #   platformTheme = "qt5ct";
   # };
 
   gtk = {
     enable = true;
-    # cursorTheme = {
-    # package = pkgs.vanilla-dmz;
-    # name = "Vanilla-DMZ";
-    # package = pkgs.catppuccin-cursors.frappeRed;
-    # name = "frappeRed";
-    # size = 48;
-    # };
     theme = {
       name = "Catppuccin-Macchiato-Compact-Rosewater-Dark";
       package = pkgs.catppuccin-gtk.override {
@@ -109,6 +101,9 @@
 
     haskell-language-server # #installing here because haskellPackages.haskell-language-server didn't cooperate
   ];
+
+  fonts.fontconfig.enable =
+    true; # # this is already set in the system fonts module but just in case
 
   home = {
     username = "alan";

@@ -1,6 +1,3 @@
-# This is your system's configuration file.
-# Use this to configure your system environment (it replaces /etc/nixos/configuration.nix)
-
 { inputs, lib, config, pkgs, ... }: {
   # You can import other NixOS modules here
   imports = [
@@ -8,11 +5,8 @@
     # inputs.hardware.nixosModules.common-cpu-amd
     # inputs.hardware.nixosModules.common-ssd
 
-    # You can also split up your configuration and import pieces of it here:
-    # ./users.nix
-
-    # Import your generated (nixos-generate-config) hardware configuration
     ./hardware-configuration.nix
+    ./font.nix
   ];
 
   nixpkgs = {
@@ -89,10 +83,7 @@
 
   time.timeZone = "America/New_York";
   i18n = { defaultLocale = "en_US.UTF-8"; };
-  console = {
-    font = "ter-m32n";
-    keyMap = "us";
-  };
+  console = { keyMap = "us"; };
 
   services.xserver = {
     enable = true;
@@ -131,7 +122,7 @@
     xrandrHeads = [
       "DisplayPort-0"
       {
-        output = "DisplayPort-0"; # TODO confirm
+        output = "DisplayPort-0";
         primary = true;
         monitorConfig = ''
           Option "DPMS" "false"
@@ -139,6 +130,7 @@
         '';
       }
     ];
+    ## FIXME:
     # deviceSection = ''
     #   Identifier "AMD"
     #   Option "VariableRefresh" "true"
@@ -183,24 +175,6 @@
     extraGroups = [ "networkmanager" "wheel" "video" "audio" ];
   };
 
-  fonts = {
-    fontDir.enable = true;
-    fontconfig = {
-      enable = true;
-      defaultFonts.monospace = [ "jetbrains-mono" ]; # TODO
-      defaultFonts.sansSerif = [ "source-sans-pro" ]; # TODO
-      defaultFonts.serif = [ "source-serif-pro" ]; # TODO
-    };
-    fonts = with pkgs; [
-      source-code-pro
-      source-serif-pro
-      source-sans-pro
-      liberation_ttf
-      dejavu_fonts
-      jetbrains-mono
-    ];
-  };
-
   qt = {
     enable = true;
     platformTheme = "qt5ct";
@@ -212,11 +186,8 @@
     htop
     git
     gh
-    stow
-    alacritty
     wget
     xdg-utils
-    xorg.setxkbmap
     borgbackup
     borgmatic
     polkit_gnome
@@ -224,7 +195,6 @@
     firefox
     numlockx
     coreutils
-    terminus_font
     xorg.xrandr
     xorg.xwininfo
   ];

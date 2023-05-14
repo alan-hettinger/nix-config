@@ -40,5 +40,15 @@
   #   enableSyntaxHighlighting = true;
   #   enableVteIntegration = true;
   # };
+  #
+  programs.lf = {
+    ## https://nix-community.github.io/home-manager/options.html#opt-programs.lf.enable
+    enable = false;
+    settings = { };
+    keybindings = { };
+    cmdKeybindings = { };
+    commands = { };
+    extraConfig = " ";
+  };
 
 }

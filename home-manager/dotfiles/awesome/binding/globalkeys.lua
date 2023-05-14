@@ -1,0 +1,286 @@
+-- Standard awesome library
+local gears = require("gears")
+local awful = require("awful")
+-- local hotkeys_popup = require("awful.hotkeys_popup").widget
+local hotkeys_popup = require("awful.hotkeys_popup")
+-- Menubar library
+local menubar = require("menubar")
+
+-- Resource Configuration
+local modkey = RC.vars.modkey
+local terminal = RC.vars.terminal
+local term2 = RC.vars.term2
+local browser = RC.vars.browser
+local launcher = RC.vars.launcher
+local editor = RC.vars.editor
+local filemanager = RC.vars.filemanager
+local screenlock = RC.vars.screenlock
+local bookmarks = RC.vars.bookmarks
+local windowswitcher = RC.vars.windowswitcher
+
+local lain = require("lain")
+
+local _M = {}
+
+-- reading
+-- https://awesomewm.org/wiki/Global_Keybindings
+
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+-- available keys:
+--    - mod+a
+--    - mod+;
+--    - mod+'
+--    - mod+r
+--    - mod+y
+--    - mod+u
+--    - mod+i
+--    - mod+[
+--    - mod+]
+--    - mod+n ( currently minimizes clients but minimization is disabled in main.signals )
+--    - mod+.
+--    - ( could make use of mod+m since maximization is not very useful in my config )
+
+
+function _M.get()
+  local globalkeys = gears.table.join(
+    awful.key({ modkey, }, "s", hotkeys_popup.show_help,
+      { description = "show help", group = "awesome" }),
+
+    -- Tag browsing
+    awful.key({ modkey, "Shift" }, "Tab", awful.tag.viewprev,
+      { description = "view previous", group = "tag" }),
+    awful.key({ modkey, }, "Tab", awful.tag.viewnext,
+      { description = "view next", group = "tag" }),
+    awful.key({ modkey }, "w", function() awful.spawn(windowswitcher) end,
+      { description = "list windows", group = "launcher" }),
+
+    -- show/hide the top bar
+    awful.key({ modkey, }, "b", function()
+        awful.screen.focused().mywibox.visible = not awful.screen.focused().mywibox.visible
+      end,
+      { description = "show/hide top bar", group = "awesome" }
+    ),
+
+    -- resize gaps on the fly
+    awful.key({ modkey, }, "-", function() lain.util.useless_gaps_resize(1) end),
+    awful.key({ modkey, }, "=", function() lain.util.useless_gaps_resize(-1) end),
+
+    awful.key({ modkey }, "Down",
+      function()
+        awful.client.focus.bydirection("down")
+        if client.focus then client.focus:raise() end
+      end),
+    awful.key({ modkey }, "Up",
+      function()
+        awful.client.focus.bydirection("up")
+        if client.focus then client.focus:raise() end
+      end),
+    awful.key({ modkey }, "Left",
+      function()
+        awful.client.focus.bydirection("left")
+        if client.focus then client.focus:raise() end
+      end),
+    awful.key({ modkey }, "Right",
+      function()
+        awful.client.focus.bydirection("right")
+        if client.focus then client.focus:raise() end
+      end),
+
+    awful.key({ modkey, }, "j",
+      function()
+        awful.client.focus.byidx(1)
+      end,
+      { description = "focus next by index", group = "client" }
+    ),
+    awful.key({ modkey, }, "k",
+      function()
+        awful.client.focus.byidx(-1)
+      end,
+      { description = "focus previous by index", group = "client" }
+    ),
+
+    --   -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+    -- Layout manipulation
+    awful.key({ modkey, "Shift" }, "j", function() awful.client.swap.byidx(1) end,
+      { description = "swap with next client by index", group = "client" }),
+    awful.key({ modkey, "Shift" }, "k", function() awful.client.swap.byidx(-1) end,
+      { description = "swap with previous client by index", group = "client" }),
+    awful.key({ modkey, "Control" }, "j", function() awful.screen.focus_relative(1) end,
+      { description = "focus the next screen", group = "screen" }),
+    awful.key({ modkey, "Control" }, "k", function() awful.screen.focus_relative(-1) end,
+      { description = "focus the previous screen", group = "screen" }),
+
+    -- Standard program
+    awful.key({ modkey, }, "Return", function()
+        awful.spawn(terminal
+        )
+      end,
+      { description = "open a terminal", group = "launcher" }),
+    awful.key({ modkey, "Shift" }, "Return", function() awful.spawn(term2) end,
+      { description = "term without tmux", group = "launcher" }),
+    awful.key({ modkey, "Control" }, "r", awesome.restart,
+      { description = "reload awesome", group = "awesome" }),
+    awful.key({ modkey, "Shift" }, "q", awesome.quit,
+      { description = "quit awesome", group = "awesome" }),
+    awful.key({ modkey, }, "`", function() awful.spawn(screenlock) end,
+      { description = "lock screen", group = "awesome" }),
+    awful.key({ modkey, }, "g", function() awful.spawn(bookmarks) end,
+      { description = "browse bookmarks", group = "launcher" }),
+
+    -- Show/hide the systray:
+    awful.key({ modkey }, "/", function()
+        awful.screen.focused().systray.visible = not awful.screen.focused().systray.visible
+      end,
+      { description = "toggle systray visibility", group = "awesome" }
+    ),
+
+
+    -- Audio control:
+    awful.key({ modkey }, "F10", function()
+        awful.spawn.with_shell("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")
+      end,
+      { description = "toggle volume mute", group = "audio" }
+    ),
+
+
+    awful.key({ modkey }, "F11", function()
+        awful.spawn.with_shell("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-")
+      end,
+      { description = "volume down 5%", group = "audio" }
+    ),
+
+    awful.key({ modkey }, "F12", function()
+        awful.spawn.with_shell("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+")
+      end,
+      { description = "volume up 5%", group = "audio" }
+    ),
+
+    awful.key({ modkey, }, ",",
+      function() awful.spawn("rofi -modi 'clipboard:greenclip print' -show clipboard -run-command '{cmd}'") end,
+      { description = "clipboard history", group = "launcher" }
+    ),
+    awful.key({ modkey, "Shift" }, ",", function() awful.spawn.with_shell("pkill greenclip && greenclip clear && greenclip daemon") end,
+      { description = "clear clipboard history", group = "launcher" }
+    ),
+    --   -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+    -- Layout manipulation
+    awful.key({ modkey, }, "l", function() awful.tag.incmwfact(0.05) end,
+      { description = "increase master width factor", group = "layout" }),
+    awful.key({ modkey, }, "h", function() awful.tag.incmwfact(-0.05) end,
+      { description = "decrease master width factor", group = "layout" }),
+    awful.key({ modkey, "Shift" }, "h", function() awful.tag.incnmaster(1, nil, true) end,
+      { description = "increase the number of master clients", group = "layout" }),
+    awful.key({ modkey, "Shift" }, "l", function() awful.tag.incnmaster(-1, nil, true) end,
+      { description = "decrease the number of master clients", group = "layout" }),
+    awful.key({ modkey, "Control" }, "h", function() awful.tag.incncol(1, nil, true) end,
+      { description = "increase the number of columns", group = "layout" }),
+    awful.key({ modkey, "Control" }, "l", function() awful.tag.incncol(-1, nil, true) end,
+      { description = "decrease the number of columns", group = "layout" }),
+    awful.key({ modkey, }, "space", function() awful.layout.inc(1) end,
+      { description = "select next", group = "layout" }),
+    awful.key({ modkey, "Shift" }, "space", function() awful.layout.inc(-1) end,
+      { description = "select previous", group = "layout" }),
+
+    awful.key({ modkey, "Control" }, "n",
+      function()
+        local c = awful.client.restore()
+        -- Focus restored client
+        if c then
+          c:emit_signal(
+            "request::activate", "key.unminimize", { raise = true }
+          )
+        end
+      end,
+      { description = "restore minimized", group = "client" }),
+    awful.key({ modkey, }, "e", function() awful.spawn.with_shell("autorandr clamshell") end,
+      { description = "place display in clamshell mode", group = "screen" }
+    ),
+    awful.key({ modkey, "Control" }, "e", function() awful.spawn.with_shell("xrandr --output HDMI-A-0 --same-as eDP") end
+      ,
+      { description = "screen mirroring", group = "screen" }
+    ),
+
+
+    awful.key({ modkey, "Shift" }, "e", function() awful.spawn.with_shell("autorandr docked") end,
+      { description = "dual display", group = "screen" }
+    ),
+
+
+    awful.key({ modkey, "Shift", "Control" }, "e", function() awful.spawn.with_shell("autorandr default") end,
+      { description = "laptop display only", group = "screen" }
+    ),
+    --   -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+    awful.key({ modkey }, "d", function() awful.spawn(launcher) end,
+      { description = "launcher", group = "launcher" }
+    ),
+
+    awful.key({ modkey }, "x", function() awful.spawn(browser) end,
+      { description = "browser", group = "applications" }
+    ),
+
+    awful.key({ modkey, "Shift" }, "x", function() awful.spawn("flatpak run com.brave.Browser") end,
+      { description = "brave browser", group = "applications" }
+    ),
+
+    awful.key({ modkey }, "z", function() awful.spawn(filemanager) end,
+      { description = "file manager", group = "applications" }
+    ),
+
+    awful.key({ modkey }, "c", function() awful.spawn("discord") end,
+      { description = "discord", group = "applications" }
+    ),
+
+
+    awful.key({ modkey }, "v", function() awful.spawn(editor) end,
+      { description = "text editor", group = "applications" }
+    ),
+
+
+    awful.key({ modkey }, "Escape", function() awful.spawn("/home/alan/.config/rofi/scripts/powermenu_t2") end,
+      { description = "power menu", group = "launcher" }
+    ),
+
+    awful.key({ modkey }, "p", function() awful.spawn("flameshot gui") end,
+      { description = "screenshot", group = "launcher" }
+    ),
+
+
+
+    --   -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+    -- Resize
+    --awful.key({ modkey, "Control" }, "Left",  function () awful.client.moveresize( 20,  20, -40, -40) end),
+    --awful.key({ modkey, "Control" }, "Right", function () awful.client.moveresize(-20, -20,  40,  40) end),
+    awful.key({ modkey, "Control" }, "Up",
+      function() awful.client.moveresize(0, 0, 0, -20) end),
+    awful.key({ modkey, "Control" }, "Down",
+      function() awful.client.moveresize(0, 0, 0, 20) end),
+    awful.key({ modkey, "Control" }, "Left",
+      function() awful.client.moveresize(0, 0, -20, 0) end),
+    awful.key({ modkey, "Control" }, "Right",
+      function() awful.client.moveresize(0, 0, 20, 0) end),
+
+    -- Move
+    awful.key({ modkey, "Shift" }, "Down",
+      function() awful.client.moveresize(0, 20, 0, 0) end),
+    awful.key({ modkey, "Shift" }, "Up",
+      function() awful.client.moveresize(0, -20, 0, 0) end),
+    awful.key({ modkey, "Shift" }, "Left",
+      function() awful.client.moveresize(-20, 0, 0, 0) end),
+    awful.key({ modkey, "Shift" }, "Right",
+      function() awful.client.moveresize(20, 0, 0, 0) end)
+
+  --   -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+  -- Menubar
+  --    awful.key({ modkey }, "p", function() menubar.show() end,
+  --              {description = "show the menubar", group = "launcher"})
+  --
+
+  )
+
+  return globalkeys
+end
+
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+return setmetatable({}, { __call = function(_, ...) return _M.get(...) end })
