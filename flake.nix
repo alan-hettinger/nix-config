@@ -43,26 +43,29 @@
 
       # Standalone home-manager configuration entrypoint
       # Available through 'home-manager switch --flake .#your-username@your-hostname'
-      homeConfigurations = {
-        "alan@alan-desktop" = home-manager.lib.homeManagerConfiguration {
-          pkgs =
-            nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-          extraSpecialArgs = {
-            inherit inputs;
-          }; # Pass flake inputs to our config
-          # > Our main home-manager configuration file <
-          modules = [ ./home-manager/home.nix ];
-        };
+      #
+      ## disabling this while I try using home-manager as a module
+      #
+      # homeConfigurations = {
+      #   "alan@alan-desktop" = home-manager.lib.homeManagerConfiguration {
+      #     pkgs =
+      #       nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+      #     extraSpecialArgs = {
+      #       inherit inputs;
+      #     }; # Pass flake inputs to our config
+      #     # > Our main home-manager configuration file <
+      #     modules = [ ./home-manager/home.nix ];
+      #   };
 
-        # "alan@alan-laptop" = home-manager.lib.homeManagerConfiguration {
-        #   pkgs =
-        #     nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-        #   extraSpecialArgs = {
-        #     inherit inputs;
-        #   }; # Pass flake inputs to our config
-        #   # > Our main home-manager configuration file <
-        #   modules = [ ./home-manager/home.nix ];
-        # };
-      };
+      # "alan@alan-laptop" = home-manager.lib.homeManagerConfiguration {
+      #   pkgs =
+      #     nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+      #   extraSpecialArgs = {
+      #     inherit inputs;
+      #   }; # Pass flake inputs to our config
+      #   # > Our main home-manager configuration file <
+      #   modules = [ ./home-manager/home.nix ];
+      # };
+      # };
     };
 }

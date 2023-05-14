@@ -7,7 +7,14 @@
 
     ./hardware-configuration.nix
     ./font.nix
+    inputs.home-manager.nixosModules.home-manager
   ];
+
+  ## import home-manager so we can rebuild the whole system at once:
+  home-manager = {
+    extraSpecialArgs = { inherit inputs; };
+    users = { alan = import ../home-manager/home.nix; };
+  };
 
   nixpkgs = {
     # You can add overlays here
