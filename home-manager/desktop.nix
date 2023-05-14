@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, config, ... }: {
   # basic desktop applications
 
   home.packages = with pkgs; [
@@ -51,6 +51,17 @@
     pasystray.enable = true;
     # picom.enable = true;
     # picom.package = pkgs.picom-jonaburg-unstable;
+  };
+
+  ## This is not the "nix way" of doing things since the awesome config is "stateful" but this allows editing and reloading separately
+  ## Additionally, this is necessary because the awesome config has submodules
+  ## TODO manage awesome submodules using builtins.fetchGit etc
+  home.activation = {
+    installAwesomeConfig = ''
+      if [ ! -d "${config.home.homeDirectory}/.config/awesome" ]; then
+         ln -s "/home/alan/nix-config/home-manager/dotfiles/awesome" "${config.home.homeDirectory}/.config/awesome"
+      fi
+    '';
   };
 
 }

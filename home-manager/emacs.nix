@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, config, ... }: {
 
   home.packages = with pkgs; [
     emacs
@@ -31,14 +31,23 @@
     # extraOptions = [  ];
   };
 
-  home.file.".doom.d" = {
-    source = ./dotfiles/doom.d;
-    recursive = true;
+  ## This way of linking allows .doom.d to be tracked by nix but disallows editing on the fly
+  # home.file.".doom.d" = {
+  #   source = ./dotfiles/doom.d;
+  #   recursive = true;
+  # };
+  ## This way of doing things allows editing/reloading on the fly but means .doom.d is impure/stateful
+  home.activation = {
+    installDoomDir = ''
+      if [ ! -d "${config.home.homeDirectory}/.doom.d" ]; then
+         ln -s "/home/alan/nix-config/home-manager/dotfiles/doom.d" "${config.home.homeDirectory}/.doom.d"
+      fi
+    '';
   };
 
-  home.file.".config/awesome" = {
-    source = ./dotfiles/awesome;
-    recursive = true;
-  };
+  # home.file.".config/awesome" = {
+  #   source = ./dotfiles/awesome;
+  #   recursive = true;
+  # };
 
 }

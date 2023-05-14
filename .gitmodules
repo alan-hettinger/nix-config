@@ -4,6 +4,3 @@
 [submodule "home-manager/dotfiles/awesome/lain"]
 	path = home-manager/dotfiles/awesome/lain
 	url = https://github.com/lcpz/lain/
-[submodule "home-manager/dotfiles/awesome/bling"]
-	path = home-manager/dotfiles/awesome/bling
-	url = https://github.com/BlingCorp/bling
