@@ -20,6 +20,10 @@
       source-sans-pro
       liberation_ttf
       dejavu_fonts
+      libre-baskerville
+      vollkorn
+      montserrat
+      open-sans
       (nerdfonts.override { fonts = [ "FiraCode" "JetBrainsMono" "Iosevka" ]; })
     ];
 
