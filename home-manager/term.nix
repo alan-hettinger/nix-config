@@ -11,7 +11,6 @@
     most
     cava
     bat
-    ranger
     # python311Packages.pygments
     fzf
     w3m
@@ -43,7 +42,7 @@
     shellAliases = {
       ## note home.shellAliases above
       ## this is for zsh-specific aliases
-
+      lf = "lfcd || lf";
     };
     sessionVariables = {
       ## envvars
@@ -65,6 +64,23 @@
       fh() {
         print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf --height 50% --reverse --border +s --tac | sed -E 's/ *[0-9]*\*? *//' | sed -E 's/\\/\\\\/g')
       }
+
+      ## cd on exiting lf
+      lfcd () {
+          tmp="$(mktemp)"
+          # `command` is needed in case `lfcd` is aliased to `lf`
+          command lf -last-dir-path="$tmp" "$@"
+          if [ -f "$tmp" ]; then
+              dir="$(cat "$tmp")"
+              rm -f "$tmp"
+              if [ -d "$dir" ]; then
+                  if [ "$dir" != "$(pwd)" ]; then
+                      cd "$dir"
+                  fi
+              fi
+          fi
+      }
+      bindkey -s '^o' 'lfcd\n'  # zsh
     '';
     localVariables = {
       ## variables in .zshrc
@@ -283,12 +299,23 @@
 
   programs.lf = {
     ## https://nix-community.github.io/home-manager/options.html#opt-programs.lf.enable
-    enable = false;
-    settings = { };
+    enable = true;
+    settings = {
+      color256 = true;
+      drawbox = true;
+      hidden = true;
+      ignorecase = true;
+      number = true;
+      preview = true;
+      ratios = "2:4:3";
+      relativenumber = true;
+      scrolloff = 10;
+      dirfirst = true;
+      # sortby = "";
+    };
     keybindings = { };
     cmdKeybindings = { };
     commands = { };
-    extraConfig = " ";
   };
 
 }
