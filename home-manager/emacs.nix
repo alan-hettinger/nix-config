@@ -1,7 +1,8 @@
-{ pkgs, lib, config, ... }: {
+{ inputs, pkgs, lib, config, ... }: {
+
+  imports = [ inputs.nix-doom-emacs.hmModule ];
 
   home.packages = with pkgs; [
-    emacs
     emacsPackages.vterm
     libvterm
     emacsPackages.emacsql-sqlite
@@ -31,19 +32,25 @@
     # extraOptions = [  ];
   };
 
+  programs.doom-emacs = {
+    enable = true;
+    doomPrivateDir = ./dotfiles/doom.d;
+  };
+
   ## This way of linking allows .doom.d to be tracked by nix but disallows editing on the fly
   # home.file.".doom.d" = {
   #   source = ./dotfiles/doom.d;
   #   recursive = true;
   # };
   ## This way of doing things allows editing/reloading on the fly but means .doom.d is impure/stateful
-  home.activation = {
-    installDoomDir = ''
-      if [ ! -d "${config.home.homeDirectory}/.doom.d" ]; then
-         ln -s "/home/alan/nix-config/home-manager/dotfiles/doom.d" "${config.home.homeDirectory}/.doom.d"
-      fi
-    '';
-  };
+  # home.activation = {
+  #   installDoomDir = ''
+  #     if [ ! -d "${config.home.homeDirectory}/.doom.d" ]; then
+  #        ln -s "/home/alan/nix-config/home-manager/dotfiles/doom.d" "${config.home.homeDirectory}/.doom.d"
+  #     fi
+  #   '';
+  # };
+  ## disabling the above because nix-doom-emacs can deal with .doom.d
 
   # home.file.".config/awesome" = {
   #   source = ./dotfiles/awesome;

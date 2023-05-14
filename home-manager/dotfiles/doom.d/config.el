@@ -74,7 +74,7 @@
 (+global-word-wrap-mode +1)
 
 (setq split-height-threshold nil
-      split-width-threshold 40)
+       split-width-threshold 40)
 
 (setq company-minimum-prefix-length 3)
 (setq bookmark-default-file "~/.doom.d/conf/bookmarks")
@@ -142,12 +142,10 @@
   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
   (add-to-list 'org-structure-template-alist '("lua" . "src lua"))
   (add-to-list 'org-structure-template-alist '("sc" . "src scheme"))
-
   ;; automatically tangle certain config files on save:
   (defun alan/org-babel-tangle-config ()
     (when (string-equal (buffer-file-name)
-                        (expand-file-name "~/.dotfiles/README.org"
-                                          "~/.dotfiles/.doom.d/config.org"))
+                        (expand-file-name "./config.org"))
       (let ((org-confirm-babel-evaluate nil))
         (org-babel-tangle))))
   (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'alan/org-babel-tangle-config)))
@@ -182,6 +180,7 @@
 (add-hook 'nov-mode-hook 'variable-pitch-mode)
 (setq nov-text-width 80)
 
+(set-popup-rule! "^ ?\\*Treemacs" :ignore t)
 (after! treemacs
   (define-key treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action)
   (treemacs-git-commit-diff-mode 't)
@@ -283,4 +282,4 @@
 (setq geiser-repl-query-on-kill-p nil)
 (setq geiser-active-implementations '(mit))
 
-;; (setq lsp-clients-lua-language-server-bin "/home/alan/.nix-profile/bin/lua-language-server")
+  ;; (setq lsp-clients-lua-language-server-bin "/home/alan/.nix-profile/bin/lua-language-server")
