@@ -1,5 +1,7 @@
 { lib, ... }:
 
+## FIXME what I want this code to do is include all the contents of PWD except for itself as imports so that I can import the whole directory elsewhere. Currently getting build error about possible infinite recursion
+## 
 ## credit to https://github.com/evanjs/nixos_cfg/blob/4bb5b0b84a221b25cf50853c12b9f66f0cad3ea4/config/new-modules/default.nix
 
 with lib;

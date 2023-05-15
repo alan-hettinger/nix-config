@@ -7,15 +7,15 @@
     ./media.nix
     ./term.nix
     ./dev.nix
-    ./lang/default.nix #let's see if this works
-    # ./lang/go.nix
-    # ./lang/lisp.nix
-    # ./lang/misc.nix
-    # ./lang/rust.nix
-    # ./lang/cc.nix
-    # ./lang/haskell.nix
-    # ./lang/python.nix
-    # ./lang/js.nix
+    # ./lang/default.nix #let's see if this works
+    ./lang/go.nix
+    ./lang/lisp.nix
+    ./lang/misc.nix
+    ./lang/rust.nix
+    ./lang/cc.nix
+    ./lang/haskell.nix
+    ./lang/python.nix
+    ./lang/js.nix
     ./themes/catppuccin.nix
     ./themes/fonts.nix
   ];
