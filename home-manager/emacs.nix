@@ -17,6 +17,7 @@
     # lua-language-server
     # clang
     texlive.combined.scheme-medium
+    nil # nix lsp
     # (python38.withPackages (ps: with ps; [ jupyter ]))
 
     nixfmt

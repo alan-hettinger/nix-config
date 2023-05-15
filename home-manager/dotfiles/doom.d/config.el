@@ -29,17 +29,17 @@
 ;; disable title bar in gnome
 (setq default-frame-alist '((undecorated . t)))
 
-(setq doom-modeline-enable-word-count t)
-
-(setq doom-modeline-icon t
-      doom-modeline-major-mode-icon t
-      doom-modeline-persp-name t
-      )
 (after! doom-modeline
+  (setq doom-modeline-enable-word-count t
+        doom-modeline-icon t
+        doom-modeline-major-mode-icon t
+        doom-modeline-persp-name t
+        doom-modeline-window-width-limit 80
+        )
   (remove-hook 'doom-modeline-mode-hook #'size-indication-mode)
   (remove-hook 'doom-modeline-mode-hook #'column-number-mode)
   (line-number-mode -1)
-                )
+)
 
 (defun doom-custom-banner ()
   (let* ((banner
@@ -283,3 +283,17 @@
 (setq geiser-active-implementations '(mit))
 
   ;; (setq lsp-clients-lua-language-server-bin "/home/alan/.nix-profile/bin/lua-language-server")
+
+(use-package lsp-mode
+  :ensure t)
+
+(use-package lsp-nix
+  :ensure lsp-mode
+  :after (lsp-mode)
+  :demand t
+  :custom
+  (lsp-nix-nil-formatter ["nixpkgs-fmt"]))
+
+(use-package nix-mode
+  :hook (nix-mode . lsp-deferred)
+  :ensure t)

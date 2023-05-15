@@ -1,6 +1,4 @@
-{ pkgs, config, ... }:
-
-{
+{ pkgs, ... }: {
   console.font = "ter-m32n";
   fonts = {
     fontDir.enable = true;
@@ -26,7 +24,5 @@
       open-sans
       (nerdfonts.override { fonts = [ "FiraCode" "JetBrainsMono" "Iosevka" ]; })
     ];
-
   };
-
 }

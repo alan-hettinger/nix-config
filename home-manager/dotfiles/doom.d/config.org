@@ -61,17 +61,17 @@ I have a few customizations here:
  - don't show the line number (if I need this I'll use line numbers in the actual buffer).
 
 #+begin_src emacs-lisp
-(setq doom-modeline-enable-word-count t)
-
-(setq doom-modeline-icon t
-      doom-modeline-major-mode-icon t
-      doom-modeline-persp-name t
-      )
 (after! doom-modeline
+  (setq doom-modeline-enable-word-count t
+        doom-modeline-icon t
+        doom-modeline-major-mode-icon t
+        doom-modeline-persp-name t
+        doom-modeline-window-width-limit 80
+        )
   (remove-hook 'doom-modeline-mode-hook #'size-indication-mode)
   (remove-hook 'doom-modeline-mode-hook #'column-number-mode)
   (line-number-mode -1)
-                )
+)
 #+end_src
 **** Make the ascii banner look nicer:
 credit to https://tecosaur.github.io/emacs-config/config.html#ascii-banner
@@ -397,6 +397,22 @@ I currently have ranger disabled in init.el
 ** LSPs
 #+begin_src emacs-lisp
   ;; (setq lsp-clients-lua-language-server-bin "/home/alan/.nix-profile/bin/lua-language-server")
+#+end_src
+*** Nix LSP
+#+begin_src emacs-lisp
+(use-package lsp-mode
+  :ensure t)
+
+(use-package lsp-nix
+  :ensure lsp-mode
+  :after (lsp-mode)
+  :demand t
+  :custom
+  (lsp-nix-nil-formatter ["nixpkgs-fmt"]))
+
+(use-package nix-mode
+  :hook (nix-mode . lsp-deferred)
+  :ensure t)
 #+end_src
 * Packages
 :PROPERTIES:
