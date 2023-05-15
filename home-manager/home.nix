@@ -7,8 +7,7 @@
     ./media.nix
     ./term.nix
     ./dev.nix
-    ./lang/. # trying this
-    # ./lang/all.nix #let's see if this works
+    ./lang/default.nix #let's see if this works
     # ./lang/go.nix
     # ./lang/lisp.nix
     # ./lang/misc.nix
