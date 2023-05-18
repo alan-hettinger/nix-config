@@ -237,7 +237,7 @@ Unused settings:
 #+begin_src emacs-lisp
 (after! writeroom-mode
   (setq +zen-text-scale 1)
-  (setq writeroom-mode-line 'nil)
+  ;; (setq writeroom-mode-line 'nil)
   )
 #+end_src
 Tell zen mode to "disable" mixed-pitch-mode in org, because it is already an org hook:
@@ -396,7 +396,10 @@ I currently have ranger disabled in init.el
 #+end_src
 ** LSPs
 #+begin_src emacs-lisp
-  ;; (setq lsp-clients-lua-language-server-bin "/home/alan/.nix-profile/bin/lua-language-server")
+  (setq lsp-clients-lua-language-server-bin "/home/alan/.nix-profile/bin/lua-language-server"
+        lsp-clients-emmy-lua-jar-path "~/.local.share/doom/lsp/emmy-lua/EmmyLua-LS-all.jar"
+        lsp-clients-emmy-lua-java-path "~/.nix-profile/bin/java"
+                )
 #+end_src
 *** Nix LSP
 #+begin_src emacs-lisp

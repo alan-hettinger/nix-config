@@ -1,12 +1,9 @@
 { config, lib, pkgs, ... }: {
   home = {
     packages = with pkgs; [
-      tmux
-      neovim
       # neovide
       zsh-nix-shell # FIXME what does this do
       zsh-autopair # FIXME not currently sourced
-      exa
       most
       cava
       bat
@@ -18,6 +15,8 @@
       nvtop
       unzip
       cbonsai
+
+      wezterm
     ];
     shellAliases = {
       ## applies across all shells
@@ -84,11 +83,21 @@
         ## variables in .zshrc
       };
     };
+
+    exa = {
+      enable = true;
+      enableAliases = false;
+      git = true;
+      icons = false;
+    };
+
     starship = {
+      ## palette and style are in themes dir
       enable = true;
       enableZshIntegration = true;
       settings = {
         add_newline = false;
+
         format = lib.concatStrings [
           "$directory"
           "$nix_shell"
@@ -104,10 +113,9 @@
           "$line_break"
           "$character"
         ];
-        directory = {
-          style = "blue";
-          read_only = "  "; # # formatting looks wrong but this is a lock icon
-        };
+
+        directory.read_only =
+          "  "; # # formatting looks wrong but this is a lock icon
         character = {
           success_symbol = "[->](green)";
           error_symbol = "[X->](red)";
@@ -115,13 +123,11 @@
         };
         git_branch = {
           format = "[$branch]($style)";
-          style = "yellow";
           symbol = " ";
         };
         git_status = {
           format =
             "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed)]($style)";
-          style = "green";
           conflicted = "​";
           untracked = "​";
           modified = "​";
@@ -130,34 +136,22 @@
           deleted = "​";
           stashed = "≡";
         };
-        git_state = {
-          format = "([$state( $progress_current/$progress_total)]($style)) ";
-          style = "blue";
-        };
+        git_state.format =
+          "([$state( $progress_current/$progress_total)]($style)) ";
         git_metrics = {
           disabled = false;
           format = "([+$added]($added_style) )([-$deleted]($deleted_style) )";
-          added_style = "sky";
-          deleted_style = "peach";
         };
-        cmd_duration = {
-          format = "[$duration]($style) ";
-          style = "lavender";
-        };
-        fill = {
-          symbol = "·";
-          style = "subtext0";
-        };
+        cmd_duration.format = "[$duration]($style) ";
+        fill.symbol = "·";
         time = {
           disabled = false;
           use_12hr = true;
-          style = "rosewater";
           format = " [$time]($style) ";
         };
         nix_shell = {
           disabled = false;
           format = "[$symbol $state $symbol  ]($style)";
-          style = "lavender";
           symbol = "";
           impure_msg = "[ impure nix shell](blue)";
           pure_msg = "[ pure nix shell](green)";
@@ -167,11 +161,11 @@
         sudo = {
           disabled = false;
           symbol = "\\(#\\) ";
-          style = "mauve";
           format = "[$symbol]($style)";
         };
       };
     };
+
     alacritty = {
       enable = true;
       settings = {
@@ -203,6 +197,58 @@
       };
     };
 
+    tmux = {
+      enable = true;
+      aggressiveResize = true;
+      baseIndex = 1;
+      disableConfirmationPrompt = true;
+      keyMode = "vi";
+      mouse = true;
+      newSession = true;
+      prefix = "C-Space";
+      terminal = "tmux-256color";
+      # shortcut = "";
+
+      plugins = with pkgs.tmuxPlugins;
+        [
+          sensible
+
+        ];
+      tmuxinator.enable = false;
+      tmuxp.enable = false;
+
+      extraConfig = ''
+        # personal keybind changes:
+        bind-key b split-window -v -c "#{pane_current_path}"
+        bind-key v split-window -h -c "#{pane_current_path}"
+        unbind-key n
+        bind n new-window
+        unbind-key d
+        bind d kill-pane
+        bind Space copy-mode
+        unbind p
+        bind p paste-buffer
+        bind-key -T copy-mode-vi 'v' send -X begin-selection
+        bind-key -T copy-mode-vi 'y' send -X copy-selection
+        bind-key -T copy-mode-vi 'Space' send -X halfpage-down
+        bind-key -T copy-mode-vi 'Bspace' send -X halfpage-up
+        bind r source-file ~/.tmux.conf
+        set -g renumber-windows on
+        set -g cursor-style bar
+        set -g focus-events on
+        set -g automatic-rename on
+        set-option -g status-interval 5
+        bind h select-pane -L
+        bind j select-pane -D
+        bind k select-pane -U
+        bind l select-pane -R
+        bind -r H resize-pane -L 5
+        bind -r J resize-pane -D 5
+        bind -r K resize-pane -U 5
+        bind -r L resize-pane -R 5
+      '';
+    };
+
     lf = {
       ## https://nix-community.github.io/home-manager/options.html#opt-programs.lf.enable
       enable = true;
@@ -222,6 +268,37 @@
       keybindings = { };
       cmdKeybindings = { };
       commands = { };
+    };
+
+    neovim = {
+      enable = true;
+      defaultEditor = false;
+      viAlias = true;
+      vimAlias = true;
+
+      plugins = with pkgs.vimPlugins; [
+        # nvim-lspconfig
+        # mason-nvim
+        # mason-lspconfig-nvim
+        neodev-nvim
+        nvim-cmp
+        # cmp-nvim-lsp
+        which-key-nvim
+        telescope-nvim
+        nvim-treesitter
+      ];
+
+      extraConfig = ''
+        augroup change_cursor
+             au!
+             au ExitPre * :set guicursor=a:ver90
+         augroup END
+      '';
+      extraLuaConfig = ''
+        if vim.g.neovide then
+          vim.o.guifont = "JetBrains Mono:h14"
+        end
+      '';
     };
   };
 }

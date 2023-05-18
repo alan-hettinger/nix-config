@@ -6,7 +6,8 @@ local hname1 = hostname:find("desktop")
 local hname2 = hostname:find("laptop")
 if not (hname1 == nil) and (hname2 == nil) then     -- desktop configuration
   local _M = {
-    terminal = home .. "/.local/bin/rofi-tmux",
+    -- terminal = home .. "/.local/bin/rofi-tmux",
+    terminal = "wezterm",
     term2 = "alacritty",
     browser = "firefox",
     launcher = "rofi -show drun -sidebar-mode",

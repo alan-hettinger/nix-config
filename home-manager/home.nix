@@ -67,6 +67,18 @@
     enable = true;
     createDirectories = true;
   };
+
+  ## setting default applications when opening in dolphin, firefox, etc:
+  # xdg.mimeApps = {
+  #   enable = true;
+  #   associations = {
+  #     defaultApplications = {
+  #       "application/pdf" = [ "okular.desktop" ];
+  #       "text" = [ "emacsclient.desktop" ]; ## just all text files all the time
+  #     };
+  #   };
+  # };
+  
   home = {
 
     pointerCursor = {
@@ -104,7 +116,6 @@
 
   programs = {
     home-manager.enable = true;
-    git.enable = true;
   };
 
   # Nicely reload system units when changing configs

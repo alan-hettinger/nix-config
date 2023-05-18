@@ -12,6 +12,20 @@
 
   programs = {
 
+    tmux.plugins = [{
+      plugin = pkgs.tmuxPlugins.catppuccin;
+      extraConfig = ''
+        set -g @catppuccin_flavour 'macchiato'
+        set -g @catppuccin_window_tabs_enabled on
+      '';
+    }];
+
+    neovim.plugins = with pkgs.vimPlugins; [
+      { plugin = catppuccin-nvim;
+        config = "colorscheme catppuccin-macchiato";
+      }
+    ];
+
     starship.settings = {
       palette = "catppuccin_macchiato";
       palettes.catppuccin_macchiato = {
@@ -42,6 +56,19 @@
         mantle = "#1e2030";
         crust = "#181926";
       };
+      directory.style = "blue";
+      git_branch.style = "yellow";
+      git_status.style = "green";
+      git_state.style = "blue";
+      git_metrics = {
+        added_style = "sky";
+        deleted_style = "peach";
+      };
+      cmd_duration.style = "lavender";
+      fill.style = "subtext0";
+      time.style = "rosewater";
+      nix_shell.style = "lavender";
+      sudo.style = "mauve";
     };
 
     alacritty.settings.colors = {

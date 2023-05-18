@@ -8,7 +8,6 @@
     cmake
     gnumake
     github-desktop
-    gh
   ];
 
 }
