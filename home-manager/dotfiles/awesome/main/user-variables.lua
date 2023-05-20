@@ -14,7 +14,7 @@ if not (hname1 == nil) and (hname2 == nil) then     -- desktop configuration
     bookmarks = "rofi -show bookmarks -sidebar-mode",
     windowswitcher = "rofi -show window -sidebar-mode",
     screenlock = "/home/alan/.config/awesome/lock.sh",
-    editor = "emacsclient -c -a 'emacs'",
+    editor = "emacsclient -c",
     filemanager = "dolphin", -- change to dolphin when I switch to nixos
     browser2 = "flatpak run com.brave.Browser",
     device = "desktop",   -- valid options: desktop | laptop

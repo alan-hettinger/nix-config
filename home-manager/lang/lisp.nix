@@ -3,7 +3,7 @@
   home.packages = with pkgs; [
     guile
     racket
-    # mitscheme
+    mitscheme
     sbcl
 
     ## clojure-specific:

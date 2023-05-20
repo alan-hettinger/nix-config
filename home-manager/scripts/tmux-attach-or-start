@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# Attach to tmux if session exists, else new session
+
+tmux attach || tmux >/dev/null 2>&1

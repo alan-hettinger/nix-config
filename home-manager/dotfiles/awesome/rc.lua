@@ -30,6 +30,7 @@ modkey = RC.vars.modkey
 
 autostart = require("config.autostart")
 
+local lain = require("lain")
 -- Custom Local Library
 local main = {
   layouts = require("main.layouts"),
@@ -47,7 +48,6 @@ local binding = {
   clientkeys    = require("binding.clientkeys")
 }
 
-local lain = require("lain")
 -- local bling = require("bling")
 --
 -- {{{ Layouts

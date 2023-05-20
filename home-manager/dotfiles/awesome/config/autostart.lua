@@ -17,7 +17,6 @@ run_once("dbus-update-activation-environment --all")
 -- run_once("/usr/libexec/polkit-gnome-authentication-agent-1")
 -- run_once("/home/alan/.screenlayout/layout.sh")
 -- run_once("xfce4-power-manager")                                                 -- Power Management
-run_once("greenclip clear && greenclip daemon")                                                    -- clipboard manager
 -- run_once("unclutter --timeout 30 --jitter 5 --exclude-root --ignore-scrolling") --
 -- run_once("setxkbmap -option caps:escape &")
 -- run_once("nm-applet")

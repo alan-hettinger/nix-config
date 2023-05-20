@@ -282,7 +282,8 @@
 (setq geiser-repl-query-on-kill-p nil)
 (setq geiser-active-implementations '(mit))
 
-  (setq lsp-clients-lua-language-server-bin "/home/alan/.nix-profile/bin/lua-language-server"
+  (setq
+   lsp-clients-lua-language-server-bin (executable-find "lua-language-server")
         lsp-clients-emmy-lua-jar-path "~/.local.share/doom/lsp/emmy-lua/EmmyLua-LS-all.jar"
         lsp-clients-emmy-lua-java-path "~/.nix-profile/bin/java"
                 )

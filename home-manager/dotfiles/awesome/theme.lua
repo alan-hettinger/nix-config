@@ -12,6 +12,8 @@ local assets_dir                        = "~/.config/awesome/assets/"
 
 local theme                             = {}
 
+local lain = require("lain")
+
 -- Font variables defined by me:
 theme.mono_font                         = "Jetbrains Mono Nerd Font 14"
 theme.variable_font                     = "Liberation Sans 15"

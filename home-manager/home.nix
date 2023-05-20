@@ -67,6 +67,14 @@
     enable = true;
     createDirectories = true;
   };
+  xdg.dataFile = {
+    scripts = {
+      enable = true;
+      executable = true;
+      recursive = true;
+      source = ./scripts;
+    };
+  };
 
   ## setting default applications when opening in dolphin, firefox, etc:
   # xdg.mimeApps = {
@@ -96,6 +104,7 @@
     sessionVariables = {
       QT_QPA_PLATFORMTHEME = "qt5ct";
       TERM = "alacritty";
+      GOPATH = "$HOME/go";
     };
 
     packages = with pkgs; [

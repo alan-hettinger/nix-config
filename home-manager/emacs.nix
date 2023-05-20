@@ -14,7 +14,7 @@
     (aspellWithDicts (dicts: with dicts; [ en en-computers en-science de es ]))
     ripgrep
     fd
-    # lua-language-server
+    lua-language-server
     # clang
     texlive.combined.scheme-medium
     nil # nix lsp

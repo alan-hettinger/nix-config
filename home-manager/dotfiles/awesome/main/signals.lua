@@ -62,6 +62,9 @@ end)
 --     end
 --   end
 -- end)
+tag.connect_signal("property::nmaster", function(t)
+                      t.master_count = 5
+                    end)
 
 client.connect_signal("property::minimized", function(c)
   c.minimized = false

@@ -22,6 +22,7 @@
       vollkorn
       montserrat
       open-sans
+      mononoki
       (nerdfonts.override { fonts = [ "FiraCode" "JetBrainsMono" "Iosevka" ]; })
     ];
   };

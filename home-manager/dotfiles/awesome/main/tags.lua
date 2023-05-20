@@ -4,6 +4,8 @@ local awful = require("awful")
 local _M = {}
 
 local device = RC.vars.device
+local lain = require("lain")
+
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
@@ -20,7 +22,6 @@ if device == "desktop" then
         RC.layouts[1], RC.layouts[1],
       }
     }
-
     awful.screen.connect_for_each_screen(function(s)
       tags[s] = awful.tag(tagpairs.names, s, tagpairs.layout)
     end)

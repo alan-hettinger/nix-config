@@ -50,6 +50,13 @@
     };
   };
 
+  xsession = {
+    numlock.enable = true;
+    initExtra = ''
+      xmousepasteblock
+    '';
+  };
+
   services = {
     network-manager-applet.enable = true;
     nextcloud-client = {
@@ -57,6 +64,11 @@
       startInBackground = true;
     };
     pasystray.enable = true;
+
+    clipmenu = {
+      enable = true;
+      launcher = "rofi";
+    };
 
     redshift = {
       enable = true;

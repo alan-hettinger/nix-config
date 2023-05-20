@@ -4,13 +4,15 @@ local awful = require("awful")
 local _M = {}
 
 local lain = require("lain")
+
 -- local bling = require("bling")
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 function _M.get()
-  local layouts = {
+local layouts = {
     awful.layout.suit.tile,      -- 1
     lain.layout.termfair.center, -- 2
+    -- centerfair,
     awful.layout.suit.fair,      -- 3
     awful.layout.suit.magnifier, -- 4
 --     bling.layout.mstab,          -- 5
