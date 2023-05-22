@@ -5,7 +5,6 @@
       rofi
       i3lock-color
       xorg.xkill
-      # lxappearance
       libsForQt5.ark
       # libsForQt5.kate
       libsForQt5.dolphin
@@ -24,8 +23,6 @@
       # steam
       # xivlauncher
 
-      # small apps
-      # xfce.xfce4-power-manager
       gnome.gnome-font-viewer
       playerctl
       bitwarden
@@ -39,7 +36,7 @@
     ];
 
     ## This is not the "nix way" of doing things since the awesome config is "stateful" but this allows editing and reloading separately
-    ## Additionally, this is necessary because the awesome config has submodules
+    ## Additionally, this is necessary because the awesome config has git submodules
     ## TODO manage awesome submodules using builtins.fetchGit etc
     activation = {
       installAwesomeConfig = ''
@@ -51,10 +48,12 @@
   };
 
   xsession = {
+    enable = true;
     numlock.enable = true;
-    initExtra = ''
+    profileExtra = ''
       xmousepasteblock
-    '';
+      xrandr --output DisplayPort-0 --mode 2560x1440 --rate 144.00 &
+    ''; # FIXME why is xmousepasteblock not running
   };
 
   services = {

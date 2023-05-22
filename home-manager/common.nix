@@ -11,6 +11,15 @@
       enableGitCredentialHelper = true;
       settings = { };
     };
+    firefox = {
+      enable = true;
+      profiles = {
+        alan = {
+          isDefault = true;
+        };
+      };
+      
+    };
   };
 
 }

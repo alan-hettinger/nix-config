@@ -13,7 +13,7 @@ local function run_once(cmd)
     findme, cmd), false)
 end
 
-run_once("dbus-update-activation-environment --all")
+-- run_once("dbus-update-activation-environment --all")
 -- run_once("/usr/libexec/polkit-gnome-authentication-agent-1")
 -- run_once("/home/alan/.screenlayout/layout.sh")
 -- run_once("xfce4-power-manager")                                                 -- Power Management
@@ -22,13 +22,13 @@ run_once("dbus-update-activation-environment --all")
 -- run_once("nm-applet")
 -- run_once("nextcloud")
 
-if device == "desktop" then
-  run_once("/home/alan/x-autorun.sh") -- script currently isn't set up for laptop
-  run_once("picom")                   -- Compositor
-end
+-- if device == "desktop" then
+--   run_once("/home/alan/x-autorun.sh") -- script currently isn't set up for laptop
+--   run_once("picom")                   -- Compositor
+-- end
 
-if device == "laptop" then
-  run_once("pasystray")                          -- PulseAudio, currently using as GUI tool for pipewire
-  run_once("/home/alan/.screenlayout/layout.sh") -- script not setup for desktop
-  run_once("picom")                              -- Compositor
-end
+-- if device == "laptop" then
+--   run_once("pasystray")                          -- PulseAudio, currently using as GUI tool for pipewire
+--   run_once("/home/alan/.screenlayout/layout.sh") -- script not setup for desktop
+--   run_once("picom")                              -- Compositor
+-- end

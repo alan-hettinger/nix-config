@@ -99,7 +99,7 @@
       size = 48;
     };
 
-    sessionPath = [ "$HOME/bin" "$HOME/.local/bin" "$HOME/.cargo/bin" ];
+    sessionPath = [ "$HOME/bin" "$HOME/.local/share/scripts" "$HOME/.cargo/bin" ];
 
     sessionVariables = {
       QT_QPA_PLATFORMTHEME = "qt5ct";
