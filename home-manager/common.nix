@@ -13,12 +13,17 @@
     };
     firefox = {
       enable = true;
-      profiles = {
-        alan = {
-          isDefault = true;
-        };
-      };
-      
+      profiles = { alan = { isDefault = true; }; };
+
+    };
+  };
+
+  home.file = {
+    ".mozilla/firefox/alan/chrome/userChrome.css" = {
+      source = ./dotfiles/firefox/userChrome.css;
+    };
+    ".mozilla/firefox/alan/user.js" = {
+      source = ./dotfiles/firefox/user.js;
     };
   };
 

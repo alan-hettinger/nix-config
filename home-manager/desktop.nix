@@ -25,7 +25,7 @@
 
       gnome.gnome-font-viewer
       playerctl
-      bitwarden
+      # bitwarden ## FIXME was requiring a deprecated version of nodejs
 
       #themes
       papirus-icon-theme

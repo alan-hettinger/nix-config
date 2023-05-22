@@ -6,8 +6,7 @@
     ./emacs.nix
     ./media.nix
     ./term.nix
-    ./dev.nix
-    # ./lang/default.nix #let's see if this works
+    ./dev.nix ## FIXME has an issue about openssl being marked insecure
     ./lang/go.nix
     ./lang/lisp.nix
     ./lang/misc.nix
@@ -35,6 +34,10 @@
     config = {
       allowUnfree = true;
       allowUnfreePredicate = (_: true);
+      permittedInsecurePackages = [ ## TODO this is a temporary fix due to above error, test after update if still present
+        "openssl-1.1.1t"
+        # "nodejs-16.20.0" ## I think the problem package here is bitwarden?
+      ];
     };
   };
 
