@@ -11,20 +11,16 @@
       enableGitCredentialHelper = true;
       settings = { };
     };
+
     firefox = {
       enable = true;
-      profiles = { alan = { isDefault = true; }; };
-
+      profiles = {
+        alan = {
+          isDefault = true;
+          userChrome = builtins.readFile ./dotfiles/firefox/userChrome.css;
+          extraConfig = builtins.readFile ./dotfiles/firefox/user.js;
+        };
+      };
     };
   };
-
-  home.file = {
-    ".mozilla/firefox/alan/chrome/userChrome.css" = {
-      source = ./dotfiles/firefox/userChrome.css;
-    };
-    ".mozilla/firefox/alan/user.js" = {
-      source = ./dotfiles/firefox/user.js;
-    };
-  };
-
 }
