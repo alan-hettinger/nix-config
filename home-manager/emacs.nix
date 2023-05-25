@@ -11,7 +11,12 @@
     unzip
     poppler
     gcc
-    (aspellWithDicts (dicts: with dicts; [ en en-computers en-science de es ]))
+    # (aspellWithDicts (dicts: with dicts; [ en en-computers en-science de es ]))
+    hunspell
+    hunspellDicts.de_DE
+    hunspellDicts.en_US
+    hunspellDicts.es_MX # they don't have es_US for some reason
+    hunspellDicts.tok # toki pona just for fun
     ripgrep
     fd
     lua-language-server

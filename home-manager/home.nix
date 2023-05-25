@@ -41,9 +41,9 @@
     };
   };
 
-  # qt = { ## FIXME
+  # qt = {
   #   enable = true;
-  #   platformTheme = "qt5ct";
+  #   platformTheme = "gtk";
   # };
 
   gtk.enable = true;

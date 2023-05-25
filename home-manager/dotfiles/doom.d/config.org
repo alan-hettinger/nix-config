@@ -24,11 +24,10 @@ Options that are not currently set:
  * =(setq doom-big-font (font-spec :family "" :size 20))=
  * =(setq doom-serif font "")=
  #+begin_src emacs-lisp
-(setq doom-font (font-spec :family "mononoki" :size 21))
-(setq doom-variable-pitch-font (font-spec :family "Source Serif Variable" :height 1.2 :weight 'light))
+(setq doom-font (font-spec :family "Source Code Pro" :size 21))
+(setq doom-variable-pitch-font (font-spec :family "Source Serif Variable" :height 1.2 :weight 'light :size 22))
 
 (use-package! mixed-pitch
-  ;; :hook (org-mode . mixed-pitch-mode)
   :config
   (setq mixed-pitch-set-height t)
   (set-face-attribute 'variable-pitch nil :height 1.2)
@@ -156,7 +155,7 @@ Show/hide modeline:
 (dolist (mode '(org-mode-hook
                 markdown-mode-hook
                 Info-mode-hook))
-        ;; (add-hook mode (lambda () (mixed-pitch-mode 1) ))
+        (add-hook mode (lambda () (mixed-pitch-mode 1) ))
         (add-hook mode (lambda () (progn
                          (setq left-margin-width 4)
                          (setq right-margin-width 4)
@@ -237,12 +236,18 @@ Unused settings:
 #+begin_src emacs-lisp
 (after! writeroom-mode
   (setq +zen-text-scale 1)
-  ;; (setq writeroom-mode-line 'nil)
+  (setq writeroom-mode-line 't)
   )
 #+end_src
 Tell zen mode to "disable" mixed-pitch-mode in org, because it is already an org hook:
 #+begin_src emacs-lisp
 ;; (setq +zen-mixed-pitch-modes 'nil)
+#+end_src
+*** Olivetti mode
+#+begin_src emacs-lisp
+(setq olivetti-style 'fancy
+      olivetti-body-width 0.4)
+(add-hook 'org-mode-hook (lambda () (olivetti-mode 1)))
 #+end_src
 *** Nov.el
 Associate nov mode with epub files:
@@ -431,4 +436,6 @@ I currently have ranger disabled in init.el
 (package! dired-subtree)
 (package! dired-single)
 (package! dired-open)
+(package! mixed-pitch)
+(package! olivetti)
 #+end_src

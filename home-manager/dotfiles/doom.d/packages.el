@@ -6,3 +6,5 @@
 (package! dired-subtree)
 (package! dired-single)
 (package! dired-open)
+(package! mixed-pitch)
+(package! olivetti)

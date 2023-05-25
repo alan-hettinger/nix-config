@@ -1,7 +1,6 @@
 { pkgs, config, ... }: {
   home = {
     packages = with pkgs; [
-      # note that xorg and basic wm stuff is in system config
       rofi
       i3lock-color
       xorg.xkill

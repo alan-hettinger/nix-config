@@ -3,11 +3,10 @@
 (setq user-full-name "Alan Hettinger"
       user-mail-address "alan.hettinger@proton.me")
 
-(setq doom-font (font-spec :family "mononoki" :size 21))
-(setq doom-variable-pitch-font (font-spec :family "Source Serif Variable" :height 1.2 :weight 'light))
+(setq doom-font (font-spec :family "Source Code Pro" :size 21))
+(setq doom-variable-pitch-font (font-spec :family "Source Serif Variable" :height 1.2 :weight 'light :size 22))
 
 (use-package! mixed-pitch
-  ;; :hook (org-mode . mixed-pitch-mode)
   :config
   (setq mixed-pitch-set-height t)
   (set-face-attribute 'variable-pitch nil :height 1.2)
@@ -102,7 +101,7 @@
 (dolist (mode '(org-mode-hook
                 markdown-mode-hook
                 Info-mode-hook))
-        ;; (add-hook mode (lambda () (mixed-pitch-mode 1) ))
+        (add-hook mode (lambda () (mixed-pitch-mode 1) ))
         (add-hook mode (lambda () (progn
                          (setq left-margin-width 4)
                          (setq right-margin-width 4)
@@ -170,10 +169,14 @@
 
 (after! writeroom-mode
   (setq +zen-text-scale 1)
-  ;; (setq writeroom-mode-line 'nil)
+  (setq writeroom-mode-line 't)
   )
 
 ;; (setq +zen-mixed-pitch-modes 'nil)
+
+(setq olivetti-style 'fancy
+      olivetti-body-width 0.4)
+(add-hook 'org-mode-hook (lambda () (olivetti-mode 1)))
 
 (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
 

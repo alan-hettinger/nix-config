@@ -19,7 +19,6 @@
           isDefault = true;
           userChrome = builtins.readFile ./dotfiles/firefox/userChrome.css;
           extraConfig = builtins.readFile ./dotfiles/firefox/user.js;
-
         };
       };
     };
