@@ -28,14 +28,12 @@ beautiful.init("/home/alan/.config/awesome/theme.lua")
 
 modkey = RC.vars.modkey
 
-autostart = require("config.autostart")
-
 local lain = require("lain")
 -- Custom Local Library
 local main = {
   layouts = require("main.layouts"),
   tags    = require("main.tags"),
-  menu    = require("main.menu"),
+  -- menu    = require("main.menu"),
   rules   = require("main.rules"),
 }
 
@@ -65,7 +63,7 @@ RC.tags = main.tags()
 
 -- {{{ Menu
 -- Create a laucher widget and a main menu
-RC.mainmenu = awful.menu({ items = main.menu() }) -- in globalkeys
+-- RC.mainmenu = awful.menu({ items = main.menu() }) -- in globalkeys
 
 -- a variable needed in statusbar (helper)
 RC.launcher = awful.widget.launcher(

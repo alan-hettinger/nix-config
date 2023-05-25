@@ -37,10 +37,7 @@ local _M = {}
 --    - mod+i
 --    - mod+[
 --    - mod+]
---    - mod+n ( currently minimizes clients but minimization is disabled in main.signals )
 --    - mod+.
---    - ( could make use of mod+m since maximization is not very useful in my config )
-
 
 function _M.get()
   local globalkeys = gears.table.join(
@@ -157,11 +154,8 @@ function _M.get()
     ),
 
     awful.key({ modkey, }, ",",
-      function() awful.spawn("rofi -modi 'clipboard:greenclip print' -show clipboard -run-command '{cmd}'") end,
+      function() awful.spawn("clipmenu") end,
       { description = "clipboard history", group = "launcher" }
-    ),
-    awful.key({ modkey, "Shift" }, ",", function() awful.spawn.with_shell("pkill greenclip && greenclip clear && greenclip daemon") end,
-      { description = "clear clipboard history", group = "launcher" }
     ),
     --   -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
     -- Layout manipulation
@@ -219,7 +213,7 @@ function _M.get()
       { description = "browser", group = "applications" }
     ),
 
-    awful.key({ modkey, "Shift" }, "x", function() awful.spawn("flatpak run com.brave.Browser") end,
+    awful.key({ modkey, "Shift" }, "x", function() awful.spawn(browser2) end,
       { description = "brave browser", group = "applications" }
     ),
 

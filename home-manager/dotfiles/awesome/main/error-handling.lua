@@ -1,6 +1,5 @@
 -- Notification library
 local naughty = require("naughty")
-local device = RC.vars.device
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
@@ -29,13 +28,4 @@ do
     })
     in_error = false
   end)
-end
-
--- notify if environment variables aren't set correctly - Alan
-if device == "" then
-  naughty.notify({
-    preset = naughty.config.presets.critical,
-    title = "Error in dotfiles; entering fallback config",
-    text = "Hostname must contain 'laptop' or 'desktop' and not both for my dotfiles to work correctly. Please refer to the README."
-  })
 end

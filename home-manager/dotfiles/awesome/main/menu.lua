@@ -1,3 +1,6 @@
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+-- -- This file is currently (5/25/23) unused but left for later reference
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 -- Standard awesome library
 local awful = require("awful")
 local hotkeys_popup = require("awful.hotkeys_popup").widget

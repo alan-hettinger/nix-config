@@ -20,11 +20,10 @@
       '';
     }];
 
-    neovim.plugins = with pkgs.vimPlugins; [
-      { plugin = catppuccin-nvim;
-        config = "colorscheme catppuccin-macchiato";
-      }
-    ];
+    neovim.plugins = with pkgs.vimPlugins; [{
+      plugin = catppuccin-nvim;
+      config = "colorscheme catppuccin-macchiato";
+    }];
 
     starship.settings = {
       palette = "catppuccin_macchiato";
@@ -113,11 +112,12 @@
         white = "#A5ADCB"; # subtext0
       };
     };
-  };
-  home = {
-    shellAliases = {
-      catppuccin = "inkcat latte,frappe,macchiato,mocha";
-      catppucciny = "inkcat";
+    rofi.theme = "../dotfiles/rofi/catppuccin-macchiato.rasi";
+    home = {
+      shellAliases = {
+        catppuccin = "inkcat latte,frappe,macchiato,mocha";
+        catppucciny = "inkcat";
+      };
     };
   };
 }

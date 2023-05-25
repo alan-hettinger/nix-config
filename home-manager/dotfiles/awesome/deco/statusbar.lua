@@ -17,7 +17,6 @@ local tasklist_buttons = deco.tasklist()
 
 local _M               = {}
 local theme            = require("theme")
-local device           = RC.vars.device
 local screenlock       = RC.vars.screenlock
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
@@ -187,7 +186,7 @@ local bat = lain.widget.bat {
         widget:set_markup(" : " .. bat_now.perc .. "%, " .. bat_now.time)
       end
     else
-      widget:set_markup("  ")
+      widget:set_markup(" ")
     end
   end
 }
@@ -299,7 +298,6 @@ awful.screen.connect_for_each_screen(function(s)
     -- height = 40,
   })
 
-  if device == "desktop" then
     -- Add widgets to the wibox
     s.mywibox:setup {
       layout = {
@@ -326,6 +324,7 @@ awful.screen.connect_for_each_screen(function(s)
       {
         -- Right widgets
         layout = wibox.layout.fixed.horizontal,
+        batbox,
         membox,
         gputempbox,
         cpubox,
@@ -335,69 +334,4 @@ awful.screen.connect_for_each_screen(function(s)
         logout,
       },
     }
-  elseif device == "laptop" then
-    s.mywibox:setup {
-      layout = {
-        spacing = 6,
-        spacing_widget = {
-          color = "#1e1e2e",
-          widget = wibox.widget.separator
-        },
-      },
-      layout = wibox.layout.align.horizontal,
-      expand = "none",
-      {
-        -- Left widgets
-        layout = wibox.layout.fixed.horizontal,
-        -- s.mylayoutbox,
-        layoutwrapper,
-        s.mytaglist,
-      },
-      {
-        -- middle widgets:
-        layout = wibox.layout.fixed.horizontal,
-        mytextclock, -- Middle widget
-      },
-      {
-        -- Right widgets
-        layout = wibox.layout.fixed.horizontal,
-        batbox,
-        cpubox,
-        membox,
-        musicbox,
-        s.systray,
-      },
-    }
-  else -- fallback option
-    s.mywibox:setup {
-      layout = {
-        spacing = 6,
-        spacing_widget = {
-          color = "#1e1e2e",
-          widget = wibox.widget.separator
-        },
-      },
-      layout = wibox.layout.align.horizontal,
-      expand = "none",
-      {
-        -- Left widgets
-        layout = wibox.layout.fixed.horizontal,
-        -- s.mylayoutbox,
-        layoutwrapper,
-        s.mytaglist,
-      },
-      {
-        -- middle widgets:
-        layout = wibox.layout.fixed.horizontal,
-        mytextclock, -- Middle widget
-      },
-      {
-        -- Right widgets
-        layout = wibox.layout.fixed.horizontal,
-        cpubox,
-        membox,
-        s.systray,
-      },
-    }
-  end
 end)

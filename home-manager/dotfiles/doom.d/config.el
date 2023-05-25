@@ -4,7 +4,7 @@
       user-mail-address "alan.hettinger@proton.me")
 
 (setq doom-font (font-spec :family "Source Code Pro" :size 21))
-(setq doom-variable-pitch-font (font-spec :family "Source Serif Variable" :height 1.2 :weight 'light :size 22))
+(setq doom-variable-pitch-font (font-spec :family "Source Serif Pro" :height 1.2 :size 22))
 
 (use-package! mixed-pitch
   :config

@@ -46,6 +46,24 @@
     };
   };
 
+  programs = {
+    rofi = {
+      enable = false;
+      font = "JetbrainsMono Nerd Font 16";
+      location = "center";
+      terminal = "\${pkgs.alacritty}/bin/alacritty";
+      plugins = with pkgs;
+        [
+          rofi-power-menu
+          rofimoji
+
+        ];
+
+      extraConfig = { };
+    };
+
+  };
+
   xsession = {
     enable = true;
     numlock.enable = true;
