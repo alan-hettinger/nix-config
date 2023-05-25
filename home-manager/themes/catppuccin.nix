@@ -1,5 +1,11 @@
 { pkgs, ... }: {
 
+  home.packages = with pkgs; [
+    catppuccin-kvantum
+    catppuccin-kde
+
+  ];
+
   gtk.theme = {
     name = "Catppuccin-Macchiato-Compact-Rosewater-Dark";
     package = pkgs.catppuccin-gtk.override {
