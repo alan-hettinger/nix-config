@@ -76,13 +76,13 @@
        split-width-threshold 40)
 
 (setq company-minimum-prefix-length 3)
-(setq bookmark-default-file "~/.doom.d/conf/bookmarks")
 
 (global-auto-revert-mode 1)
 (setq global-auto-revert-non-file-buffers t)
 
 (after! ispell-minor-mode
-  (setq ispell-dictionary en_US))
+  (setq ispell-dictionary en_US
+                ))
 (setq +word-wrap-disabled-modes '(vterm-mode))
 
 (setq evil-want-fine-undo t

@@ -8,17 +8,17 @@
 
 /* hide the top bar entirely when not hovered, leaving a small strip to hover over */
 /* commenting out the next few blocks should disable this behavior */
-#nav-bar {
-	margin-bottom: -35px !important;
-    z-index: -100;
-}
-#navigator-toolbox:focus-within > #nav-bar,
-#navigator-toolbox:hover > #nav-bar
-{
-  margin-top: 0;
-  margin-bottom: -40px;
-  z-index: 100;
-}
+/* #nav-bar { */
+/* 	margin-bottom: -35px !important; */
+/*     z-index: -100; */
+/* } */
+/* #navigator-toolbox:focus-within > #nav-bar, */
+/* #navigator-toolbox:hover > #nav-bar */
+/* { */
+/*   margin-top: 0; */
+/*   margin-bottom: -40px; */
+/*   z-index: 100; */
+/* } */
 
 
 /* hides the sidebar header */
@@ -38,10 +38,10 @@
 
 /* Make the urlbar smaller -- not really necessary when top bar autohides */
 #urlbar-container {
-/*     max-width: 1500px !important; */
+    /* max-width: 1500px !important; */
 
-    margin-left: 200px !important;
-    margin-right: 200px !important;
+    /* margin-left: 200px !important; */
+    /* margin-right: 200px !important; */
     margin-top: 2px;
 }
 

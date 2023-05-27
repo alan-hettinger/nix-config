@@ -119,11 +119,11 @@
       };
     };
     rofi.theme = "../dotfiles/rofi/catppuccin-macchiato.rasi";
-    home = {
-      shellAliases = {
-        catppuccin = "inkcat latte,frappe,macchiato,mocha";
-        catppucciny = "inkcat";
-      };
-    };
+    # home = {
+    #   shellAliases = {
+    #     catppuccin = "inkcat latte,frappe,macchiato,mocha";
+    #     catppucciny = "inkcat";
+    #   };
+    # };
   };
 }

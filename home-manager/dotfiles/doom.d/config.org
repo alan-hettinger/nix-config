@@ -121,13 +121,13 @@ credit to https://tecosaur.github.io/emacs-config/config.html#ascii-banner
 *** Misc global settings
 #+begin_src emacs-lisp
 (setq company-minimum-prefix-length 3)
-(setq bookmark-default-file "~/.doom.d/conf/bookmarks")
 
 (global-auto-revert-mode 1)
 (setq global-auto-revert-non-file-buffers t)
 
 (after! ispell-minor-mode
-  (setq ispell-dictionary en_US))
+  (setq ispell-dictionary en_US
+                ))
 (setq +word-wrap-disabled-modes '(vterm-mode))
 #+end_src
 #+begin_src emacs-lisp

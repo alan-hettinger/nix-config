@@ -15,6 +15,10 @@
     libsForQt5.gwenview
     libsForQt5.tokodon # # mastodon client
     playerctl
+    obs-studio
+    libsForQt5.kdenlive
+    scribus
+    audacity
   ];
 
 }
