@@ -17,6 +17,7 @@
     ./lang/js.nix
     ./themes/catppuccin.nix
     ./themes/fonts.nix
+    ./games.nix
   ];
 
   nixpkgs = {
