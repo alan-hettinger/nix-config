@@ -70,8 +70,8 @@
 #TabsToolbar,
 #PersonalToolbar,
 #navigator-toolbox,
-#sidebar-box,
-#nav-bar { border: none !important; }
+#nav-bar,
+#sidebar-box{ border: none !important; }
 
 /* Encryption and Permissions icons */
   /* Only hides permission items */

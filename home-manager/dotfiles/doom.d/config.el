@@ -3,7 +3,7 @@
 (setq user-full-name "Alan Hettinger"
       user-mail-address "alan.hettinger@proton.me")
 
-(setq doom-font (font-spec :family "Source Code Pro" :size 21))
+(setq doom-font (font-spec :family "mononoki" :size 21))
 (setq doom-variable-pitch-font (font-spec :family "Source Serif Pro" :height 1.2 :size 22))
 
 (use-package! mixed-pitch
@@ -283,7 +283,8 @@
 (add-hook 'ranger-mode-hook 'hide-mode-line-mode)
 
 (setq geiser-repl-query-on-kill-p nil)
-(setq geiser-active-implementations '(mit))
+(setq geiser-active-implementations '(guile))
+(setq geiser-default-implementation '(guile))
 
   (setq
    lsp-clients-lua-language-server-bin (executable-find "lua-language-server")

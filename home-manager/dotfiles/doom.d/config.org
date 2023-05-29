@@ -24,7 +24,7 @@ Options that are not currently set:
  * =(setq doom-big-font (font-spec :family "" :size 20))=
  * =(setq doom-serif font "")=
  #+begin_src emacs-lisp
-(setq doom-font (font-spec :family "Source Code Pro" :size 21))
+(setq doom-font (font-spec :family "mononoki" :size 21))
 (setq doom-variable-pitch-font (font-spec :family "Source Serif Pro" :height 1.2 :size 22))
 
 (use-package! mixed-pitch
@@ -390,14 +390,11 @@ I currently have ranger disabled in init.el
 (add-hook 'ranger-mode-hook 'hide-mode-line-mode)
 #+end_src
 ** Guix, scheme, and lisp hacking
-*** Guix
-#+begin_src emacs-lisp :tangle no
-(add-hook 'scheme-mode-hook 'guix-devel-mode)
-#+end_src
 *** Geiser REPL
 #+begin_src emacs-lisp
 (setq geiser-repl-query-on-kill-p nil)
-(setq geiser-active-implementations '(mit))
+(setq geiser-active-implementations '(guile))
+(setq geiser-default-implementation '(guile))
 #+end_src
 ** LSPs
 #+begin_src emacs-lisp

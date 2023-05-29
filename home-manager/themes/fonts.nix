@@ -21,7 +21,7 @@
       family = "mononoki";
       style = "Italic";
     };
-    size = 16;
+    size = 14;
     builtin_box_drawing = true;
   };
 }
