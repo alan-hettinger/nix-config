@@ -175,7 +175,7 @@
 ;; (setq +zen-mixed-pitch-modes 'nil)
 
 (setq olivetti-style 'fancy
-      olivetti-body-width 0.4)
+      olivetti-body-width 80)
 (add-hook 'org-mode-hook (lambda () (olivetti-mode 1)))
 
 (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
@@ -286,11 +286,27 @@
 (setq geiser-active-implementations '(guile))
 (setq geiser-default-implementation '(guile))
 
-  (setq
-   lsp-clients-lua-language-server-bin (executable-find "lua-language-server")
-        lsp-clients-emmy-lua-jar-path "~/.local.share/doom/lsp/emmy-lua/EmmyLua-LS-all.jar"
-        lsp-clients-emmy-lua-java-path "~/.nix-profile/bin/java"
-                )
+  ;; ;;          doesn't work:
+  ;; (setq
+  ;;  lsp-clients-lua-language-server-bin (executable-find "lua-language-server")
+  ;;       lsp-clients-emmy-lua-jar-path "~/.local.share/doom/lsp/emmy-lua/EmmyLua-LS-all.jar"
+  ;;       lsp-clients-emmy-lua-java-path "~/.nix-profile/bin/java"
+  ;;               )
+
+;; ;;            doesn't work but different
+;; (defun lslua-init ()
+;;   "updates the lua lsp variable and runs lsp"
+;;   (interactive)
+;;   (setq lsp-clients-lua-language-server-bin (executable-find "lua-language-server"))
+;;   (lsp)
+;;   )
+;; (add-hook 'lua-mode-hook #'lslua-init)
+
+;; ;;           works?!
+(after! lua-mode (setq lsp-clients-lua-language-server-bin (executable-find "lua-language-server"))
+  (set-lsp-priority! 'lua-language-server 1))
+
+
 
 (use-package lsp-mode
   :ensure t)

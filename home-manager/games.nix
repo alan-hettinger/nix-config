@@ -1,7 +1,15 @@
 { config, lib, pkgs, ... }: {
   home.packages = with pkgs;
     [
-      retroarch
+      (retroarch.override {
+        cores = with libretro; [
+          bsnes
+          mupen64plus
+          nestopia
+          mgba
+
+        ];
+      })
 
     ];
 

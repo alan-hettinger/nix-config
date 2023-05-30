@@ -6,6 +6,7 @@
     python310Packages.nose
     python310Packages.black
     python310Packages.pyls-spyder
+    python310Packages.python-lsp-server
 
   ];
 

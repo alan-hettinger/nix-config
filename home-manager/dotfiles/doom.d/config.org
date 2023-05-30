@@ -246,7 +246,7 @@ Tell zen mode to "disable" mixed-pitch-mode in org, because it is already an org
 *** Olivetti mode
 #+begin_src emacs-lisp
 (setq olivetti-style 'fancy
-      olivetti-body-width 0.4)
+      olivetti-body-width 80)
 (add-hook 'org-mode-hook (lambda () (olivetti-mode 1)))
 #+end_src
 *** Nov.el
@@ -397,13 +397,33 @@ I currently have ranger disabled in init.el
 (setq geiser-default-implementation '(guile))
 #+end_src
 ** LSPs
+*** Lua (fix for nixos)
 #+begin_src emacs-lisp
-  (setq
-   lsp-clients-lua-language-server-bin (executable-find "lua-language-server")
-        lsp-clients-emmy-lua-jar-path "~/.local.share/doom/lsp/emmy-lua/EmmyLua-LS-all.jar"
-        lsp-clients-emmy-lua-java-path "~/.nix-profile/bin/java"
-                )
+  ;; ;;          doesn't work:
+  ;; (setq
+  ;;  lsp-clients-lua-language-server-bin (executable-find "lua-language-server")
+  ;;       lsp-clients-emmy-lua-jar-path "~/.local.share/doom/lsp/emmy-lua/EmmyLua-LS-all.jar"
+  ;;       lsp-clients-emmy-lua-java-path "~/.nix-profile/bin/java"
+  ;;               )
+
+;; ;;            doesn't work but different
+;; (defun lslua-init ()
+;;   "updates the lua lsp variable and runs lsp"
+;;   (interactive)
+;;   (setq lsp-clients-lua-language-server-bin (executable-find "lua-language-server"))
+;;   (lsp)
+;;   )
+;; (add-hook 'lua-mode-hook #'lslua-init)
+
+;; ;;           works?!
+(after! lua-mode (setq lsp-clients-lua-language-server-bin (executable-find "lua-language-server"))
+  (set-lsp-priority! 'lua-language-server 1))
 #+end_src
+**** TODO getting errors about tree sitter
+*** Python (also fix for nixos)
+#+begin_src emacs-lisp
+#+end_src
+**** TODO getting errors about company mode
 *** Nix LSP
 #+begin_src emacs-lisp
 (use-package lsp-mode

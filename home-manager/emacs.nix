@@ -19,6 +19,7 @@
     hunspellDicts.tok # toki pona just for fun
     ripgrep
     fd
+    lua
     lua-language-server
     # clang
     texlive.combined.scheme-medium
