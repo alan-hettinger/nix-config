@@ -28,6 +28,10 @@
 
   programs = {
 
+    nushell = { # just to try out
+      enable = true;
+    };
+
     zsh = {
       enable = true;
       enableAutosuggestions = true;
@@ -99,6 +103,7 @@
         add_newline = false;
 
         format = lib.concatStrings [
+          "$shell"
           "$directory"
           "$nix_shell"
           "$git_branch"
@@ -120,6 +125,9 @@
           success_symbol = "[->](green)";
           error_symbol = "[X->](red)";
           vimcmd_symbol = "[<](green)";
+        };
+        shell = {
+          disabled = false;
         };
         git_branch = {
           format = "[$branch]($style)";

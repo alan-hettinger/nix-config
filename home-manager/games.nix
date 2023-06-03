@@ -7,6 +7,8 @@
           mupen64plus
           nestopia
           mgba
+          steam
+          xivlauncher
 
         ];
       })

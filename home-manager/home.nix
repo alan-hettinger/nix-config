@@ -36,7 +36,7 @@
       allowUnfree = true;
       allowUnfreePredicate = (_: true);
       permittedInsecurePackages = [ ## TODO this is a temporary fix due to above error, test after update if still present
-        "openssl-1.1.1t"
+        "openssl-1.1.1u" ## TODO find who needs this
         # "nodejs-16.20.0" ## I think the problem package here is bitwarden?
       ];
     };
@@ -117,6 +117,7 @@
       fzf
       # python311Packages.pip ## broke for some reason
       haskell-language-server # #installing here because haskellPackages.haskell-language-server didn't cooperate
+      transmission-gtk
     ];
 
     username = "alan";

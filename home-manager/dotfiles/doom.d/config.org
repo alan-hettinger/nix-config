@@ -246,7 +246,7 @@ Tell zen mode to "disable" mixed-pitch-mode in org, because it is already an org
 *** Olivetti mode
 #+begin_src emacs-lisp
 (setq olivetti-style 'fancy
-      olivetti-body-width 80)
+      olivetti-body-width 70)
 (add-hook 'org-mode-hook (lambda () (olivetti-mode 1)))
 #+end_src
 *** Nov.el
@@ -420,6 +420,7 @@ I currently have ranger disabled in init.el
   (set-lsp-priority! 'lua-language-server 1))
 #+end_src
 **** TODO getting errors about tree sitter
+**** TODO I still have to refresh lsp-mode and then lua-mode on first run
 *** Python (also fix for nixos)
 #+begin_src emacs-lisp
 #+end_src

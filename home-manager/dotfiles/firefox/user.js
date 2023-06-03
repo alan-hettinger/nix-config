@@ -11,7 +11,7 @@ user_pref("dom.security.https_only_mode", true);
 user_pref("extensions.formautofill.addresses.enabled", false);
 user_pref("extensions.formautofill.creditCards.enabled", false);
 user_pref("findbar.highlightAll", true);
-user_pref("full-screen-api.ignore-widgets", false);
+user_pref("full-screen-api.ignore-widgets", true);
 user_pref("privacy.clearOnShutdown.downloads", false);
 user_pref("privacy.clearOnShutdown.formdata", true);
 user_pref("privacy.clearOnShutdown.history", false);

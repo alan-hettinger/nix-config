@@ -65,6 +65,11 @@
       ];
     };
 
+    mullvad-vpn = {
+      enable = true;
+      package = pkgs.mullvad-vpn; # "mullvad" is CLI only, "mullvad-vpn" is CLI and GUI
+    };
+
     acpid.enable =
       true; # saw this in someone's config TODO double check if needed
     upower.enable = false;

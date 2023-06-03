@@ -175,7 +175,7 @@
 ;; (setq +zen-mixed-pitch-modes 'nil)
 
 (setq olivetti-style 'fancy
-      olivetti-body-width 80)
+      olivetti-body-width 70)
 (add-hook 'org-mode-hook (lambda () (olivetti-mode 1)))
 
 (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))

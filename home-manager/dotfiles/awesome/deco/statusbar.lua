@@ -298,40 +298,40 @@ awful.screen.connect_for_each_screen(function(s)
     -- height = 40,
   })
 
-    -- Add widgets to the wibox
-    s.mywibox:setup {
-      layout = {
-        spacing = 6,
-        spacing_widget = {
-          color = "#1e1e2e",
-          widget = wibox.widget.separator
-        },
+  -- Add widgets to the wibox
+  s.mywibox:setup {
+    layout = {
+      spacing = 6,
+      spacing_widget = {
+        color = "#1e1e2e",
+        widget = wibox.widget.separator
       },
-      layout = wibox.layout.align.horizontal,
-      expand = "none",
-      {
-        -- Left widgets
-        layout = wibox.layout.fixed.horizontal,
-        -- s.mylayoutbox,
-        layoutwrapper,
-        s.mytaglist,
-      },
-      {
-        -- middle widgets:
-        layout = wibox.layout.fixed.horizontal,
-        mytextclock, -- Middle widget
-      },
-      {
-        -- Right widgets
-        layout = wibox.layout.fixed.horizontal,
-        batbox,
-        membox,
-        gputempbox,
-        cpubox,
-        tempbox,
-        musicbox,
-        s.systray,
-        logout,
-      },
-    }
+    },
+    layout = wibox.layout.align.horizontal,
+    expand = "none",
+    {
+      -- Left widgets
+      layout = wibox.layout.fixed.horizontal,
+      -- s.mylayoutbox,
+      layoutwrapper,
+      s.mytaglist,
+    },
+    {
+      -- middle widgets:
+      layout = wibox.layout.fixed.horizontal,
+      mytextclock,   -- Middle widget
+    },
+    {
+      -- Right widgets
+      layout = wibox.layout.fixed.horizontal,
+      batbox,
+      membox,
+      gputempbox,
+      cpubox,
+      tempbox,
+      -- musicbox,
+      s.systray,
+      logout,
+    },
+  }
 end)
