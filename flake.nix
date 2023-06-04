@@ -14,10 +14,11 @@
     };
     nixos-hardware.url = "github:nixos/nixos-hardware";
     nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
+    hyprland.url = "github:hyprwm/Hyprland";
   };
 
   outputs =
-    { nixpkgs, home-manager, nixos-hardware, nix-doom-emacs, ... }@inputs: {
+    { nixpkgs, home-manager, nixos-hardware, nix-doom-emacs, hyprland, ... }@inputs: {
       # Available through 'sudo nixos-rebuild --flake .#your-hostname'
       nixosConfigurations = {
 
@@ -28,6 +29,7 @@
             nixos-hardware.nixosModules.common-cpu-amd
             nixos-hardware.nixosModules.common-pc-ssd
             nixos-hardware.nixosModules.common-gpu-amd
+            hyprland.nixosModules.default
           ];
         };
 

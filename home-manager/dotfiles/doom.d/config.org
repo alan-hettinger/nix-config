@@ -1,6 +1,18 @@
 #+title: Emacs Literate Config
 #+author: Alan Hettinger
 
+* Table of Contents :toc:
+- [[#introduction][Introduction]]
+- [[#config][Config]]
+  - [[#basic-settings][Basic settings]]
+  - [[#prose-org-and-markdown][Prose (org and markdown)]]
+  - [[#treemacs][Treemacs]]
+  - [[#vterm-and-eshell][Vterm and Eshell]]
+  - [[#dired][Dired]]
+  - [[#guix-scheme-and-lisp-hacking][Guix, scheme, and lisp hacking]]
+  - [[#lsps][LSPs]]
+- [[#packages][Packages]]
+
 * TODO Introduction
 * Config
 :PROPERTIES:

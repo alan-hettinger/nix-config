@@ -63,6 +63,7 @@
           '';
         }
       ];
+      deviceSection = ''Option "VariableRefresh" "True"'';
     };
 
     mullvad-vpn = {
