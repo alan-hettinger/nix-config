@@ -29,8 +29,8 @@
             nixos-hardware.nixosModules.common-cpu-amd
             nixos-hardware.nixosModules.common-pc-ssd
             nixos-hardware.nixosModules.common-gpu-amd
-            hyprland.nixosModules.default
-            hyprland.homeManagerModules.default
+            # hyprland.nixosModules.default
+            # hyprland.homeManagerModules.default
           ];
         };
 

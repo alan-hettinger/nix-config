@@ -1,7 +1,6 @@
 { pkgs, config, ... }: {
   home = {
     packages = with pkgs; [
-      rofi
       i3lock-color
       xorg.xkill
       libsForQt5.ark
@@ -48,18 +47,31 @@
 
   programs = {
     rofi = {
-      enable = false;
+      enable = true;
       font = "JetbrainsMono Nerd Font 16";
       location = "center";
-      terminal = "\${pkgs.alacritty}/bin/alacritty";
-      plugins = with pkgs;
-        [
-          rofi-power-menu
-          rofimoji
+      terminal = "alacritty";
+      plugins = with pkgs; [
+        rofi-power-menu
+        rofimoji
 
-        ];
+      ];
+      extraConfig = {
+        icon-theme = "Papirus-Dark";
+        show-icons = true;
 
-      extraConfig = { };
+        ## keybindings:
+        kb-mode-next = "Shift+Right,Tab,Control+l";
+        kb-mode-previous = "Shift+Left,Control+h";
+        kb-element-next = "Control+j";
+        kb-element-prev = "Control+k";
+
+        ## unbind to make room for the above:
+        kb-remove-to-eol = "";
+        kb-mode-complete = "";
+        kb-remove-char-back = "BackSpace,Shift+BackSpace";
+        kb-accept-entry = "Return,KP_Enter";
+      };
     };
 
   };
