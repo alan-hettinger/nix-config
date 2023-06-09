@@ -12,7 +12,7 @@ local assets_dir                        = "~/.config/awesome/assets/"
 
 local theme                             = {}
 
-local lain = require("lain")
+local lain                              = require("lain")
 
 -- Font variables defined by me:
 theme.mono_font                         = "Jetbrains Mono Nerd Font 14"
@@ -145,11 +145,7 @@ theme.titlebar_minimize_button_normal = themes_path .. "default/titlebar/minimiz
 theme.titlebar_minimize_button_focus  = themes_path .. "default/titlebar/minimize_focus.png"
 
 
-if device == "desktop" then
-    theme.wallpaper = "~/Nextcloud/wallpapers/catppuccin-wallpapers/os/nix-black-4k.png"
-elseif device == "laptop" then
-    theme.wallpaper = "~/Pictures/wallpapers/catppuccin-wallpapers/waves/cat-waves.png"
-end
+theme.wallpaper          = assets_dir .. "wallpaper.png"
 
 -- You can use your own layout icons like this:
 theme.layout_fairh       = themes_path .. "default/layouts/fairhw.png"

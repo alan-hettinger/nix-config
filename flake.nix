@@ -30,13 +30,14 @@
             nixos-hardware.nixosModules.common-pc-ssd
             nixos-hardware.nixosModules.common-gpu-amd
             hyprland.nixosModules.default
+            hyprland.homeManagerModules.default
           ];
         };
 
         alan-laptop-linux = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
           modules = [
-            ./nixos/configuration.nix
+            ./nixos/configuration-laptop.nix
             nixos-hardware.nixosModules.lenovo-thinkpad-t14-amd-gen2
           ];
         };
