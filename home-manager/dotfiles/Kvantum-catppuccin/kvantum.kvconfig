@@ -1,0 +1,5 @@
+[General]
+theme=Catppuccin-Macchiato-Sapphire
+
+[Applications]
+Catppuccin-Macchiato-Sapphire=kmail

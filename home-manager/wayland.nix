@@ -13,4 +13,12 @@
     # style = ; ## dir of the css style
     systemd.enable = true;
   };
+
+  wayland.windowManager.sway = { # keeping this config for posterity
+    enable = false;
+    config = {
+
+    };
+
+  };
 }

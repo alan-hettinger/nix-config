@@ -22,7 +22,7 @@
         luaModules = with pkgs.luaPackages; [
           luarocks
           luarocks-nix
-          luadbi-mysql
+          # luadbi-mysql # FIXME was broken on update but what does this do
           luaposix
           lgi
           vicious
