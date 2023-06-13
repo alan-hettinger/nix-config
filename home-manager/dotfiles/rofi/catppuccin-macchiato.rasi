@@ -13,7 +13,6 @@
     selected-border-col: #b7bdf8;
 
     width: 1000;
-    font: "JetbrainsMono Nerd Font 16";
 }
 
 element-text, element-icon , mode-switcher {

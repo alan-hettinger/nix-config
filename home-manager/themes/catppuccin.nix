@@ -118,7 +118,8 @@
         white = "#A5ADCB"; # subtext0
       };
     };
-    rofi.theme = ../dotfiles/rofi/catppuccin-macchiato.rasi;
+    # rofi.theme = ../dotfiles/rofi/catppuccin-macchiato.rasi; ## FIXME this is how it's supposed to work
+    rofi.theme = "catppuccin-macchiato"; ## FIXME depends on hacky fix below
     # home = {
     #   shellAliases = {
     #     catppuccin = "inkcat latte,frappe,macchiato,mocha";
@@ -126,4 +127,5 @@
     #   };
     # };
   };
+    home.file.".config/rofi/catppuccin-macchiato.rasi".source = ../dotfiles/rofi/catppuccin-macchiato.rasi; # FIXME hacky fix
 }
