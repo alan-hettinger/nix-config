@@ -17,6 +17,8 @@
       spotify
       spicetify-cli
 
+      rofi-power-menu # FIXME should be installed by rofi plugins but isnt
+
       #gaming:
       # steam
       # xivlauncher
@@ -52,7 +54,7 @@
       location = "center";
       terminal = "alacritty";
       plugins = with pkgs; [
-        rofi-power-menu
+        rofi-power-menu # # FIXME not available on path as expected
         rofimoji
 
       ];

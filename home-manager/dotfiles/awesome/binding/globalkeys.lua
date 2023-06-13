@@ -229,9 +229,7 @@ function _M.get()
     awful.key({ modkey }, "v", function() awful.spawn(editor) end,
       { description = "text editor", group = "applications" }
     ),
-
-
-    awful.key({ modkey }, "Escape", function() awful.spawn("/home/alan/.config/rofi/scripts/powermenu_t2") end,
+    awful.key({ modkey }, "Escape", function() awful.spawn("rofi -show power-menu -modi power-menu:rofi-power-menu") end,
       { description = "power menu", group = "launcher" }
     ),
 
