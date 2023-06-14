@@ -130,7 +130,11 @@
   home.file.".config/rofi/catppuccin-macchiato.rasi".source =
     ../dotfiles/rofi/catppuccin-macchiato.rasi; # FIXME hacky fix
   home.file.".config/Kvantum" = {
-    source = ../dotfiles/Kvantum-catppuccin;
+    source = ../dotfiles/Kvantum-catppuccin; # FIXME doesnt symlink
+    recursive = true;
+  };
+  home.file.".config/qt5ct" = {
+    source = ../dotfiles/qt5ct;
     recursive = true;
   };
 }
