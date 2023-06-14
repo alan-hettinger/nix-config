@@ -88,6 +88,26 @@
       };
     };
 
+    fish = {
+      enable = true;
+      functions = {
+
+      };
+      interactiveShellInit = ''
+       fish_vi_key_bindings --no-erase insert
+       set fish_cursor_default block
+       set fish_cursor_insert line
+       set fish_cursor_replace_one underscore
+      '';
+      # plugins = with pkgs.fishPlugins; [ ## FIXME it's not supposed to be formatted this way
+      #   pisces
+      #   fzf
+      #   autopair
+      #   colored-man-pages
+      #   sponge
+      # ];
+    };
+
     exa = {
       enable = true;
       enableAliases = false;
@@ -126,9 +146,7 @@
           error_symbol = "[X->](red)";
           vimcmd_symbol = "[<](green)";
         };
-        shell = {
-          disabled = false;
-        };
+        shell = { disabled = false; };
         git_branch = {
           format = "[$branch]($style)";
           symbol = " ";

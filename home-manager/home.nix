@@ -15,7 +15,7 @@
     ./lang/haskell.nix
     ./lang/python.nix
     ./lang/js.nix
-    ./themes/catppuccin.nix
+    ./themes/catppuccin/catppuccin.nix
     ./themes/fonts.nix
     ./games.nix
   ];
