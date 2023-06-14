@@ -1,8 +1,10 @@
 { inputs, pkgs, lib, config, ... }: {
 
-  imports = [ inputs.nix-doom-emacs.hmModule ];
+  ## imports = [ inputs.nix-doom-emacs.hmModule ];
 
   home.packages = with pkgs; [
+    emacs
+    git
     emacsPackages.vterm
     libvterm
     emacsPackages.emacsql-sqlite
@@ -41,29 +43,22 @@
     # extraOptions = [  ];
   };
 
-  programs.doom-emacs = {
-    enable = true;
-    doomPrivateDir = ./dotfiles/doom.d;
+  # # nix-doom-emacs is having some issues at the moment, back to the old way
+  # programs.doom-emacs = {
+  #   enable = true;
+  #   doomPrivateDir = ./dotfiles/doom.d;
+  # };
+
+  home.file.".doom.d" = {
+    source = ./dotfiles/doom.d;
+    recursive = true;
   };
 
-  ## This way of linking allows .doom.d to be tracked by nix but disallows editing on the fly
-  # home.file.".doom.d" = {
-  #   source = ./dotfiles/doom.d;
-  #   recursive = true;
-  # };
-  ## This way of doing things allows editing/reloading on the fly but means .doom.d is impure/stateful
   # home.activation = {
-  #   installDoomDir = ''
-  #     if [ ! -d "${config.home.homeDirectory}/.doom.d" ]; then
-  #        ln -s "/home/alan/nix-config/home-manager/dotfiles/doom.d" "${config.home.homeDirectory}/.doom.d"
+  #   installDoom = '' ## FIXME errors out with "command git not found"
+  #     if [ ! -d "${config.home.homeDirectory}/.emacs.d" ]; then
+  #     git clone --depth 1 https://github.com/doomemacs/doomemacs ${config.home.homeDirectory}/.emacs.d
   #     fi
   #   '';
   # };
-  ## disabling the above because nix-doom-emacs can deal with .doom.d
-
-  # home.file.".config/awesome" = {
-  #   source = ./dotfiles/awesome;
-  #   recursive = true;
-  # };
-
 }
