@@ -126,7 +126,7 @@
     #     catppucciny = "inkcat";
     #   };
     # };
-  waybar.style = ./waybar.css;
+    waybar.style = ./waybar.css;
   };
   home.file.".config/rofi/catppuccin-macchiato.rasi".source =
     ./rofi/catppuccin-macchiato.rasi; # FIXME hacky fix

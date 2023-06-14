@@ -1,12 +1,17 @@
 { config, lib, pkgs, ... }: {
+
+  wayland.windowManager = {
+    sway.enable = false;
+    hyprland.enable = true;
+  };
+  programs.waybar.enable = true;
+
   wayland.windowManager.hyprland = {
-    enable = true;
     systemdIntegration = true;
     recommendedEnvironment = true;
     # extraConfig = ## dir for config file
   };
   programs.waybar = {
-    enable = true;
     settings = {
       layer = "top";
       position = "left"; # bar position - top/bottom/left/right
@@ -83,10 +88,75 @@
   };
 
   wayland.windowManager.sway = { # keeping this config for posterity
-    enable = false;
     config = {
+      focus = {
+        followMouse = false;
+        mouseWarping = false;
+      };
+      fonts = {
 
+      };
+      bars.waybar.command = "waybar";
+      gaps = { # gap sizes are ints
+        # bottom = ;
+        # horizontal = ;
+        inner = 10;
+        # outer = ;
+        # right = ;
+        # top = ;
+        # vertical = ;
+        smartBorders = "off";
+        smartGaps = "off";
+
+      };
+
+      input = { # attribute set of strings
+
+      };
+      modifier = "Mod4";
+      keybindings = {
+        "$mod+Return" = "exec $term";
+        "$mod+q" = "kill";
+        "$mod+d" = "exec $menu";
+        "$mod+Ctrl+r" = "reload";
+        "$mod+p" = "exec $scshot";
+        "$mod+Shift+p" = "exec $regionshot";
+        "$mod+b" = "splith";
+        "$mod+v" = "splitv";
+        "$mod+s" = "layout stacking";
+        "$mod+t" = "layout tabbed";
+        "$mod+w" = "layout splitv";
+        "$mod+e" = "layout toggle splith tabbed";
+        "$mod+f" = "fullscreen";
+        "$mod+Shift+space" = "floating toggle";
+        "$mod+space" = "focus mode_toggle";
+        "$mod+a" = "focus parent";
+        "$mod+r" = "mode 'resize'";
+        "$mod+Escape" = "exec $powermenu";
+        "$mod+x" = "exec $browser";
+        "$mod+z" = "exec $filemgr";
+      };
+      output = {
+
+      };
+      terminal = "alacritty";
+      menu = "rofi -show drun";
+      window = {
+        border = 2;
+        hideEdgeBorders = "none";
+        titlebar = false;
+      };
+      workspaceLayout = "default";
+
+      extraConfig = ''
+        set $scshot exec grim
+        set $regionshot exec grim -g "$(slurp)"
+
+        set $powermenu exec wlogout -p layer-shell
+        set $browser exec 'firefox'
+        set $filemgr exec nemo
+
+      '';
     };
-
   };
 }
