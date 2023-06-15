@@ -25,7 +25,7 @@
         alan-desktop-linux = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
           modules = [
-            ./nixos/configuration-desktop.nix
+            ./nixos/desktop-configuration.nix
             nixos-hardware.nixosModules.common-cpu-amd
             nixos-hardware.nixosModules.common-pc-ssd
             nixos-hardware.nixosModules.common-gpu-amd
@@ -37,7 +37,7 @@
         alan-laptop-linux = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
           modules = [
-            ./nixos/configuration-laptop.nix
+            ./nixos/laptop-configuration.nix
             nixos-hardware.nixosModules.lenovo-thinkpad-t14-amd-gen2
           ];
         };

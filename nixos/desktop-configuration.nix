@@ -1,7 +1,7 @@
 { inputs, pkgs, ... }: {
   imports = [
     inputs.home-manager.nixosModules.home-manager
-    ./hardware-configuration.nix
+    ./desktop-hardware-configuration.nix
     ./font.nix
     ./common.nix
     ./xorg.nix
@@ -23,6 +23,7 @@
     };
     package = pkgs.nixVersions.unstable;
   };
+
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
     initrd.kernelModules = [ "amdgpu" ];
@@ -68,7 +69,8 @@
 
     mullvad-vpn = {
       enable = true;
-      package = pkgs.mullvad-vpn; # "mullvad" is CLI only, "mullvad-vpn" is CLI and GUI
+      package =
+        pkgs.mullvad-vpn; # "mullvad" is CLI only, "mullvad-vpn" is CLI and GUI
     };
 
     acpid.enable =
