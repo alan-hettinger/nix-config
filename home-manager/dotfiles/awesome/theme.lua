@@ -31,7 +31,7 @@ theme.fg_focus                          = "#f4dbd6" -- catppuccin macchiato rose
 theme.fg_urgent                         = "#ed8796" -- catppuccin macchiato red
 theme.fg_minimize                       = "#9399b2"
 
-theme.useless_gap                       = dpi(5)
+theme.useless_gap                       = dpi(8)
 theme.border_width                      = dpi(2)
 theme.gap_single_client                 = true
 theme.border_normal                     = "#363a4f" -- catppuccin macchiato surface0
@@ -49,6 +49,12 @@ theme.notification_margin               = 10
 theme.notification_max_width            = 500
 theme.notification_max_height           = 1000
 theme.notification_icon_size            = 200
+
+-- variables for layout
+theme.master_width_factor               = 0.55
+theme.master_fill_policy                = master_width_factor
+theme.column_count                      = 1
+theme.master_count                      = 1
 
 -- tasklist theme
 theme.tasklist_spacing                  = 8

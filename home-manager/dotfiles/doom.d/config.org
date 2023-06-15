@@ -225,7 +225,7 @@ Show/hide modeline:
 (after! org
 
   (setq org-latex-packages-alist '(("margin=2cm" "geometry" nil)))
-  (setq org-cite-global-bibliography '("~/Nextcloud/Documents/Thesis/zotero-lib.bib")
+  (setq org-cite-global-bibliography '("~/Documents/Thesis/zotero-lib.bib")
 	org-cite-insert-processor 'citar
 	org-cite-follow-processor 'citar
         org-cite-activate-processor 'citar

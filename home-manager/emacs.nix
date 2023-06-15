@@ -1,6 +1,6 @@
 { inputs, pkgs, lib, config, ... }: {
 
-  ## imports = [ inputs.nix-doom-emacs.hmModule ];
+  ## imports = [ inputs.nix-doom-emacs.hmModule ]; # disabling for now, sad
 
   home.packages = with pkgs; [
     emacs
