@@ -31,8 +31,9 @@
         frequency = "weekly";
       };
     };
-    gtk.enable = true;
   };
+
+  gtk.enable = true;
 
   xdg = {
     userDirs = {
@@ -47,21 +48,6 @@
         source = ./scripts;
       };
     };
-  };
-
-  home = {
-
-    sessionPath =
-      [ "$HOME/bin" "$HOME/.local/share/scripts" "$HOME/.cargo/bin" ];
-
-    sessionVariables = {
-      QT_QPA_PLATFORMTHEME = "qt5ct";
-      TERM = "alacritty";
-      GOPATH = "$HOME/go";
-    };
-
-    username = "alan";
-    homeDirectory = "/home/alan";
   };
 
   programs = {
@@ -91,12 +77,26 @@
 
     home-manager.enable = true;
   };
+  home = {
+    sessionPath =
+      [ "$HOME/bin" "$HOME/.local/share/scripts" "$HOME/.cargo/bin" ];
 
-  packages = with pkgs; [
-    ripgrep
-    fd
-    fzf
-  ];
+    sessionVariables = {
+      QT_QPA_PLATFORMTHEME = "qt5ct";
+      TERM = "alacritty";
+      GOPATH = "$HOME/go";
+    };
+
+    username = "alan";
+    homeDirectory = "/home/alan";
+
+    packages = with pkgs; [
+      ripgrep
+      fd
+      fzf
+
+    ];
+  };
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
