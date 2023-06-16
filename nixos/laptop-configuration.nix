@@ -1,7 +1,7 @@
 { inputs, pkgs, ... }: {
   imports = [
     inputs.home-manager.nixosModules.home-manager
-    ./desktop-hardware-configuration.nix
+    ./laptop-hardware-configuration.nix # TODO
     ./font.nix
     ./common.nix
     ./xorg.nix
@@ -18,7 +18,7 @@
   nix = {
     gc = {
       dates = "weekly";
-      automatic = true;
+      automatic = false;
       options = "--delete-older-than 30d";
     };
     package = pkgs.nixVersions.unstable;
@@ -31,7 +31,7 @@
   };
 
   networking = {
-    hostName = "alan-desktop-linux";
+    hostName = "alan-laptop-linux";
 
     firewall = {
       enable = false;
@@ -46,25 +46,13 @@
     xserver = {
 
       serverFlagsSection = ''
-        Option "BlankTime" "0"
-        Option "StandbyTime" "0"
-        Option "SuspendTime" "0"
+        Option "BlankTime" "20"
+        Option "StandbyTime" "30"
+        Option "SuspendTime" "60"
         Option "OffTime" "0"
       '';
 
       videoDrivers = [ "amdgpu" ];
-      xrandrHeads = [
-        "DisplayPort-0"
-        {
-          output = "DisplayPort-0";
-          primary = true;
-          monitorConfig = ''
-            Option "DPMS" "false"
-            Option "PreferredMode" "2560x1440_144.00"
-          '';
-        }
-      ];
-      deviceSection = ''Option "VariableRefresh" "True"'';
     };
 
     mullvad-vpn = {
@@ -75,8 +63,55 @@
 
     acpid.enable =
       true; # saw this in someone's config TODO double check if needed
-    upower.enable = false;
-    tlp.enable = false;
+
+    tlp = { # power saving settings
+      enable = true;
+      settings = {
+        # GPU power management method:
+        RADEON_DPM_STATE_ON_AC = "performance";
+        RADEON_DPM_STATE_ON_BAT = "battery";
+
+        # power/performance levels, thermals, fan speed:
+        PLATFORM_PROFILE_ON_AC = "performance";
+        PLATFORM_PROFILE_ON_BAT = "low-power";
+
+        # automatic frequency scaling
+        CPU_SCALING_GOVERNOR_ON_AC = "performance";
+        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+
+        # cpu "turbo core" - 0=disable 1=enable
+        CPU_BOOST_ON_AC = 1;
+        CPU_BOOST_ON_BAT = 0;
+
+        # Minimize number of cores - 0=disable 1=enable
+        SCHED_POWERSAVE_ON_AC = 0;
+        SCHED_POWERSAVE_ON_BAT = 1;
+
+        # self-explanatory
+        DEVICES_TO_DIABLE_ON_STARTUP = "bluetooth";
+
+        # runtime power management for PCIe devices:
+        RUNTIME_PM_ON_AC = "on"; # devices powered on constantly
+        RUNTIME_PM_ON_BAT = "auto";
+
+      };
+    };
+
+    xserver.libinput = {
+      enable = true;
+      touchpad = {
+        accelSpeed = null; # null or string
+        clickMethod = "clickfinger";
+        disableWhileTyping = true;
+        naturalScrolling = true;
+        scrollMethod = "twofinger";
+        tapping = true;
+        tappingButtonMap = "lrm";
+        tappingDragLock = true;
+      };
+
+    };
+
     udisks2.enable = true;
   };
 
@@ -93,9 +128,6 @@
     style = "adwaita-dark";
   };
   environment = {
-    extraInit = ''
-      xset s off -dpms
-    '';
     systemPackages = with pkgs; [
       borgbackup
       borgmatic
@@ -104,7 +136,7 @@
     pathsToLink = [ "/share/zsh" ];
     ## setting this manually here because it is not set by networking.hostName
     ## for whatever reason and I have scripts that look for it
-    variables = { HOSTNAME = "alan-desktop-linux"; };
+    variables = { HOSTNAME = "alan-laptop-linux"; };
   };
 
   location = {

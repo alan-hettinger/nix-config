@@ -14,7 +14,7 @@
     settings = {
       # Enable flakes and new 'nix' command
       experimental-features = "nix-command flakes";
-      # substituters = [ "https://cachix.cachix.org" ];
+      substituters = [ "https://cachix.cachix.org" ];
       # Deduplicate and optimize nix store
       auto-optimise-store = true;
     };
@@ -23,7 +23,7 @@
     loader = {
       systemd-boot = {
         enable = true;
-        memtest86.enable = true;
+        configurationLimit = 20;
       };
       efi.canTouchEfiVariables = true;
     };
@@ -47,6 +47,8 @@
       pulse.enable = true;
       jack.enable = true;
     };
+
+    blueman.enable = true;
 
     flatpak.enable = true;
     accounts-daemon.enable = true;
