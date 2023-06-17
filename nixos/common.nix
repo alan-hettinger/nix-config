@@ -78,7 +78,9 @@
     firefox
     numlockx
     coreutils
-    gsmartcontrol
+    gparted
+    gnome.gnome-disk-utility
+
   ];
   xdg.portal = {
     enable = true;

@@ -112,6 +112,24 @@
 
     };
 
+    autorandr = {
+      enable = true;
+      profiles = {
+        "clamshell" = {
+          
+        };
+        "dual" = {
+          
+        };
+        "laptop" = {
+          
+        };
+        "mirror" = {
+          
+        };
+      };
+    };
+
     udisks2.enable = true;
   };
 

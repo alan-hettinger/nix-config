@@ -1,7 +1,7 @@
 local home = os.getenv("HOME")
 
 local _M = {
-  terminal = "alacritty -e tmux attach",
+  terminal = "alacritty",
   term2 = "rofi-tmux",
   browser = "firefox",
   launcher = "rofi -show drun -sidebar-mode",
