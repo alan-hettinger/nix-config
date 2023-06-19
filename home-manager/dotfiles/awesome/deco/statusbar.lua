@@ -187,10 +187,10 @@ local bat = lain.widget.bat {
       if bat_now.ac_status == 1 then
         widget:set_markup("  ")
       else
-        widget:set_markup(" : " .. bat_now.perc .. "%, " .. bat_now.time)
+        widget:set_markup("   : " .. bat_now.perc .. "%, " .. bat_now.time)
       end
     else
-      widget:set_markup(" ")
+      widget:set_markup("")
     end
   end
 }
@@ -201,10 +201,10 @@ local batbox = wibox.widget { {
       fg = "#f4dbd6",
       widget = wibox.container.background,
     },
-    left = 10,
-    right = 10,
-    top = 3,
-    bottom = 3,
+    -- left = 10,
+    -- right = 10,
+    -- top = 3,
+    -- bottom = 3,
     widget = wibox.container.margin
   },
   shape = gears.shape.rectangle,
