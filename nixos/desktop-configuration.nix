@@ -75,7 +75,7 @@
 
     acpid.enable =
       true; # saw this in someone's config TODO double check if needed
-    upower.enable = false;
+    # upower.enable = false;
     tlp.enable = false;
     udisks2.enable = true;
   };

@@ -7,12 +7,20 @@
   services = {
     xserver = {
       enable = true;
+      desktopManager = {
+        xterm.enable = false;
+        xfce = {
+          enable = true;
+          noDesktop = true;
+          enableXfwm = false;
+        };
+      };
       displayManager = {
         lightdm = {
           enable = true;
           greeters.slick = { enable = true; };
         };
-        defaultSession = "none+awesome";
+        defaultSession = "xfce+awesome";
         sessionCommands = ''
           xset s off -dpms
         '';
