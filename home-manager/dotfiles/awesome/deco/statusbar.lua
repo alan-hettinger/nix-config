@@ -90,7 +90,11 @@ local tempgpu          = lain.widget.temp {
   tempfile = ("/sys/devices/pci0000:00/0000:00:03.1/0000:2b:00.0/0000:2c:00.0/0000:2d:00.0/hwmon/hwmon1/temp2_input"), -- junction
   settings = function()
     timeout = 2
-    widget:set_markup("GPU: " .. coretemp_now .. "°C")
+    if coretemp_now ~= "N/A" then
+      widget:set_markup("GPU: " .. coretemp_now .. "°C")
+    else
+      widget:set_markup(" ")
+    end
   end
 }
 
@@ -319,7 +323,7 @@ awful.screen.connect_for_each_screen(function(s)
     {
       -- middle widgets:
       layout = wibox.layout.fixed.horizontal,
-      mytextclock,   -- Middle widget
+      mytextclock, -- Middle widget
     },
     {
       -- Right widgets
