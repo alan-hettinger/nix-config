@@ -93,7 +93,7 @@ local tempgpu          = lain.widget.temp {
     if coretemp_now ~= "N/A" then
       widget:set_markup("  GPU: " .. coretemp_now .. "°C  ")
     else
-      widget:set_markup(" ")
+      widget:set_markup("")
     end
   end
 }
