@@ -113,7 +113,7 @@
     };
 
     autorandr = {
-      enable = true;
+      enable = false;
       profiles = {
         "clamshell" = {
           

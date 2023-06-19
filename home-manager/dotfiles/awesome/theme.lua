@@ -32,7 +32,7 @@ theme.fg_urgent                         = "#ed8796" -- catppuccin macchiato red
 theme.fg_minimize                       = "#9399b2"
 
 theme.useless_gap                       = dpi(8)
-theme.border_width                      = dpi(2)
+theme.border_width                      = dpi(3)
 theme.gap_single_client                 = true
 theme.border_normal                     = "#363a4f" -- catppuccin macchiato surface0
 theme.border_focus                      = "#8aadf4" -- macchiato blue
