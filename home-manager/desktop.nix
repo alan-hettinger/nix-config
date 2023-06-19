@@ -4,7 +4,6 @@
       i3lock-color
       xorg.xkill
       libsForQt5.ark
-      # libsForQt5.kate
       libsForQt5.dolphin
       libsForQt5.dolphin-plugins
       kio-fuse
@@ -18,10 +17,6 @@
       spicetify-cli
 
       rofi-power-menu # FIXME should be installed by rofi plugins but isnt
-
-      #gaming:
-      # steam
-      # xivlauncher
 
       gnome.gnome-font-viewer
       playerctl
