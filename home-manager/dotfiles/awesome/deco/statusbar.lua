@@ -185,9 +185,9 @@ local bat = lain.widget.bat {
   settings = function()
     if bat_now.status and bat_now.status ~= "N/A" then
       if bat_now.ac_status == 1 then
-        widget:set_markup("  ")
+        widget:set_markup("    ")
       else
-        widget:set_markup("   : " .. bat_now.perc .. "%, " .. bat_now.time)
+        widget:set_markup("   : " .. bat_now.perc .. "%, " .. bat_now.time .. "  ")
       end
     else
       widget:set_markup("")
