@@ -91,7 +91,7 @@ local tempgpu          = lain.widget.temp {
   settings = function()
     timeout = 2
     if coretemp_now ~= "N/A" then
-      widget:set_markup("GPU: " .. coretemp_now .. "°C")
+      widget:set_markup("  GPU: " .. coretemp_now .. "°C  ")
     else
       widget:set_markup(" ")
     end
@@ -107,10 +107,10 @@ local gputempbox = wibox.widget { {
       font = theme.taglist_font,
       widget = wibox.container.background,
     },
-    left = 10,
-    right = 10,
-    top = 3,
-    bottom = 3,
+    -- left = 10,
+    -- right = 10,
+    -- top = 3,
+    -- bottom = 3,
     widget = wibox.container.margin
   },
   shape = gears.shape.rectangle,
