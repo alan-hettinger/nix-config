@@ -168,7 +168,7 @@
   };
   home = {
     sessionPath =
-      [ "$HOME/bin" "$HOME/.local/share/scripts" "$HOME/.cargo/bin" ];
+      [ "$HOME/bin" "$HOME/.local/share/scripts" "$HOME/.cargo/bin" "$HOME/.emacs.d/bin" ];
 
     sessionVariables = {
       QT_QPA_PLATFORMTHEME = "qt5ct";
