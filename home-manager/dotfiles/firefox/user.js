@@ -34,6 +34,23 @@ user_pref("services.sync.prefs.sync-seen.browser.contentblocking.category", true
 user_pref("signon.rememberSignons", false);
 user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
 
+// font settings:
+user_pref("font.minimum-size.x-western", 12);
+user_pref("font.name.monospace.x-western", "Source Code Pro");
+user_pref("font.name.sans-serif.x-western", "Source Sans Variable");
+user_pref("font.name.serif.x-western", "Source Serif Variable");
+user_pref("font.size.monospace.x-western", 16);
+user_pref("font.size.variable.x-western", 18);
+
+user_pref("browser.bookmarks.restore_default_bookmarks", false);
+
+user_pref("devtools.editor.expandtab", false);
+user_pref("devtools.editor.keymap", "vim");
+user_pref("devtools.editor.tabsize", 4);
+user_pref("devtools.theme", "auto");
+
+
+
 // preferences from https://github.com/pyllyukko/user.js/blob/master/user.js:
 // PREF: Disable web notifications
 // https://support.mozilla.org/en-US/questions/1140439
