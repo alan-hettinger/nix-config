@@ -1,6 +1,3 @@
-[submodule "home-manager/dotfiles/awesome/awesome-wm-widgets"]
-	path = home-manager/dotfiles/awesome/awesome-wm-widgets
-	url = https://github.com/streetturtle/awesome-wm-widgets
 [submodule "home-manager/dotfiles/awesome/lain"]
 	path = home-manager/dotfiles/awesome/lain
 	url = https://github.com/lcpz/lain/

@@ -21,38 +21,7 @@ local screenlock       = RC.vars.screenlock
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 -- add libraries for third party widgets
-local mpris_widget     = require("awesome-wm-widgets.mpris-widget")
 local lain             = require("lain")
-local logout_menu      = require("awesome-wm-widgets.logout-menu-widget.logout-menu")
-
-local musicbox         = wibox.widget { {
-  {
-    {
-      mpris_widget(),
-      fg = "#b7bdf8",
-      font = theme.taglist_font,
-      widget = wibox.container.background,
-    },
-    left = 10,
-    right = 10,
-    top = 3,
-    bottom = 3,
-    widget = wibox.container.margin
-  },
-  shape = gears.shape.rounded_rect,
-  bg = theme.bg_normal,
-  shape_border_color = theme.bg_focus,
-  shape_border_width = 2,
-  widget = wibox.container.background
-},
-  layout = wibox.layout.align.horizontal,
-}
-
-local logout           = logout_menu {
-  onlock = function() awful.spawn.with_shell(screenlock) end,
-  onreboot = function() awful.spawn.with_shell("systemctl reboot") end,
-  onpoweroff = function() awful.spawn.with_shell("systemctl poweroff") end,
-}
 
 local temp             = lain.widget.temp {
   -- tempfile = "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon1/temp1_input",
@@ -333,9 +302,7 @@ awful.screen.connect_for_each_screen(function(s)
       gputempbox,
       cpubox,
       tempbox,
-      -- musicbox,
       s.systray,
-      logout,
     },
   }
 end)
