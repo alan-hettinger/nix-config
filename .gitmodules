@@ -1,3 +1,0 @@
-[submodule "home-manager/dotfiles/awesome/lain"]
-	path = home-manager/dotfiles/awesome/lain
-	url = https://github.com/lcpz/lain/

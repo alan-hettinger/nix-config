@@ -20,7 +20,7 @@
 
       gnome.gnome-font-viewer
       playerctl
-      bitwarden ## FIXME was requiring a deprecated version of nodejs
+      bitwarden
 
       #themes
       papirus-icon-theme
@@ -30,16 +30,20 @@
       gnome.gnome-themes-extra
     ];
 
-    ## This is not the "nix way" of doing things since the awesome config is "stateful" but this allows editing and reloading separately
-    ## Additionally, this is necessary because the awesome config has git submodules
-    ## TODO manage awesome submodules using builtins.fetchGit etc
-    activation = {
-      installAwesomeConfig = ''
-        if [ ! -d "${config.home.homeDirectory}/.config/awesome" ]; then
-           ln -s "/home/alan/nix-config/home-manager/dotfiles/awesome" "${config.home.homeDirectory}/.config/awesome"
-        fi
-      '';
+    # install awesome config and dependencies
+    
+    file = {
+      ".config/awesome/lain".source = pkgs.fetchFromGitHub {
+        owner = "lcpz";
+        repo = "lain";
+        rev = "88f5a8abd2649b348ffec433a24a263b37f122c0";
+        sha256 = "MH/aiYfcO3lrcuNbnIu4QHqPq25LwzTprOhEJUJBJ7I=";
+      };
     };
+  };
+  xdg.configFile."awesome" = {
+    source = ./dotfiles/awesome;
+    recursive = true;
   };
 
   programs = {

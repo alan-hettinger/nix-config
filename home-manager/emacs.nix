@@ -54,11 +54,11 @@
     recursive = true;
   };
 
-  # home.activation = {
-  #   installDoom = '' ## FIXME errors out with "command git not found"
-  #     if [ ! -d "${config.home.homeDirectory}/.emacs.d" ]; then
-  #     git clone --depth 1 https://github.com/doomemacs/doomemacs ${config.home.homeDirectory}/.emacs.d
-  #     fi
-  #   '';
-  # };
+  home.activation = {
+    installDoom = ''
+      if [ ! -d "${config.home.homeDirectory}/.emacs.d" ]; then
+      ${pkgs.git}/bin/git clone --depth 1 https://github.com/doomemacs/doomemacs ${config.home.homeDirectory}/.emacs.d
+      fi
+    '';
+  };
 }
