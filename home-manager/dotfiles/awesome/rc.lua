@@ -55,8 +55,6 @@ local binding = {
   clientkeys    = require("binding.clientkeys")
 }
 
--- local bling = require("bling")
---
 -- {{{ Layouts
 -- Table of layouts to cover with awful.layout.inc, order matters.
 -- a variable needed in main.tags, and statusbar

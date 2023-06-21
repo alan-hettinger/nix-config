@@ -5,38 +5,39 @@ local gfs                                       = require("gears.filesystem")
 local themes_path                               = gfs.get_themes_dir()
 local assets_dir                                = "~/.config/awesome/assets/"
 local theme                                     = {}
+local cat                                       = require("catppuccin")
 
 -- Font variables defined by me:
 theme.mono_font                                 = "Jetbrains Mono Nerd Font 14"
 theme.variable_font                             = "Liberation Sans 15"
 
 -- colors added by me to modularize theming:
-theme.red                                       = "#ed8796"
-theme.blue                                      = "#8aadf4"
-theme.lightRed                                  = "#ee99a0"
-theme.yellow                                    = "#eed49f"
-theme.lightYellow                               = "#f4dbd6"
-theme.baseBlack                                 = "#24273a"
-theme.baseWhite                                 = "#cad3f5"
+theme.red                                       = cat.red
+theme.blue                                      = cat.blue
+theme.lightRed                                  = cat.maroon
+theme.yellow                                    = cat.yellow
+theme.lightYellow                               = cat.rosewater
+theme.baseBlack                                 = cat.base
+theme.baseWhite                                 = cat.text
 
 -- basic theme colors
 theme.font                                      = theme.variable_font
 theme.font_color                                = theme.baseWhite
 
 theme.bg_normal                                 = theme.baseBlack
-theme.bg_focus                                  = "#535d6c" -- not a custom theme ?
-theme.bg_urgent                                 = "#ff0000"
-theme.bg_minimize                               = "#444444"
+theme.bg_focus                                  = cat.surface2
+theme.bg_urgent                                 = theme.red
+theme.bg_minimize                               = cat.surface1
 
 theme.fg_normal                                 = theme.baseWhite
 theme.fg_focus                                  = theme.lightYellow
 theme.fg_urgent                                 = theme.red
-theme.fg_minimize                               = "#9399b2"
+theme.fg_minimize                               = cat.surface1
 
 theme.useless_gap                               = dpi(8)
 theme.border_width                              = dpi(3)
 theme.gap_single_client                         = true
-theme.border_normal                             = "#363a4f" -- catppuccin macchiato surface0
+theme.border_normal                             = cat.surface0
 theme.border_focus                              = theme.blue
 theme.border_marked                             = theme.border_normal
 
@@ -61,10 +62,10 @@ theme.master_count                              = 1
 theme.tasklist_spacing                          = 8
 theme.tasklist_bg_normal                        = theme.bg_normal
 theme.tasklist_fg_normal                        = theme.fg_normal
-theme.tasklist_bg_focus                         = "#494d64"
+theme.tasklist_bg_focus                         = cat.surface1
 theme.tasklist_fg_focus                         = theme.font_color
 theme.tasklist_disable_icon                     = true
-theme.tasklist_bg_minimize                      = "#1e2030"
+theme.tasklist_bg_minimize                      = cat.mantle
 theme.tasklist_shape_border_width               = 2
 theme.tasklist_shape_border_color               = theme.border_normal
 theme.tasklist_shape_border_width_focus         = 2
@@ -72,9 +73,9 @@ theme.tasklist_shape_border_color_focus         = theme.border_focus
 
 -- titlebar theme
 theme.titlebar_fg_normal                        = theme.fg_normal
-theme.titlebar_bg_normal                        = "#181926"       -- macchiato crust
+theme.titlebar_bg_normal                        = cat.crust
 theme.titlebar_fg_focus                         = theme.font_color
-theme.titlebar_bg_focus                         = "#181926"       -- macchiato crust
+theme.titlebar_bg_focus                         = cat.crust
 
 theme.hotkeys_font                              = theme.mono_font -- "Source Sans 3 VF 16"
 theme.hotkeys_desription_font                   = theme.mono_font -- "Source Sans 3 VF 14"
@@ -88,26 +89,18 @@ theme.taglist_squares_unsel                     = theme_assets.taglist_squares_u
     taglist_square_size, theme.fg_normal
 )
 theme.taglist_font                              = theme.mono_font
-theme.taglist_bg_focus                          = "#494d64"
-theme.taglist_bg_urgent                         = "#363a4f"
-theme.taglist_bg_occupied                       = "#313244"
-theme.taglist_bg_empty                          = "#24273a"
+theme.taglist_bg_focus                          = cat.surface1
+theme.taglist_bg_urgent                         = cat.surface0
+theme.taglist_bg_occupied                       = cat.surface0
+theme.taglist_bg_empty                          = cat.base
 theme.taglist_shape_border_width                = 2
-theme.taglist_shape_border_color                = "#494d64"
-theme.taglist_shape_border_color_focus          = "#6e738d"
-theme.taglist_shape_border_color_empty          = "#24273a"
+theme.taglist_shape_border_color                = cat.surface1
+theme.taglist_shape_border_color_focus          = cat.overlay0
+theme.taglist_shape_border_color_empty          = cat.base
 
--- Variables set for theming the menu:
--- menu_[bg|fg]_[normal|focus]
--- menu_[border_color|border_width]
 theme.menu_submenu_icon                         = themes_path .. "default/submenu.png"
 theme.menu_height                               = dpi(15)
 theme.menu_width                                = dpi(100)
-
--- You can add as many variables as
--- you wish and access them by using
--- beautiful.variable in your rc.lua
---theme.bg_widget = "#cc0000"
 
 -- Define the image to load
 theme.titlebar_close_button_normal              = assets_dir .. "close_1.png"
