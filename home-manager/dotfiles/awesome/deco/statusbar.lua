@@ -1,29 +1,27 @@
 -- Standard awesome library
-local gears            = require("gears")
-local awful            = require("awful")
+local gears           = require("gears")
+local awful           = require("awful")
 
 -- Wibox handling library
-local wibox            = require("wibox")
+local wibox           = require("wibox")
 
 -- Custom Local Library: Common Functional Decoration
-local deco             = {
+local deco            = {
   wallpaper = require("deco.wallpaper"),
   taglist   = require("deco.taglist"),
-  tasklist  = require("deco.tasklist")
 }
 
-local taglist_buttons  = deco.taglist()
-local tasklist_buttons = deco.tasklist()
+local taglist_buttons = deco.taglist()
 
-local _M               = {}
-local theme            = require("theme")
-local screenlock       = RC.vars.screenlock
+local _M              = {}
+local theme           = require("theme")
+local screenlock      = RC.vars.screenlock
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 -- add libraries for third party widgets
-local lain             = require("lain")
+local lain            = require("lain")
 
-local temp             = lain.widget.temp {
+local temp            = lain.widget.temp {
   -- tempfile = "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon1/temp1_input",
   -- temp1 is tctl, temp3 is Tccd1
   settings = function()
@@ -32,7 +30,7 @@ local temp             = lain.widget.temp {
   end
 }
 
-local tempbox          = wibox.widget { {
+local tempbox         = wibox.widget { {
   {
     {
       temp,
@@ -55,7 +53,7 @@ local tempbox          = wibox.widget { {
   layout = wibox.layout.align.horizontal,
 }
 
-local tempgpu          = lain.widget.temp {
+local tempgpu         = lain.widget.temp {
   tempfile = ("/sys/devices/pci0000:00/0000:00:03.1/0000:2b:00.0/0000:2c:00.0/0000:2d:00.0/hwmon/hwmon1/temp2_input"), -- junction
   settings = function()
     timeout = 2
@@ -226,15 +224,6 @@ awful.screen.connect_for_each_screen(function(s)
 
   s.systray = wibox.widget.systray()
   s.systray.visible = true
-
-  s.mytasklist = awful.widget.tasklist {
-    screen = s,
-    filter = awful.widget.tasklist.filter.alltags,
-    buttons = tasklist_buttons,
-    style = {
-      shape = gears.shape.rounded_rect,
-    },
-  }
 
   local layoutwrapper = wibox.widget { {
     {
