@@ -1,18 +1,15 @@
 local theme_assets                      = require("beautiful.theme_assets")
 local xresources                        = require("beautiful.xresources")
 local dpi                               = xresources.apply_dpi
+local awful                             = require("awful")
 
 local gfs                               = require("gears.filesystem")
 local themes_path                       = gfs.get_themes_dir()
 local gears                             = require "gears"
 
-local device                            = RC.vars.device
-
 local assets_dir                        = "~/.config/awesome/assets/"
 
 local theme                             = {}
-
-local lain                              = require("lain")
 
 -- Font variables defined by me:
 theme.mono_font                         = "Jetbrains Mono Nerd Font 14"

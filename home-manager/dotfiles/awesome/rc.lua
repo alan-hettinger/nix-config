@@ -11,6 +11,7 @@ require("awful.autofocus")
 -- Theme handling library
 local beautiful = require("beautiful")
 
+
 -- Miscellanous awesome library
 local menubar = require("menubar")
 
@@ -23,6 +24,13 @@ require("main.error-handling")
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init("/home/alan/.config/awesome/theme.lua")
+
+local function set_wallpaper(s)
+  local wallpaper = beautiful.wallpaper
+  gears.wallpaper.maximized(wallpaper, s, true)
+end
+awful.screen.connect_for_each_screen(function(s) set_wallpaper(s) end)
+screen.connect_signal("property::geometry", set_wallpaper)
 
 -- }}}
 

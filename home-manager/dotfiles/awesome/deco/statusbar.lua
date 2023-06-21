@@ -7,8 +7,7 @@ local wibox           = require("wibox")
 
 -- Custom Local Library: Common Functional Decoration
 local deco            = {
-  wallpaper = require("deco.wallpaper"),
-  taglist   = require("deco.taglist"),
+  taglist = require("deco.taglist"),
 }
 
 local taglist_buttons = deco.taglist()
@@ -191,9 +190,6 @@ local mytextclock = wibox.widget {
 }
 
 awful.screen.connect_for_each_screen(function(s)
-  -- Wallpaper
-  set_wallpaper(s)
-
   -- Create an imagebox widget which will contain an icon indicating which layout we're using.
   -- We need one layoutbox per screen.
   s.mylayoutbox = awful.widget.layoutbox(s)
