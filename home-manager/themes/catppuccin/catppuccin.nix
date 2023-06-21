@@ -120,18 +120,12 @@
     };
     # rofi.theme = ../dotfiles/rofi/catppuccin-macchiato.rasi; ## FIXME this is how it's supposed to work
     rofi.theme = "catppuccin-macchiato"; # # FIXME depends on hacky fix below
-    # home = {
-    #   shellAliases = {
-    #     catppuccin = "inkcat latte,frappe,macchiato,mocha";
-    #     catppucciny = "inkcat";
-    #   };
-    # };
     waybar.style = ./waybar.css;
   };
   home.file.".config/rofi/catppuccin-macchiato.rasi".source =
-    ./rofi/catppuccin-macchiato.rasi; # FIXME hacky fix
+    ./rofi/catppuccin-macchiato.rasi;
   home.file.".config/Kvantum" = {
-    source = ./Kvantum; # FIXME doesnt symlink
+    source = ./Kvantum;
     recursive = true;
   };
   home.file.".config/qt5ct" = {

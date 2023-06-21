@@ -55,6 +55,7 @@
   };
 
   home.activation = {
+    ## doom emacs can't be installed using fetchFromGithub because some doom scripts modify the contents of the directory
     installDoom = ''
       if [ ! -d "${config.home.homeDirectory}/.emacs.d" ]; then
       ${pkgs.git}/bin/git clone --depth 1 https://github.com/doomemacs/doomemacs ${config.home.homeDirectory}/.emacs.d

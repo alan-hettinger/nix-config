@@ -30,7 +30,7 @@
       gnome.gnome-themes-extra
     ];
 
-    # install awesome config and dependencies
+    # install awesome config and dependencies (currently lain is the only dep)
     file = {
       ".config/awesome/lain".source = pkgs.fetchFromGitHub {
         owner = "lcpz";
