@@ -73,10 +73,6 @@ local gputempbox = wibox.widget { {
       font = theme.taglist_font,
       widget = wibox.container.background,
     },
-    -- left = 10,
-    -- right = 10,
-    -- top = 3,
-    -- bottom = 3,
     widget = wibox.container.margin
   },
   shape = gears.shape.rectangle,
@@ -167,10 +163,6 @@ local batbox = wibox.widget { {
       fg = "#f4dbd6",
       widget = wibox.container.background,
     },
-    -- left = 10,
-    -- right = 10,
-    -- top = 3,
-    -- bottom = 3,
     widget = wibox.container.margin
   },
   shape = gears.shape.rectangle,
@@ -235,9 +227,6 @@ awful.screen.connect_for_each_screen(function(s)
       widget = wibox.container.margin
     },
     shape = gears.shape.rounded_rect,
-    -- bg = "#1e1e2e",
-    -- shape_border_color = theme.border_normal,
-    -- shape_border_width = 3,
     widget = wibox.container.background
   },
     layout = wibox.layout.align.horizontal,
@@ -270,7 +259,6 @@ awful.screen.connect_for_each_screen(function(s)
     {
       -- Left widgets
       layout = wibox.layout.fixed.horizontal,
-      -- s.mylayoutbox,
       layoutwrapper,
       s.mytaglist,
     },
