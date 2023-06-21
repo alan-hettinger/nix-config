@@ -7,6 +7,8 @@ local gears = require("gears")
 local awful = require("awful")
 require("awful.autofocus")
 
+local home = os.getenv("HOME")
+local awesomeDir = home .. "/.config/awesome"
 
 -- Theme handling library
 local beautiful = require("beautiful")
@@ -23,7 +25,7 @@ require("main.error-handling")
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init("/home/alan/.config/awesome/theme.lua")
+beautiful.init(awesomeDir .. "/theme.lua")
 
 local function set_wallpaper(s)
   local wallpaper = beautiful.wallpaper

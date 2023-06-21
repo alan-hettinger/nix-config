@@ -3,20 +3,21 @@ local gears = require("gears")
 local awful = require("awful")
 -- local hotkeys_popup = require("awful.hotkeys_popup").widget
 local hotkeys_popup = require("awful.hotkeys_popup")
--- Menubar library
-local menubar = require("menubar")
 
 -- Resource Configuration
 local modkey = RC.vars.modkey
 local terminal = RC.vars.terminal
 local term2 = RC.vars.term2
 local browser = RC.vars.browser
+local browser2 = RC.vars.browser2
 local launcher = RC.vars.launcher
 local editor = RC.vars.editor
 local filemanager = RC.vars.filemanager
 local screenlock = RC.vars.screenlock
 local bookmarks = RC.vars.bookmarks
 local windowswitcher = RC.vars.windowswitcher
+local powerMenu = RC.vars.powerMenu
+local screenshot = RC.vars.screenshot
 
 local lain = require("lain")
 
@@ -26,18 +27,6 @@ local _M = {}
 -- https://awesomewm.org/wiki/Global_Keybindings
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-
--- available keys:
---    - mod+a
---    - mod+;
---    - mod+'
---    - mod+r
---    - mod+y
---    - mod+u
---    - mod+i
---    - mod+[
---    - mod+]
---    - mod+.
 
 function _M.get()
   local globalkeys = gears.table.join(
@@ -140,7 +129,6 @@ function _M.get()
       { description = "toggle volume mute", group = "audio" }
     ),
 
-
     awful.key({ modkey }, "F11", function()
         awful.spawn.with_shell("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-")
       end,
@@ -187,23 +175,7 @@ function _M.get()
         end
       end,
       { description = "restore minimized", group = "client" }),
-    awful.key({ modkey, }, "e", function() awful.spawn.with_shell("autorandr clamshell") end,
-      { description = "place display in clamshell mode", group = "screen" }
-    ),
-    awful.key({ modkey, "Control" }, "e", function() awful.spawn.with_shell("xrandr --output HDMI-A-0 --same-as eDP") end
-      ,
-      { description = "screen mirroring", group = "screen" }
-    ),
 
-
-    awful.key({ modkey, "Shift" }, "e", function() awful.spawn.with_shell("autorandr docked") end,
-      { description = "dual display", group = "screen" }
-    ),
-
-
-    awful.key({ modkey, "Shift", "Control" }, "e", function() awful.spawn.with_shell("autorandr default") end,
-      { description = "laptop display only", group = "screen" }
-    ),
     --   -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
     awful.key({ modkey }, "d", function() awful.spawn(launcher) end,
       { description = "launcher", group = "launcher" }
@@ -229,20 +201,17 @@ function _M.get()
     awful.key({ modkey }, "v", function() awful.spawn(editor) end,
       { description = "text editor", group = "applications" }
     ),
-    awful.key({ modkey }, "Escape", function() awful.spawn("rofi -show power-menu -modi power-menu:rofi-power-menu") end,
+    awful.key({ modkey }, "Escape", function() awful.spawn(powerMenu) end,
       { description = "power menu", group = "launcher" }
     ),
 
-    awful.key({ modkey }, "p", function() awful.spawn("flameshot gui") end,
+    awful.key({ modkey }, "p", function() awful.spawn(screenshot) end,
       { description = "screenshot", group = "launcher" }
     ),
 
 
 
     --   -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-    -- Resize
-    --awful.key({ modkey, "Control" }, "Left",  function () awful.client.moveresize( 20,  20, -40, -40) end),
-    --awful.key({ modkey, "Control" }, "Right", function () awful.client.moveresize(-20, -20,  40,  40) end),
     awful.key({ modkey, "Control" }, "Up",
       function() awful.client.moveresize(0, 0, 0, -20) end),
     awful.key({ modkey, "Control" }, "Down",
@@ -261,12 +230,6 @@ function _M.get()
       function() awful.client.moveresize(-20, 0, 0, 0) end),
     awful.key({ modkey, "Shift" }, "Right",
       function() awful.client.moveresize(20, 0, 0, 0) end)
-
-  --   -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-  -- Menubar
-  --    awful.key({ modkey }, "p", function() menubar.show() end,
-  --              {description = "show the menubar", group = "launcher"})
-  --
 
   )
 
