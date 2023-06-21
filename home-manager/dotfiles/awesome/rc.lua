@@ -41,7 +41,6 @@ local lain = require("lain")
 local main = {
   layouts = require("main.layouts"),
   tags    = require("main.tags"),
-  -- menu    = require("main.menu"),
   rules   = require("main.rules"),
 }
 
@@ -68,10 +67,6 @@ RC.layouts = main.layouts()
 -- a variable needed in rules, tasklist, and globalkeys
 RC.tags = main.tags()
 -- }}}
-
--- {{{ Menu
--- Create a laucher widget and a main menu
--- RC.mainmenu = awful.menu({ items = main.menu() }) -- in globalkeys
 
 -- a variable needed in statusbar (helper)
 RC.launcher = awful.widget.launcher(
