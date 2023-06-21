@@ -10,25 +10,34 @@ local theme                                     = {}
 theme.mono_font                                 = "Jetbrains Mono Nerd Font 14"
 theme.variable_font                             = "Liberation Sans 15"
 
-theme.font                                      = theme.variable_font
-theme.font_color                                = "#cdd6f4" -- catppuccin macchiato text
+-- colors added by me to modularize theming:
+theme.red                                       = "#ed8796"
+theme.blue                                      = "#8aadf4"
+theme.lightRed                                  = "#ee99a0"
+theme.yellow                                    = "#eed49f"
+theme.lightYellow                               = "#f4dbd6"
+theme.baseBlack                                 = "#24273a"
+theme.baseWhite                                 = "#cad3f5"
 
-theme.bg_normal                                 = "#24273a" -- catppuccin macchiato base
+-- basic theme colors
+theme.font                                      = theme.variable_font
+theme.font_color                                = theme.baseWhite
+
+theme.bg_normal                                 = theme.baseBlack
 theme.bg_focus                                  = "#535d6c" -- not a custom theme ?
 theme.bg_urgent                                 = "#ff0000"
 theme.bg_minimize                               = "#444444"
 
-theme.fg_normal                                 = "#cad3f5" -- catppuccin macchiato text
-theme.fg_focus                                  = "#f4dbd6" -- catppuccin macchiato rosewater
-theme.fg_urgent                                 = "#ed8796" -- catppuccin macchiato red
+theme.fg_normal                                 = theme.baseWhite
+theme.fg_focus                                  = theme.lightYellow
+theme.fg_urgent                                 = theme.red
 theme.fg_minimize                               = "#9399b2"
 
 theme.useless_gap                               = dpi(8)
 theme.border_width                              = dpi(3)
 theme.gap_single_client                         = true
 theme.border_normal                             = "#363a4f" -- catppuccin macchiato surface0
-theme.border_focus                              = "#8aadf4" -- macchiato blue
--- "#9399b2" -- mocha overlay2
+theme.border_focus                              = theme.blue
 theme.border_marked                             = theme.border_normal
 
 -- notification theme

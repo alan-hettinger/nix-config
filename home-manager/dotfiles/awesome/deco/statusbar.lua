@@ -33,7 +33,7 @@ local tempbox         = wibox.widget { {
   {
     {
       temp,
-      fg = "#8aadf4",
+      fg = theme.blue,
       font = theme.taglist_font,
       widget = wibox.container.background,
     },
@@ -69,7 +69,7 @@ local gputempbox = wibox.widget { {
   {
     {
       tempgpu,
-      fg = "#ee99a0",
+      fg = theme.lightRed,
       font = theme.taglist_font,
       widget = wibox.container.background,
     },
@@ -94,7 +94,7 @@ local membox = wibox.widget { {
   {
     {
       mem,
-      fg = "#eed49f",
+      fg = theme.yellow,
       widget = wibox.container.background,
       font = theme.taglist_font,
     },
@@ -123,7 +123,7 @@ local cpubox = wibox.widget { {
   {
     {
       cpu,
-      fg = "#8aadf4",
+      fg = theme.blue,
       widget = wibox.container.background,
     },
     left = 10,
@@ -160,7 +160,7 @@ local batbox = wibox.widget { {
   {
     {
       bat,
-      fg = "#f4dbd6",
+      fg = theme.lightYellow,
       widget = wibox.container.background,
     },
     widget = wibox.container.margin
@@ -250,7 +250,7 @@ awful.screen.connect_for_each_screen(function(s)
     layout = {
       spacing = 6,
       spacing_widget = {
-        color = "#1e1e2e",
+        color = theme.bg_normal,
         widget = wibox.widget.separator
       },
     },
