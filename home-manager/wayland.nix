@@ -9,8 +9,9 @@
   wayland.windowManager.hyprland = {
     systemdIntegration = true;
     recommendedEnvironment = true;
-    # extraConfig = ## dir for config file
+    extraConfig = { };
   };
+
   programs.waybar = {
     settings = {
       layer = "top";

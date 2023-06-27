@@ -59,6 +59,8 @@
       extraConfig = {
         icon-theme = "Papirus-Dark";
         show-icons = true;
+        modi = "drun,window,filebrowser,combi";
+        combi-modes = ["window" "drun"];
 
         ## keybindings:
         kb-mode-next = "Shift+Right,Tab,Control+l";

@@ -6,6 +6,7 @@
   ];
   services = {
     xserver = {
+      excludePackages = with pkgs; [ xterm ];
       enable = true;
       desktopManager = {
         xterm.enable = false;

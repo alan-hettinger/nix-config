@@ -24,7 +24,7 @@
     lua
     lua-language-server
     # clang
-    texlive.combined.scheme-medium
+    texlive.combined.scheme-full # FIXME should only need scheme-medium and this many latex packages is a pain
     nil # nix lsp
     # (python38.withPackages (ps: with ps; [ jupyter ]))
 

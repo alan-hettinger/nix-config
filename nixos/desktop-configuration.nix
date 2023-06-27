@@ -65,6 +65,8 @@
         }
       ];
       deviceSection = ''Option "VariableRefresh" "True"'';
+
+      libinput.mouse.middleEmulation = false;
     };
 
     mullvad-vpn = {
@@ -106,6 +108,8 @@
     ## for whatever reason and I have scripts that look for it
     variables = { HOSTNAME = "alan-desktop-linux"; };
   };
+
+  programs.gamemode.enable = true;
 
   location = {
     provider = "manual";
