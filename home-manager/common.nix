@@ -18,7 +18,6 @@
       permittedInsecurePackages =
         [ # # TODO this is a temporary fix due to above error, test after update if still present
           "openssl-1.1.1u" # # TODO find who needs this
-          # "nodejs-16.20.0" ## I think the problem package here is bitwarden?
         ];
     };
   };
@@ -167,8 +166,12 @@
     home-manager.enable = true;
   };
   home = {
-    sessionPath =
-      [ "$HOME/bin" "$HOME/.local/share/scripts" "$HOME/.cargo/bin" "$HOME/.emacs.d/bin" ];
+    sessionPath = [
+      "$HOME/bin"
+      "$HOME/.local/share/scripts"
+      "$HOME/.cargo/bin"
+      "$HOME/.emacs.d/bin"
+    ];
 
     sessionVariables = {
       QT_QPA_PLATFORMTHEME = "qt5ct";
