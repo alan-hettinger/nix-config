@@ -39,7 +39,15 @@
   i18n = { defaultLocale = "en_US.UTF-8"; };
   console = { keyMap = "us"; };
   services = {
-    printing.enable = true;
+    printing = {
+      enable = true;
+      drivers = with pkgs;
+        [
+          # drivers for my brother printer:
+          cups-brother-hll2340dw
+
+        ];
+    };
     pipewire = {
       enable = true;
       alsa.enable = true;
