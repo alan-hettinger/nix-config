@@ -48,6 +48,12 @@
 
         ];
     };
+    avahi = { # needed for printing over wifi
+      enable = true;
+      nssmdns = true;
+      openFirewall = true;
+    };
+    system-config-printer.enable = true;
     pipewire = {
       enable = true;
       alsa.enable = true;
@@ -74,6 +80,7 @@
   programs = {
     zsh.enable = true;
     dconf.enable = true;
+    system-config-printer.enable = true;
   };
 
   environment.systemPackages = with pkgs; [
