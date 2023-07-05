@@ -15,8 +15,6 @@
       nvtop
       unzip
       cbonsai
-
-      wezterm
     ];
     shellAliases = {
       ## applies across all shells
@@ -190,6 +188,12 @@
           format = "[$symbol]($style)";
         };
       };
+    };
+
+    wezterm = {
+      enable = true;
+      enableZshIntegration = true;
+      extraConfig = builtins.readFile ./dotfiles/wezterm.lua;
     };
 
     alacritty = {
