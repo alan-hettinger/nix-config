@@ -1,7 +1,7 @@
 local home = os.getenv("HOME")
 
 local _M = {
-  terminal = "alacritty",
+  terminal = "wezterm",
   term2 = "rofi-tmux",
   browser = "firefox",
   launcher = "rofi -show drun -sidebar-mode",
