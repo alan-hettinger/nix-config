@@ -3,15 +3,16 @@
     packages = with pkgs; [
       i3lock-color
       xorg.xkill
-      libsForQt5.ark
-      libsForQt5.dolphin
-      libsForQt5.dolphin-plugins
-      kio-fuse
-      libsForQt5.kio
-      libsForQt5.kio-admin
-      libsForQt5.kio-extras
-      libsForQt5.qt5ct
-      libsForQt5.qtstyleplugin-kvantum
+      xarchiver
+      # libsForQt5.ark
+      # libsForQt5.dolphin
+      # libsForQt5.dolphin-plugins
+      # kio-fuse
+      # libsForQt5.kio
+      # libsForQt5.kio-admin
+      # libsForQt5.kio-extras
+      # libsForQt5.qt5ct
+      # libsForQt5.qtstyleplugin-kvantum
       brave
       spotify
       spicetify-cli

@@ -91,8 +91,8 @@
 
   qt = {
     enable = true;
-    platformTheme = "qt5ct";
-    style = "adwaita-dark";
+    platformTheme = "gtk2";
+    style = "gtk2";
   };
   environment = {
     extraInit = ''

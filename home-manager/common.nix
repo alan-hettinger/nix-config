@@ -47,6 +47,35 @@
         source = ./scripts;
       };
     };
+    mimeApps = {
+      enable = true;
+      # copied directly from existing mimeaps.list
+      defaultApplications = {
+        "application/epub+zip" = [ "emacsclient.desktop" ];
+        "application/pdf" = [ "emacsclient.desktop" ];
+        "application/x-extension-htm" = [ "firefox.desktop" ];
+        "application/x-extension-html" = [ "firefox.desktop" ];
+        "application/x-extension-shtml" = [ "firefox.desktop" ];
+        "application/x-extension-xht" = [ "firefox.desktop" ];
+        "application/x-extension-xhtml" = [ "firefox.desktop" ];
+        "application/xhtml+xml" = [ "firefox.desktop" ];
+        "application/xspf+xml" = [ "vlc.desktop" ];
+        "inode/directory" = [ "thunar.desktop" ];
+        "message/rfc822" = [ "userapp-Thunderbird-Y9ZY61.desktop" ];
+        "text/html" = [ "firefox.desktop" ];
+        "text/markdown" = [ "emacsclient.desktop" ];
+        "text/plain" = [ "emacsclient.desktop" ];
+        "video/x-matroska" = [ "vlc.desktop" ];
+        "x-scheme-handler/chrome" = [ "firefox.desktop" ];
+        "x-scheme-handler/http" = [ "firefox.desktop" ];
+        "x-scheme-handler/https" = [ "firefox.desktop" ];
+        "x-scheme-handler/magnet" =
+          [ "userapp-transmission-gtk-06T351.desktop" ];
+        "x-scheme-handler/mailto" = [ "userapp-Thunderbird-Y9ZY61.desktop" ];
+        "x-scheme-handler/mid" = [ "userapp-Thunderbird-Y9ZY61.desktop" ];
+        "image" = [ "org.xfce.ristretto.desktop" "sxiv.desktop" ];
+      };
+    };
   };
 
   programs = {
@@ -174,7 +203,7 @@
     ];
 
     sessionVariables = {
-      QT_QPA_PLATFORMTHEME = "qt5ct";
+      # QT_QPA_PLATFORMTHEME = "qt5ct";
       TERM = "alacritty";
       GOPATH = "$HOME/go";
     };

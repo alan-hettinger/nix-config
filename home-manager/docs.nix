@@ -4,7 +4,7 @@
     libreoffice
     pandoc
     calibre
-    libsForQt5.okular
+    # libsForQt5.okular
     pdfarranger
     # nextcloud-client
     thunderbird

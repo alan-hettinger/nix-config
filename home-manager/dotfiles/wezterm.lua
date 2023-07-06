@@ -66,7 +66,7 @@ local config = {
     { key = "7",     mods = "LEADER",       action = wezterm.action { ActivateTab = 6 } },
     { key = "8",     mods = "LEADER",       action = wezterm.action { ActivateTab = 7 } },
     { key = "9",     mods = "LEADER",       action = wezterm.action { ActivateTab = 8 } },
-    { key = "x",     mods = "LEADER",       action = wezterm.action { CloseCurrentPane = { confirm = true } } },
+    { key = "x",     mods = "LEADER",       action = wezterm.action { CloseCurrentPane = { confirm = false } } },
     { key = "v",     mods = "SHIFT|CTRL",   action = wezterm.action.PasteFrom 'Clipboard' },
     { key = "c",     mods = "SHIFT|CTRL",   action = wezterm.action.CopyTo 'Clipboard' },
     { key = "Space", mods = "LEADER",       action = wezterm.action.ActivateCopyMode },
