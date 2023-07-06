@@ -68,6 +68,7 @@
     accounts-daemon.enable = true;
 
     gnome.gnome-keyring.enable = true;
+    fwupd = { enable = true; };
   };
   sound.enable = true;
   hardware = {
