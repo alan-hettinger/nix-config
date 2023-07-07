@@ -28,6 +28,12 @@ client.connect_signal("manage", function(c)
   end
 end)
 
+-- focus urgent clients (this should only happen when they're pinged by a window switcher)
+client.connect_signal("property::urgent", function(c)
+  c.minimized = false
+  c:jump_to()
+end)
+
 client.connect_signal("property::floating", function(c)
   if c.floating then
     awful.titlebar.show(c)

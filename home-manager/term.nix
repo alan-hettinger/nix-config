@@ -92,10 +92,10 @@
 
       };
       interactiveShellInit = ''
-       fish_vi_key_bindings --no-erase insert
-       set fish_cursor_default block
-       set fish_cursor_insert line
-       set fish_cursor_replace_one underscore
+        fish_vi_key_bindings --no-erase insert
+        set fish_cursor_default block
+        set fish_cursor_insert line
+        set fish_cursor_replace_one underscore
       '';
       # plugins = with pkgs.fishPlugins; [ ## FIXME it's not supposed to be formatted this way
       #   pisces
@@ -128,11 +128,8 @@
           "$git_state"
           "$git_status"
           "$git_metrics"
-          "$fill"
           "$cmd_duration"
-          "$jobs"
           "$sudo"
-          "$time"
           "$line_break"
           "$character"
         ];
@@ -171,7 +168,7 @@
         time = {
           disabled = false;
           use_12hr = true;
-          format = " [$time]($style) ";
+          format = " took [$time]($style) ";
         };
         nix_shell = {
           disabled = false;
@@ -280,7 +277,6 @@
     };
 
     lf = {
-      ## https://nix-community.github.io/home-manager/options.html#opt-programs.lf.enable
       enable = true;
       settings = {
         color256 = true;

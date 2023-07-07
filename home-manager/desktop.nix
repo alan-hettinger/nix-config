@@ -62,6 +62,7 @@
         show-icons = true;
         modi = "drun,window,filebrowser,combi";
         combi-modes = ["window" "drun"];
+        combi-hide-mode-prefix = true;
 
         ## keybindings:
         kb-mode-next = "Shift+Right,Tab,Control+l";

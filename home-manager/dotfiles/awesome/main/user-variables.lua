@@ -2,9 +2,9 @@ local home = os.getenv("HOME")
 
 local _M = {
   terminal = "wezterm",
-  term2 = "rofi-tmux",
+  term2 = "wezterm connect unix",
   browser = "firefox",
-  launcher = "rofi -show drun -sidebar-mode",
+  launcher = "rofi -show combi",
   bookmarks = "rofi -show bookmarks -sidebar-mode",
   windowswitcher = "rofi -show window -sidebar-mode",
   powerMenu = "rofi -show power-menu -modi power-menu:rofi-power-menu",

@@ -1,12 +1,42 @@
 -- Pull in the wezterm API
 local wezterm = require 'wezterm'
 local act = wezterm.action
+local mux = wezterm.mux
 
 -- In newer versions of wezterm, use the config_builder which will
 -- help provide clearer error messages
 if wezterm.config_builder then
   config = wezterm.config_builder()
 end
+
+-- helper function when resizing the window so that we don't accidentally get squished:
+function recompute_padding(window)
+  local overrides = window:get_config_overrides() or {}
+
+  local new_padding = {
+    left = 3,
+    right = 3,
+    top = 3,
+    bottom = 3,
+  }
+  if
+      overrides.window_padding
+      and new_padding.left == overrides.window_padding.left
+  then
+    -- padding is same, avoid triggering further changes
+    return
+  end
+  overrides.window_padding = new_padding
+  window:set_config_overrides(overrides)
+end
+
+wezterm.on('window-resized', function(window)
+  recompute_padding(window)
+end)
+
+wezterm.on('window-config-reloaded', function(window)
+  recompute_padding(window)
+end)
 
 -- This table will hold the configuration.
 local config = {
@@ -29,6 +59,7 @@ local config = {
   window_padding = {
     left = 3, right = 3, top = 3, bottom = 3,
   },
+  window_decorations = "NONE",
 
   default_cursor_style = "SteadyBar",
 
@@ -36,9 +67,9 @@ local config = {
   unix_domains = {
     { name = 'unix', },
   },
+  -- default_gui_startup_args = { 'connect', 'unix' },
 
-  default_gui_startup_args = { 'connect', 'unix' },
-
+  -- need to recompute the window size when it changes during multiplexing:
 
   -- Keybinds
 
@@ -72,6 +103,10 @@ local config = {
     { key = "Space", mods = "LEADER",       action = wezterm.action.ActivateCopyMode },
     { key = "=",     mods = "CTRL",         action = wezterm.action.IncreaseFontSize },
     { key = "-",     mods = "CTRL",         action = wezterm.action.DecreaseFontSize },
+    { key = "t",     mods = "CTRL",         action = wezterm.action { SpawnTab = "CurrentPaneDomain" } },
+    { key = "w",     mods = "CTRL",         action = wezterm.action.CloseCurrentTab { confirm = false } },
+    -- { key = "Enter", mods = "CTRL",         action = act.AttachDomain 'unix' },
+    -- { key = "Enter", mods = "CTRL|SHIFT",   action = act.DetachDomain 'unix' },
 
 
   },
