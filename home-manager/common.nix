@@ -85,6 +85,17 @@
       delta = { enable = true; };
       userName = "Alan";
       userEmail = "alan.hettinger@proton.me";
+      extraConfig = {
+        core = {
+          editor = "emacsclient";
+        };
+        merge = {
+          autoStash = true;
+        };
+        rebase = {
+          autoStash = true;
+        };
+      };
     };
     gh = {
       enable = true;
