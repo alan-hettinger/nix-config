@@ -1,0 +1,139 @@
+#!/usr/bin/env bash
+
+## An overwrought script to update/upgrade everything on my system in one go
+##
+## CLI options:
+## --logdir - save the log to a different directory
+## --no-log - don't save logs for this update
+## --nixdir - the directory where flake.lock is saved
+## --no-auto-commit - don't automatically git commit flake.lock
+## --skip flake | rebuild | doom | flatpak - skip part of the upgrade
+## -v --verbose - print everything to stdout in addition to logging it
+##
+# settings for the script:
+logdir="$HOME/.update-logs/" # where the logs should be saved to
+# num_logs=30                      # TODO how many log files should be saved
+no_log=false                     # if true, don't actually save the log
+nix_conf_dir="$HOME/nix-config/" # where the nix flake lives
+auto_commit=true                 # should changes to the flake be automatically committed to git?
+verbose=false                    # should the script print everything
+
+#each step for the update. Make sure to add to the array at the end.
+update_flake() {
+    step="updating flake"
+    if [ "$PWD" != "$nix_conf_dir" ]; then
+        cd "$nix_conf_dir" || exit 1
+    fi
+    nix flake update &&
+        if [ "$auto_commit" = true ]; then
+            git add flake.lock && git commit -m "update flake"
+        fi
+    cd "$HOME" || exit 1
+}
+rebuild() {
+    step="rebuilding system"
+    sudo nixos-rebuild switch -v
+}
+update_doom() {
+    step="upgrading doom"
+    if command -v "doom" >/dev/null; then
+        doom upgrade --force # the --force suppresses prompts by auto-accepting consequences
+    else
+        echo "Doom emacs is not installed."
+    fi
+}
+update_flatpak() {
+    step="upgrading flatpaks"
+    if command -v "flatpak" >/dev/null; then
+        flatpak upgrade
+    fi
+}
+# steps to be completed:
+steps=('update_flake' 'rebuild' 'update_doom' 'update_flatpak')
+
+# the logic for the script:
+# skip elements if passed by CLI:
+skip() {
+    case $delete in
+        flake)
+            steps=("${steps[@]/update_flake/}")
+            echo "Skipping flake update."
+            ;;
+        rebuild)
+            steps=("${steps[@]/rebuild/}")
+            echo "Skipping system rebuild."
+            ;;
+        doom)
+            steps=("${steps[@]/update_doom/}")
+            echo "Skipping doom upgrade."
+            ;;
+        flatpak)
+            steps=("${steps[@]/update_flatpak/}")
+            echo "Skipping flatpak upgrade."
+            ;;
+    esac
+}
+# handle CLI options:
+while [ "$1" != "" ]; do
+    case $1 in
+        --logdir)
+            shift
+            logdir="$1"
+            ;;
+        --no-log)
+            no_log=true
+            ;;
+        --nixdir)
+            shift
+            nix_conf_dir="$1"
+            ;;
+        --no-auto-commit)
+            auto_commit=false
+            ;;
+        --skip)
+            shift
+            delete="$1"
+            skip
+            ;;
+        -v | --verbose)
+            verbose=true
+            ;;
+    esac
+    shift
+done
+
+# colors:
+
+GREEN="\033[0;32m"
+UGREEN='\033[4;32m'
+RED='\033[0;31m'
+
+# notify on error:
+err_exit() { echo -e "${RED}error with $step." && exit 1; }
+# handle logging and printing to stdout
+do_step() {
+    if [ "$verbose" = false ]; then
+        $1 &>>"$logfile" || err_exit
+    else
+        $1 | tee -a "$logfile" || err_exit
+    fi
+    if [ "$step" != "" ]; then
+        echo -e "${GREEN}Finished $step successfully."
+    fi
+}
+
+# this is where the script actually starts:
+if [ "$no_log" = false ]; then
+    if [ ! -d "$logdir" ]; then mkdir "$logdir"; fi
+    logfile="$logdir/$(date +%y.%m.%d).txt"
+else
+    logfile="/dev/null"
+fi
+echo -e "\n---Update at $(date +%H:%M:%S) on $(date +%y.%m.%d)---\n\n" &>>"$logfile"
+original_dir="$PWD"
+echo "Beginning updates."
+for i in "${steps[@]}"; do
+    do_step "$i"
+done
+echo -e "${UGREEN}All updates successful!"
+cd "$original_dir" || exit
