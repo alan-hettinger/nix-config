@@ -21,6 +21,7 @@ verbose=false                    # should the script print everything
 #each step for the update. Make sure to add to the array at the end.
 update_flake() {
     step="updating flake"
+    echo -e "\nupdate flake\n"
     if [ "$PWD" != "$nix_conf_dir" ]; then
         cd "$nix_conf_dir" || exit 1
     fi
@@ -32,10 +33,12 @@ update_flake() {
 }
 rebuild() {
     step="rebuilding system"
+    echo -e "\nrebuild system\n"
     sudo nixos-rebuild switch -v
 }
 update_doom() {
     step="upgrading doom"
+    echo -e "\ndoom emacs\n"
     if command -v "doom" >/dev/null; then
         doom upgrade --force # the --force suppresses prompts by auto-accepting consequences
     else
@@ -44,6 +47,7 @@ update_doom() {
 }
 update_flatpak() {
     step="upgrading flatpaks"
+    echo -e "\nupgrade flatpak\n"
     if command -v "flatpak" >/dev/null; then
         flatpak upgrade
     fi
