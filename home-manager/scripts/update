@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-## An overwrought script to update/upgrade everything on my system in one go
+## An overwrought script to update/upgrade everything on my system in one go.
 ##
 ## CLI options:
 ## --logdir - save the log to a different directory
@@ -111,9 +111,10 @@ done
 GREEN="\033[0;32m"
 UGREEN='\033[4;32m'
 RED='\033[0;31m'
+NOCOLOR='\033[0m'
 
 # notify on error:
-err_exit() { echo -e "${RED}error with $step." && exit 1; }
+err_exit() { echo -e "${RED}error with $step.${NOCOLOR}" && exit 1; }
 # handle logging and printing to stdout
 do_step() {
     if [ "$verbose" = false ]; then
@@ -122,7 +123,7 @@ do_step() {
         $1 | tee -a "$logfile" || err_exit
     fi
     if [ "$step" != "" ]; then
-        echo -e "${GREEN}Finished $step successfully."
+        echo -e "${GREEN}Finished $step successfully.${NOCOLOR}"
     fi
 }
 
@@ -139,5 +140,5 @@ echo "Beginning updates."
 for i in "${steps[@]}"; do
     do_step "$i"
 done
-echo -e "${UGREEN}All updates successful!"
+echo -e "${UGREEN}All updates successful!${NOCOLOR}"
 cd "$original_dir" || exit
