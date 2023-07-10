@@ -10,24 +10,27 @@
 ## --skip flake | rebuild | doom | flatpak - skip part of the upgrade
 ## -v --verbose - print everything to stdout in addition to logging it
 ##
-# settings for the script:
-logdir="$HOME/.update-logs/" # where the logs should be saved to
-# num_logs=30                      # TODO how many log files should be saved
+## settings for the script:
+logdir="$HOME/.update-logs/"     # where the logs should be saved to
 no_log=false                     # if true, don't actually save the log
 nix_conf_dir="$HOME/nix-config/" # where the nix flake lives
 auto_commit=true                 # should changes to the flake be automatically committed to git?
 verbose=false                    # should the script print everything
 
-#each step for the update. Make sure to add to the array at the end.
+##each step for the update. Make sure to add to the array at the end.
+## each function should have 3 parts:
+## - $step, to be echoed on success/failure
+## - something to be echoed into the log to separate components
+## - the steps for updating non-interactively
 update_flake() {
     step="updating flake"
     echo -e "\nupdate flake\n"
     if [ "$PWD" != "$nix_conf_dir" ]; then
-        cd "$nix_conf_dir" || exit 1
+        cd "$nix_conf_dir" || exit 1 # if I don't put exit after cd the lsp yells at me
     fi
     nix flake update &&
         if [ "$auto_commit" = true ]; then
-            git add flake.lock && git commit -m "update flake"
+            git add flake.lock && git commit -m "update flake" # I always do this right afterwards anyway
         fi
     cd "$HOME" || exit 1
 }
@@ -38,11 +41,11 @@ rebuild() {
 }
 update_doom() {
     step="upgrading doom"
-    echo -e "\ndoom emacs\n"
-    if command -v "doom" >/dev/null; then
-        doom upgrade --force # the --force suppresses prompts by auto-accepting consequences
+    echo -e "\nupgrade doom emacs\n"
+    if command -v "doom" >/dev/null; then # "command" prints the name of the command, throw that in the trash
+        doom upgrade --force              # the --force suppresses prompts by auto-accepting consequences
     else
-        echo "Doom emacs is not installed."
+        echo "Doom emacs is not installed." # this will only show up in the logs
     fi
 }
 update_flatpak() {
@@ -52,12 +55,12 @@ update_flatpak() {
         flatpak upgrade
     fi
 }
-# steps to be completed:
+## steps to be completed:
 steps=('update_flake' 'rebuild' 'update_doom' 'update_flatpak')
 
-# the logic for the script:
-# skip elements if passed by CLI:
-skip() {
+## the logic for the script:
+
+skip() { # skip elements if passed by CLI:
     case $delete in
         flake)
             steps=("${steps[@]/update_flake/}")
@@ -77,7 +80,7 @@ skip() {
             ;;
     esac
 }
-# handle CLI options:
+## handle CLI options:
 while [ "$1" != "" ]; do
     case $1 in
         --logdir)
@@ -106,39 +109,38 @@ while [ "$1" != "" ]; do
     shift
 done
 
-# colors:
-
+## colors:
 GREEN="\033[0;32m"
 UGREEN='\033[4;32m'
 RED='\033[0;31m'
 NOCOLOR='\033[0m'
 
-# notify on error:
+## notify on error:
 err_exit() { echo -e "${RED}error with $step.${NOCOLOR}" && exit 1; }
-# handle logging and printing to stdout
+## handle logging and printing to stdout
 do_step() {
     if [ "$verbose" = false ]; then
-        $1 &>>"$logfile" || err_exit
+        $1 &>>"$logfile" || err_exit # append to the log only
     else
-        $1 | tee -a "$logfile" || err_exit
+        $1 | tee -a "$logfile" || err_exit # print everything and append to log
     fi
     if [ "$step" != "" ]; then
         echo -e "${GREEN}Finished $step successfully.${NOCOLOR}"
     fi
 }
 
-# this is where the script actually starts:
+## this is effectively the entry point if no CLI options are passed:
 if [ "$no_log" = false ]; then
     if [ ! -d "$logdir" ]; then mkdir "$logdir"; fi
-    logfile="$logdir/$(date +%y.%m.%d).txt"
+    logfile="$logdir/$(date +%y.%m.%d).txt" # log files are broken up by day
 else
     logfile="/dev/null"
 fi
-echo -e "\n---Update at $(date +%H:%M:%S) on $(date +%y.%m.%d)---\n\n" &>>"$logfile"
-original_dir="$PWD"
+echo -e "\n---Update at $(date +%H:%M:%S) on $(date +%y.%m.%d)---\n\n" &>>"$logfile" # so the log file is more readable
+original_dir="$PWD"                                                                  # so we can cd back later
 echo "Beginning updates."
 for i in "${steps[@]}"; do
-    do_step "$i"
+    do_step "$i" # actually do the updates already
 done
 echo -e "${UGREEN}All updates successful!${NOCOLOR}"
 cd "$original_dir" || exit
