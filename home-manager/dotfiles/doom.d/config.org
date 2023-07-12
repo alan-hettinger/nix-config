@@ -175,7 +175,7 @@ Show/hide modeline:
 
 (after! org
   (setq org-startup-folded t)
-  (setq org-directory "~/Nextcloud/Documents/Notes/org/")
+  (setq org-directory "~/Documents/Notes/org/")
   ;; makes info files linkable from org
    (add-to-list 'org-modules 'ol-info)
 
@@ -186,6 +186,12 @@ Show/hide modeline:
   (setq org-ellipsis " ▼ ")
                 )
 #+end_src
+*** Disable company-ispell
+Company-ispell is really intrusive when writing prose, so I disable that in org-mode:
+#+begin_src emacs-lisp
+(set-company-backend! 'org-mode nil)
+(set-company-backend! 'org-mode '(:separate company-yasnippet company-dabbrev))
+#+end_src
 *** Export settings
 #+begin_src emacs-lisp
 (after! org
@@ -194,6 +200,14 @@ Show/hide modeline:
       ;; org-odt-preferred-output-format docx
       )
                 )
+#+end_src
+The following allows headlines to be ignored while including their contents:
+#+begin_src emacs-lisp
+(defun org-remove-headlines (backend)
+  (org-map-entries (lambda () (delete-region (point-at-bol) (point-at-eol)))
+                   "ignore"))
+
+(add-hook 'org-export-before-processing-hook #'org-remove-headlines)
 #+end_src
 *** Org-babel
 #+begin_src emacs-lisp

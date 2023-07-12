@@ -109,7 +109,7 @@
 
 (after! org
   (setq org-startup-folded t)
-  (setq org-directory "~/Nextcloud/Documents/Notes/org/")
+  (setq org-directory "~/Documents/Notes/org/")
   ;; makes info files linkable from org
    (add-to-list 'org-modules 'ol-info)
 
@@ -120,12 +120,21 @@
   (setq org-ellipsis " ▼ ")
                 )
 
+(set-company-backend! 'org-mode nil)
+(set-company-backend! 'org-mode '(:separate company-yasnippet company-dabbrev))
+
 (after! org
 (setq org-export-with-section-numbers nil
       org-export-with-toc nil
       ;; org-odt-preferred-output-format docx
       )
                 )
+
+(defun org-remove-headlines (backend)
+  (org-map-entries (lambda () (delete-region (point-at-bol) (point-at-eol)))
+                   "ignore"))
+
+(add-hook 'org-export-before-processing-hook #'org-remove-headlines)
 
 (org-babel-do-load-languages
  'org-babel-load-languages
