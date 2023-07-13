@@ -80,9 +80,7 @@
 (global-auto-revert-mode 1)
 (setq global-auto-revert-non-file-buffers t)
 
-(after! ispell-minor-mode
-  (setq ispell-dictionary en_US
-                ))
+(setq ispell-dictionary "en_US")
 (setq +word-wrap-disabled-modes '(vterm-mode))
 
 (setq evil-want-fine-undo t
@@ -95,6 +93,8 @@
                :desc "save and quit server-edit frame" "e" #'server-edit
                :desc "abort server-edit frame" "E" #'server-edit-abort)
                 )
+
+(map! :i "M-TAB" (cmds! (not (minibufferp)) #'company-complete-common))
 
 ;; (setq company-global-modes '(not org-mode, not markdown-mode not eshell-mode))
 
@@ -120,8 +120,8 @@
   (setq org-ellipsis " ▼ ")
                 )
 
-(set-company-backend! 'org-mode nil)
-(set-company-backend! 'org-mode '(:separate company-yasnippet company-dabbrev))
+(add-hook 'org-mode-hook
+          (lambda () (setq-local company-idle-delay nil)))
 
 (after! org
 (setq org-export-with-section-numbers nil

@@ -137,9 +137,7 @@ credit to https://tecosaur.github.io/emacs-config/config.html#ascii-banner
 (global-auto-revert-mode 1)
 (setq global-auto-revert-non-file-buffers t)
 
-(after! ispell-minor-mode
-  (setq ispell-dictionary en_US
-                ))
+(setq ispell-dictionary "en_US")
 (setq +word-wrap-disabled-modes '(vterm-mode))
 #+end_src
 #+begin_src emacs-lisp
@@ -148,7 +146,7 @@ credit to https://tecosaur.github.io/emacs-config/config.html#ascii-banner
 #+end_src
 
 **** TODO break these down under headers
-*** TODO Keybindings
+*** Keybindings
 Show/hide modeline:
 #+begin_src emacs-lisp
 (map! :leader
@@ -158,6 +156,24 @@ Show/hide modeline:
                :desc "save and quit server-edit frame" "e" #'server-edit
                :desc "abort server-edit frame" "E" #'server-edit-abort)
                 )
+#+end_src
+Bind alt-tab to company completion rather than spell-checking:
+#+begin_src emacs-lisp
+(map! :i "M-TAB" (cmds! (not (minibufferp)) #'company-complete-common))
+#+end_src
+*** TODO Perspectives and tab bar
+show workspace names in tab bar. Per https://github.com/Bad-ptr/persp-mode.el/issues/122#issuecomment-1224884651. Not currently working on my setup.
+#+begin_src emacs-lisp :tangle no
+  (add-hook 'persp-before-deactivate-functions
+            (defun +workspaces-save-tab-bar-data-h (_)
+              (when (get-current-persp)
+                (set-persp-parameter
+                 'tab-bar-tabs (tab-bar-tabs)))))
+
+  (add-hook 'persp-activated-functions
+            (defun +workspaces-load-tab-bar-data-h (_)
+              (tab-bar-tabs-set (persp-parameter 'tab-bar-tabs))
+              (tab-bar--update-tab-bar-lines t)))
 #+end_src
 ** Prose (org and markdown)
 *** General settings
@@ -186,11 +202,11 @@ Show/hide modeline:
   (setq org-ellipsis " ▼ ")
                 )
 #+end_src
-*** Disable company-ispell
-Company-ispell is really intrusive when writing prose, so I disable that in org-mode:
+*** TODO Company-ispell
+For some reason this doesn't do what it is supposed to
 #+begin_src emacs-lisp
-(set-company-backend! 'org-mode nil)
-(set-company-backend! 'org-mode '(:separate company-yasnippet company-dabbrev))
+(add-hook 'org-mode-hook
+          (lambda () (setq-local company-idle-delay nil)))
 #+end_src
 *** Export settings
 #+begin_src emacs-lisp
