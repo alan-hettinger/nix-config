@@ -23,6 +23,7 @@
        :completion
        (company                         ; the ultimate code completion backend
         +childframe
+        ;; +tng
         )
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
@@ -40,7 +41,7 @@
        ;;hydra
        indent-guides   ; highlighted indent columns
        (ligatures)     ; ligatures and symbols to make your code pretty again
-       minimap           ; show a map of the code on the side
+       ;; minimap           ; show a map of the code on the side
        modeline   ; snazzy, Atom-inspired modeline, plus API
        nav-flash  ; blink cursor line after big motions
        ;; neotree           ; a project drawer, like NERDTree for vim
@@ -89,7 +90,8 @@
        (syntax                       ; tasing you for every semicolon you forget
         +childframe)
        (spell
-        +hunspell
+        ;; +hunspell
+        +aspell
         +flyspell)  ; tasing you for misspelling mispelling
        grammar           ; tasing grammar mistake every you make
 
