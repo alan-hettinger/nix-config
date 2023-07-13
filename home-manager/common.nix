@@ -48,7 +48,7 @@
       };
     };
     mimeApps = {
-      enable = true;
+      enable = false; # disabling because thunar overwrites and then home-manager gets mad
       # copied directly from existing mimeaps.list
       defaultApplications = {
         "application/epub+zip" = [ "emacsclient.desktop" ];
