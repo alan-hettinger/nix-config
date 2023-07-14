@@ -27,6 +27,7 @@
 
 ;; disable title bar in gnome
 (setq default-frame-alist '((undecorated . t)))
+(setq lsp-headerline-breadcrumb-enable t)
 
 (after! doom-modeline
   (setq doom-modeline-enable-word-count t

@@ -62,6 +62,7 @@ Options that are not currently set:
 
 ;; disable title bar in gnome
 (setq default-frame-alist '((undecorated . t)))
+(setq lsp-headerline-breadcrumb-enable t)
 #+end_src
 **** Mode line
 I have a few customizations here:
