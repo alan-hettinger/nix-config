@@ -1,4 +1,3 @@
-local home = os.getenv("HOME")
 local awful = require("awful")
 
 local _M = {

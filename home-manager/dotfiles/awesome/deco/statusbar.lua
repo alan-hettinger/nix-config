@@ -12,9 +12,7 @@ local deco            = {
 
 local taglist_buttons = deco.taglist()
 
-local _M              = {}
 local theme           = require("theme")
-local screenlock      = RC.vars.screenlock
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 -- add libraries for third party widgets
@@ -247,6 +245,7 @@ awful.screen.connect_for_each_screen(function(s)
 
   -- Add widgets to the wibox
   s.mywibox:setup {
+    ---@diagnostic disable-next-line: duplicate-index
     layout = {
       spacing = 6,
       spacing_widget = {
@@ -254,6 +253,7 @@ awful.screen.connect_for_each_screen(function(s)
         widget = wibox.widget.separator
       },
     },
+    ---@diagnostic disable-next-line: duplicate-index
     layout = wibox.layout.align.horizontal,
     expand = "none",
     {

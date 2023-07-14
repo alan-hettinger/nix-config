@@ -27,4 +27,5 @@ end
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
+---@diagnostic disable-next-line: redundant-parameter
 return setmetatable({}, { __call = function(_, ...) return _M.get(...) end })
