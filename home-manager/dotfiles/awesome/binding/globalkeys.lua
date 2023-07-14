@@ -27,6 +27,31 @@ local _M = {}
 -- https://awesomewm.org/wiki/Global_Keybindings
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+-- cycle through nonempty tags only
+-- credit to https://www.reddit.com/r/awesomewm/comments/lzly7b/comment/gqcocl3/?utm_source=share&utm_medium=web2x&context=3
+-- TODO how to cycle backwards?
+local function tag_view_nonempty(step, s)
+  step = step or 1
+  s = s or awful.screen.focused()
+  local tags = s.tags
+  local bound = step > 0 and #tags or 1
+
+  for i = s.selected_tag.index + step, bound, step do
+    local t = tags[i]
+    if #t:clients() > 0 then
+      t:view_only()
+      return
+    end
+  end
+
+  for i = step == 1 and 1 or 9, bound, step do
+    local t = tags[i]
+    if #t:clients() > 0 then
+      t:view_only()
+      return
+    end
+  end
+end
 
 function _M.get()
   local globalkeys = gears.table.join(
@@ -34,10 +59,10 @@ function _M.get()
       { description = "show help", group = "awesome" }),
 
     -- Tag browsing
+    awful.key({ modkey, }, "Tab", tag_view_nonempty,
+      { description = "view next", group = "tag" }),
     awful.key({ modkey, "Shift" }, "Tab", awful.tag.viewprev,
       { description = "view previous", group = "tag" }),
-    awful.key({ modkey, }, "Tab", awful.tag.viewnext,
-      { description = "view next", group = "tag" }),
     awful.key({ modkey }, "w", function() awful.spawn(windowswitcher) end,
       { description = "list windows", group = "launcher" }),
 
