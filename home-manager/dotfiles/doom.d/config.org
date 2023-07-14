@@ -175,6 +175,11 @@ show workspace names in tab bar. Per https://github.com/Bad-ptr/persp-mode.el/is
               (tab-bar-tabs-set (persp-parameter 'tab-bar-tabs))
               (tab-bar--update-tab-bar-lines t)))
 #+end_src
+*** PDF mode
+#+begin_src emacs-lisp
+(add-hook 'pdf-view-mode-hook
+          (lambda () (pdf-view-auto-slice-minor-mode 1)))
+#+end_src
 ** Prose (org and markdown)
 *** General settings
 #+begin_src emacs-lisp

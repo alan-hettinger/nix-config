@@ -96,6 +96,9 @@
 
 (map! :i "M-TAB" (cmds! (not (minibufferp)) #'company-complete-common))
 
+(add-hook 'pdf-view-mode-hook
+          (lambda () (pdf-view-auto-slice-minor-mode 1)))
+
 ;; (setq company-global-modes '(not org-mode, not markdown-mode not eshell-mode))
 
 (dolist (mode '(org-mode-hook
