@@ -445,6 +445,9 @@ I currently have ranger disabled in init.el
 (setq geiser-default-implementation '(guile))
 #+end_src
 ** LSPs
+#+begin_src emacs-lisp
+(setq lsp-treemacs-errors-position-params `((side . right)))
+#+end_src
 *** Lua (fix for nixos)
 #+begin_src emacs-lisp
   ;; ;;          doesn't work:

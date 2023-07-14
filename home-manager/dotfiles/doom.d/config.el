@@ -299,6 +299,8 @@
 (setq geiser-active-implementations '(guile))
 (setq geiser-default-implementation '(guile))
 
+(setq lsp-treemacs-errors-position-params `((side . right)))
+
   ;; ;;          doesn't work:
   ;; (setq
   ;;  lsp-clients-lua-language-server-bin (executable-find "lua-language-server")
