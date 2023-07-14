@@ -18,6 +18,7 @@ local bookmarks = RC.vars.bookmarks
 local windowswitcher = RC.vars.windowswitcher
 local powerMenu = RC.vars.powerMenu
 local screenshot = RC.vars.screenshot
+local workapps = RC.vars.start_work_apps
 
 local lain = require("lain")
 
@@ -123,13 +124,14 @@ function _M.get()
       { description = "focus the previous screen", group = "screen" }),
 
     -- Standard program
-    awful.key({ modkey, }, "Return", function()
-        awful.spawn(terminal
-        )
-      end,
+    awful.key({ modkey, }, "Return", function() awful.spawn(terminal) end,
       { description = "open a terminal", group = "launcher" }),
     awful.key({ modkey, "Shift" }, "Return", function() awful.spawn(term2) end,
       { description = "term without tmux", group = "launcher" }),
+
+    -- open all of my work programs at once:
+    awful.key({ modkey, "Control" }, "Return", workapps,
+      { description = "launch all work apps", group = "launcher" }),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
       { description = "reload awesome", group = "awesome" }),
     awful.key({ modkey, "Shift" }, "q", awesome.quit,
