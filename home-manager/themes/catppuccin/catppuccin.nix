@@ -8,12 +8,7 @@
 
   gtk.theme = {
     name = "Catppuccin-Macchiato-Compact-Rosewater-Dark";
-    package = pkgs.catppuccin-gtk.override {
-      size = "compact";
-      variant = "macchiato";
-      accents = [ "rosewater" ];
-      tweaks = [ "rimless" ];
-    };
+    package = pkgs.catppuccin-gtk;
   };
 
   programs = {
@@ -132,4 +127,8 @@
     source = ./qt5ct;
     recursive = true;
   };
+  ## make gtk4 themes work:
+  # home.file.".config/gtk-4.0" = {
+  #   source = pkgs.catppuccin-gtk/gtk-4.0;
+  # };
 }

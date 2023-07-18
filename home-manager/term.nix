@@ -47,40 +47,7 @@
         ## envvars
       };
       ## .zshrc extras:
-      initExtra = ''
-        # Function to cd and ls in one command
-        cl () {
-            if [ "$#" -eq 0 ]; then
-                "cd" || return
-            else
-                "cd" "$1" || return
-            fi
-            ls -A --color=auto
-        }
-
-        # some functions copied from the fzf github page https://github.com/junegunn/fzf/wiki/Examples
-        # fh - repeat history
-        fh() {
-          print -z $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf --height 50% --reverse --border +s --tac | sed -E 's/ *[0-9]*\*? *//' | sed -E 's/\\/\\\\/g')
-        }
-
-        ## cd on exiting lf
-        lfcd () {
-            tmp="$(mktemp)"
-            # `command` is needed in case `lfcd` is aliased to `lf`
-            command lf -last-dir-path="$tmp" "$@"
-            if [ -f "$tmp" ]; then
-                dir="$(cat "$tmp")"
-                rm -f "$tmp"
-                if [ -d "$dir" ]; then
-                    if [ "$dir" != "$(pwd)" ]; then
-                        cd "$dir"
-                    fi
-                fi
-            fi
-        }
-        bindkey -s '^o' 'lfcd\n'  # zsh
-      '';
+      initExtra = builtins.readFile ./dotfiles/zsh-extra.zsh;
       localVariables = {
         ## variables in .zshrc
       };

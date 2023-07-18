@@ -13,7 +13,16 @@
     users = { alan = import ../home-manager/home.nix; };
   };
 
-  nixpkgs.overlays = [ ];
+  nixpkgs.overlays = [
+    (final: prev: {
+      catppuccin-gtk = prev.catppuccin-gtk.override {
+        size = "compact";
+        variant = "macchiato";
+        accents = [ "rosewater" ];
+        tweaks = [ "rimless" ];
+      };
+    })
+  ];
 
   nix = {
     gc = {
