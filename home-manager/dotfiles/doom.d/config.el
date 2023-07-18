@@ -146,6 +146,7 @@
    (lua . t)
    (scheme . t)
    (shell . t)
+   (racket . t)
    ))
 
 (after! org
@@ -205,6 +206,7 @@
   (setq treemacs-indentation 1
         treemacs-indentation-string "┃"
         treemacs-width 25
+        treemacs-wide-toggle-width 40
         treemacs-text-scale 1
         ;; treemacs-persist-file "~/.doom.d/conf/treemacs-persist.org"
         ))

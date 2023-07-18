@@ -239,6 +239,7 @@ The following allows headlines to be ignored while including their contents:
    (lua . t)
    (scheme . t)
    (shell . t)
+   (racket . t)
    ))
 
 (after! org
@@ -319,6 +320,7 @@ Better fonts on nov.el:
   (setq treemacs-indentation 1
         treemacs-indentation-string "┃"
         treemacs-width 25
+        treemacs-wide-toggle-width 40
         treemacs-text-scale 1
         ;; treemacs-persist-file "~/.doom.d/conf/treemacs-persist.org"
         ))
@@ -507,4 +509,5 @@ I currently have ranger disabled in init.el
 (package! dired-open)
 (package! mixed-pitch)
 (package! olivetti)
+(package! sicp)
 #+end_src

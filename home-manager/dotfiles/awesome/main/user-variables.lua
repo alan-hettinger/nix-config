@@ -1,8 +1,8 @@
 local awful = require("awful")
 
 local _M = {
-  terminal = "wezterm",
-  term2 = "wezterm connect unix",
+  terminal = "wezterm connect unix",
+  term2 = "wezterm",
   browser = "firefox",
   launcher = "rofi -show combi",
   bookmarks = "rofi -show bookmarks -sidebar-mode",

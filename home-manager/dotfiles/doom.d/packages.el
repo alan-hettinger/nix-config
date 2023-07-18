@@ -8,3 +8,4 @@
 (package! dired-open)
 (package! mixed-pitch)
 (package! olivetti)
+(package! sicp)
