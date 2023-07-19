@@ -205,6 +205,24 @@ awful.screen.connect_for_each_screen(function(s)
         widget = wibox.widget.separator
       },
       layout = wibox.layout.fixed.horizontal,
+      widget_template = {
+        {
+          {
+            id = 'index_role',
+            widget = wibox.widget.textbox,
+          },
+          margins = 4,
+          widget = wibox.container.margin,
+        },
+        {
+          {
+            id = 'icon_role',
+            widget = wibox.widget.imagebox,
+          },
+          margins = 2,
+          widget = wibox.container.margin,
+        },
+      },
     },
   }
 
