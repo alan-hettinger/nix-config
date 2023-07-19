@@ -1,14 +1,51 @@
-{ pkgs, ... }: {
+{ pkgs, config, ... }: {
+
+  nixpkgs.overlays = [
+    (final: prev: {
+      catppuccin-gtk = prev.catppuccin-gtk.override {
+        accents = [ "rosewater" ];
+        size = "compact"; # standard|compact
+        tweaks = [ "rimless" ];
+        variant = "macchiato";
+      };
+    })
+  ];
 
   home.packages = with pkgs; [
     catppuccin-kvantum
     catppuccin-kde
 
   ];
-
-  gtk.theme = {
-    name = "Catppuccin-Macchiato-Compact-Rosewater-Dark";
-    package = pkgs.catppuccin-gtk;
+  gtk = {
+    theme = {
+      name = "Catppuccin-Macchiato-Compact-Rosewater-dark";
+      package = pkgs.catppuccin-gtk;
+    };
+    gtk3.extraConfig = {
+      gtk-application-prefer-dark-theme = true;
+      gtk-cursor-blink = false;
+      gtk-enable-primary-paste = false;
+      gtk-decoration-layout = "menu:";
+    };
+    # attempting to remove double borders on firefox etc:
+    # gtk3.extraCss = ''
+    #   decoration, window, window.background, window.titlebar, * {
+    #      border-width: 0px;
+    #      border-radius: 10px;
+    #   }
+    # '';
+    # gtk4.extraCss = ''
+    #   decoration, window, window.background, window.titlebar, * {
+    #      border-width: 0px;
+    #      border-radius: 10px;
+    #   }
+    # '';
+    gtk4.extraConfig = {
+      gtk-application-prefer-dark-theme = true;
+      gtk-cursor-blink = false;
+      gtk-enable-primary-paste = false;
+      gtk-decoration-layout = "menu:";
+    };
   };
 
   programs = {
@@ -127,8 +164,9 @@
     source = ./qt5ct;
     recursive = true;
   };
-  ## make gtk4 themes work:
-  # home.file.".config/gtk-4.0" = {
-  #   source = pkgs.catppuccin-gtk/gtk-4.0;
-  # };
+  ## automatically fix gtk4 apps - the theme package doesn't put all the files in the right places
+  ## this is a bad way of doing things; 
+  home.activation.gtk4-fix = ''
+  ln -sf ${pkgs.catppuccin-gtk}/share/themes/Catppuccin-*-dark/gtk-4.0/* ${config.home.homeDirectory}/.config/gtk-4.0/
+  '';
 }

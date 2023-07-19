@@ -14,14 +14,8 @@
   };
 
   nixpkgs.overlays = [
-    (final: prev: {
-      catppuccin-gtk = prev.catppuccin-gtk.override {
-        size = "compact";
-        variant = "macchiato";
-        accents = [ "rosewater" ];
-        tweaks = [ "rimless" ];
-      };
-    })
+    # (final: prev: {
+    # })
   ];
 
   nix = {

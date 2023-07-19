@@ -11,8 +11,8 @@ local lain = require("lain")
 function _M.get()
   local tags = {}
   local tagpairs = {
-    names = { "1:  ", "2:  ", "3:  ", "4:  ", "5:  ", "6:  ", "7:  ", "8:  ", "9:  ", },
-    -- 
+    names = { "1:  ", "2:  ", "3:  ", "4:  ", "5:  ", "6:  ", "7:  ", "8:  ", "9:  ", },
+    --  
     layout = {
       RC.layouts[1], RC.layouts[1], RC.layouts[1], RC.layouts[1], RC.layouts[1], RC.layouts[2], RC.layouts[1],
       RC.layouts[1], RC.layouts[1],
