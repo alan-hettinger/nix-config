@@ -25,6 +25,8 @@ function _M.get()
   --   tags[s] = awful.tag(tagpairs.names, s, tagpairs.layout)
   -- end)
   -- return tags
+  --
+  --
   local tags = {}
   local my_tags = {
     awful.tag.add("1", {
