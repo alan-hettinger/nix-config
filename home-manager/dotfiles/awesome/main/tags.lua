@@ -1,12 +1,14 @@
 -- Standard awesome library
-local awful    = require("awful")
+local awful      = require("awful")
+local xresources = require("beautiful.xresources")
+local dpi        = xresources.apply_dpi
 
-local _M       = {}
+local _M         = {}
 
-local lain     = require("lain")
+local lain       = require("lain")
 
-local theme    = require("theme")
-local iconsdir = os.getenv("HOME") .. "/.config/awesome/assets/icons/"
+local theme      = require("theme")
+local iconsdir   = os.getenv("HOME") .. "/.config/awesome/assets/icons/"
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
@@ -25,12 +27,10 @@ function _M.get()
   --   tags[s] = awful.tag(tagpairs.names, s, tagpairs.layout)
   -- end)
   -- return tags
-  --
-  --
   local tags = {}
   local my_tags = {
-    awful.tag.add("1", {
-      icon               = iconsdir .. "globe.svg",
+    awful.tag.add("1:  ", {
+      -- icon               = "",
       index              = 1,
       layout             = awful.layout.suit.tile,
       -- layouts = [] -- table of layouts available
@@ -43,8 +43,8 @@ function _M.get()
       selected           = true,
     }),
 
-    awful.tag.add("2", {
-      icon               = iconsdir .. "file.svg",
+    awful.tag.add("2:  ", {
+      -- icon               = "",
       index              = 2,
       layout             = awful.layout.suit.tile,
       -- layouts = [] -- table of layouts available
@@ -56,8 +56,8 @@ function _M.get()
       -- screen             = s,
     }),
 
-    awful.tag.add("3", {
-      icon               = iconsdir .. "align-left.svg",
+    awful.tag.add("3:  ", {
+      -- icon               = "",
       index              = 3,
       layout             = awful.layout.suit.tile,
       -- layouts = [] -- table of layouts available
@@ -69,8 +69,8 @@ function _M.get()
       -- screen             = s,
     }),
 
-    awful.tag.add("4", {
-      icon               = iconsdir .. "book-open.svg",
+    awful.tag.add("4:  ", {
+      -- icon               = "",
       index              = 4,
       layout             = awful.layout.suit.tile,
       -- layouts = [] -- table of layouts available
@@ -82,8 +82,8 @@ function _M.get()
       -- screen             = s,
     }),
 
-    awful.tag.add("5", {
-      icon               = iconsdir .. "mail.svg",
+    awful.tag.add("5:  ", {
+      -- icon               = "",
       index              = 5,
       layout             = awful.layout.suit.tile,
       -- layouts = [] -- table of layouts available
@@ -95,21 +95,21 @@ function _M.get()
       -- screen             = s,
     }),
 
-    awful.tag.add("6", {
-      icon               = iconsdir .. "message-square.svg",
+    awful.tag.add("6:  ", {
+      -- icon               = "",
       index              = 6,
       layout             = lain.layout.termfair.center,
       -- layouts = [] -- table of layouts available
       master_fill_policy = theme.master_fill_policy,
       master_count       = theme.master_count,
       gap_single_client  = theme.gap_single_client,
-      gap                = theme.useless_gap,
+      gap                = dpi(25),
       column_count       = theme.column_count,
       -- screen             = s,
     }),
 
-    awful.tag.add("7", {
-      icon               = iconsdir .. "folder.svg",
+    awful.tag.add("7:  ", {
+      -- icon               = "",
       index              = 7,
       layout             = awful.layout.suit.tile,
       -- layouts = [] -- table of layouts available
@@ -121,8 +121,8 @@ function _M.get()
       -- screen             = s,
     }),
 
-    awful.tag.add("8", {
-      icon               = iconsdir .. "play.svg",
+    awful.tag.add("8:  ", {
+      -- icon               = "",
       index              = 8,
       layout             = awful.layout.suit.tile,
       -- layouts = [] -- table of layouts available
@@ -133,6 +133,20 @@ function _M.get()
       column_count       = theme.column_count,
       -- screen             = s,
     }),
+
+    awful.tag.add("9:  ", {
+      -- icon               = "",
+      index              = 9,
+      layout             = awful.layout.suit.tile,
+      -- layouts = [] -- table of layouts available
+      master_fill_policy = theme.master_fill_policy,
+      master_count       = theme.master_count,
+      gap_single_client  = theme.gap_single_client,
+      gap                = theme.useless_gap,
+      column_count       = theme.column_count,
+      -- screen             = s,
+    }),
+
   }
   awful.screen.connect_for_each_screen(function(s)
     tags[s] = my_tags
