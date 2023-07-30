@@ -192,7 +192,7 @@
         +lsp +tree-sitter
         )
        ;;scala             ; java, but good
-       (scheme +guile +racket +mit)  ; a fully conniving family of lisps
+       (scheme +guile +mit)  ; a fully conniving family of lisps
        (sh +lsp +fish +tree-sitter)  ; she sells {ba,z,fi}sh shells on the C xor
        ;;sml
        ;;solidity          ; do you need a blockchain? No.

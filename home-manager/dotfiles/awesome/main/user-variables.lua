@@ -11,7 +11,7 @@ local _M = {
   screenlock = "xflock4",
   screenshot = "flameshot gui",
   editor = "emacsclient -c",
-  filemanager = "thunar",
+  filemanager = "Thunar",
   browser2 = "brave",
   device = "desktop", -- valid options: desktop | laptop
   modkey = "Mod4",
@@ -21,7 +21,7 @@ local _M = {
     awful.spawn("zotero")
     awful.spawn("discord")
     awful.spawn("thunderbird")
-    awful.spawn("emacsclient -c", { tag = awful.screen.focused().tags[2] })
+    awful.spawn("emacsclient -c '~/Documents/Notes/working-todo.org'", { tag = awful.screen.focused().tags[2] })
   end
 }
 return _M

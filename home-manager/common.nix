@@ -214,7 +214,6 @@
     ];
 
     sessionVariables = {
-      # QT_QPA_PLATFORMTHEME = "qt5ct";
       TERM = "alacritty";
       GOPATH = "$HOME/go";
     };

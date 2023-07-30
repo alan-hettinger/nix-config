@@ -48,6 +48,11 @@
     };
   };
 
+  qt = {
+    enable = true;
+    style.name = "adwaita-dark";
+  };
+
   programs = {
 
     tmux.plugins = [{
@@ -160,13 +165,13 @@
     source = ./Kvantum;
     recursive = true;
   };
-  home.file.".config/qt5ct" = {
-    source = ./qt5ct;
-    recursive = true;
-  };
+  # home.file.".config/qt5ct" = {
+  #   source = ./qt5ct;
+  #   recursive = true;
+  # };
   ## automatically fix gtk4 apps - the theme package doesn't put all the files in the right places
   ## this is a bad way of doing things; 
   home.activation.gtk4-fix = ''
-  ln -sf ${pkgs.catppuccin-gtk}/share/themes/Catppuccin-*-dark/gtk-4.0/* ${config.home.homeDirectory}/.config/gtk-4.0/
+    ln -sf ${pkgs.catppuccin-gtk}/share/themes/Catppuccin-*-dark/gtk-4.0/* ${config.home.homeDirectory}/.config/gtk-4.0/
   '';
 }

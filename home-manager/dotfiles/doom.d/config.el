@@ -155,6 +155,7 @@
   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
   (add-to-list 'org-structure-template-alist '("lua" . "src lua"))
   (add-to-list 'org-structure-template-alist '("sc" . "src scheme"))
+  (add-to-list 'org-structure-template-alist '("r" . "src racket"))
   ;; automatically tangle certain config files on save:
   (defun alan/org-babel-tangle-config ()
     (when (string-equal (buffer-file-name)
@@ -163,6 +164,13 @@
         (org-babel-tangle))))
   (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'alan/org-babel-tangle-config)))
 )
+
+(use-package! ob-racket
+  :after org
+;;   :config (add-hook 'ob-racket-pre-runtime-library-load-hook
+;;               #'ob-racket-raco-make-runtime-library)
+  )
+;; (setq ob-racket-default-lang "sicp")
 
 (after! org
 

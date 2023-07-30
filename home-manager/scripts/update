@@ -37,7 +37,7 @@ update_flake() {
 rebuild() {
     step="rebuilding system"
     echo -e "\nrebuild system\n"
-    sudo nixos-rebuild switch -v
+    sudo nixos-rebuild switch
 }
 update_doom() {
     step="upgrading doom"
