@@ -18,7 +18,7 @@
   nix = {
     gc = {
       dates = "weekly";
-      automatic = false;
+      automatic = true;
       options = "--delete-older-than 30d";
     };
     package = pkgs.nixVersions.unstable;
