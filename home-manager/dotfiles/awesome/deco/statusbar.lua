@@ -179,7 +179,8 @@ local mytextclock = wibox.widget {
   margins = 5,
 }
 
-awful.screen.connect_for_each_screen(function(s)
+-- draw different wibars per screen
+local function wibox_primary(s)
   -- Create an imagebox widget which will contain an icon indicating which layout we're using.
   -- We need one layoutbox per screen.
   s.mylayoutbox = awful.widget.layoutbox(s)
@@ -296,4 +297,129 @@ awful.screen.connect_for_each_screen(function(s)
       s.systray,
     },
   }
+end
+
+local function wibox_secondary(s)
+  -- Create an imagebox widget which will contain an icon indicating which layout we're using.
+  -- We need one layoutbox per screen.
+  s.mylayoutbox = awful.widget.layoutbox(s)
+  s.mylayoutbox:buttons(gears.table.join(
+    awful.button({}, 1, function() awful.layout.inc(1) end),
+    awful.button({}, 3, function() awful.layout.inc(-1) end),
+    awful.button({}, 4, function() awful.layout.inc(1) end),
+    awful.button({}, 5, function() awful.layout.inc(-1) end)
+  ))
+
+  -- Create a taglist widget
+  s.mytaglist = awful.widget.taglist {
+    screen  = s,
+    filter  = awful.widget.taglist.filter.all,
+    buttons = taglist_buttons,
+    style   = {
+      shape = gears.shape.rounded_rect
+    },
+    layout  = {
+      spacing = 6,
+      spacing_widget = {
+        color = theme.bg_normal,
+        widget = wibox.widget.separator
+      },
+      layout = wibox.layout.fixed.horizontal,
+      widget_template = {
+        {
+          {
+            id = 'icon_role',
+            widget = wibox.widget.imagebox,
+          },
+          margins = 4,
+          widget = wibox.container.margin,
+        },
+        {
+          {
+            id = 'index_role',
+            widget = wibox.widget.textbox,
+          },
+          margins = 2,
+          widget = wibox.container.margin,
+        },
+      },
+    },
+  }
+
+  s.systray = wibox.widget.systray()
+  s.systray.visible = true
+
+  local layoutwrapper = wibox.widget { {
+    {
+      {
+        s.mylayoutbox,
+        fg = theme.fg_normal,
+        widget = wibox.container.background,
+      },
+      left = 5,
+      right = 10,
+      top = 3,
+      bottom = 3,
+      widget = wibox.container.margin
+    },
+    shape = gears.shape.rounded_rect,
+    widget = wibox.container.background
+  },
+    layout = wibox.layout.align.horizontal,
+  }
+
+
+  -- Create the wibox
+  s.mywibox = awful.wibar({
+    position = "top",
+    screen = s,
+    visible = true,
+    bg = theme.bg_normal,
+    border_width = 2,
+    border_color = theme.border_normal,
+    ontop = false,
+    -- height = 40,
+  })
+
+  -- Add widgets to the wibox
+  s.mywibox:setup {
+    ---@diagnostic disable-next-line: duplicate-index
+    layout = {
+      spacing = 6,
+      spacing_widget = {
+        color = theme.bg_normal,
+        widget = wibox.widget.separator
+      },
+    },
+    ---@diagnostic disable-next-line: duplicate-index
+    layout = wibox.layout.align.horizontal,
+    expand = "none",
+    {
+      -- Left widgets
+      layout = wibox.layout.fixed.horizontal,
+      layoutwrapper,
+    },
+    {
+      -- middle widgets:
+      layout = wibox.layout.fixed.horizontal,
+      s.mytaglist,
+    },
+    {
+      -- Right widgets
+      layout = wibox.layout.fixed.horizontal,
+      -- mytextclock, -- Middle widget
+    },
+  }
+end
+
+local function wibox_per_screen(s)
+  if s == screen.primary then
+    wibox_primary(s)
+  else
+    wibox_secondary(s)
+  end
+end
+
+awful.screen.connect_for_each_screen(function(s)
+  wibox_per_screen(s)
 end)

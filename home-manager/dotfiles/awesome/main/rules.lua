@@ -1,10 +1,11 @@
 -- Standard awesome library
-local awful     = require("awful")
+local awful         = require("awful")
 -- Theme handling library
-local beautiful = require("beautiful")
-local vars      = RC.vars
+local beautiful     = require("beautiful")
+local vars          = RC.vars
 
-local _M        = {}
+local _M            = {}
+local screen2_maybe = vars.screen2_maybe
 
 -- reading
 -- https://awesomewm.org/apidoc/libraries/awful.rules.html

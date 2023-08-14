@@ -22,6 +22,11 @@ local _M = {
     awful.spawn("discord")
     awful.spawn("thunderbird")
     awful.spawn("emacsclient -c '~/Documents/Notes/working-todo.org'", { tag = awful.screen.focused().tags[2] })
-  end
+  end,
+
+  -- for multi-monitor purposes:
+  screen1 = screen.primary,
+  screen2_maybe = awful.screen.getbycoord(2560, 0) or screen.primary,
+
 }
 return _M

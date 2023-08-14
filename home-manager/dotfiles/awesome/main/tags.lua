@@ -10,7 +10,10 @@ local lain       = require("lain")
 local theme      = require("theme")
 local iconsdir   = os.getenv("HOME") .. "/.config/awesome/assets/icons/"
 
+local screen2    = RC.vars.screen2_maybe
+
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+--
 
 function _M.get()
   -- local tags = {}
@@ -28,7 +31,7 @@ function _M.get()
   -- end)
   -- return tags
   local tags = {}
-  local my_tags = {
+  local screen1_tags = {
     awful.tag.add("1:  ", {
       -- icon               = "",
       index              = 1,
@@ -146,8 +149,123 @@ function _M.get()
       column_count       = theme.column_count,
       -- screen             = s,
     }),
-
   }
+  local screen2_tags = {
+    awful.tag.add("1:  ", {
+      -- icon               = "",
+      index              = 1,
+      layout             = awful.layout.suit.tile.bottom,
+      -- layouts = [] -- table of layouts available
+      master_fill_policy = theme.master_fill_policy,
+      master_count       = theme.master_count,
+      gap_single_client  = theme.gap_single_client,
+      gap                = theme.useless_gap,
+      column_count       = theme.column_count,
+      screen             = screen2,
+      selected           = true,
+    }),
+
+    awful.tag.add("2:  ", {
+      -- icon               = "",
+      index              = 2,
+      layout             = awful.layout.suit.tile.bottom,
+      -- layouts = [] -- table of layouts available
+      master_fill_policy = theme.master_fill_policy,
+      master_count       = theme.master_count,
+      gap_single_client  = theme.gap_single_client,
+      gap                = theme.useless_gap,
+      column_count       = theme.column_count,
+      screen             = screen2,
+    }),
+
+    awful.tag.add("3:  ", {
+      -- icon               = "",
+      index              = 3,
+      layout             = awful.layout.suit.tile.bottom,
+      -- layouts = [] -- table of layouts available
+      master_fill_policy = theme.master_fill_policy,
+      master_count       = theme.master_count,
+      gap_single_client  = theme.gap_single_client,
+      gap                = theme.useless_gap,
+      column_count       = theme.column_count,
+      screen             = screen2,
+    }),
+
+    awful.tag.add("4:  ", {
+      -- icon               = "",
+      index              = 4,
+      layout             = awful.layout.suit.tile.bottom,
+      -- layouts = [] -- table of layouts available
+      master_fill_policy = theme.master_fill_policy,
+      master_count       = theme.master_count,
+      gap_single_client  = theme.gap_single_client,
+      gap                = theme.useless_gap,
+      column_count       = theme.column_count,
+      screen             = screen2,
+    }),
+
+    awful.tag.add("5:  ", {
+      -- icon               = "",
+      index              = 5,
+      layout             = awful.layout.suit.tile.bottom,
+      -- layouts = [] -- table of layouts available
+      master_fill_policy = theme.master_fill_policy,
+      master_count       = theme.master_count,
+      gap_single_client  = theme.gap_single_client,
+      gap                = theme.useless_gap,
+      column_count       = theme.column_count,
+      screen             = screen2,
+    }),
+
+    awful.tag.add("6:  ", {
+      -- icon               = "",
+      index              = 6,
+      layout             = awful.layout.suit.tile.bottom,
+      -- layouts = [] -- table of layouts available
+      master_fill_policy = theme.master_fill_policy,
+      master_count       = theme.master_count,
+      gap_single_client  = theme.gap_single_client,
+      gap                = theme.useless_gap,
+      column_count       = theme.column_count,
+      screen             = screen2,
+    }),
+
+    awful.tag.add("7:  ", {
+      -- icon               = "",
+      index              = 7,
+      layout             = awful.layout.suit.tile.bottom,
+      -- layouts = [] -- table of layouts available
+      master_fill_policy = theme.master_fill_policy,
+      master_count       = theme.master_count,
+      gap_single_client  = theme.gap_single_client,
+      gap                = theme.useless_gap,
+      column_count       = theme.column_count,
+      screen             = screen2,
+    }),
+
+    awful.tag.add("8:  ", {
+      -- icon               = "",
+      index              = 8,
+      layout             = awful.layout.suit.tile.bottom,
+      -- layouts = [] -- table of layouts available
+      master_fill_policy = theme.master_fill_policy,
+      master_count       = theme.master_count,
+      gap_single_client  = theme.gap_single_client,
+      gap                = theme.useless_gap,
+      column_count       = theme.column_count,
+      screen             = screen2,
+    }),
+  }
+  -- set up second monitor:
+  if screen.count == 1 then
+    my_tags = screen1_tags
+  else
+    my_tags = { unpack(screen1_tags) }
+    for I = 1, #screen2_tags do
+      my_tags[#screen1_tags + I] = screen2_tags[I]
+    end
+  end
+
   awful.screen.connect_for_each_screen(function(s)
     tags[s] = my_tags
   end)

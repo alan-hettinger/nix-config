@@ -83,10 +83,10 @@ theme.hotkeys_desription_font                   = theme.mono_font -- "Source San
 -- Generate taglist squares:
 local taglist_square_size                       = dpi(0)
 theme.taglist_squares_sel                       = theme_assets.taglist_squares_sel(
-    taglist_square_size, theme.fg_normal
+  taglist_square_size, theme.fg_normal
 )
 theme.taglist_squares_unsel                     = theme_assets.taglist_squares_unsel(
-    taglist_square_size, theme.fg_normal
+  taglist_square_size, theme.fg_normal
 )
 theme.taglist_font                              = theme.mono_font
 theme.taglist_bg_focus                          = cat.surface1
@@ -138,6 +138,7 @@ theme.layout_fairv      = assets_dir .. "grid.svg"
 theme.layout_floating   = assets_dir .. "layers.svg"
 theme.layout_magnifier  = assets_dir .. "maximize.svg"
 theme.layout_tile       = assets_dir .. "align-justify.svg"
+theme.layout_tilebottom = assets_dir .. "align-justify.svg"
 theme.layout_spiral     = assets_dir .. "refresh-cw.svg"
 -- lain layouts:
 -- theme.layout_termfair   = assets_dir .. ""
@@ -147,7 +148,7 @@ theme.layout_centerfair = assets_dir .. "columns.svg" -- termfair.center
 
 -- Generate Awesome icon:
 theme.awesome_icon = theme_assets.awesome_icon(
-    theme.menu_height, theme.bg_focus, theme.fg_focus
+  theme.menu_height, theme.bg_focus, theme.fg_focus
 )
 
 -- Define the icon theme for application icons. If not set then the icons
