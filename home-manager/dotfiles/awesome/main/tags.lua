@@ -88,9 +88,9 @@ function _M.get()
     awful.tag.add("5:  ", {
       -- icon               = "",
       index              = 5,
-      layout             = awful.layout.suit.tile,
+      layout             = awful.layout.suit.magnifier,
       -- layouts = [] -- table of layouts available
-      master_fill_policy = theme.master_fill_policy,
+      master_fill_policy = 0.8,
       master_count       = theme.master_count,
       gap_single_client  = theme.gap_single_client,
       gap                = theme.useless_gap,
@@ -150,13 +150,17 @@ function _M.get()
       -- screen             = s,
     }),
   }
+
+  local mon2_fill_policy = theme.master_fill_policy -- "master_width_factor"
+
+  -- tags for the second screen:
   local screen2_tags = {
     awful.tag.add("1:  ", {
       -- icon               = "",
       index              = 1,
       layout             = awful.layout.suit.tile.bottom,
       -- layouts = [] -- table of layouts available
-      master_fill_policy = theme.master_fill_policy,
+      master_fill_policy = mon2_fill_policy,
       master_count       = theme.master_count,
       gap_single_client  = theme.gap_single_client,
       gap                = theme.useless_gap,
@@ -170,7 +174,7 @@ function _M.get()
       index              = 2,
       layout             = awful.layout.suit.tile.bottom,
       -- layouts = [] -- table of layouts available
-      master_fill_policy = theme.master_fill_policy,
+      master_fill_policy = mon2_fill_policy,
       master_count       = theme.master_count,
       gap_single_client  = theme.gap_single_client,
       gap                = theme.useless_gap,
@@ -183,7 +187,7 @@ function _M.get()
       index              = 3,
       layout             = awful.layout.suit.tile.bottom,
       -- layouts = [] -- table of layouts available
-      master_fill_policy = theme.master_fill_policy,
+      master_fill_policy = mon2_fill_policy,
       master_count       = theme.master_count,
       gap_single_client  = theme.gap_single_client,
       gap                = theme.useless_gap,
@@ -196,7 +200,7 @@ function _M.get()
       index              = 4,
       layout             = awful.layout.suit.tile.bottom,
       -- layouts = [] -- table of layouts available
-      master_fill_policy = theme.master_fill_policy,
+      master_fill_policy = mon2_fill_policy,
       master_count       = theme.master_count,
       gap_single_client  = theme.gap_single_client,
       gap                = theme.useless_gap,
@@ -209,7 +213,7 @@ function _M.get()
       index              = 5,
       layout             = awful.layout.suit.tile.bottom,
       -- layouts = [] -- table of layouts available
-      master_fill_policy = theme.master_fill_policy,
+      master_fill_policy = mon2_fill_policy,
       master_count       = theme.master_count,
       gap_single_client  = theme.gap_single_client,
       gap                = theme.useless_gap,
@@ -222,7 +226,7 @@ function _M.get()
       index              = 6,
       layout             = awful.layout.suit.tile.bottom,
       -- layouts = [] -- table of layouts available
-      master_fill_policy = theme.master_fill_policy,
+      master_fill_policy = mon2_fill_policy,
       master_count       = theme.master_count,
       gap_single_client  = theme.gap_single_client,
       gap                = theme.useless_gap,
@@ -235,7 +239,7 @@ function _M.get()
       index              = 7,
       layout             = awful.layout.suit.tile.bottom,
       -- layouts = [] -- table of layouts available
-      master_fill_policy = theme.master_fill_policy,
+      master_fill_policy = mon2_fill_policy,
       master_count       = theme.master_count,
       gap_single_client  = theme.gap_single_client,
       gap                = theme.useless_gap,
@@ -248,7 +252,7 @@ function _M.get()
       index              = 8,
       layout             = awful.layout.suit.tile.bottom,
       -- layouts = [] -- table of layouts available
-      master_fill_policy = theme.master_fill_policy,
+      master_fill_policy = mon2_fill_policy,
       master_count       = theme.master_count,
       gap_single_client  = theme.gap_single_client,
       gap                = theme.useless_gap,

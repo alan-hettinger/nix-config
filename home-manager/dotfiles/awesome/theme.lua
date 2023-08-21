@@ -54,7 +54,7 @@ theme.notification_icon_size                    = 200
 
 -- variables for layout
 theme.master_width_factor                       = 0.55
-theme.master_fill_policy                        = master_width_factor
+theme.master_fill_policy                        = "expand" -- "master_width_factor"|"expand"
 theme.column_count                              = 1
 theme.master_count                              = 1
 
