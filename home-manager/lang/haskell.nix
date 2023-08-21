@@ -9,7 +9,7 @@
     async
     criterion
     cabal-install
-    haskintex
+    # haskintex
 
   ];
 
