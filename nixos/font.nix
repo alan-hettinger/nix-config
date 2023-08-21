@@ -8,7 +8,7 @@
       defaultFonts.sansSerif = [ "source-sans-pro" ];
       defaultFonts.serif = [ "source-serif-pro" ];
     };
-    fonts = with pkgs; [
+    packages = with pkgs; [
       gyre-fonts
       dejavu_fonts
       font-awesome
@@ -23,6 +23,7 @@
       montserrat
       open-sans
       mononoki
+      emacs-all-the-icons-fonts
       (nerdfonts.override { fonts = [ "FiraCode" "JetBrainsMono" "Iosevka" ]; })
     ];
   };

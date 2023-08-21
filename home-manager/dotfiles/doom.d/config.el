@@ -31,10 +31,12 @@
 
 (after! doom-modeline
   (setq doom-modeline-enable-word-count t
-        doom-modeline-icon t
+        ;; doom-modeline-icon t
         doom-modeline-major-mode-icon t
         doom-modeline-persp-name t
         doom-modeline-window-width-limit 80
+        doom-modeline-height 30
+        doom-modeline-icon nil
         )
   (remove-hook 'doom-modeline-mode-hook #'size-indication-mode)
   (remove-hook 'doom-modeline-mode-hook #'column-number-mode)
@@ -306,8 +308,8 @@
 (add-hook 'ranger-mode-hook 'hide-mode-line-mode)
 
 (setq geiser-repl-query-on-kill-p nil)
-(setq geiser-active-implementations '(guile))
-(setq geiser-default-implementation '(guile))
+;; (setq geiser-active-implementations '(guile))
+;; (setq geiser-default-implementation '(guile))
 
 (setq lsp-treemacs-errors-position-params `((side . right)))
 

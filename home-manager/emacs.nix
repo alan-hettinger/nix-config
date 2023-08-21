@@ -3,7 +3,7 @@
   ## imports = [ inputs.nix-doom-emacs.hmModule ]; # disabling for now, sad
 
   home.packages = with pkgs; [
-    emacs-gtk
+    emacs29-gtk3
     git
     emacsPackages.vterm
     libvterm
@@ -38,7 +38,7 @@
   ];
 
   services.emacs = {
-    package = pkgs.emacs-gtk;
+    package = pkgs.emacs29-gtk3;
     enable = true;
     client.enable = true;
     defaultEditor = true;
