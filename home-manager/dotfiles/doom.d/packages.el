@@ -11,8 +11,10 @@
 (package! sicp)
 (package! ob-racket :recipe
   (:host github
-   ;; :repo "hasu/emacs-ob-racket"
    :repo "DEADB17/ob-racket"
    :files ("*.el" "*.rkt")
    )
   )
+
+(package! doom-modeline
+  :pin "6125309c2caa3c98591a4c802e9b4dd2f7ea83e9")

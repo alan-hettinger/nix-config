@@ -12,6 +12,7 @@
   - [[#guix-scheme-and-lisp-hacking][Guix, scheme, and lisp hacking]]
   - [[#lsps][LSPs]]
 - [[#packages][Packages]]
+  - [[#modeline-fix][Modeline Fix]]
 
 * TODO Introduction
 * Config
@@ -75,12 +76,10 @@ I have a few customizations here:
 #+begin_src emacs-lisp
 (after! doom-modeline
   (setq doom-modeline-enable-word-count t
-        ;; doom-modeline-icon t
         doom-modeline-major-mode-icon t
         doom-modeline-persp-name t
-        doom-modeline-window-width-limit 80
-        doom-modeline-height 30
-        doom-modeline-icon nil
+        doom-modeline-height 25
+        doom-modeline-icon t
         )
   (remove-hook 'doom-modeline-mode-hook #'size-indication-mode)
   (remove-hook 'doom-modeline-mode-hook #'column-number-mode)
@@ -524,9 +523,15 @@ I currently have ranger disabled in init.el
 (package! sicp)
 (package! ob-racket :recipe
   (:host github
-   ;; :repo "hasu/emacs-ob-racket"
    :repo "DEADB17/ob-racket"
    :files ("*.el" "*.rkt")
    )
   )
 #+end_src
+** Modeline Fix
+Icons in doom-modeline are broken for me as of at least [[github:seagle0128/doom-modeline/commit/f45a5a200313][this commit]]. Pinning [[github:seagle0128/doom-modeline/commit/6125309c2caa][this commit]] (what doom used prior to [[github:doomemacs/doomemacs/commit/7a5f5d07e72d496ff614e0892c78b62b31aaac4d][this commit]]) fixes the issue. Check in later to resolve.
+#+begin_src emacs-lisp
+(package! doom-modeline
+  :pin "6125309c2caa3c98591a4c802e9b4dd2f7ea83e9")
+#+end_src
+ - May also be related to nix's handling of fonts in one way or another.

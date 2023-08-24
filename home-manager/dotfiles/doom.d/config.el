@@ -31,12 +31,10 @@
 
 (after! doom-modeline
   (setq doom-modeline-enable-word-count t
-        ;; doom-modeline-icon t
         doom-modeline-major-mode-icon t
         doom-modeline-persp-name t
-        doom-modeline-window-width-limit 80
-        doom-modeline-height 30
-        doom-modeline-icon nil
+        doom-modeline-height 25
+        doom-modeline-icon t
         )
   (remove-hook 'doom-modeline-mode-hook #'size-indication-mode)
   (remove-hook 'doom-modeline-mode-hook #'column-number-mode)
