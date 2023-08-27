@@ -30,8 +30,9 @@ function _M.get()
       -- Overrides should always be of the form { tag index, property, value }
       { 5, "layout",             awful.layout.suit.magnifier },
       { 5, "master_fill_policy", 0.8 },
-      { 6, "layout",             lain.layout.termfair.center },
+      -- { 6, "layout",             lain.layout.termfair.center },
       { 6, "gap",                dpi(25) },
+      { 6, "master_fill_policy", "master_width_factor" }
     }
   }
 
@@ -49,57 +50,49 @@ function _M.get()
     default_selected_tag = 6,
   }
 
+  -- logic for setting up tag table for each screen:
   local setup_per_screen = function(target_screen)
-    local make_tag_table = function(tag_names, target_table)
-      for I = 1, #tag_names do
-        target_table[I] = awful.tag.add(tag_names[I], { index = I })
-      end
-    end
-
-    local set_defaults = function()
-      local props = { 'layout', 'master_fill_policy', 'master_count', 'gap_single_client', 'gap', 'column_count',
-        'screen' }
-      for I = 1, #target_screen.tags do
-        local thistag = target_screen.tags[I]
-        for v = 1, #props do
-          local thisprop = props[v]
-          -- if thistag[v] == nil then
-          thistag[thisprop] = target_screen.defaults[thisprop]
-          -- end
-        end
-      end
-      target_screen.tags[target_screen.default_selected_tag].selected = true
-    end
-
-
-    local override = function(tag, prop, val)
-      target_screen.tags[tag][prop] = val
-    end
-    local set_overrides = function()
-      if target_screen.overrides ~= nil then
-        for I = 1, #target_screen.overrides do
-          local tag = target_screen.overrides[I][1]
-          local prop = target_screen.overrides[I][2]
-          local val = target_screen.overrides[I][3]
-          override(tag, prop, val)
-        end
-      end
-    end
-
+    -- initialize the table:
     target_screen.tags = {}
-    make_tag_table(target_screen.tag_names, target_screen.tags)
-    set_defaults()
-    set_overrides()
+    -- make one tag per listed name in order
+    for I = 1, #target_screen.tag_names do
+      target_screen.tags[I] = awful.tag.add(target_screen.tag_names[I], { index = I })
+    end
+
+    -- set the properties of each tag to the screen's defaults
+    local props = { 'layout', 'master_fill_policy', 'master_count', 'gap_single_client', 'gap', 'column_count',
+      'screen' }
+    for I = 1, #target_screen.tags do
+      local thistag = target_screen.tags[I]
+      for v = 1, #props do
+        local thisprop = props[v]
+        -- if thistag[v] == nil then
+        thistag[thisprop] = target_screen.defaults[thisprop]
+        -- end
+      end
+    end
+    target_screen.tags[target_screen.default_selected_tag].selected = true
+
+    -- override properties if there are any overrides:
+    if target_screen.overrides ~= nil then
+      for I = 1, #target_screen.overrides do
+        local tag = target_screen.overrides[I][1]
+        local prop = target_screen.overrides[I][2]
+        local val = target_screen.overrides[I][3]
+        -- override(tag, prop, val)
+        target_screen.tags[tag][prop] = val
+      end
+    end
   end
 
-  setup_per_screen(screen1)
-  setup_per_screen(screen2)
-
-  -- set up second monitor:
+  -- do the stuff:
   local my_tags = {}
   if screen.count == 1 then
+    setup_per_screen(screen1)
     my_tags = screen1.tags
   else
+    setup_per_screen(screen1)
+    setup_per_screen(screen2)
     my_tags = { table.unpack(screen1.tags) }
     for I = 1, #screen2.tags do
       my_tags[#screen1.tags + I] = screen2.tags[I]
