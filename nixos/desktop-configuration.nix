@@ -66,6 +66,16 @@
             Option "PreferredMode" "2560x1440_144.00"
           '';
         }
+        "HDMI-A-0"
+        {
+          output = "HDMI-A-0";
+          primary = false;
+          monitorConfig = ''
+            Option "Rotate" "right"
+            Option "DPMS" "false"
+            Option "RightOf" "DisplayPort-0"
+          '';
+        }
       ];
       deviceSection = ''Option "VariableRefresh" "True"'';
 
