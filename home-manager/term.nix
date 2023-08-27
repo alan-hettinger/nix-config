@@ -270,28 +270,22 @@
       vimAlias = true;
 
       plugins = with pkgs.vimPlugins; [
-        # nvim-lspconfig
-        # mason-nvim
-        # mason-lspconfig-nvim
-        neodev-nvim
         nvim-cmp
         # cmp-nvim-lsp
         which-key-nvim
         telescope-nvim
         nvim-treesitter
+        nvim-treesitter-parsers.bash
+        nvim-treesitter-parsers.lua
+        nvim-treesitter-parsers.markdown
+        nvim-treesitter-parsers.nix
+        nvim-treesitter-parsers.org
+        nvim-treesitter-parsers.racket
+        nvim-treesitter-parsers.scheme
+        lualine-nvim
+        nvim-autopairs
       ];
-
-      extraConfig = ''
-        augroup change_cursor
-             au!
-             au ExitPre * :set guicursor=a:ver90
-         augroup END
-      '';
-      extraLuaConfig = ''
-        if vim.g.neovide then
-          vim.o.guifont = "JetBrains Mono:h14"
-        end
-      '';
+      extraLuaConfig = builtins.readFile ./dotfiles/nvim.lua;
     };
   };
 }
