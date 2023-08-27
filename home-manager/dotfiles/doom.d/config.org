@@ -535,3 +535,7 @@ Icons in doom-modeline are broken for me as of at least [[github:seagle0128/doom
   :pin "6125309c2caa3c98591a4c802e9b4dd2f7ea83e9")
 #+end_src
  - May also be related to nix's handling of fonts in one way or another.
+More info:
+ - https://github.com/doomemacs/doomemacs/issues/7368
+ - https://github.com/seagle0128/doom-modeline/pull/622
+ - https://github.com/doomemacs/doomemacs/pull/7364
