@@ -87,16 +87,19 @@ function _M.get()
 
   -- do the stuff:
   local my_tags = {}
-  if screen.count == 1 then
+  if awful.screen.count == 1 then
     setup_per_screen(screen1)
     my_tags = screen1.tags
-  else
+  elseif awful.screen.count == 2 then
     setup_per_screen(screen1)
     setup_per_screen(screen2)
     my_tags = { table.unpack(screen1.tags) }
     for I = 1, #screen2.tags do
       my_tags[#screen1.tags + I] = screen2.tags[I]
     end
+  else
+    setup_per_screen(screen1)
+    my_tags = screen1.tags
   end
 
   awful.screen.connect_for_each_screen(function(s)
