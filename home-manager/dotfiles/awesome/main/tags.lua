@@ -14,6 +14,7 @@ local iconsdir   = os.getenv("HOME") .. "/.config/awesome/assets/icons/"
 function _M.get()
   local tags = {}
 
+  -- These arrays do not correspond 1:1 to the AwesomeWM docs. See below for function.
   local screen1 = {
     tag_names = { "1:  ", "2:  ", "3:  ", "4:  ", "5:  ", "6:  ", "7:  ", "8:  ", "9:  " },
     defaults = {
@@ -87,10 +88,7 @@ function _M.get()
 
   -- do the stuff:
   local my_tags = {}
-  if awful.screen.count == 1 then
-    setup_per_screen(screen1)
-    my_tags = screen1.tags
-  elseif awful.screen.count == 2 then
+  if screen:count() == 2 then
     setup_per_screen(screen1)
     setup_per_screen(screen2)
     my_tags = { table.unpack(screen1.tags) }
