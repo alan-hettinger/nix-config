@@ -14,6 +14,7 @@
           enable = true;
           noDesktop = true;
           enableXfwm = false;
+          enableScreensaver = false;
         };
       };
       displayManager = {
@@ -66,11 +67,24 @@
     tumbler.enable = true;
 
   };
+  environment.xfce = {
+    excludePackages = with pkgs.xfce; [
+      mousepad
+      xfce4-appfinder
+      xfce4-screenshooter
+      xfce4-taskmanager
+      xfce4-terminal
+      xfce4-notifyd
+      parole
+
+      ## xfce apps that I do want:
+      # xfce4.ristretto
+      # xfce.xfce4-settings
+      # xfce.thunar
+    ];
+  };
   programs.thunar = {
     enable = true;
-    plugins = with pkgs.xfce; [
-      thunar-volman
-      thunar-archive-plugin
-    ];
+    plugins = with pkgs.xfce; [ thunar-volman thunar-archive-plugin ];
   };
 }
