@@ -370,6 +370,7 @@ Evil mode motions and vim-like behavior
         (kbd "C") 'dired-do-copy
         (kbd "D") 'dired-do-delete
         (kbd "R") 'dired-do-rename
+        (kbd "RET") #'dired-open-file
 )
 #+end_src
 
@@ -430,8 +431,10 @@ Allows browsing subdirectories inside the same buffer
 #+begin_src emacs-lisp
 (use-package dired-open
   :config
-  (setq dired-open-extensions '(("png" . "gwenview")
+  (setq dired-open-extensions '(("png" . "ristretto")
                                 ("docx" . "libreoffice")
+                                ("docx" . "libreoffice")
+                                ("ods" . "libreoffice")
                                 ("odt" . "libreoffice")
                                 ("xlsx" . "libreoffice")
                                 ("pptx" . "libreoffice")

@@ -96,6 +96,7 @@ function _M.get()
       my_tags[#screen1.tags + I] = screen2.tags[I]
     end
   else
+    -- TODO: define behavior for more than 2 screens
     setup_per_screen(screen1)
     my_tags = screen1.tags
   end

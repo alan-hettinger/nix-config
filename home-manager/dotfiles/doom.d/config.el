@@ -241,6 +241,7 @@
         (kbd "C") 'dired-do-copy
         (kbd "D") 'dired-do-delete
         (kbd "R") 'dired-do-rename
+        (kbd "RET") #'dired-open-file
 )
 
 (map! :leader
@@ -288,8 +289,10 @@
 
 (use-package dired-open
   :config
-  (setq dired-open-extensions '(("png" . "gwenview")
+  (setq dired-open-extensions '(("png" . "ristretto")
                                 ("docx" . "libreoffice")
+                                ("docx" . "libreoffice")
+                                ("ods" . "libreoffice")
                                 ("odt" . "libreoffice")
                                 ("xlsx" . "libreoffice")
                                 ("pptx" . "libreoffice")

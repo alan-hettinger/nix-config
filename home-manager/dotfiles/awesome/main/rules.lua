@@ -43,14 +43,14 @@ function _M.get(clientkeys, clientbuttons)
         { floating = true },
       }
     },
-    { rule_any = { class = { vars.browser, vars.browser2 } }, properties = { tag = awful.screen.focused().tags[1] }, },
-    { rule_any = { class = { "libreoffice-writer" } },        properties = { tag = awful.screen.focused().tags[3] }, },
-    { rule_any = { class = { "calibre", "Zotero" } },         properties = { tag = awful.screen.focused().tags[4] }, },
-    { rule_any = { class = { "thunderbird" } },               properties = { tag = awful.screen.focused().tags[5] }, },
-    { rule_any = { class = { "discord", "slack" } },          properties = { tag = screen2_maybe.tags[6] }, },
-    { rule_any = { class = { vars.filemanager } },            properties = { tag = awful.screen.focused().tags[7] }, },
-    { rule_any = { class = { "vlc", "Spotify" } },            properties = { tag = awful.screen.focused().tags[8] }, },
-    { rule_any = { class = { "XIVLauncher" } },               properties = { tag = awful.screen.focused().tags[9] }, },
+    { rule_any = { class = { vars.browser, vars.browser2 } },      properties = { tag = awful.screen.focused().tags[1] }, },
+    { rule_any = { class = { "libreoffice*", "DesktopEditors" } }, properties = { tag = awful.screen.focused().tags[3] }, }, -- "DesktopEditors" is OnlyOffice
+    { rule_any = { class = { "calibre", "Zotero" } },              properties = { tag = awful.screen.focused().tags[4] }, },
+    { rule_any = { class = { "thunderbird" } },                    properties = { tag = awful.screen.focused().tags[5] }, },
+    { rule_any = { class = { "discord", "slack" } },               properties = { tag = screen2_maybe.tags[6] }, },
+    { rule_any = { class = { vars.filemanager } },                 properties = { tag = awful.screen.focused().tags[7] }, },
+    { rule_any = { class = { "vlc", "Spotify" } },                 properties = { tag = awful.screen.focused().tags[8] }, },
+    { rule_any = { class = { "XIVLauncher" } },                    properties = { tag = awful.screen.focused().tags[9] }, },
 
     -- Add titlebars to normal clients and dialogs
     {
