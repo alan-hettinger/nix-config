@@ -14,7 +14,7 @@
           enable = true;
           noDesktop = true;
           enableXfwm = false;
-          enableScreensaver = false;
+          enableScreensaver = true;
         };
       };
       displayManager = {
