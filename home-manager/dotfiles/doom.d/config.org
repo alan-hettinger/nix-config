@@ -309,6 +309,13 @@ Tell zen mode to "disable" mixed-pitch-mode in org, because it is already an org
       olivetti-body-width 70)
 (add-hook 'org-mode-hook (lambda () (olivetti-mode 1)))
 #+end_src
+Keybindings:
+#+begin_src emacs-lisp
+(map! :leader
+      (:prefix "t"
+               :desc "toggle Olivetti mode" "o" #'olivetti-mode
+                ))
+#+end_src
 *** Nov.el
 Associate nov mode with epub files:
 #+begin_src emacs-lisp

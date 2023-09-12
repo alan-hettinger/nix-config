@@ -200,6 +200,11 @@
       olivetti-body-width 70)
 (add-hook 'org-mode-hook (lambda () (olivetti-mode 1)))
 
+(map! :leader
+      (:prefix "t"
+               :desc "toggle Olivetti mode" "o" #'olivetti-mode
+                ))
+
 (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
 
 (add-hook 'nov-mode-hook 'variable-pitch-mode)

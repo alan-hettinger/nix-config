@@ -44,7 +44,7 @@ function _M.get()
       master_fill_policy = "expand", -- "master_width_factor"|"expand"
       master_count       = theme.master_count,
       gap_single_client  = theme.gap_single_client,
-      gap                = theme.useless_gap,
+      gap                = dpi(5), -- theme.useless_gap,
       column_count       = theme.column_count,
       screen             = RC.vars.screen2_maybe,
     },
