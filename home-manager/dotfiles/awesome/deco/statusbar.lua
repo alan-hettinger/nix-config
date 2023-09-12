@@ -13,6 +13,9 @@ local deco            = {
 local taglist_buttons = deco.taglist()
 
 local theme           = require("theme")
+local iconsdir        = os.getenv("HOME") .. "/.config/awesome/assets/icons/"
+local launcher        = RC.vars.launcher
+local powerMenu       = RC.vars.powerMenu
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 -- add libraries for third party widgets
@@ -179,6 +182,25 @@ local mytextclock = wibox.widget {
   margins = 5,
 }
 
+-- widget to launch the preferred launcher application (eg rofi)
+local my_launcher = wibox.widget {
+  image = iconsdir .. "home.svg",
+  resize = true,
+  widget = wibox.widget.imagebox,
+}
+my_launcher:buttons(gears.table.join(
+  awful.button({}, 1, function() awful.spawn(launcher) end)
+))
+
+local logout_button = wibox.widget {
+  image = iconsdir .. "log-out.svg",
+  resize = true,
+  widget = wibox.widget.imagebox,
+}
+logout_button:buttons(gears.table.join(
+  awful.button({}, 1, function() awful.spawn(powerMenu) end)
+))
+
 -- draw different wibars per screen
 local function wibox_primary(s)
   -- Create an imagebox widget which will contain an icon indicating which layout we're using.
@@ -278,6 +300,7 @@ local function wibox_primary(s)
     {
       -- Left widgets
       layout = wibox.layout.fixed.horizontal,
+      my_launcher,
       layoutwrapper,
       s.mytaglist,
     },
@@ -295,6 +318,7 @@ local function wibox_primary(s)
       cpubox,
       tempbox,
       s.systray,
+      logout_button,
     },
   }
 end

@@ -15,10 +15,18 @@ local _M = {
   terminal = "wezterm connect unix",
   term2 = "wezterm",
   browser = "firefox",
-  launcher = "rofi -show combi",
+  launcher = [[
+               rofi -show combi \
+                    -location 1 \
+                    -display-combi '>>' \
+                    -theme-str '#window { y-offset: 45px; }'
+             ]],
   bookmarks = "rofi -show bookmarks -sidebar-mode",
   windowswitcher = "rofi -show window -sidebar-mode",
-  powerMenu = "rofi -show power-menu -modi power-menu:rofi-power-menu",
+  powerMenu = [[rofi -show power-menu \
+                     -modi power-menu:rofi-power-menu \
+                     -location 3 \
+                     -theme-str '#window { y-offset: 45px; width: 375px; height: 325px; }']],
   screenlock = "xflock4",
   screenshot = "flameshot gui",
   editor = "emacsclient -c",
