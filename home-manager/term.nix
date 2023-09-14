@@ -19,7 +19,7 @@
     shellAliases = {
       ## applies across all shells
       cat = "bat";
-      ls = "exa -la";
+      ls = "eza -la";
       bonsai = "cbonsai -i -l --time=2";
     };
   };
@@ -73,7 +73,7 @@
       # ];
     };
 
-    exa = {
+    eza = {
       enable = true;
       enableAliases = false;
       git = true;
