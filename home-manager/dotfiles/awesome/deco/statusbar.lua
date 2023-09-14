@@ -16,6 +16,7 @@ local theme           = require("theme")
 local iconsdir        = os.getenv("HOME") .. "/.config/awesome/assets/icons/"
 local launcher        = RC.vars.launcher
 local powerMenu       = RC.vars.powerMenu
+local screen1         = RC.vars.screen1
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 -- add libraries for third party widgets
@@ -175,11 +176,59 @@ local batbox = wibox.widget { {
   layout = wibox.layout.align.horizontal,
 }
 
+-- a widget to display the active client and TODO display various common clickable actions
+local active_client_unwrapped = awful.widget.tasklist {
+  filter = awful.widget.tasklist.filter.focused,
+  screen = screen1,
+  style = {
+    align = "center",
+    bg_focus = theme.bg_normal,
+    fg_focus = theme.fg_normal,
+  },
+}
+
+local active_client = wibox.widget { {
+  {
+    {
+      active_client_unwrapped,
+      fg = theme.fg_normal,
+      widget = wibox.container.background,
+    },
+    widget = wibox.container.margin
+  },
+  shape = gears.shape.rectangle,
+  bg = theme.bg_normal,
+  shape_border_color = theme.bg_normal,
+  shape_border_width = 2,
+  forced_width = 800,
+  widget = wibox.container.background
+},
+  layout = wibox.layout.align.horizontal,
+}
+
 -- Create a textclock widget
 local mytextclock = wibox.widget {
-  format = '%a %b %d, %I:%M %P',
+  format = '  %a %b %d, %I:%M %P  ',
   widget = wibox.widget.textclock,
   margins = 5,
+}
+
+local clockbox = wibox.widget { {
+  {
+    {
+      mytextclock,
+      fg = theme.fg_normal,
+      widget = wibox.container.background,
+    },
+    widget = wibox.container.margin
+  },
+  shape = gears.shape.rectangle,
+  bg = theme.bg_normal,
+  shape_border_color = theme.border_normal,
+  shape_border_width = 2,
+  widget = wibox.container.background
+},
+  layout = wibox.layout.align.horizontal,
 }
 
 -- widget to launch the preferred launcher application (eg rofi)
@@ -307,17 +356,20 @@ local function wibox_primary(s)
     {
       -- middle widgets:
       layout = wibox.layout.fixed.horizontal,
-      mytextclock, -- Middle widget
+      active_client,
+      -- mytextclock, -- Middle widget
     },
     {
       -- Right widgets
       layout = wibox.layout.fixed.horizontal,
+      -- mytextclock,
+      s.systray,
       batbox,
       membox,
       gputempbox,
       cpubox,
       tempbox,
-      s.systray,
+      clockbox,
       logout_button,
     },
   }
