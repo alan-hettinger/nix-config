@@ -4,7 +4,7 @@
       user-mail-address "alan.hettinger@proton.me")
 
 (setq doom-font (font-spec :family "mononoki" :size 21))
-(setq doom-variable-pitch-font (font-spec :family "Source Serif Pro" :height 1.2 :size 22))
+(setq doom-variable-pitch-font (font-spec :family "Source Serif Variable" :height 1.2 :size 22))
 
 (use-package! mixed-pitch
   :config
@@ -18,6 +18,7 @@
   :config (load-theme 'catppuccin t)
   :init (setq catppuccin-flavor 'macchiato))
 ;; (catppuccin-reload)
+
 (setq doom-theme 'catppuccin)
 ;; (setq doom-themes-padded-modeline t)
 
@@ -56,6 +57,29 @@
        'face 'doom-dashboard-banner)))
 
 (setq +doom-dashboard-ascii-banner-fn #'doom-custom-banner)
+
+(defun toggle-catppuccin-light-dark-theme ()
+  "toggle between light and dark catppuccin colorschemes"
+  (interactive (progn
+                  (let ((active-theme catppuccin-flavor)
+                        (light-theme 'latte)
+                        (dark-theme 'macchiato))
+                    ((lambda (desired-theme) (and (setq catppuccin-flavor desired-theme) (catppuccin-reload)))
+                     (if (eq active-theme dark-theme) light-theme dark-theme)))
+                  nil)))
+
+(defun toggle-light-dark-theme ()
+  "toggle between light and dark theme generally"
+  (interactive (progn
+                 (let* ((active-theme doom-theme)
+                       (light-theme 'doom-gruvbox-light)
+                       (dark-theme 'catppuccin))
+                   (load-theme (if (eq doom-theme dark-theme) light-theme dark-theme)))
+                 nil)))
+
+(map! :leader
+      (:prefix "t"
+               :desc "toggle light/dark mode" "d" #'toggle-light-dark-theme))
 
 (dolist (mode '(org-mode-hook
                 vterm-mode-hook
@@ -196,7 +220,7 @@
 
 ;; (setq +zen-mixed-pitch-modes 'nil)
 
-(setq olivetti-style 'fancy
+(setq olivetti-style nil ;; 'fancy
       olivetti-body-width 70)
 (add-hook 'org-mode-hook (lambda () (olivetti-mode 1)))
 

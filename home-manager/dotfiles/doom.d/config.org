@@ -38,7 +38,7 @@ Options that are not currently set:
  * =(setq doom-serif font "")=
  #+begin_src emacs-lisp
 (setq doom-font (font-spec :family "mononoki" :size 21))
-(setq doom-variable-pitch-font (font-spec :family "Source Serif Pro" :height 1.2 :size 22))
+(setq doom-variable-pitch-font (font-spec :family "Source Serif Variable" :height 1.2 :size 22))
 
 (use-package! mixed-pitch
   :config
@@ -54,6 +54,7 @@ Options that are not currently set:
   :config (load-theme 'catppuccin t)
   :init (setq catppuccin-flavor 'macchiato))
 ;; (catppuccin-reload)
+
 (setq doom-theme 'catppuccin)
 ;; (setq doom-themes-padded-modeline t)
 
@@ -104,6 +105,31 @@ credit to https://tecosaur.github.io/emacs-config/config.html#ascii-banner
        'face 'doom-dashboard-banner)))
 
 (setq +doom-dashboard-ascii-banner-fn #'doom-custom-banner)
+#+end_src
+**** Toggle light/dark mode on the fly
+#+begin_src emacs-lisp
+(defun toggle-catppuccin-light-dark-theme ()
+  "toggle between light and dark catppuccin colorschemes"
+  (interactive (progn
+                  (let ((active-theme catppuccin-flavor)
+                        (light-theme 'latte)
+                        (dark-theme 'macchiato))
+                    ((lambda (desired-theme) (and (setq catppuccin-flavor desired-theme) (catppuccin-reload)))
+                     (if (eq active-theme dark-theme) light-theme dark-theme)))
+                  nil)))
+
+(defun toggle-light-dark-theme ()
+  "toggle between light and dark theme generally"
+  (interactive (progn
+                 (let* ((active-theme doom-theme)
+                       (light-theme 'doom-gruvbox-light)
+                       (dark-theme 'catppuccin))
+                   (load-theme (if (eq doom-theme dark-theme) light-theme dark-theme)))
+                 nil)))
+
+(map! :leader
+      (:prefix "t"
+               :desc "toggle light/dark mode" "d" #'toggle-light-dark-theme))
 #+end_src
 *** disable line numbers in some modes
 #+begin_src emacs-lisp
@@ -305,7 +331,7 @@ Tell zen mode to "disable" mixed-pitch-mode in org, because it is already an org
 #+end_src
 *** Olivetti mode
 #+begin_src emacs-lisp
-(setq olivetti-style 'fancy
+(setq olivetti-style nil ;; 'fancy
       olivetti-body-width 70)
 (add-hook 'org-mode-hook (lambda () (olivetti-mode 1)))
 #+end_src
