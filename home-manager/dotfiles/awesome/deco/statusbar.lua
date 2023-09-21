@@ -196,11 +196,11 @@ local active_client = wibox.widget { {
     },
     widget = wibox.container.margin
   },
-  shape = gears.shape.rectangle,
+  shape = gears.shape.rounded_rect,
   bg = theme.bg_normal,
-  shape_border_color = theme.bg_normal,
+  shape_border_color = theme.border_normal,
   shape_border_width = 2,
-  forced_width = 800,
+  -- forced_width = 800,
   widget = wibox.container.background
 },
   layout = wibox.layout.align.horizontal,
@@ -315,6 +315,8 @@ local function wibox_primary(s)
       widget = wibox.container.margin
     },
     shape = gears.shape.rounded_rect,
+    shape_border_color = theme.border_normal,
+    shape_border_width = 2,
     widget = wibox.container.background
   },
     layout = wibox.layout.align.horizontal,
@@ -345,7 +347,7 @@ local function wibox_primary(s)
     },
     ---@diagnostic disable-next-line: duplicate-index
     layout = wibox.layout.align.horizontal,
-    expand = "none",
+    expand = "inside", -- inside|outside|none
     {
       -- Left widgets
       layout = wibox.layout.fixed.horizontal,
