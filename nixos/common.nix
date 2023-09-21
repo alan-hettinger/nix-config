@@ -106,6 +106,19 @@
     enable = true;
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
+
+  # location stuff:
+  location = {
+    provider = "manual";
+    latitude = 33.7;
+    longitude = -84.3;
+  };
+  # services.geoclue2 = {
+  #   enable = true;
+  #   enableWifi = true;
+  #   appConfig.redshift.isAllowed = true;
+  # };
+
   systemd = {
     user.services.polkit-gnome-authentication-agent-1 = {
       description = "polkit-gnome-authentication-agent-1";

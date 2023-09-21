@@ -4,6 +4,7 @@
     xorg.xkill
     xorg.xwininfo
   ];
+
   services = {
     xserver = {
       excludePackages = with pkgs; [ xterm ];
@@ -60,7 +61,19 @@
       layout = "us";
       xkbOptions = "caps:escape";
     };
-    redshift.enable = true;
+    redshift = {
+      enable = true;
+      executable = "/bin/redshift-gtk";
+      temperature = {
+        day = 6500;
+        night = 4000;
+      };
+      brightness = {
+        day = "1.0";
+        night = "0.8";
+      };
+      # extraOptions = [ "-l PROVIDER:manual" ];
+    };
 
     # required by thunar:
     gvfs.enable = true;

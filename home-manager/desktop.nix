@@ -61,7 +61,7 @@
         icon-theme = "Papirus-Dark";
         show-icons = true;
         modi = "drun,window,filebrowser,combi";
-        combi-modes = ["window" "drun"];
+        combi-modes = [ "window" "drun" ];
         combi-hide-mode-prefix = true;
 
         ## keybindings:
@@ -102,23 +102,24 @@
       launcher = "rofi";
     };
 
-    redshift = {
-      enable = true;
-      # dawnTime = "";
-      # duskTime = "";
-      latitude = 33.67;
-      longitude = -84.49;
-      tray = true;
-      temperature = {
-        day = 6500;
-        night = 4000;
-      };
-      settings = {
-        # fade = 1; # FIXME
-        # brightness-day = 1.0; # FIXME error about type on build
-        # brightness-night = 0.8; # FIXME same
-      };
-    };
+    # redshift = {
+    #   enable = true;
+    #   provider = "manual";
+    #   dawnTime = "06:00";
+    #   duskTime = "20:00";
+    #   latitude = "33.6";
+    #   longitude = "-84.4";
+    #   tray = true;
+    #   temperature = {
+    #     day = 6500;
+    #     night = 4000;
+    #   };
+    #   # settings = {
+    #   #   fade = 1; # FIXME
+    #   #   brightness-day = "1.0"; # FIXME error about type on build
+    #   #   brightness-night = "0.8"; # FIXME same
+    #   # };
+    # };
 
     picom = {
       enable = true;
