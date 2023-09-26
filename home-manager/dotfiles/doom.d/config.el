@@ -3,8 +3,8 @@
 (setq user-full-name "Alan Hettinger"
       user-mail-address "alan.hettinger@proton.me")
 
-(setq doom-font (font-spec :family "mononoki" :size 21))
-(setq doom-variable-pitch-font (font-spec :family "Source Serif Variable" :height 1.2 :size 22))
+(setq doom-font (font-spec :family "mononoki" :size 16.0))
+(setq doom-variable-pitch-font (font-spec :family "Source Serif Variable" :height 1.2 :size 16.0))
 
 (use-package! mixed-pitch
   :config
@@ -34,7 +34,7 @@
   (setq doom-modeline-enable-word-count t
         doom-modeline-major-mode-icon t
         doom-modeline-persp-name t
-        doom-modeline-height 25
+        doom-modeline-height 35
         doom-modeline-icon t
         )
   (remove-hook 'doom-modeline-mode-hook #'size-indication-mode)

@@ -15,6 +15,3 @@
    :files ("*.el" "*.rkt")
    )
   )
-
-(package! doom-modeline
-  :pin "6125309c2caa3c98591a4c802e9b4dd2f7ea83e9")

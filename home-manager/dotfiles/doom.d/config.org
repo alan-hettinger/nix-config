@@ -12,7 +12,6 @@
   - [[#guix-scheme-and-lisp-hacking][Guix, scheme, and lisp hacking]]
   - [[#lsps][LSPs]]
 - [[#packages][Packages]]
-  - [[#modeline-fix][Modeline Fix]]
 
 * TODO Introduction
 * Config
@@ -28,6 +27,7 @@
       user-mail-address "alan.hettinger@proton.me")
 #+end_src
 *** Fonts
+*Note*: ~doom-font~ and so on treat an integer ~:size~ as pixel size and float as point size.
 Fonts I've liked:
  * Fragment Mono
  * Jetbrains Mono
@@ -37,8 +37,8 @@ Options that are not currently set:
  * =(setq doom-big-font (font-spec :family "" :size 20))=
  * =(setq doom-serif font "")=
  #+begin_src emacs-lisp
-(setq doom-font (font-spec :family "mononoki" :size 21))
-(setq doom-variable-pitch-font (font-spec :family "Source Serif Variable" :height 1.2 :size 22))
+(setq doom-font (font-spec :family "mononoki" :size 16.0))
+(setq doom-variable-pitch-font (font-spec :family "Source Serif Variable" :height 1.2 :size 16.0))
 
 (use-package! mixed-pitch
   :config
@@ -79,7 +79,7 @@ I have a few customizations here:
   (setq doom-modeline-enable-word-count t
         doom-modeline-major-mode-icon t
         doom-modeline-persp-name t
-        doom-modeline-height 25
+        doom-modeline-height 35
         doom-modeline-icon t
         )
   (remove-hook 'doom-modeline-mode-hook #'size-indication-mode)
@@ -564,14 +564,3 @@ I currently have ranger disabled in init.el
    )
   )
 #+end_src
-** Modeline Fix
-Icons in doom-modeline are broken for me as of at least [[github:seagle0128/doom-modeline/commit/f45a5a200313][this commit]]. Pinning [[github:seagle0128/doom-modeline/commit/6125309c2caa][this commit]] (what doom used prior to [[github:doomemacs/doomemacs/commit/7a5f5d07e72d496ff614e0892c78b62b31aaac4d][this commit]]) fixes the issue. Check in later to resolve.
-#+begin_src emacs-lisp
-(package! doom-modeline
-  :pin "6125309c2caa3c98591a4c802e9b4dd2f7ea83e9")
-#+end_src
- - May also be related to nix's handling of fonts in one way or another.
-More info:
- - https://github.com/doomemacs/doomemacs/issues/7368
- - https://github.com/seagle0128/doom-modeline/pull/622
- - https://github.com/doomemacs/doomemacs/pull/7364
