@@ -157,11 +157,5 @@
     variables = { HOSTNAME = "alan-laptop-linux"; };
   };
 
-  location = {
-    provider = "manual";
-    latitude = 33.753;
-    longitude = -84.386;
-  };
-
   system.stateVersion = "22.11";
 }
