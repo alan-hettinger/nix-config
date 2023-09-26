@@ -36,6 +36,9 @@
         doom-modeline-persp-name t
         doom-modeline-height 35
         doom-modeline-icon t
+        doom-modeline-modal-modern-icon nil
+        doom-modeline-buffer-modification-icon t
+        doom-modeline-highlight-modified-buffer-name nil
         )
   (remove-hook 'doom-modeline-mode-hook #'size-indication-mode)
   (remove-hook 'doom-modeline-mode-hook #'column-number-mode)

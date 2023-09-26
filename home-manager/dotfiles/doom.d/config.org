@@ -67,13 +67,6 @@ Options that are not currently set:
 (setq lsp-headerline-breadcrumb-enable t)
 #+end_src
 **** Mode line
-I have a few customizations here:
- - show word count by default (this only shows up in relevant modes).
- - show all the fancy icons
- - show the name of the current workspace
- - don't show the file size or column number (I almost never need these).
- - don't show the line number (if I need this I'll use line numbers in the actual buffer).
-
 #+begin_src emacs-lisp
 (after! doom-modeline
   (setq doom-modeline-enable-word-count t
@@ -81,6 +74,9 @@ I have a few customizations here:
         doom-modeline-persp-name t
         doom-modeline-height 35
         doom-modeline-icon t
+        doom-modeline-modal-modern-icon nil
+        doom-modeline-buffer-modification-icon t
+        doom-modeline-highlight-modified-buffer-name nil
         )
   (remove-hook 'doom-modeline-mode-hook #'size-indication-mode)
   (remove-hook 'doom-modeline-mode-hook #'column-number-mode)
