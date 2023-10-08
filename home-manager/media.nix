@@ -3,6 +3,8 @@
   home.packages = with pkgs; [
     mpv
     vlc
+    libmicrodns # DNS resolver library used by vlc
+    protobuf # used by vlc for streaming to chromecast
     sxiv
     cmus
     flameshot
