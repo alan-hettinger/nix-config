@@ -11,6 +11,16 @@
       #     patches = [ ./change-hello-to-hi.patch ];
       #   });
       # })
+
+      # make gamemode work in xivlauncher for ffxiv
+      # thanks to https://github.com/Veraticus/nix-config/blob/main/overlays/default.nix#L62
+      # (self: super: {
+      #   xivlauncher = super.xivlauncher.override {
+      #     steam = (super.pkgs.steam.override {
+      #       extraLibraries = pkgs: [ super.pkgs.gamemode.lib ];
+      #     });
+      #   };
+      # })
     ];
     config = {
       allowUnfree = true;
@@ -48,7 +58,8 @@
       };
     };
     mimeApps = {
-      enable = false; # disabling because thunar overwrites and then home-manager gets mad
+      enable =
+        false; # disabling because thunar overwrites and then home-manager gets mad
       # copied directly from existing mimeaps.list
       defaultApplications = {
         "application/epub+zip" = [ "emacsclient.desktop" ];
@@ -86,15 +97,9 @@
       userName = "Alan";
       userEmail = "alan.hettinger@proton.me";
       extraConfig = {
-        core = {
-          editor = "emacsclient";
-        };
-        merge = {
-          autoStash = true;
-        };
-        rebase = {
-          autoStash = true;
-        };
+        core = { editor = "emacsclient"; };
+        merge = { autoStash = true; };
+        rebase = { autoStash = true; };
       };
     };
     gh = {
