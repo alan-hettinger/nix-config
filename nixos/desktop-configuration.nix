@@ -28,7 +28,14 @@
   };
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
+
+    ## custom kernels that are potentially of interest for my use-case:
+    ## - (linuxPackages_latest)
+    ## - linuxPackages_lqx
+    ## - linuxPackages_xanmod (_latest)
+    ## - linuxPackages_zen
+    kernelPackages = pkgs.linuxPackages_xanmod_latest;
+
     initrd.kernelModules = [ "amdgpu" ];
     kernel.sysctl = { "vm.max_map_count" = 2147483642; };
   };
