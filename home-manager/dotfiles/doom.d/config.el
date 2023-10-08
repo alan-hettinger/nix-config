@@ -232,6 +232,8 @@
                :desc "toggle Olivetti mode" "o" #'olivetti-mode
                 ))
 
+(add-hook 'doom-docs-mode-hook (lambda () (olivetti-mode 'nil)))
+
 (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
 
 (add-hook 'nov-mode-hook 'variable-pitch-mode)

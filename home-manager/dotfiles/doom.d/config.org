@@ -338,6 +338,11 @@ Keybindings:
                :desc "toggle Olivetti mode" "o" #'olivetti-mode
                 ))
 #+end_src
+
+Disabling Olivetti Mode in ~Doom Docs Mode~:
+#+begin_src emacs-lisp
+(add-hook 'doom-docs-mode-hook (lambda () (olivetti-mode 'nil)))
+#+end_src
 *** Nov.el
 Associate nov mode with epub files:
 #+begin_src emacs-lisp

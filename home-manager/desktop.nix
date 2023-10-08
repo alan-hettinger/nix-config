@@ -16,6 +16,7 @@
       brave
       spotify
       spicetify-cli
+      cinnamon.nemo-with-extensions
 
       rofi-power-menu # FIXME should be installed by rofi plugins but isnt
 
