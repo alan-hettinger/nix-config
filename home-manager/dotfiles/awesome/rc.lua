@@ -29,7 +29,7 @@ beautiful.init(awesomeDir .. "/theme.lua")
 
 local function set_wallpaper(s)
   local wallpaper = beautiful.wallpaper
-  gears.wallpaper.centered(wallpaper, s)
+  gears.wallpaper.maximized(wallpaper, s)
 end
 awful.screen.connect_for_each_screen(function(s) set_wallpaper(s) end)
 screen.connect_signal("property::geometry", set_wallpaper)

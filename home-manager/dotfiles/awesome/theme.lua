@@ -131,7 +131,7 @@ theme.titlebar_minimize_button_normal = themes_path .. "default/titlebar/minimiz
 theme.titlebar_minimize_button_focus  = themes_path .. "default/titlebar/minimize_focus.png"
 
 
-theme.wallpaper         = assets_dir .. "wallpaper.png"
+theme.wallpaper         = assets_dir .. "wall-mountains-catppuccin.png"
 
 -- You can use your own layout icons like this:
 theme.layout_fairv      = assets_dir .. "grid.svg"
@@ -153,7 +153,7 @@ theme.awesome_icon = theme_assets.awesome_icon(
 
 -- Define the icon theme for application icons. If not set then the icons
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
-theme.icon_theme = "/usr/share/icons/Papirus-Dark"
+theme.icon_theme = "/home/alan/.nix-profile/share/icons/breeze-dark"
 
 return theme
 
