@@ -84,6 +84,8 @@
       (:prefix "t"
                :desc "toggle light/dark mode" "d" #'toggle-light-dark-theme))
 
+(setq frame-title-format '("%b"))
+
 (dolist (mode '(org-mode-hook
                 vterm-mode-hook
                 eshell-mode-hook

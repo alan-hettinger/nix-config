@@ -127,6 +127,11 @@ credit to https://tecosaur.github.io/emacs-config/config.html#ascii-banner
       (:prefix "t"
                :desc "toggle light/dark mode" "d" #'toggle-light-dark-theme))
 #+end_src
+**** Frame title format
+Remove " - Doom Emacs" from the frame title (the window name, in normal terms)
+#+begin_src emacs-lisp
+(setq frame-title-format '("%b"))
+#+end_src
 *** disable line numbers in some modes
 #+begin_src emacs-lisp
 (dolist (mode '(org-mode-hook
