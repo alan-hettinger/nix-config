@@ -29,8 +29,8 @@ function _M.get()
     default_selected_tag = 1,
     overrides = {
       -- Overrides should always be of the form { index, property, value }
-      { 2, "master_fill_policy", "master_width_factor" },
-      { 3, "master_fill_policy", "master_width_factor" },
+      -- { 2, "master_fill_policy", "master_width_factor" },
+      -- { 3, "master_fill_policy", "master_width_factor" },
       { 5, "layout",             awful.layout.suit.magnifier },
       { 5, "master_fill_policy", 0.8 },
       -- { 6, "layout",             lain.layout.termfair.center },

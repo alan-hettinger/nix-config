@@ -47,7 +47,7 @@ local config = {
   color_scheme = "Catppuccin Macchiato",
 
   -- tab bar
-  hide_tab_bar_if_only_one_tab = false,
+  hide_tab_bar_if_only_one_tab = true,
   use_fancy_tab_bar = false,
   window_frame = {
     font = wezterm.font { family = "Mononoki" },

@@ -10,6 +10,7 @@
     thunderbird
     zotero
     onlyoffice-bin
+    homebank
   ];
 
 }
