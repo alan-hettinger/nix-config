@@ -25,10 +25,10 @@
     config = {
       allowUnfree = true;
       allowUnfreePredicate = (_: true);
-      permittedInsecurePackages =
-        [ # # TODO this is a temporary fix due to above error, test after update if still present
-          "openssl-1.1.1u" # # TODO find who needs this
-        ];
+      permittedInsecurePackages = [
+        "zotero-6.0.27" # TODO remove after update
+
+      ];
     };
   };
 
