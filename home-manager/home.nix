@@ -28,20 +28,21 @@
   };
   home = {
 
-    pointerCursor = {
-      # package = pkgs.catppuccin-cursors.macchiatoDark;
-      # name = "macchiatoDark";
-      package = pkgs.vanilla-dmz;
-      name = "Vanilla-DMZ";
-      gtk.enable = true;
-      x11.enable = true;
-      size = 48;
-    };
+    # pointerCursor = {
+    #   # package = pkgs.catppuccin-cursors.macchiatoDark;
+    #   # name = "macchiatoDark";
+    #   package = pkgs.vanilla-dmz;
+    #   name = "Vanilla-DMZ";
+    #   gtk.enable = true;
+    #   x11.enable = true;
+    #   size = 48;
+    # };
 
     packages = with pkgs; [
       # python311Packages.pip ## broke for some reason
       haskell-language-server # #installing here because haskellPackages.haskell-language-server didn't cooperate
       transmission-gtk
+      comma
     ];
 
     # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion

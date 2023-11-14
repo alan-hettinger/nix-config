@@ -1,4 +1,14 @@
-{ pkgs, config, ... }: {
+{ pkgs, config, stylix, ... }: {
+  stylix = {
+    autoEnable = true;
+    targets =
+      { # mainly just disabling targets and allowing stylix to enable all others
+        alacritty.enable = true;
+        emacs.enable = false;
+        rofi.enable = false;
+      };
+
+  };
   home = {
     packages = with pkgs; [
       i3lock-color
@@ -50,7 +60,7 @@
   programs = {
     rofi = {
       enable = true;
-      font = "JetbrainsMono Nerd Font 16";
+      # font = "JetbrainsMono Nerd Font 16";
       location = "center";
       terminal = "alacritty";
       plugins = with pkgs; [

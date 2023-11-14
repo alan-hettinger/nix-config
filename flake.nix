@@ -15,16 +15,18 @@
     nixos-hardware.url = "github:nixos/nixos-hardware";
     nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
     hyprland.url = "github:hyprwm/Hyprland";
+    stylix.url = "github:danth/stylix";
   };
 
-  outputs =
-    { nixpkgs, home-manager, nixos-hardware, nix-doom-emacs, hyprland, ... }@inputs: {
+  outputs = { nixpkgs, home-manager, nixos-hardware, nix-doom-emacs, hyprland
+    , stylix, ... }@inputs: {
       # Available through 'sudo nixos-rebuild --flake .#your-hostname'
       nixosConfigurations = {
 
         alan-desktop-linux = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
           modules = [
+            stylix.nixosModules.stylix
             ./nixos/desktop-configuration.nix
             nixos-hardware.nixosModules.common-cpu-amd
             nixos-hardware.nixosModules.common-pc-ssd
@@ -37,6 +39,7 @@
         alan-laptop-linux = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
           modules = [
+            stylix.nixosModules.stylix
             ./nixos/laptop-configuration.nix
             nixos-hardware.nixosModules.lenovo-thinkpad-t14-amd-gen2
           ];

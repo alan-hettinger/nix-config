@@ -17,10 +17,10 @@
 
   ];
   gtk = {
-    theme = {
-      name = "Catppuccin-Macchiato-Compact-Rosewater-dark";
-      package = pkgs.catppuccin-gtk;
-    };
+    # theme = {
+    #   name = "Catppuccin-Macchiato-Compact-Rosewater-dark";
+    #   package = pkgs.catppuccin-gtk;
+    # };
     gtk3.extraConfig = {
       gtk-application-prefer-dark-theme = true;
       gtk-cursor-blink = false;
