@@ -19,6 +19,7 @@ theme.yellow                                    = cat.yellow
 theme.lightYellow                               = cat.rosewater
 theme.baseBlack                                 = cat.base
 theme.baseWhite                                 = cat.text
+theme.wallpaper_color = cat.crust
 
 -- basic theme colors
 theme.font                                      = theme.variable_font
@@ -129,9 +130,6 @@ theme.titlebar_maximized_button_focus_active    = assets_dir .. "minimize-2.svg"
 
 theme.titlebar_minimize_button_normal = themes_path .. "default/titlebar/minimize_normal.png"
 theme.titlebar_minimize_button_focus  = themes_path .. "default/titlebar/minimize_focus.png"
-
-
-theme.wallpaper         = assets_dir .. "wall-mountains-catppuccin.png"
 
 -- You can use your own layout icons like this:
 theme.layout_fairv      = assets_dir .. "grid.svg"

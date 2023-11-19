@@ -27,11 +27,10 @@ require("main.error-handling")
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(awesomeDir .. "/theme.lua")
 
-local function set_wallpaper(s)
-  local wallpaper = beautiful.wallpaper
-  gears.wallpaper.maximized(wallpaper, s)
+local function set_wallpaper(color)
+  gears.wallpaper.set(color)
 end
-awful.screen.connect_for_each_screen(function(s) set_wallpaper(s) end)
+awful.screen.connect_for_each_screen(function() set_wallpaper(beautiful.wallpaper_color) end)
 screen.connect_signal("property::geometry", set_wallpaper)
 
 -- }}}
