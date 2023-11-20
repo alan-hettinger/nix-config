@@ -33,10 +33,20 @@
       systemd-boot = {
         enable = true;
         configurationLimit = 20;
+        consoleMode =
+          "max"; # # sets the resolution of the console to highest available
+        editor = false;
       };
       efi.canTouchEfiVariables = true;
     };
     initrd.systemd.enable = true;
+
+    ## silence boot messages:
+    initrd.verbose = false;
+    consoleLogLevel = 0;
+    kernelParams = [ "quiet" "udev.log_level=3" ];
+
+    plymouth.enable = true;
   };
   security = {
     sudo.enable = true;
@@ -46,7 +56,11 @@
 
   time.timeZone = "America/New_York";
   i18n = { defaultLocale = "en_US.UTF-8"; };
-  console = { keyMap = "us"; };
+  console = {
+    # keyMap = "us";
+    earlySetup = true;
+    useXkbConfig = true;
+  };
   services = {
     printing = {
       enable = true;
