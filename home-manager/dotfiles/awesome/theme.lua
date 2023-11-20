@@ -154,5 +154,3 @@ theme.awesome_icon = theme_assets.awesome_icon(
 theme.icon_theme = "/home/alan/.nix-profile/share/icons/breeze-dark"
 
 return theme
-
--- vim: filetype=lua:expandtab:shiftwidth=4:tabstop=8:softtabstop=4:textwidth=80
