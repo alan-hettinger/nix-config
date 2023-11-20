@@ -1,2 +1,42 @@
+*this readme is unfinished*
 * Introduction
-(wip)
+This is my personal configuration for NixOS. It also hosts my AwesomeWM config, Doom Emacs config, and Firefox UserChrome.css.
+Posted on Github for personal reference and potentially as an example configuration for others. However, this is still a basic config, and unless I'm personally implementing something you need, you're likely better looking elsewhere for examples.
+
+*Note*: I have tried to make individual portions relatively portable, but this is often not the case. Most importantly, my Awesome config depends on lain, which is cloned by home-manager/desktop.nix to reduce reliance on submodules and manual symlinking.
+
+** Theme and style:
+*Fonts*:
+ - Mono :: mononoki
+ - Sans-serif :: Source Sans Pro/Variable
+ - Serif :: Source Serif Pro/Variable
+ - AwesomeWM config uses JetBrains Mono NF and Liberation Sans due to spacing issues.
+
+*Colorscheme: Catppuccin*
+Used in:
+ - Doom Emacs (via a package)
+ - AwesomeWM (manually themed)
+ - Firefox (via a theme package), userChrome (manually based on this repo) and Sidebery (manually based on this repo)
+ - Wezterm (built-in) and Alacritty (manually themed based on the repo here)
+ - GTK (via a package)
+ - Qt (a hodepodge of stuff since Qt theming on Home-Manager is more difficult than GTK)
+ - Neovim (via a package)
+ - Rofi
+
+To-do: alternate colorschemes. Looking at Gruvbox and Rose-Pine.
+** Notable configurations
+*** AwesomeWM
+This is likely the single component I've spent the longest on. It features a catppuccin colorscheme, multi-monitor support, third-party layouts and widgets. Some files require a significant refactor since I've learned more about programming, especially statusbar.lua.
+
+I'd like to eventually migrate away from an X11 window manager, but there are currently no wayland compositors I know of which both support the features I want, and are mature enough to be stable and well-documented.
+*** Doom Emacs
+*** Firefox
+* Installation
+This section is especially for personal reference. Don't install this configuration directly unless you're me.
+** Partitioning
+** Install
+** Post-install
+* Notes and to-dos
+ - I was previously using Nix-Doom-Emacs. It currently has several issues leading doom emacs to be pinned to an old version that's missing some package updates.
+ - I'd like to eventually migrate to hyprland.
+* TODO credits
