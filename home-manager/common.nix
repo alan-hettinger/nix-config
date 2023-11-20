@@ -43,6 +43,10 @@
   };
 
   gtk.enable = true;
+  gtk.iconTheme = {
+    package = pkgs.papirus-icon-theme;
+    name = "Papirus-Dark";
+  };
 
   xdg = {
     userDirs = {
