@@ -43,7 +43,7 @@
     client.enable = true;
     defaultEditor = true;
     socketActivation.enable = true;
-    startWithUserSession = true;
+    startWithUserSession = "graphical";
     # extraOptions = [  ];
   };
 
