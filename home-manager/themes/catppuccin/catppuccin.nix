@@ -33,7 +33,8 @@
 
   qt = {
     enable = true;
-    style.name = "adwaita-dark";
+    # style.name = "adwaita-dark";
+    platformTheme = "gtk3";
   };
 
   programs = {
