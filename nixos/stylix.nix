@@ -1,4 +1,4 @@
-{ inputs, config, lib, pkgs, stylix, ... }: {
+{ pkgs, stylix, ... }: {
 
   stylix = {
     autoEnable = true;
@@ -11,6 +11,7 @@
       ../home-manager/dotfiles/awesome/assets/wall-mountains-catppuccin.png;
     base16Scheme =
       "${pkgs.base16-schemes}/share/themes/catppuccin-macchiato.yaml";
+    polarity = "dark";
     fonts = {
       serif = {
         package = pkgs.source-serif-pro;
