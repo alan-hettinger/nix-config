@@ -103,25 +103,6 @@
       launcher = "rofi";
     };
 
-    # redshift = {
-    #   enable = true;
-    #   provider = "manual";
-    #   dawnTime = "06:00";
-    #   duskTime = "20:00";
-    #   latitude = "33.6";
-    #   longitude = "-84.4";
-    #   tray = true;
-    #   temperature = {
-    #     day = 6500;
-    #     night = 4000;
-    #   };
-    #   # settings = {
-    #   #   fade = 1; # FIXME
-    #   #   brightness-day = "1.0"; # FIXME error about type on build
-    #   #   brightness-night = "0.8"; # FIXME same
-    #   # };
-    # };
-
     picom = {
       enable = true;
       # package = pkgs.picom-jonaburg-unstable;
