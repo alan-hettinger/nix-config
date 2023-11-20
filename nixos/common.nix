@@ -1,4 +1,9 @@
-{ inputs, config, lib, pkgs, stylix, ... }: {
+{ inputs, config, lib, pkgs, ... }: {
+
+  imports = [
+    ./stylix.nix
+
+  ];
 
   nixpkgs.config = { allowUnfree = true; };
   nix = {
@@ -145,36 +150,4 @@
     };
   };
 
-  stylix = {
-    autoEnable = true;
-    cursor = {
-      package = pkgs.vanilla-dmz;
-      name = "Vanilla-DMZ";
-      size = 48;
-    };
-    image =
-      ../home-manager/dotfiles/awesome/assets/wall-mountains-catppuccin.png;
-    base16Scheme =
-      "${pkgs.base16-schemes}/share/themes/catppuccin-macchiato.yaml";
-    fonts = {
-      serif = {
-        package = pkgs.source-serif-pro;
-        name = "Source Serif Pro";
-      };
-      sansSerif = {
-        package = pkgs.source-sans-pro;
-        name = "Source Sans Pro";
-      };
-      monospace = {
-        package = pkgs.jetbrains-mono;
-        name = "JetbrainsMono";
-      };
-      sizes = {
-        applications = 16;
-        desktop = 16;
-        popups = 14;
-        terminal = 16;
-      };
-    };
-  };
 }

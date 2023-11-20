@@ -17,29 +17,12 @@
 
   ];
   gtk = {
-    # theme = {
-    #   name = "Catppuccin-Macchiato-Compact-Rosewater-dark";
-    #   package = pkgs.catppuccin-gtk;
-    # };
     gtk3.extraConfig = {
       gtk-application-prefer-dark-theme = true;
       gtk-cursor-blink = false;
       gtk-enable-primary-paste = false;
       gtk-decoration-layout = "menu:";
     };
-    # attempting to remove double borders on firefox etc:
-    # gtk3.extraCss = ''
-    #   decoration, window, window.background, window.titlebar, * {
-    #      border-width: 0px;
-    #      border-radius: 10px;
-    #   }
-    # '';
-    # gtk4.extraCss = ''
-    #   decoration, window, window.background, window.titlebar, * {
-    #      border-width: 0px;
-    #      border-radius: 10px;
-    #   }
-    # '';
     gtk4.extraConfig = {
       gtk-application-prefer-dark-theme = true;
       gtk-cursor-blink = false;

@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-  console.font = "ter-m32n";
+  # console.font = "ter-m32n";
   fonts = {
     fontDir.enable = true;
     fontconfig = {

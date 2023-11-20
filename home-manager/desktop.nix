@@ -1,14 +1,4 @@
-{ pkgs, config, stylix, ... }: {
-  stylix = {
-    autoEnable = true;
-    targets =
-      { # mainly just disabling targets and allowing stylix to enable all others
-        alacritty.enable = true;
-        emacs.enable = false;
-        rofi.enable = false;
-      };
-
-  };
+{ pkgs, config, ... }: {
   home = {
     packages = with pkgs; [
       i3lock-color
