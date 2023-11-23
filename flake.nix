@@ -26,11 +26,20 @@
         alan-desktop-linux = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
           modules = [
+            ./desktop/xorg.nix
+            ./systems/desktop
             stylix.nixosModules.stylix
-            ./nixos/desktop-configuration.nix
             nixos-hardware.nixosModules.common-cpu-amd
             nixos-hardware.nixosModules.common-pc-ssd
             nixos-hardware.nixosModules.common-gpu-amd
+
+            home-manager.nixosModules.home-manager
+            {
+              # home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.alan = import ./home-manager/home.nix;
+            }
+
             # hyprland.nixosModules.default
             # hyprland.homeManagerModules.default
           ];
@@ -39,9 +48,20 @@
         alan-laptop-linux = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
           modules = [
+            ./desktop/xorg.nix
+            ./systems/laptop
             stylix.nixosModules.stylix
-            ./nixos/laptop-configuration.nix
             nixos-hardware.nixosModules.lenovo-thinkpad-t14-amd-gen2
+
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.alan = import ./home-manager/home.nix;
+            }
+
+            # hyprland.nixosModules.default
+            # hyprland.homeManagerModules.default
           ];
         };
       };

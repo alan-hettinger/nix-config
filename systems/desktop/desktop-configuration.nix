@@ -1,18 +1,4 @@
-{ inputs, pkgs, ... }: {
-  imports = [
-    inputs.home-manager.nixosModules.home-manager
-    ./desktop-hardware-configuration.nix
-    ./font.nix
-    ./common.nix
-    ./xorg.nix
-  ];
-
-  ## import home-manager so we can rebuild the whole system at once:
-  home-manager = {
-    extraSpecialArgs = { inherit inputs; };
-    users = { alan = import ../home-manager/home.nix; };
-  };
-
+{ pkgs, ... }: {
   nixpkgs.overlays = [
     # (final: prev: {
     # })
@@ -100,6 +86,12 @@
     # upower.enable = false;
     tlp.enable = false;
     udisks2.enable = true;
+
+    # testing out KMSCon as a replacement for Getty:
+    # kmscon = {
+    #   enable = true;
+    #   hwRender = true;
+    # };
   };
 
   hardware.opengl = {

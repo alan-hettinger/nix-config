@@ -1,10 +1,5 @@
 { inputs, config, lib, pkgs, ... }: {
 
-  imports = [
-    ./stylix.nix
-
-  ];
-
   nixpkgs.config = { allowUnfree = true; };
   nix = {
     # This will add each flake input as a registry
