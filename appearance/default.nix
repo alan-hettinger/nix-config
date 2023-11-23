@@ -1,5 +1,8 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }: {
+  imports = [
+    ./stylix.nix
+    ./font.nix
+    ./qt.nix
 
-{
-  imports = [ ./stylix.nix ./font.nix ];
+  ];
 }

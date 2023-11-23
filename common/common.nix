@@ -22,6 +22,13 @@
       # Deduplicate and optimize nix store
       auto-optimise-store = true;
     };
+
+    gc = {
+      dates = "weekly";
+      automatic = true;
+      options = "--delete-older-than 30d";
+    };
+    package = pkgs.nixVersions.unstable;
   };
   boot = {
     loader = {
@@ -40,23 +47,13 @@
     initrd.verbose = false;
     consoleLogLevel = 0;
     kernelParams = [ "quiet" "udev.log_level=3" ];
+    kernel.sysctl = { "vm.max_map_count" = 2147483642; };
 
     plymouth.enable = true;
   };
-  security = {
-    sudo.enable = true;
-    polkit.enable = true;
-  };
-  networking.networkmanager.enable = true;
-
-  time.timeZone = "America/New_York";
-  i18n = { defaultLocale = "en_US.UTF-8"; };
-  console = {
-    # keyMap = "us";
-    earlySetup = true;
-    useXkbConfig = true;
-  };
   services = {
+    udisks2.enable = true;
+
     printing = {
       enable = true;
       drivers = with pkgs;
@@ -87,6 +84,23 @@
 
     gnome.gnome-keyring.enable = true;
     fwupd = { enable = true; };
+
+  };
+  security = {
+
+    sudo.enable = true;
+    polkit.enable = true;
+
+    rtkit.enable = true;
+  };
+  networking.networkmanager.enable = true;
+
+  time.timeZone = "America/New_York";
+  i18n = { defaultLocale = "en_US.UTF-8"; };
+  console = {
+    # keyMap = "us";
+    earlySetup = true;
+    useXkbConfig = true;
   };
   sound.enable = true;
   hardware = {
@@ -101,21 +115,24 @@
     dconf.enable = true;
     system-config-printer.enable = true;
   };
+  environment = {
 
-  environment.systemPackages = with pkgs; [
-    vim
-    htop
-    git
-    wget
-    xdg-utils
-    polkit_gnome
-    firefox
-    numlockx
-    coreutils
-    gparted
-    gnome.gnome-disk-utility
+    pathsToLink = [ "/share/zsh" ];
+    systemPackages = with pkgs; [
+      vim
+      htop
+      git
+      wget
+      xdg-utils
+      polkit_gnome
+      firefox
+      numlockx
+      coreutils
+      gparted
+      gnome.gnome-disk-utility
 
-  ];
+    ];
+  };
   xdg.portal = {
     enable = true;
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
