@@ -247,12 +247,12 @@
   (treemacs-git-commit-diff-mode 't)
   (treemacs-git-mode 'extended)
   (treemacs-indent-guide-mode 't)
+  (hide-mode-line-mode 't)
   (setq treemacs-indentation 1
         treemacs-indentation-string "┃"
         treemacs-width 25
         treemacs-wide-toggle-width 40
         treemacs-text-scale 1
-        ;; treemacs-persist-file "~/.doom.d/conf/treemacs-persist.org"
         ))
 
 (remove-hook 'vterm-mode-hook #'hide-mode-line-mode)
