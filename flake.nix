@@ -19,30 +19,76 @@
   };
 
   outputs = { nixpkgs, home-manager, nixos-hardware, nix-doom-emacs, hyprland
-    , stylix, ... }@inputs: {
-      # Available through 'sudo nixos-rebuild --flake .#your-hostname'
-      nixosConfigurations = {
+    , stylix, ... }@inputs:
 
-        alan-desktop-linux = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs; };
-          modules = [
-            stylix.nixosModules.stylix
-            ./nixos/desktop-configuration.nix
+    let
+      ## add my helper functions to lib
+      mkLib = nixpkgs:
+        # credit to https://github.com/kclejeune/system/blob/2ae7ced193f862ae3deace320c37f4657a873bd0/flake.nix#L49
+        nixpkgs.lib.extend
+        (final: prev: (import ./lib final) // home-manager.lib);
+      lib = (mkLib nixpkgs);
+
+      ## set the defaults for nixos system configs:
+      generateNixosSystem = {
+        ## typically just leave these first two as-is
+        system ? "x86_64-linux", specialArgs ? { inherit inputs lib; },
+        ## always provide a systemModule and at least one hardwareModules
+        systemModule, hardwareModules,
+        ## desktopModules are xorg/wayland modules, basic software, and whatever is needed for appearance
+        desktopModules ? [
+          ./appearance
+          stylix.nixosModules.stylix
+        ]
+        ## plus one of xorg or wayland:
+        , enableXorg ? true, enableWayland ? false,
+        ## hmModules includes whatever users are wanted
+        hmModules ? [
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useUserPackages = true;
+            home-manager.users.alan = import ./home-manager/home.nix;
+          }
+        ],
+
+        ## most customization occurs here:
+        ## - modules for specific use-cases:
+        games ? false, coding ? false, work ? true, media ? true,
+        ## - system-specific stuff:
+        extraModules ? [ ], }:
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          inherit specialArgs;
+          modules = systemModule ++ hardwareModules ++ desktopModules
+            ++ extraModules ++ [ ./common ]
+            ++ (if enableXorg == true then [ ./desktop/xorg.nix ] else [ ])
+            ++ (if enableWayland == true then
+              [ ./desktop/wayland.nix ]
+            else
+              [ ]) ++ hmModules
+            ++ (if games == true then [ ./software/games.nix ] else [ ])
+            ++ (if coding == true then [ ./software/coding ] else [ ])
+            ++ (if work == true then [ ./software/work ] else [ ])
+            ++ (if media == true then [ ./software/media ] else [ ]);
+        };
+
+    in {
+      nixosConfigurations = {
+        alan-desktop-linux = generateNixosSystem {
+          systemModule = [ ./systems/desktop ];
+          hardwareModules = [
             nixos-hardware.nixosModules.common-cpu-amd
             nixos-hardware.nixosModules.common-pc-ssd
             nixos-hardware.nixosModules.common-gpu-amd
-            # hyprland.nixosModules.default
-            # hyprland.homeManagerModules.default
           ];
+          games = true;
         };
 
-        alan-laptop-linux = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs; };
-          modules = [
-            stylix.nixosModules.stylix
-            ./nixos/laptop-configuration.nix
-            nixos-hardware.nixosModules.lenovo-thinkpad-t14-amd-gen2
-          ];
+        alan-laptop-linux = generateNixosSystem {
+          systemModule = [ ./systems/laptop ];
+          games = true;
+          hardwareModules =
+            [ nixos-hardware.nixosModules.lenovo-thinkpad-t14-amd-gen2 ];
         };
       };
     };

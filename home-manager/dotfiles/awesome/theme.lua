@@ -9,7 +9,7 @@ local cat                                       = require("catppuccin")
 
 -- Font variables defined by me:
 theme.mono_font                                 = "Jetbrains Mono Nerd Font 14"
-theme.variable_font                             = "Liberation Sans 15"
+theme.variable_font                             = "Montserrat Medium 14"
 
 -- colors added by me to modularize theming:
 theme.red                                       = cat.red

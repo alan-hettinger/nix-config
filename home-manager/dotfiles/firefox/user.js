@@ -35,12 +35,12 @@ user_pref("signon.rememberSignons", false);
 user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
 
 // font settings:
-user_pref("font.minimum-size.x-western", 12);
-user_pref("font.name.monospace.x-western", "Source Code Pro");
-user_pref("font.name.sans-serif.x-western", "Source Sans Variable");
-user_pref("font.name.serif.x-western", "Source Serif Variable");
-user_pref("font.size.monospace.x-western", 16);
-user_pref("font.size.variable.x-western", 18);
+// user_pref("font.minimum-size.x-western", 12);
+// user_pref("font.name.monospace.x-western", "Source Code Pro");
+// user_pref("font.name.sans-serif.x-western", "Source Sans Variable");
+// user_pref("font.name.serif.x-western", "Source Serif Variable");
+// user_pref("font.size.monospace.x-western", 16);
+// user_pref("font.size.variable.x-western", 18);
 
 user_pref("browser.bookmarks.restore_default_bookmarks", false);
 
