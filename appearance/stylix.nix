@@ -18,18 +18,18 @@
         name = "Source Serif Pro";
       };
       sansSerif = {
-        package = pkgs.source-sans-pro;
-        name = "Source Sans Pro";
+        package = pkgs.montserrat;
+        name = "Montserrat";
       };
       monospace = {
-        package = pkgs.jetbrains-mono;
-        name = "JetbrainsMono";
+        package = pkgs.mononoki;
+        name = "mononoki";
       };
       sizes = {
         applications = 16;
         desktop = 16;
         popups = 16;
-        terminal = 16;
+        terminal = 14;
       };
     };
 

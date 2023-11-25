@@ -91,8 +91,8 @@
       parole
 
       ## xfce apps that I do want:
-      # xfce4.ristretto
-      # xfce.xfce4-settings
+      # ristretto
+      # xfce4-settings
       # xfce.thunar
     ];
   };
