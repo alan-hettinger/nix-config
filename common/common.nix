@@ -1,96 +1,34 @@
 { inputs, config, lib, pkgs, ... }: {
 
-  nixpkgs.config = { allowUnfree = true; };
-  nix = {
-    # This will add each flake input as a registry
-    # To make nix3 commands consistent with your flake
-    registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
+  services.udisks2.enable = true;
 
-    # This will additionally add your inputs to the system's legacy channels
-    # Making legacy nix commands consistent as well, awesome!
-    nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}")
-      config.nix.registry;
+  services.printing = {
+    enable = true;
+    drivers = with pkgs;
+      [
+        # drivers for my brother printer:
+        cups-brother-hll2340dw
 
-    settings = {
-      # Enable flakes and new 'nix' command
-      experimental-features = "nix-command flakes";
-      substituters =
-        [ "https://cachix.cachix.org" "https://hyprland.cachix.org" ];
-      trusted-public-keys = [
-        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       ];
-      # Deduplicate and optimize nix store
-      auto-optimise-store = true;
-    };
-
-    gc = {
-      dates = "weekly";
-      automatic = true;
-      options = "--delete-older-than 30d";
-    };
-    package = pkgs.nixVersions.unstable;
   };
-  boot = {
-    loader = {
-      systemd-boot = {
-        enable = true;
-        configurationLimit = 20;
-        consoleMode =
-          "max"; # # sets the resolution of the console to highest available
-        editor = false;
-      };
-      efi.canTouchEfiVariables = true;
-    };
-    initrd.systemd.enable = true;
-
-    ## silence boot messages:
-    initrd.verbose = false;
-    consoleLogLevel = 0;
-    kernelParams = [ "quiet" "udev.log_level=3" ];
-    kernel.sysctl = { "vm.max_map_count" = 2147483642; };
-
-    plymouth.enable = true;
+  services.avahi = { # needed for printing over wifi
+    enable = true;
+    nssmdns = true;
+    openFirewall = true;
   };
-  services = {
-    udisks2.enable = true;
+  services.system-config-printer.enable = true;
 
-    printing = {
-      enable = true;
-      drivers = with pkgs;
-        [
-          # drivers for my brother printer:
-          cups-brother-hll2340dw
+  services.blueman.enable = true;
 
-        ];
-    };
-    avahi = { # needed for printing over wifi
-      enable = true;
-      nssmdns = true;
-      openFirewall = true;
-    };
-    system-config-printer.enable = true;
-    pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-      jack.enable = true;
-    };
+  services.flatpak.enable = true;
+  services.accounts-daemon.enable = true;
 
-    blueman.enable = true;
+  services.gnome.gnome-keyring.enable = true;
+  services.fwupd = { enable = true; };
 
-    flatpak.enable = true;
-    accounts-daemon.enable = true;
-
-    gnome.gnome-keyring.enable = true;
-    fwupd = { enable = true; };
-
-  };
   security = {
-
     sudo.enable = true;
     polkit.enable = true;
-
     rtkit.enable = true;
   };
   networking.networkmanager.enable = true;

@@ -22,44 +22,60 @@
     , stylix, ... }@inputs:
 
     let
+      ## add my helper functions to lib
       mkLib = nixpkgs:
         # credit to https://github.com/kclejeune/system/blob/2ae7ced193f862ae3deace320c37f4657a873bd0/flake.nix#L49
         nixpkgs.lib.extend
         (final: prev: (import ./lib final) // home-manager.lib);
       lib = (mkLib nixpkgs);
 
-      generateNixosSystem = { system ? "x86_64-linux"
-        , specialArgs ? { inherit inputs lib; }, systemModule, games ? false
-        , hardwareModules ? [ ], desktopModules ? [
+      ## set the defaults for nixos system configs:
+      generateNixosSystem = {
+        ## typically just leave these first two as-is
+        system ? "x86_64-linux", specialArgs ? { inherit inputs lib; },
+        ## always provide a systemModule and typically at least one hardwareModules
+        systemModule, hardwareModules,
+        ## desktopModules are xorg/wayland modules, basic software, and whatever is needed for appearance
+        desktopModules ? [
           ./desktop/xorg.nix
           ./appearance
           stylix.nixosModules.stylix
-        ], hmModules ? [
+        ],
+        ## hmModules includes whatever users are wanted
+        hmModules ? [
           home-manager.nixosModules.home-manager
           {
             home-manager.useUserPackages = true;
             home-manager.users.alan = import ./home-manager/home.nix;
           }
-        ], extraModules ? [ ], }:
+        ],
+
+        ## most customization occurs here:
+        ## - modules for specific use-cases:
+        games ? false, coding ? false, work ? true, media ? true,
+        ## - system-specific stuff:
+        extraModules ? [ ], }:
         nixpkgs.lib.nixosSystem {
-          inherit specialArgs;
           inherit system;
+          inherit specialArgs;
           modules = systemModule ++ hardwareModules ++ desktopModules
-            ++ extraModules
+            ++ extraModules ++ [ ./common ] ++ hmModules
             ++ (if games == true then [ ./software/games.nix ] else [ ])
-            ++ [ ./common/common.nix ] ++ hmModules;
+            ++ (if coding == true then [ ] else [ ])
+            ++ (if work == true then [ ] else [ ])
+            ++ (if media == true then [ ] else [ ]);
         };
 
     in {
       nixosConfigurations = {
         alan-desktop-linux = generateNixosSystem {
           systemModule = [ ./systems/desktop ];
-          games = true;
           hardwareModules = [
             nixos-hardware.nixosModules.common-cpu-amd
             nixos-hardware.nixosModules.common-pc-ssd
             nixos-hardware.nixosModules.common-gpu-amd
           ];
+          games = true;
         };
 
         alan-laptop-linux = generateNixosSystem {
