@@ -1,10 +1,5 @@
 { config, lib, pkgs, ... }: {
-  imports = [
-    ./desktop-hardware-configuration.nix
-    ../common.nix
-    ./network.nix
-
-  ];
+  imports = lib.helperFunctions.getNixFilesFromDir ./.;
 
   ## custom kernels that are potentially of interest for my use-case:
   ## - (linuxPackages_latest)

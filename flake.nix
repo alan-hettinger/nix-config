@@ -19,16 +19,29 @@
   };
 
   outputs = { nixpkgs, home-manager, nixos-hardware, nix-doom-emacs, hyprland
-    , stylix, ... }@inputs: {
+    , stylix, ... }@inputs:
+
+    let
+      mkLib = nixpkgs:
+        # credit to https://github.com/kclejeune/system/blob/2ae7ced193f862ae3deace320c37f4657a873bd0/flake.nix#L49
+        nixpkgs.lib.extend
+        (final: prev: (import ./lib final) // home-manager.lib);
+
+      lib = (mkLib nixpkgs);
+
+    in {
       # Available through 'sudo nixos-rebuild --flake .#your-hostname'
       nixosConfigurations = {
 
         alan-desktop-linux = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs; };
+          specialArgs = { inherit inputs lib; };
           modules = [
             ./desktop/xorg.nix
             ./systems/desktop
             ./software/games.nix
+            ./appearance
+            ./common/common.nix
+            # ./helper-functions.nix
             stylix.nixosModules.stylix
             nixos-hardware.nixosModules.common-cpu-amd
             nixos-hardware.nixosModules.common-pc-ssd
@@ -51,6 +64,8 @@
           modules = [
             ./desktop/xorg.nix
             ./systems/laptop
+            ./appearance
+            ./common/common.nix
             stylix.nixosModules.stylix
             nixos-hardware.nixosModules.lenovo-thinkpad-t14-amd-gen2
 
