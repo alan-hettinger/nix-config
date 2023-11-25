@@ -33,14 +33,15 @@
       generateNixosSystem = {
         ## typically just leave these first two as-is
         system ? "x86_64-linux", specialArgs ? { inherit inputs lib; },
-        ## always provide a systemModule and typically at least one hardwareModules
+        ## always provide a systemModule and at least one hardwareModules
         systemModule, hardwareModules,
         ## desktopModules are xorg/wayland modules, basic software, and whatever is needed for appearance
         desktopModules ? [
-          ./desktop/xorg.nix
           ./appearance
           stylix.nixosModules.stylix
-        ],
+        ]
+        ## plus one of xorg or wayland:
+        , enableXorg ? true, enableWayland ? false,
         ## hmModules includes whatever users are wanted
         hmModules ? [
           home-manager.nixosModules.home-manager
@@ -59,11 +60,16 @@
           inherit system;
           inherit specialArgs;
           modules = systemModule ++ hardwareModules ++ desktopModules
-            ++ extraModules ++ [ ./common ] ++ hmModules
+            ++ extraModules ++ [ ./common ]
+            ++ (if enableXorg == true then [ ./desktop/xorg.nix ] else [ ])
+            ++ (if enableWayland == true then
+              [ ./desktop/wayland.nix ]
+            else
+              [ ]) ++ hmModules
             ++ (if games == true then [ ./software/games.nix ] else [ ])
-            ++ (if coding == true then [ ] else [ ])
-            ++ (if work == true then [ ] else [ ])
-            ++ (if media == true then [ ] else [ ]);
+            ++ (if coding == true then [ ./software/coding ] else [ ])
+            ++ (if work == true then [ ./software/work ] else [ ])
+            ++ (if media == true then [ ./software/media ] else [ ]);
         };
 
     in {
