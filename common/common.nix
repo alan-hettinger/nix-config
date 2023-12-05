@@ -28,6 +28,7 @@
 
   security = {
     sudo.enable = true;
+    sudo.extraConfig = "Defaults pwfeedback";
     polkit.enable = true;
     rtkit.enable = true;
   };
