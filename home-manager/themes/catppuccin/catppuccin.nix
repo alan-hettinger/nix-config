@@ -34,14 +34,6 @@
 
   programs = {
 
-    tmux.plugins = [{
-      plugin = pkgs.tmuxPlugins.catppuccin;
-      extraConfig = ''
-        set -g @catppuccin_flavour 'macchiato'
-        set -g @catppuccin_window_tabs_enabled on
-      '';
-    }];
-
     neovim.plugins = with pkgs.vimPlugins; [{
       plugin = catppuccin-nvim;
       config = "colorscheme catppuccin-macchiato";
