@@ -86,9 +86,9 @@
 
         alan-laptop-linux = generateNixosSystem {
           systemModule = [ ./systems/laptop ];
-          games = true;
           hardwareModules =
             [ nixos-hardware.nixosModules.lenovo-thinkpad-t14-amd-gen2 ];
+          games = true;
         };
       };
     };
