@@ -259,6 +259,31 @@ The following allows headlines to be ignored while including their contents:
 
 (add-hook 'org-export-before-processing-hook #'org-remove-headlines)
 #+end_src
+Automatically export my thesis draft as a pdf:
+#+begin_src emacs-lisp
+(after! org
+  (let* ((main-filename-str "thesis-draft")
+         (date-format-str (format-time-string "%Y-%m-%d"))
+         (target-path "./drafts/")
+         (target-filename (format "%s%s-%s.tex" target-path date-format-str main-filename-str))
+        )
+   (defun alan/export-thesis-draft ()
+    (when (string-equal (buffer-file-name) (expand-file-name "./thesis-draft.org"))
+      (progn
+      ;; create the pdf:
+      (org-export-to-file 'latex
+          (format "./drafts/%s-thesis-draft.tex" (format-time-string "%Y-%m-%d"))
+        nil ;; export asynchronously
+        nil nil nil nil ;; bunch of args I don't care about
+        #'org-latex-compile)
+      ;; clean up the latex file:
+      (delete-file (format "./drafts/%s-thesis-draft.tex" (format-time-string "%Y-%m-%d"))))
+      )
+    ))
+  (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'alan/export-thesis-draft)))
+                )
+#+end_src
+
 *** Org-babel
 #+begin_src emacs-lisp
 (org-babel-do-load-languages
@@ -278,12 +303,12 @@ The following allows headlines to be ignored while including their contents:
   (add-to-list 'org-structure-template-alist '("sc" . "src scheme"))
   (add-to-list 'org-structure-template-alist '("r" . "src racket"))
   ;; automatically tangle certain config files on save:
-  (defun alan/org-babel-tangle-config ()
-    (when (string-equal (buffer-file-name)
-                        (expand-file-name "./config.org"))
-      (let ((org-confirm-babel-evaluate nil))
-        (org-babel-tangle))))
-  (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'alan/org-babel-tangle-config)))
+  ;; (defun alan/org-babel-tangle-config ()
+  ;;   (when (string-equal (buffer-file-name)
+  ;;                       (expand-file-name "./config.org"))
+  ;;     (let ((org-confirm-babel-evaluate nil))
+  ;;       (org-babel-tangle))))
+  ;; (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'alan/org-babel-tangle-config)))
 )
 #+end_src
 Racket configuration for SICP:
