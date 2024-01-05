@@ -3,6 +3,7 @@
       user-mail-address "alan.hettinger@proton.me")
 
 (load! "appearance")
+(load! "writing/thesis")
 
 (defun my/disable-scroll-bars (frame)
   (modify-frame-parameters frame
@@ -77,29 +78,8 @@
   (org-map-entries (lambda () (delete-region (point-at-bol) (point-at-eol)))
                    "ignore"))
 
-(add-hook 'org-export-before-processing-hook #'org-remove-headlines)
+(add-hook 'org-export-before-processing-functions #'org-remove-headlines)
 
-(after! org
-  (let* ((main-filename-str "thesis-draft")
-         (date-format-str (format-time-string "%Y-%m-%d"))
-         (target-path "./drafts/")
-         (target-filename (format "%s%s-%s.tex" target-path date-format-str main-filename-str))
-         )
-    (defun alan/export-thesis-draft ()
-      (when (string-equal (buffer-file-name) (expand-file-name "./thesis-draft.org"))
-        (progn
-          ;; create the pdf:
-          (org-export-to-file 'latex
-              (format "./drafts/%s-thesis-draft.tex" (format-time-string "%Y-%m-%d"))
-            nil ;; export asynchronously
-            nil nil nil nil ;; bunch of args I don't care about
-            #'org-latex-compile)
-          ;; clean up the latex file:
-          (delete-file (format "./drafts/%s-thesis-draft.tex" (format-time-string "%Y-%m-%d"))))
-        )
-      ))
-  (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'alan/export-thesis-draft)))
-  )
 
 (org-babel-do-load-languages
  'org-babel-load-languages
@@ -136,9 +116,8 @@
 (after! org
 
   (setq org-latex-packages-alist '(("margin=2cm" "geometry" nil)))
-  (setq org-cite-global-bibliography '("~/Documents/Thesis/zotero-lib.bib")
-	org-cite-insert-processor 'citar
-	org-cite-follow-processor 'citar
+  (setq org-cite-insert-processor 'citar
+        org-cite-follow-processor 'citar
         org-cite-activate-processor 'citar
         citar-bibliography org-cite-global-bibliography
         org-cite-csl-styles-dir "~/Zotero/styles/"
