@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+err_text="Please include an argument. Type 'help' for a list of valid arguments."
+help_text="Valid commands:\n
+ - rs | rebuild = rebuild and switch\n
+ - gc | collect-garbage = collect garbage for both nixos and home-manager\n
+ - s | search = search nixpkgs\n
+ - r | run = run something from nixpkgs\n"
+
+
+if [ "$1" = "" ]; then
+    echo -e "$err_text";
+fi
+
+while [ "$1" != "" ]; do
+    case $1 in
+        help)
+            echo -e "$help_text"
+            ;;
+        rs | rebuild)
+            sudo nixos-rebuild switch
+            ;;
+        gc | collect-garbage)
+            nix-collect-garbage -d && sudo nix-collect-garbage -d
+            ;;
+        s | search)
+            shift
+            nix search nixpkgs "$1"
+            ;;
+        r | run)
+            shift
+            nix run nixpkgs#"$1"
+            ;;
+    esac
+done
