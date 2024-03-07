@@ -7,8 +7,8 @@
     drivers = with pkgs;
       [
         # drivers for my brother printer:
-        cups-brother-hll2340dw
-
+        # cups-brother-hll2340dw
+        brlaser
       ];
   };
   services.avahi = { # needed for printing over wifi
