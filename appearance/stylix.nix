@@ -55,7 +55,35 @@
       };
 
       gtk.extraCss = ''
-        .window-frame { box-shadow: 0 0 0 0px @wm_border; margin: 0px; }
+        .window-frame, .window-frame:backdrop, .window-frame.solid-csd {
+        box-shadow: none;
+        border-style: none;
+        margin: 0;
+        border-radius: 0;
+        border-style: hidden;
+        }
+
+        .titlebar {
+        border-radius: 0;
+        }
+
+        decoration {
+        box-shadow: none;
+        border-style: hidden;
+        margin: 0;
+        border-radius: 0;
+        }
+
+        .window-frame.csd.popup {
+        box-shadow 0 1px 2px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.13);
+        }
+
+        .header-bar {
+        background-image: none;
+        box-shadow: none;
+        }
+
+        window.background { border-radius: 0; }
       '';
     };
   };
