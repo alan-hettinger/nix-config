@@ -12,7 +12,9 @@
       # libsForQt5.kio-admin
       # libsForQt5.kio-extras
       # libsForQt5.qt5ct
-      # libsForQt5.qtstyleplugin-kvantum
+
+      libsForQt5.qtstyleplugin-kvantum
+
       brave
       spotify
       spicetify-cli

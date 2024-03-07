@@ -9,6 +9,12 @@
         variant = "macchiato";
       };
     })
+    (final: prev: {
+      catppuccin-kvantum = prev.catppuccin-kvantum.override {
+        accent = "Rosewater";
+        variant = "Macchiato";
+      };
+    })
   ];
 
   gtk = {
@@ -28,8 +34,8 @@
 
   qt = {
     enable = true;
-    # style.name = "adwaita-dark";
-    platformTheme = "gtk3";
+    # style.name = "kvantum";
+    platformTheme = "qtct";
   };
 
   programs = {
@@ -135,4 +141,13 @@
   home.activation.gtk4-fix = ''
     ln -sf ${pkgs.catppuccin-gtk}/share/themes/Catppuccin-*-dark/gtk-4.0/* ${config.home.homeDirectory}/.config/gtk-4.0/
   '';
+
+  home.file.".config/qt5ct/colors/Catppuccin-Macchiato.conf" = {
+    source =
+      "${pkgs.catppuccin-qt5ct}/share/qt5ct/colors/Catppuccin-Macchiato.conf";
+  };
+  home.file.".config/Kvantum/themes/Catppuccin-Macchiato-Rosewater" = {
+    source =
+      "${pkgs.catppuccin-kvantum}/share/Kvantum/Catppuccin-Macchiato-Rosewater";
+  };
 }

@@ -47,7 +47,13 @@
       alacritty.enable = true;
       emacs.enable = false;
       rofi.enable = false;
-      kde.enable = true;
+      kde.enable = false;
+
+      firefox = {
+        enable = true;
+        profileNames = [ "alan" ];
+      };
+
       gtk.extraCss = ''
         .window-frame { box-shadow: 0 0 0 0px @wm_border; margin: 0px; }
       '';
