@@ -41,7 +41,6 @@
     earlySetup = true;
     useXkbConfig = true;
   };
-  sound.enable = true;
   hardware = {
     bluetooth = {
       enable = true;
