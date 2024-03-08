@@ -1,34 +1,46 @@
 @namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
 
+#titlebar {
+    visibility: hidden;
+    opacity: 0;
+    background-color: transparent;
+    -moz-appearance: none !important;
+}
 
-#nav-bar {
-    /* this hides the tab bar */
+#TabsToolbar {
+    visibility: hidden;
+    opacity: 0;
+    height: 0px;
+    background-color: #24273a;
+    -moz-appearance: none !important;
+}
+
+#nav-bar,
+#navigator-toolbox > #nav-bar {
     margin-top: -38px !important;
-}
-
-/* hide the top bar entirely when not hovered, leaving a small strip to hover over */
-/* commenting out the next few blocks should disable this behavior */
-#nav-bar {
-	margin-bottom: -35px !important;
+    margin-bottom: -34px !important;
     z-index: -100;
-}
-#navigator-toolbox:focus-within > #nav-bar,
-#navigator-toolbox:hover > #nav-bar
-{
-  margin-top: 0;
-  margin-bottom: -40px;
-  z-index: 100;
+    visibility: hidden;
+    opacity: 0;
+    background-color: #24273a;
 }
 
+#navigator-toolbox:focus-within > #nav-bar,
+#navigator-toolbox:hover > #nav-bar {
+    z-index: 100;
+    visibility: visible !important;
+    opacity: 1;
+    height: max-content;
+}
 
 /* hides the sidebar header */
 #sidebar-header {
-	display: none !important;
+    display: none !important;
 }
 
 .tabbrowser-tab {
-	visibility: collapse;
-	height: 0px;
+    visibility: collapse;
+    height: 0px;
 }
 
 #urlbar {
@@ -52,17 +64,15 @@
 #sidebar-box,
 #nav-bar {
     box-shadow: none !important;
-    }
+}
 
 #PersonalToolbar {
-  padding: 6px !important;
+    padding: 6px !important;
 }
 
 #statuspanel #statuspanel-label {
-
-  border: none !important;
-  border-radius: 15px !important;
-
+    border: none !important;
+    border-radius: 15px !important;
 }
 
 #main-window,
@@ -71,31 +81,32 @@
 #PersonalToolbar,
 #navigator-toolbox,
 #nav-bar,
-#sidebar-box{ border: none !important; }
+#sidebar-box {
+    border: none !important;
+}
 
 /* Encryption and Permissions icons */
-  /* Only hides permission items */
-  /* #identity-permission-box { display: none !important; } */
-  /* Hides encryption AND permission items */
-  #identity-box { display: none !important }
+/* Only hides permission items */
+/* #identity-permission-box { display: none !important; } */
+/* Hides encryption AND permission items */
+#identity-box {
+    display: none !important;
+}
 
 /* Hide everything BUT the zoom indicator within the URL Bar */
-#page-action-buttons > :not(#urlbar-zoom-button) { display: none !important; }
+#page-action-buttons > :not(#urlbar-zoom-button) {
+    display: none !important;
+}
 
 /* Hide the »Go«-arrow in the URL Bar */
-#urlbar-go-button { display: none !important; }
-
-/* #back-button, */
-/* #forward-button { display: none !important; } */
+#urlbar-go-button {
+    display: none !important;
+}
 
 /* remove window control buttons */
-.titlebar-buttonbox-container { display: none !important; }
-
-/* Hide the hamburger menu: */
-/* #PanelUI-menu-button { padding: 0px !important; } */
-/* #PanelUI-menu-button .toolbarbutton-icon { width: 1px !important; } */
-/* #PanelUI-menu-button .toolbarbutton-badge-stack { padding: 0px !important; } */
-
+.titlebar-buttonbox-container {
+    display: none !important;
+}
 
 /* Credits to https://github.com/MrOtherGuy for hthe following snippet*/
 
@@ -105,8 +116,7 @@ See the above repository for updates as well as full license text. */
 /* Show sidebar only when the cursor is over it */
 /* The border controlling sidebar width will be removed so you'll need to modify these values to change width */
 
-
-#sidebar-box{
+#sidebar-box {
     /* --uc-sidebar-width: 44px; /\* Only thing I (gale) changed -- Changed again by me (Alan) *\/ */
     /* --uc-sidebar-width: 400px; */
     --uc-sidebar-width: 0px;
@@ -116,78 +126,78 @@ See the above repository for updates as well as full license text. */
     min-width: var(--uc-sidebar-width) !important;
     width: var(--uc-sidebar-width) !important;
     max-width: var(--uc-sidebar-width) !important;
-    z-index:1;
+    z-index: 1;
 }
 
 #sidebar-box[positionend] {
-	direction: rtl;
+    direction: rtl;
 }
 #sidebar-box[positionend] > * {
-	direction: ltr;
+    direction: ltr;
 }
 
 #sidebar-box[positionend]:-moz-locale-dir(rtl) {
-	direction: ltr;
+    direction: ltr;
 }
 #sidebar-box[positionend]:-moz-locale-dir(rtl) > * {
-	direction: rtl;
+    direction: rtl;
 }
 
 #main-window[sizemode="fullscreen"] #sidebar-box {
-	--uc-sidebar-width: 1px;
+    --uc-sidebar-width: 1px;
 }
 
 #sidebar-splitter {
-	display: none;
+    display: none;
 }
 
 #sidebar-header {
-	overflow: hidden;
-	color: var(--chrome-color, inherit) !important;
+    overflow: hidden;
+    color: var(--chrome-color, inherit) !important;
 }
 
 #sidebar {
-	transition: min-width 115ms linear var(--uc-autohide-sidebar-delay) !important;
-	min-width: var(--uc-sidebar-width) !important;
-	will-change: min-width;
+    transition: min-width 115ms linear var(--uc-autohide-sidebar-delay) !important;
+    min-width: var(--uc-sidebar-width) !important;
+    will-change: min-width;
 }
 
 #sidebar-box:hover > #sidebar {
-	min-width: var(--uc-sidebar-hover-width) !important;
-	transition-delay: 0ms !important;
+    min-width: var(--uc-sidebar-hover-width) !important;
+    transition-delay: 0ms !important;
 }
 
 .sidebar-panel {
-	background-color: transparent !important;
-	color: var(--newtab-text-primary-color) !important;
+    background-color: transparent !important;
+    color: var(--newtab-text-primary-color) !important;
 }
 
 .sidebar-panel #search-box {
-	-moz-appearance: none !important;
-	background-color: #24273a !important;
-	color: inherit !important;
+    -moz-appearance: none !important;
+    background-color: #24273a !important;
+    color: inherit !important;
 }
 
 /* Add sidebar divider and give it background */
 
 #sidebar,
 #sidebar-header {
-	background-color: inherit !important;
-	border-inline: 1px solid #313244;
-	border-inline-width: 0px 2px;
+    background-color: inherit !important;
+    border-inline: 1px solid #313244;
+    border-inline-width: 0px 2px;
 }
 
 #sidebar-box:not([positionend]) > :-moz-locale-dir(rtl),
 #sidebar-box[positionend] > * {
-	border-inline-width: 1px 0px;
+    border-inline-width: 1px 0px;
 }
 
 /* Move statuspanel to the other side when sidebar is hovered so it doesn't get covered by sidebar */
 
 #sidebar-box:not([positionend]):hover ~ #appcontent #statuspanel {
-	inset-inline: auto 0px !important;
+    inset-inline: auto 0px !important;
 }
 #sidebar-box:not([positionend]):hover ~ #appcontent #statuspanel-label {
-	margin-inline: 0px !important;
-	border-left-style: solid !important;
+    margin-inline: 0px !important;
+    border-left-style: solid !important;
 }
