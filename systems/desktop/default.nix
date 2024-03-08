@@ -13,4 +13,18 @@
   environment.variables = { HOSTNAME = "alan-desktop-linux"; };
 
   system.stateVersion = "22.11";
+
+  ## TODO split this into a separate file
+  fileSystems = {
+    "/media" = {
+      device = "/dev/sdb1";
+      fsType = "ext4";
+      options = [
+        "users"
+        "nofail"
+        "defaults"
+
+      ];
+    };
+  };
 }
