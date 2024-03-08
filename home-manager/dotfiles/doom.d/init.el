@@ -71,8 +71,8 @@
 
        :emacs
        (dired +icons          ; making dired pretty [functional]
-        ;; +ranger
-        )
+              ;; +ranger
+              )
        electric                         ; smarter, keyword-based electric-indent
        (ibuffer +icons)                 ; interactive buffer management
        (undo             ; persistent, smarter undo for your inevitable mistakes
@@ -179,8 +179,8 @@
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
        (python            ; beautiful is better than ugly
-       +lsp
-       +tree-sitter)
+        +lsp
+        +tree-sitter)
        ;;qt                ; the 'cutest' gui framework ever
        (racket +lsp)    ; a DSL for DSLs
        ;;raku              ; the artist formerly known as perl6
