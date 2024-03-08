@@ -84,7 +84,7 @@
     excludePackages = with pkgs.xfce; [
       mousepad
       xfce4-appfinder
-      xfce4-screenshooter
+      # xfce4-screenshooter
       xfce4-taskmanager
       xfce4-terminal
       xfce4-notifyd

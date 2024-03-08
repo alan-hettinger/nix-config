@@ -29,8 +29,9 @@ local _M = {
                      -theme-str '#window { y-offset: 45px; width: 375px; height: 325px; }']],
   screenlock = "xflock4",
   screenshot = "flameshot gui",
-  editor = "emacsclient -c",
-  filemanager = "nemo",
+  editor = emacs_command,
+  filemanager = "dolphin --platformtheme gtk --style kvantum", -- FIXME dumb as hell workaround
+  -- filemanager = "nemo", -- nemo | thunar | dolphin
   browser2 = "brave",
   device = "desktop", -- valid options: desktop | laptop
   modkey = "Mod4",
