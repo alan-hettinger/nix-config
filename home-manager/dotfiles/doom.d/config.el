@@ -277,3 +277,46 @@
 (use-package nix-mode
   :hook (nix-mode . lsp-deferred)
   :ensure t)
+
+;;; open eshell as if it were a terminal:
+;; - invoked via 'emacsclient -a "" -c -e '(server-eshell)'
+;; - per https://www.emacswiki.org/emacs/EshellAndEmacsServer
+;; (require 'cl)
+;; (defun server-eshell ()
+;; "Command to be called by emacs-client to start a new shell.
+;;
+;; A new eshell will be created. When the frame is closed, the buffer is deleted or the shell exits,
+;; then hooks will take care that the other actions happen. For example, when the frame is closed,
+;; then the buffer will be deleted and the client disconnected."
+;; (lexical-let ((buf (eshell t))
+;; (client (first server-clients))
+;; (frame (selected-frame)))
+;; (labels ((close (&optional arg)
+;; (when (not (boundp 'cve/recurse))
+;; (let ((cve/recurse t))
+;; (delete-frame frame)
+;; (kill-buffer buf)
+;; (server-delete-client client)))))
+;; (add-hook 'eshell-exit-hook #'close t t)
+;; (add-hook 'delete-frame-functions #'close t t))
+;; (delete-other-windows)
+;; nil))
+
+;;; eshell aliases and functions:
+(setq alan/eshell-aliases
+      '((d . dired)
+        (l . (lambda () (eshell/ls '-la)))
+        (o . find-file)
+        (open . find-file)
+        (g . magit)
+        ))
+(mapc (lambda (alias)
+        (defalias (car alias) (cdr alias))) alan/eshell-aliases)
+
+(defun eshell/edit-thesis ()
+  (progn (eshell/cd "~/Documents/Thesis")
+         (find-file "thesis-draft.org")
+         (find-file-other-window "~/Documents/Notes/thesis/thesis-notes.org")
+         (+workspace/rename "thesis")
+         (treemacs-do-switch-workspace "Perspective thesis")
+         ))

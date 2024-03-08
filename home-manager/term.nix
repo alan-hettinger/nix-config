@@ -173,7 +173,7 @@
           };
           decorations = "none";
         };
-        draw_bold_text_with_bright_colors = false;
+        colors.draw_bold_text_with_bright_colors = false;
         cursor = {
           blink_interval = 0;
           blink_timeout = 5;
@@ -186,7 +186,7 @@
             shape = "Beam";
             blinking = "Off";
           };
-          mouse.hide_when_typing = true;
+          # mouse.hide_when_typing = true;
         };
       };
     };

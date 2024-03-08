@@ -11,8 +11,12 @@ local function screen2_if_exists()
   end
 end
 
+local emacs_command = "emacsclient -c -e '(+eshell/here)'"
+
 local _M = {
-  terminal = "wezterm connect unix",
+  -- terminal = "wezterm connect unix",
+  -- terminal = emacs_command,
+  terminal = "alacritty",
   term2 = "wezterm",
   browser = "firefox",
   launcher = [[

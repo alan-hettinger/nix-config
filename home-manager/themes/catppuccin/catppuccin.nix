@@ -90,48 +90,48 @@
       sudo.style = "mauve";
     };
 
-    alacritty.settings.colors = {
-      primary = {
-        background = "#24273A"; # base
-        foreground = "#CAD3F5"; # text
-        dim_foreground = "#CAD3F5"; # text
-        bright_foreground = "#CAD3F5"; # text
-      };
-      hints = {
-        start = {
-          foreground = "#24273A"; # base
-          background = "#EED49F"; # yellow
-        };
-        end = {
-          foreground = "#24273A"; # base
-          background = "#A5ADCB"; # subtext0
-        };
-      };
-      selection = {
-        text = "#24273A"; # base
-        background = "#F4DBD6"; # rosewater
-      };
-      normal = {
-        black = "#494D64"; # surface1
-        red = "#ED8796"; # red
-        green = "#A6DA95"; # green
-        yellow = "#EED49F"; # yellow
-        blue = "#8AADF4"; # blue
-        magenta = "#F5BDE6"; # pink
-        cyan = "#8BD5CA"; # teal
-        white = "#B8C0E0"; # subtext1
-      };
-      bright = {
-        black = "#5B6078"; # surface2
-        red = "#ED8796"; # red
-        green = "#A6DA95"; # green
-        yellow = "#EED49F"; # yellow
-        blue = "#8AADF4"; # blue
-        magenta = "#F5BDE6"; # pink
-        cyan = "#8BD5CA"; # teal
-        white = "#A5ADCB"; # subtext0
-      };
-    };
+    # alacritty.settings.colors = {
+    #   primary = {
+    #     background = "#24273A"; # base
+    #     foreground = "#CAD3F5"; # text
+    #     dim_foreground = "#CAD3F5"; # text
+    #     bright_foreground = "#CAD3F5"; # text
+    #   };
+    #   hints = {
+    #     start = {
+    #       foreground = "#24273A"; # base
+    #       background = "#EED49F"; # yellow
+    #     };
+    #     end = {
+    #       foreground = "#24273A"; # base
+    #       background = "#A5ADCB"; # subtext0
+    #     };
+    #   };
+    #   selection = {
+    #     text = "#24273A"; # base
+    #     background = "#F4DBD6"; # rosewater
+    #   };
+    #   normal = {
+    #     black = "#494D64"; # surface1
+    #     red = "#ED8796"; # red
+    #     green = "#A6DA95"; # green
+    #     yellow = "#EED49F"; # yellow
+    #     blue = "#8AADF4"; # blue
+    #     magenta = "#F5BDE6"; # pink
+    #     cyan = "#8BD5CA"; # teal
+    #     white = "#B8C0E0"; # subtext1
+    #   };
+    #   bright = {
+    #     black = "#5B6078"; # surface2
+    #     red = "#ED8796"; # red
+    #     green = "#A6DA95"; # green
+    #     yellow = "#EED49F"; # yellow
+    #     blue = "#8AADF4"; # blue
+    #     magenta = "#F5BDE6"; # pink
+    #     cyan = "#8BD5CA"; # teal
+    #     white = "#A5ADCB"; # subtext0
+    #   };
+    # };
     # rofi.theme = ../dotfiles/rofi/catppuccin-macchiato.rasi; ## FIXME this is how it's supposed to work
     rofi.theme = "catppuccin-macchiato"; # # FIXME depends on hacky fix below
     waybar.style = ./waybar.css;
