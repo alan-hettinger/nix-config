@@ -32,4 +32,5 @@ while [ "$1" != "" ]; do
             nix run nixpkgs#"$1"
             ;;
     esac
+    shift
 done
