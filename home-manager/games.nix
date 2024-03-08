@@ -5,7 +5,7 @@
     (retroarch.override {
       cores = with libretro; [
         bsnes
-        mupen64plus
+        # mupen64plus
         nestopia
         mgba
 

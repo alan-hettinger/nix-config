@@ -5,10 +5,10 @@
     go
     gore
     gotools
-    gocode
     gotests
     gomodifytags
     gopls
+
   ];
 
 }
