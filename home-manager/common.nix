@@ -26,7 +26,6 @@
       allowUnfree = true;
       allowUnfreePredicate = (_: true);
       permittedInsecurePackages = [
-        "zotero-6.0.27" # TODO remove after update
 
       ];
     };
