@@ -8,17 +8,17 @@
 
 /* hide the top bar entirely when not hovered, leaving a small strip to hover over */
 /* commenting out the next few blocks should disable this behavior */
-/* #nav-bar { */
-/* 	margin-bottom: -35px !important; */
-/*     z-index: -100; */
-/* } */
-/* #navigator-toolbox:focus-within > #nav-bar, */
-/* #navigator-toolbox:hover > #nav-bar */
-/* { */
-/*   margin-top: 0; */
-/*   margin-bottom: -40px; */
-/*   z-index: 100; */
-/* } */
+#nav-bar {
+	margin-bottom: -35px !important;
+    z-index: -100;
+}
+#navigator-toolbox:focus-within > #nav-bar,
+#navigator-toolbox:hover > #nav-bar
+{
+  margin-top: 0;
+  margin-bottom: -40px;
+  z-index: 100;
+}
 
 
 /* hides the sidebar header */
@@ -107,7 +107,9 @@ See the above repository for updates as well as full license text. */
 
 
 #sidebar-box{
-    --uc-sidebar-width: 44px; /* Only thing I (gale) changed -- Changed again by me (Alan) */
+    /* --uc-sidebar-width: 44px; /\* Only thing I (gale) changed -- Changed again by me (Alan) *\/ */
+    /* --uc-sidebar-width: 400px; */
+    --uc-sidebar-width: 0px;
     --uc-sidebar-hover-width: 400px;
     --uc-autohide-sidebar-delay: 1500ms; /* Wait 1.5s before hiding sidebar */
     position: relative;
