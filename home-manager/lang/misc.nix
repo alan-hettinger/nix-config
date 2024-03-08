@@ -5,7 +5,7 @@
     shfmt
     nodejs
     html-tidy
-
+    nodePackages.prettier
   ];
 
 }
