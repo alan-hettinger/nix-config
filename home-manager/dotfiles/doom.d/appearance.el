@@ -13,7 +13,10 @@
 ;; theme settings:
 (use-package! catppuccin-theme
   :config (load-theme 'catppuccin t)
-  :init (setq catppuccin-flavor 'macchiato))
+  :init (setq catppuccin-flavor 'macchiato
+              catppuccin-italic-blockquotes 'nil
+              catppuccin-highlight-matches t
+              catppuccin-italic-variables 'nil))
 (setq doom-theme 'catppuccin)
 
 ;; line numbers:
