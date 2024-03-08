@@ -70,9 +70,9 @@
       };
       brightness = {
         day = "1.0";
-        night = "0.8";
+        night = "0.7";
       };
-      # extraOptions = [ "-l PROVIDER:manual" ];
+      extraOptions = [ "-m randr:screen=0" ];
     };
 
     # required by thunar:

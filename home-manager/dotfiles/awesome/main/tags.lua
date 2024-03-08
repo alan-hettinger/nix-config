@@ -42,7 +42,7 @@ function _M.get()
   local screen2 = {
     tag_names = { "1:  ", "2:  ", "3:  ", "4:  ", "5:  ", "6:  ", "7:  ", "8:  " },
     defaults = {
-      layout             = awful.layout.suit.tile.bottom,
+      layout             = awful.layout.suit.tile,
       master_fill_policy = "expand", -- "master_width_factor"|"expand"
       master_count       = theme.master_count,
       gap_single_client  = theme.gap_single_client,
@@ -50,7 +50,7 @@ function _M.get()
       column_count       = theme.column_count,
       screen             = RC.vars.screen2_maybe,
     },
-    default_selected_tag = 6,
+    default_selected_tag = 8,
   }
 
   -- logic for setting up tag table for each screen:

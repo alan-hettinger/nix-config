@@ -22,7 +22,6 @@
       output = "HDMI-A-0";
       primary = false;
       monitorConfig = ''
-        Option "Rotate" "left"
         Option "DPMS" "false"
         Option "RightOf" "DisplayPort-0"
       '';
