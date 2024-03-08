@@ -1,7 +1,7 @@
 { pkgs, config, ... }: {
 
   home.packages = with pkgs; [
-    emacs29-gtk3
+    emacs-gtk
     git
     emacsPackages.vterm
     libvterm
@@ -36,7 +36,7 @@
   ];
 
   services.emacs = {
-    package = pkgs.emacs29-gtk3;
+    package = pkgs.emacs-gtk;
     enable = true;
     client.enable = true;
     defaultEditor = true;

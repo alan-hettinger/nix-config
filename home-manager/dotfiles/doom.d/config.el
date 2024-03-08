@@ -41,6 +41,17 @@
 
 (map! :i "M-TAB" (cmds! (not (minibufferp)) #'company-complete-common))
 
+;; rebind lispyville away from bracket keys, per doom docs:
+(map! :after (lispy lispyville)
+      :map lispy-mode-map-lispy
+      ;; unbind individual bracket keys
+      "[" nil
+      "]" nil
+      ;; re-bind commands bound to bracket keys by default
+      "M-[" #'lispyville-previous-opening
+      "M-]" #'lispyville.next-opening)
+
+
 (add-hook 'pdf-view-mode-hook
           (lambda () (pdf-view-auto-slice-minor-mode 1)))
 
@@ -55,7 +66,7 @@
 
 (after! org
   (setq org-startup-folded t)
-  (setq org-directory "~/Documents/Notes/org/")
+  (setq org-directory "~/Documents/")
   ;; makes info files linkable from org
   (add-to-list 'org-modules 'ol-info)
 
@@ -136,7 +147,7 @@
   (setq writeroom-mode-line 't)
   )
 
-(setq olivetti-style nil ;; 'fancy
+(setq olivetti-style nil ;; 'fancy | nil
       olivetti-body-width 70)
 (add-hook 'org-mode-hook (lambda () (olivetti-mode 1)))
 
