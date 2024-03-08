@@ -333,3 +333,6 @@
          (+workspace/rename "thesis")
          (treemacs-do-switch-workspace "Perspective thesis")
          ))
+
+(defun coinflip () (if (= 1 (random 2)) "heads" "tails"))
+(defun dice-roll (x) (+ 1 (random x)))

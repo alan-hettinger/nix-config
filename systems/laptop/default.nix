@@ -1,11 +1,5 @@
 { config, lib, pkgs, ... }: {
-  imports = [
-    ./laptop-hardware-configuration.nix
-    ../common.nix
-    ./input.nix
-    ./network.nix
-    ./display.nix
-  ];
+  imports = lib.helperFunctions.getNixFilesFromDir ./.;
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
