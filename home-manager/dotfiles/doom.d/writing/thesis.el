@@ -1,25 +1,38 @@
 ;;; thesis.el -*- lexical-binding: t; -*-
-;; configuration that is specifically useful for my MA thesis, written in org-mode
-(after! org
+;; configuration that is specifically useful for my MA thesis
 
-  ;; automatically export thesis to pdf on save:
+(let* ((thesis-file-name "thesis-draft")
+       (thesis-path "~/Documents/Thesis")
+       (buffer-is-thesis (lambda () (string-equal
+                                     (buffer-file-name)
+                                     (expand-file-name
+                                      (format "./%s.org"
+                                              thesis-file-name))))))
+
+  ;;; automatically export thesis to pdf on save:
   (defun alan/export-thesis-draft ()
-    (let* ((main-filename-str "thesis-draft")
-           (date-format-str (format-time-string "%Y-%m-%d"))
+    (let* ((date-format-str (format-time-string "%Y-%m-%d"))
            (target-path "./drafts/")
-           (target-filename (format "%s%s-%s.tex" target-path date-format-str main-filename-str)))
-      (when (string-equal (buffer-file-name) (expand-file-name "./thesis-draft.org"))
-        (progn
-          ;; create the pdf:
-          (org-export-to-file 'latex target-filename
-            nil              ;; export asynchronously
-            nil nil nil nil  ;; bunch of args I don't care about
-            #'org-latex-compile)
-          ;; clean up the latex file:
-          (delete-file target-filename)))))
-  (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'alan/export-thesis-draft)))
+           (target-filename (format "%s%s-%s.tex"
+                                    target-path
+                                    date-format-str
+                                    thesis-file-name)))
+      (when (funcall buffer-is-thesis)
+        ;; create the pdf:
+        (org-export-to-file 'latex target-filename
+          nil             ;; export asynchronously
+          nil nil nil nil ;; bunch of args I don't care about
+          #'org-latex-compile)
+        ;; clean up the latex file:
+        (delete-file target-filename))))
+  (add-hook 'org-mode-hook
+            (lambda () (add-hook 'after-save-hook #'alan/export-thesis-draft)))
 
-  ;; handle the bibliography:
-  (setq org-cite-global-bibliography '("~/Documents/Thesis/zotero-lib.bib"))
+  ;;; TODO various other thesis setup:
+  (defun alan/thesis-setup () )
+
+  ;;; handle the bibliography:
+  (setq org-cite-global-bibliography (list (format "%s/zotero-lib.bib"
+                                                   thesis-path)))
 
   )

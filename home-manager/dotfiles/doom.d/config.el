@@ -1,9 +1,11 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
+
 (setq user-full-name "Alan Hettinger"
       user-mail-address "alan.hettinger@proton.me")
 
 (load! "appearance")
-(load! "writing/thesis")
+(after! org
+  (load! "writing/thesis"))
 
 (defun my/disable-scroll-bars (frame)
   (modify-frame-parameters frame
