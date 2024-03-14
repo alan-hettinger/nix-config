@@ -13,7 +13,7 @@
   };
   services.avahi = { # needed for printing over wifi
     enable = true;
-    nssmdns = true;
+    nssmdns4 = true;
     openFirewall = true;
   };
   services.system-config-printer.enable = true;

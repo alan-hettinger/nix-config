@@ -58,8 +58,10 @@
           vicious
         ];
       };
-      layout = "us";
-      xkbOptions = "caps:escape";
+      xkb = {
+        options = "caps:escape";
+        layout = "us";
+      };
     };
     redshift = {
       enable = true;
