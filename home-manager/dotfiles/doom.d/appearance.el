@@ -16,7 +16,8 @@
   :init (setq catppuccin-flavor 'macchiato
               catppuccin-italic-blockquotes 'nil
               catppuccin-highlight-matches t
-              catppuccin-italic-variables 'nil))
+              catppuccin-italic-variables 'nil)
+  (custom-set-faces! '(hl-line :background "#181926" :extend t)))
 (setq doom-theme 'catppuccin)
 
 ;; line numbers:
