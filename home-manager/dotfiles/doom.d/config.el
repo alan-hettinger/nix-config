@@ -88,7 +88,7 @@
   )
 
 (defun org-remove-headlines (backend)
-  (org-map-entries (lambda () (delete-region (point-at-bol) (point-at-eol)))
+  (org-map-entries (lambda () (delete-region (pos-bol) (pos-eol)))
                    "ignore"))
 
 (add-hook 'org-export-before-processing-functions #'org-remove-headlines)
