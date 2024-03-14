@@ -17,8 +17,17 @@
               catppuccin-italic-blockquotes 'nil
               catppuccin-highlight-matches t
               catppuccin-italic-variables 'nil)
-  (custom-set-faces! '(hl-line :background "#181926" :extend t)))
+  )
 (setq doom-theme 'catppuccin)
+
+;;;; darken highlighting - I find this better for visibility in some contexts
+(let ((new-bg (catppuccin-get-color 'crust)))
+  (custom-set-faces!
+    `(hl-line :background ,new-bg :extend t)
+    ;; `(highlight :foreground ,(catppuccin-get-color 'text) :background ,new-bg)
+    ;; `(magit-section-highlight :background ,new-bg :extend t)
+    )
+  )
 
 ;; line numbers:
 (setq display-line-numbers-type 'relative)
