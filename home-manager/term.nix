@@ -163,7 +163,11 @@
     alacritty = {
       enable = true;
       settings = {
-        env.TERM = "alacritty";
+        env = {
+          TERM = "alacritty";
+          # prevents weird resizing on different screen resolutions (in x11):
+          WINIT_X11_SCALE_FACTOR = "1.0";
+        };
         window = {
           dynamic_padding = true;
           dynamic_title = true;
