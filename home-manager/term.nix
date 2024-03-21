@@ -206,11 +206,15 @@
       terminal = "tmux-256color";
       # shortcut = "";
 
-      plugins = with pkgs.tmuxPlugins;
-        [
-          sensible
+      plugins = with pkgs.tmuxPlugins; [
+        sensible
+        {
+          plugin = cpu;
+          extraConfig =
+            "set -g status-right 'CPU: #{cpu_percentage} #{cpu_temp}'";
+        }
 
-        ];
+      ];
       tmuxinator.enable = false;
       tmuxp.enable = false;
 
@@ -246,7 +250,6 @@
 
         # status line
         set -g status-position top
-        set -g status-right ""
         set -g status-left ""
         set -g status-justify left
       '';
