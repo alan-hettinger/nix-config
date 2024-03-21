@@ -6,7 +6,7 @@
     ./emacs.nix
     ./media.nix
     ./term.nix
-    ./dev.nix # # FIXME has an issue about openssl being marked insecure
+    ./dev.nix
     ./lang/go.nix
     ./lang/lisp.nix
     ./lang/misc.nix
@@ -27,16 +27,6 @@
     extraOptions = [ "exclude-root" "ignore-scrolling" ];
   };
   home = {
-
-    # pointerCursor = {
-    #   # package = pkgs.catppuccin-cursors.macchiatoDark;
-    #   # name = "macchiatoDark";
-    #   package = pkgs.vanilla-dmz;
-    #   name = "Vanilla-DMZ";
-    #   gtk.enable = true;
-    #   x11.enable = true;
-    #   size = 48;
-    # };
 
     packages = with pkgs; [
       # python311Packages.pip ## broke for some reason

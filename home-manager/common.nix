@@ -2,16 +2,6 @@
 
   nixpkgs = {
     overlays = [
-      # If you want to use overlays exported from other flakes:
-      # neovim-nightly-overlay.overlays.default
-
-      # Or define it inline, for example:
-      # (final: prev: {
-      #   hi = final.hello.overrideAttrs (oldAttrs: {
-      #     patches = [ ./change-hello-to-hi.patch ];
-      #   });
-      # })
-
       # make gamemode work in xivlauncher for ffxiv
       # thanks to https://github.com/Veraticus/nix-config/blob/main/overlays/default.nix#L62
       # (self: super: {
@@ -41,10 +31,12 @@
     };
   };
 
-  gtk.enable = true;
-  gtk.iconTheme = {
-    package = pkgs.papirus-icon-theme;
-    name = "Papirus-Dark";
+  gtk = {
+    enable = true;
+    iconTheme = {
+      package = pkgs.papirus-icon-theme;
+      name = "Papirus-Dark";
+    };
   };
 
   xdg = {
