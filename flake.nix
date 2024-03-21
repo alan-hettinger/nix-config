@@ -47,6 +47,7 @@
           home-manager.nixosModules.home-manager
           {
             home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "backup";
             home-manager.users.alan = import ./home-manager/home.nix;
           }
         ],
