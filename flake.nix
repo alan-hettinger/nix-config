@@ -9,12 +9,12 @@
 
     home-manager = {
       url = "github:nix-community/home-manager/master";
-      # # remove the /master if switching to stable
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:nixos/nixos-hardware";
     nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
     hyprland.url = "github:hyprwm/Hyprland";
+
     stylix.url = "github:danth/stylix";
   };
 
