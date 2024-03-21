@@ -34,25 +34,18 @@
     };
 
     targets = {
-      plymouth = {
-        enable = true;
-        blackBackground = false;
-      };
+      plymouth.enable = true;
+
     };
   };
 
+  home-manager.sharedModules = [ ./stylix-qt-fix/hm.nix ];
   home-manager.users.alan.stylix = {
     autoEnable = true;
     targets = {
       alacritty.enable = true;
       emacs.enable = false;
       rofi.enable = false;
-      kde.enable = false;
-
-      firefox = {
-        enable = true;
-        profileNames = [ "alan" ];
-      };
 
       gtk.extraCss = ''
         .window-frame, .window-frame:backdrop, .window-frame.solid-csd {

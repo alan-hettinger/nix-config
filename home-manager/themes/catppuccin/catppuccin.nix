@@ -34,8 +34,8 @@
 
   qt = {
     enable = true;
-    # style.name = "kvantum";
-    platformTheme = "qtct";
+    style.name = "kvantum";
+    # platformTheme = "gtk3";
   };
 
   programs = {
@@ -90,64 +90,29 @@
       sudo.style = "mauve";
     };
 
-    # alacritty.settings.colors = {
-    #   primary = {
-    #     background = "#24273A"; # base
-    #     foreground = "#CAD3F5"; # text
-    #     dim_foreground = "#CAD3F5"; # text
-    #     bright_foreground = "#CAD3F5"; # text
-    #   };
-    #   hints = {
-    #     start = {
-    #       foreground = "#24273A"; # base
-    #       background = "#EED49F"; # yellow
-    #     };
-    #     end = {
-    #       foreground = "#24273A"; # base
-    #       background = "#A5ADCB"; # subtext0
-    #     };
-    #   };
-    #   selection = {
-    #     text = "#24273A"; # base
-    #     background = "#F4DBD6"; # rosewater
-    #   };
-    #   normal = {
-    #     black = "#494D64"; # surface1
-    #     red = "#ED8796"; # red
-    #     green = "#A6DA95"; # green
-    #     yellow = "#EED49F"; # yellow
-    #     blue = "#8AADF4"; # blue
-    #     magenta = "#F5BDE6"; # pink
-    #     cyan = "#8BD5CA"; # teal
-    #     white = "#B8C0E0"; # subtext1
-    #   };
-    #   bright = {
-    #     black = "#5B6078"; # surface2
-    #     red = "#ED8796"; # red
-    #     green = "#A6DA95"; # green
-    #     yellow = "#EED49F"; # yellow
-    #     blue = "#8AADF4"; # blue
-    #     magenta = "#F5BDE6"; # pink
-    #     cyan = "#8BD5CA"; # teal
-    #     white = "#A5ADCB"; # subtext0
-    #   };
-    # };
     # rofi.theme = ../dotfiles/rofi/catppuccin-macchiato.rasi; ## FIXME this is how it's supposed to work
     rofi.theme = "catppuccin-macchiato"; # # FIXME depends on hacky fix below
     waybar.style = ./waybar.css;
   };
   home.file.".config/rofi/catppuccin-macchiato.rasi".source =
     ./rofi/catppuccin-macchiato.rasi;
-  home.activation.gtk4-fix = ''
-    ln -sf ${pkgs.catppuccin-gtk}/share/themes/Catppuccin-*-dark/gtk-4.0/* ${config.home.homeDirectory}/.config/gtk-4.0/
-  '';
+  #
+  ## Unneeded?:
+  # home.activation.gtk4-fix = ''
+  #   ln -sf ${pkgs.catppuccin-gtk}/share/themes/Catppuccin-*-dark/gtk-4.0/* ${config.home.homeDirectory}/.config/gtk-4.0/
+  # '';
 
-  home.file.".config/qt5ct/colors/Catppuccin-Macchiato.conf" = {
-    source =
-      "${pkgs.catppuccin-qt5ct}/share/qt5ct/colors/Catppuccin-Macchiato.conf";
-  };
-  home.file.".config/Kvantum/themes/Catppuccin-Macchiato-Rosewater" = {
-    source =
-      "${pkgs.catppuccin-kvantum}/share/Kvantum/Catppuccin-Macchiato-Rosewater";
+  home.activation = {
+    applyCatppuccinKdeColors = let
+      themePath = (builtins.fetchTarball {
+        url =
+          "https://github.com/catppuccin/kde/releases/download/v0.2.6/Macchiato-color-schemes.tar.gz";
+        sha256 = "1wn7b8k8k3a7jwqsv932drrzj2brgj095kn53659rgyw4iq7kz8a";
+      } + "/CatppuccinMacchiatoRosewater.colors");
+    in ''
+      if ! ${pkgs.gnugrep}/bin/grep -qi catppuccin ${config.home.homeDirectory}/.config/kdeglobals; then
+       cat ${themePath} >> ${config.home.homeDirectory}/.config/kdeglobals;
+      fi
+    '';
   };
 }

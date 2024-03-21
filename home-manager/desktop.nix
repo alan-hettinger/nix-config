@@ -11,9 +11,8 @@
       libsForQt5.kio
       libsForQt5.kio-admin
       libsForQt5.kio-extras
+      libsForQt5.qtstyleplugins
       # libsForQt5.qt5ct
-
-      libsForQt5.qtstyleplugin-kvantum
 
       brave
       spotify
