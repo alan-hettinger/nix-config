@@ -196,6 +196,7 @@
     tmux = {
       enable = true;
       aggressiveResize = true;
+      clock24 = false;
       baseIndex = 1;
       disableConfirmationPrompt = true;
       keyMode = "vi";
@@ -242,6 +243,12 @@
         bind -r J resize-pane -D 5
         bind -r K resize-pane -U 5
         bind -r L resize-pane -R 5
+
+        # status line
+        set -g status-position top
+        set -g status-right ""
+        set -g status-left ""
+        set -g status-justify left
       '';
     };
 
