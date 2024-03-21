@@ -18,6 +18,7 @@
     ./themes/catppuccin/catppuccin.nix
     ./themes/fonts.nix
     ./games.nix
+    ./mimeapps.nix
   ];
 
   services.unclutter = {
