@@ -2,4 +2,9 @@
 
 # Attach to tmux if session exists, else new session
 
-tmux attach || tmux >/dev/null 2>&1
+if command -v tmux >/dev/null 2>&1; then
+    tmux attach || tmux >/dev/null 2>&1
+else
+    echo "tmux is not installed"
+    "$SHELL"
+fi

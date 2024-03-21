@@ -49,14 +49,21 @@ require('lualine').setup {
   extensions = {}
 }
 
-require'nvim-treesitter.configs'.setup {
-	highlight = {
-		enable = true,
-	},
-	indent = {
-		enable = true,
-	}
+require 'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true,
+  },
+  indent = {
+    enable = true,
+  }
 }
 
 require("nvim-autopairs").setup {}
 
+require("catppuccin").setup({
+  transparent_background = true,
+  term_colors = true,
+})
+
+vim.cmd.colorscheme "catppuccin"
+vim.o.relativenumber = true

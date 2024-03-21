@@ -14,9 +14,7 @@ end
 local emacs_command = "emacsclient -c -e '(+eshell/here)'"
 
 local _M = {
-  -- terminal = "wezterm connect unix",
-  -- terminal = emacs_command,
-  terminal = "alacritty",
+  terminal = "alacritty -e tmux-attach-or-start",
   term2 = "wezterm",
   browser = "firefox",
   launcher = [[

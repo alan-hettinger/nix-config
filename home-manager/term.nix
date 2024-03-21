@@ -189,7 +189,6 @@
             shape = "Beam";
             blinking = "Off";
           };
-          # mouse.hide_when_typing = true;
         };
       };
     };
