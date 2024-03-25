@@ -1,4 +1,5 @@
 { config, lib, pkgs, ... }: {
+  boot.kernelParams = [ "psmouse.synaptics_intertouch=0" ];
   services = {
     xserver.libinput.enable = true;
     xserver.libinput.touchpad = {
