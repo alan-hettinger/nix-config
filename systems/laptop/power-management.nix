@@ -1,6 +1,12 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   services = {
-    tlp = { # power saving settings
+    tlp = {
+      # power saving settings
       enable = true;
       settings = {
         # GPU power management method:
@@ -29,7 +35,6 @@
         # runtime power management for PCIe devices:
         RUNTIME_PM_ON_AC = "on"; # devices powered on constantly
         RUNTIME_PM_ON_BAT = "auto";
-
       };
     };
 
@@ -40,5 +45,4 @@
       Option "OffTime" "0"
     '';
   };
-
 }

@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   home.packages = with pkgs; [
     luajitPackages.luaposix
     luajitPackages.luarocks
@@ -9,5 +7,4 @@
     gnumake
     github-desktop
   ];
-
 }

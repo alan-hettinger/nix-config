@@ -1,5 +1,4 @@
-{ pkgs, ... }: {
-
+{pkgs, ...}: {
   home.packages = with pkgs; [
     libreoffice
     pandoc
@@ -12,5 +11,4 @@
     onlyoffice-bin
     homebank
   ];
-
 }

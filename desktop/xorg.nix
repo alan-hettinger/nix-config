@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     xorg.xrandr
     xorg.xkill
@@ -7,7 +7,7 @@
 
   services = {
     xserver = {
-      excludePackages = with pkgs; [ xterm ];
+      excludePackages = with pkgs; [xterm];
       enable = true;
       desktopManager = {
         xterm.enable = false;
@@ -25,7 +25,7 @@
             enable = true;
             theme = {
               package = pkgs.catppuccin-gtk.override {
-                accents = [ "rosewater" ];
+                accents = ["rosewater"];
                 size = "compact";
                 variant = "macchiato";
               };
@@ -74,13 +74,12 @@
         day = "1.0";
         night = "0.7";
       };
-      extraOptions = [ "-m randr:screen=0" ];
+      extraOptions = ["-m randr:screen=0"];
     };
 
     # required by thunar:
     gvfs.enable = true;
     tumbler.enable = true;
-
   };
   environment.xfce = {
     excludePackages = with pkgs.xfce; [
@@ -100,6 +99,6 @@
   };
   programs.thunar = {
     enable = true;
-    plugins = with pkgs.xfce; [ thunar-volman thunar-archive-plugin ];
+    plugins = with pkgs.xfce; [thunar-volman thunar-archive-plugin];
   };
 }

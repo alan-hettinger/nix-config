@@ -1,5 +1,9 @@
-{ config, lib, pkgs, ... }: {
-
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   networking = {
     hostName = "alan-laptop-linux";
 
@@ -18,5 +22,4 @@
     package =
       pkgs.mullvad-vpn; # "mullvad" is CLI only, "mullvad-vpn" is CLI and GUI
   };
-
 }

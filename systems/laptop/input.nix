@@ -1,5 +1,10 @@
-{ config, lib, pkgs, ... }: {
-  boot.kernelParams = [ "psmouse.synaptics_intertouch=0" ];
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
+  boot.kernelParams = ["psmouse.synaptics_intertouch=0"];
   services = {
     xserver.libinput.enable = true;
     xserver.libinput.touchpad = {
@@ -14,5 +19,4 @@
     };
     acpid.enable = true;
   };
-
 }

@@ -1,5 +1,9 @@
-{ config, lib, pkgs, ... }: {
-
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   wayland.windowManager = {
     sway.enable = false;
     hyprland.enable = true;
@@ -9,17 +13,16 @@
   wayland.windowManager.hyprland = {
     systemdIntegration = true;
     recommendedEnvironment = true;
-    extraConfig = { };
+    extraConfig = {};
   };
 
   programs.waybar = {
     settings = {
       layer = "top";
       position = "left"; # bar position - top/bottom/left/right
-      modules-left =
-        [ "clock" "clock#clock2" "clock#clock3" "sway/workspaces" "sway/mode" ];
-      modules-center = [ ];
-      modules-right = [ "battery" "memory" "temperature" "tray" ];
+      modules-left = ["clock" "clock#clock2" "clock#clock3" "sway/workspaces" "sway/mode"];
+      modules-center = [];
+      modules-right = ["battery" "memory" "temperature" "tray"];
 
       "sway/workspaces" = {
         disable-scroll = true;
@@ -27,11 +30,11 @@
         format = "{icon}";
 
         persistent_workspaces = {
-          "1" = [ ];
-          "2" = [ ];
-          "3" = [ ];
-          "4" = [ ];
-          "5" = [ ];
+          "1" = [];
+          "2" = [];
+          "3" = [];
+          "4" = [];
+          "5" = [];
         };
         format-icons = {
           "1" = "";
@@ -42,7 +45,7 @@
         };
         align = 0;
       };
-      "sway/mode" = { format = ''<span style="italic">{}<span>''; };
+      "sway/mode" = {format = ''<span style="italic">{}<span>'';};
       "tray" = {
         rotate = 90;
         icon-size = 20;
@@ -88,17 +91,18 @@
     systemd.enable = true;
   };
 
-  wayland.windowManager.sway = { # keeping this config for posterity
+  wayland.windowManager.sway = {
+    # keeping this config for posterity
     config = {
       focus = {
         followMouse = false;
         mouseWarping = false;
       };
       fonts = {
-
       };
       bars.waybar.command = "waybar";
-      gaps = { # gap sizes are ints
+      gaps = {
+        # gap sizes are ints
         # bottom = ;
         # horizontal = ;
         inner = 10;
@@ -108,11 +112,10 @@
         # vertical = ;
         smartBorders = "off";
         smartGaps = "off";
-
       };
 
-      input = { # attribute set of strings
-
+      input = {
+        # attribute set of strings
       };
       modifier = "Mod4";
       keybindings = {
@@ -138,7 +141,6 @@
         "$mod+z" = "exec $filemgr";
       };
       output = {
-
       };
       terminal = "alacritty";
       menu = "rofi -show drun";

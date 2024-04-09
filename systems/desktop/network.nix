@@ -1,5 +1,9 @@
-{ config, lib, pkgs, ... }: {
-
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   networking = {
     hostName = "alan-desktop-linux";
 
@@ -25,7 +29,7 @@
         443 # web
         1401 # needed by Mullvad
       ];
-      allowedUDPPorts = [ 51820 53 1194 1195 1197 1300 1301 1302 1303 1400 ];
+      allowedUDPPorts = [51820 53 1194 1195 1197 1300 1301 1302 1303 1400];
     };
   };
 

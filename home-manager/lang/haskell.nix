@@ -1,5 +1,4 @@
-{ pkgs, ... }: {
-
+{pkgs, ...}: {
   home.packages = with pkgs.haskellPackages; [
     ghc
     # haskell-language-server
@@ -10,7 +9,5 @@
     criterion
     cabal-install
     # haskintex
-
   ];
-
 }

@@ -1,4 +1,8 @@
-{ pkgs, config, ... }: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   home = {
     packages = with pkgs; [
       i3lock-color
@@ -58,13 +62,12 @@
       plugins = with pkgs; [
         rofi-power-menu # # FIXME not available on path as expected
         rofimoji
-
       ];
       extraConfig = {
         icon-theme = "Papirus-Dark";
         show-icons = true;
         modi = "drun,window,filebrowser,combi";
-        combi-modes = [ "window" "drun" ];
+        combi-modes = ["window" "drun"];
         combi-hide-mode-prefix = true;
 
         ## keybindings:
@@ -80,7 +83,6 @@
         kb-accept-entry = "Return,KP_Enter";
       };
     };
-
   };
 
   xsession = {
@@ -113,11 +115,11 @@
       backend = "glx";
       fade = true;
       fadeDelta = 20; # FIXME is this right?
-      fadeSteps = [ 0.3 0.3 ]; # fade-in fade-out
+      fadeSteps = [0.3 0.3]; # fade-in fade-out
       inactiveOpacity = 0.9;
       menuOpacity = 1.0;
       shadow = true;
-      shadowOffsets = [ 3 3 ]; # x y
+      shadowOffsets = [3 3]; # x y
       shadowOpacity = 0.5;
       vSync = false;
 
@@ -136,7 +138,7 @@
           focus = false;
           full-shadow = false;
         };
-        dnd = { shadow = false; };
+        dnd = {shadow = false;};
         popup_menu = {
           opacity = 1.0;
           shadow = false;
@@ -159,10 +161,9 @@
         "class_g = 'Cairo-clock'"
         "_GTK_FRAME_EXTENTS@:c"
       ];
-      fadeExclude = [ ]; # list of strings
-      opacityRules = [ ];
-      extraArgs =
-        [ ]; # # list of strings to be passed at runtime. Example: [ "--legacy-backends" ]
+      fadeExclude = []; # list of strings
+      opacityRules = [];
+      extraArgs = []; # # list of strings to be passed at runtime. Example: [ "--legacy-backends" ]
       settings = {
         # for anything not included above
         inactive-opacity-override = false;
@@ -191,8 +192,7 @@
         detect-rounded-corners = true;
         detect-client-opacity = true;
         unredir-if-possible = false;
-        unredir-if-possible-exclude =
-          [ "class_g = 'looking-glass-client' && !focused" ];
+        unredir-if-possible-exclude = ["class_g = 'looking-glass-client' && !focused"];
         glx-no-stencil = true;
         no-ewmh-fullscreen = false;
       };

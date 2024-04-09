@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   imports = lib.helperFunctions.getNixFilesFromDir ./.;
 
   ## custom kernels that are potentially of interest for my use-case:
@@ -10,7 +15,7 @@
 
   ## setting this manually here because it is not set by networking.hostName
   ## for whatever reason and I have scripts that look for it
-  environment.variables = { HOSTNAME = "alan-desktop-linux"; };
+  environment.variables = {HOSTNAME = "alan-desktop-linux";};
 
   system.stateVersion = "22.11";
 
@@ -19,26 +24,26 @@
     "/mnt/media" = {
       device = "/dev/disk/by-uuid/3bee2601-fc59-43ee-82e2-02f8e0abc421";
       fsType = "ext4";
-      options = [ "users" "nofail" "defaults" "x-gvfs-show" ];
+      options = ["users" "nofail" "defaults" "x-gvfs-show"];
     };
     "/mnt/extra-ssd" = {
       device = "/dev/disk/by-uuid/ea13dce9-1054-476a-8394-e34a276d5bae";
       fsType = "ext4";
-      options = [ "users" "nofail" "defaults" "x-gvfs-show" ];
+      options = ["users" "nofail" "defaults" "x-gvfs-show"];
     };
 
     ## bind-mounting the above partitions into /home/alan/...
     "/home/alan/media" = {
       device = "/mnt/media";
       fsType = "none";
-      depends = [ "/mnt/media" ];
-      options = [ "defaults" "bind" ];
+      depends = ["/mnt/media"];
+      options = ["defaults" "bind"];
     };
     "/home/alan/extra-ssd" = {
       device = "/mnt/extra-ssd";
       fsType = "none";
-      depends = [ "/mnt/extra-ssd" ];
-      options = [ "defaults" "bind" ];
+      depends = ["/mnt/extra-ssd"];
+      options = ["defaults" "bind"];
     };
   };
 }

@@ -1,4 +1,8 @@
-{ config, lib, pkgs, ... }: {
-
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   programs.gamemode.enable = true;
 }

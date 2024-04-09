@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   imports = [
     ./common.nix
     ./desktop.nix
@@ -25,10 +25,9 @@
     enable = true;
     threshold = 5;
     timeout = 30;
-    extraOptions = [ "exclude-root" "ignore-scrolling" ];
+    extraOptions = ["exclude-root" "ignore-scrolling"];
   };
   home = {
-
     packages = with pkgs; [
       # python311Packages.pip ## broke for some reason
       haskell-language-server # #installing here because haskellPackages.haskell-language-server didn't cooperate

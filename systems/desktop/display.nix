@@ -1,6 +1,11 @@
-{ config, lib, pkgs, ... }: {
-  boot.initrd.kernelModules = [ "amdgpu" ];
-  services.xserver.videoDrivers = [ "amdgpu" ];
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
+  boot.initrd.kernelModules = ["amdgpu"];
+  services.xserver.videoDrivers = ["amdgpu"];
   services.xserver.serverFlagsSection = ''
     Option "BlankTime" "0"
     Option "StandbyTime" "0"

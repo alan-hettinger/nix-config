@@ -1,5 +1,8 @@
-{ pkgs, config, ... }: {
-
+{
+  pkgs,
+  config,
+  ...
+}: {
   home.packages = with pkgs; [
     emacs-gtk
     git
@@ -11,7 +14,7 @@
     unzip
     poppler
     gcc
-    (aspellWithDicts (dicts: with dicts; [ en en-computers en-science de es ]))
+    (aspellWithDicts (dicts: with dicts; [en en-computers en-science de es]))
 
     ## hunspell dictionaries
     # hunspell

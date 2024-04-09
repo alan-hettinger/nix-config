@@ -1,1 +1,1 @@
-lib: { helperFunctions = (import ./helperFunctions.nix lib) { }; }
+lib: {helperFunctions = (import ./helperFunctions.nix lib) {};}

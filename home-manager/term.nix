@@ -1,4 +1,8 @@
-{ lib, pkgs, ... }: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   home = {
     packages = with pkgs; [
       # neovide
@@ -25,8 +29,8 @@
   };
 
   programs = {
-
-    nushell = { # just to try out
+    nushell = {
+      # just to try out
       enable = true;
     };
 
@@ -37,7 +41,7 @@
       syntaxHighlighting.enable = true;
       enableVteIntegration = true;
       autocd = true;
-      history = { ignoreDups = true; };
+      history = {ignoreDups = true;};
       shellAliases = {
         ## note home.shellAliases above
         ## this is for zsh-specific aliases
@@ -56,7 +60,6 @@
     fish = {
       enable = true;
       functions = {
-
       };
       interactiveShellInit = ''
         fish_vi_key_bindings --no-erase insert
@@ -100,21 +103,19 @@
           "$character"
         ];
 
-        directory.read_only =
-          "  "; # # formatting looks wrong but this is a lock icon
+        directory.read_only = "  "; # # formatting looks wrong but this is a lock icon
         character = {
           success_symbol = "[->](green)";
           error_symbol = "[X->](red)";
           vimcmd_symbol = "[<](green)";
         };
-        shell = { disabled = false; };
+        shell = {disabled = false;};
         git_branch = {
           format = "[$branch]($style)";
           symbol = " ";
         };
         git_status = {
-          format =
-            "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed)]($style)";
+          format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed)]($style)";
           conflicted = "​";
           untracked = "​";
           modified = "​";
@@ -123,8 +124,7 @@
           deleted = "​";
           stashed = "≡";
         };
-        git_state.format =
-          "([$state( $progress_current/$progress_total)]($style)) ";
+        git_state.format = "([$state( $progress_current/$progress_total)]($style)) ";
         git_metrics = {
           disabled = false;
           format = "([+$added]($added_style) )([-$deleted]($deleted_style) )";
@@ -210,10 +210,8 @@
         sensible
         {
           plugin = cpu;
-          extraConfig =
-            "set -g status-right 'CPU: #{cpu_percentage} #{cpu_temp}'";
+          extraConfig = "set -g status-right 'CPU: #{cpu_percentage} #{cpu_temp}'";
         }
-
       ];
       tmuxinator.enable = false;
       tmuxp.enable = false;
@@ -270,9 +268,9 @@
         dirfirst = true;
         # sortby = "";
       };
-      keybindings = { };
-      cmdKeybindings = { };
-      commands = { };
+      keybindings = {};
+      cmdKeybindings = {};
+      commands = {};
     };
 
     neovim = {

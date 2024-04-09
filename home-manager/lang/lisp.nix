@@ -1,5 +1,4 @@
-{ pkgs, ... }: {
-
+{pkgs, ...}: {
   home.packages = with pkgs; [
     guile
     racket
@@ -13,5 +12,4 @@
     neil # for adding packages to clojure project from emacs
     jet # transforming between JSON EDN YAML and Transit using Clojure
   ];
-
 }

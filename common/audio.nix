@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   sound.enable = false; # this is for ALSA rather than pipewire
   services.pipewire = {
     enable = true;

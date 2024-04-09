@@ -1,5 +1,4 @@
-{ pkgs, ... }: {
-
+{pkgs, ...}: {
   nixpkgs = {
     overlays = [
       # make gamemode work in xivlauncher for ffxiv
@@ -14,15 +13,14 @@
     ];
     config = {
       allowUnfree = true;
-      allowUnfreePredicate = (_: true);
+      allowUnfreePredicate = _: true;
       permittedInsecurePackages = [
-
       ];
     };
   };
 
   services = {
-    gnome-keyring = { enable = true; };
+    gnome-keyring = {enable = true;};
     home-manager = {
       autoUpgrade = {
         enable = true;
@@ -55,22 +53,21 @@
   };
 
   programs = {
-
     git = {
       enable = true;
-      delta = { enable = true; };
+      delta = {enable = true;};
       userName = "Alan";
       userEmail = "alan.hettinger@proton.me";
       extraConfig = {
-        core = { editor = "emacsclient"; };
-        merge = { autoStash = true; };
-        rebase = { autoStash = true; };
+        core = {editor = "emacsclient";};
+        merge = {autoStash = true;};
+        rebase = {autoStash = true;};
       };
     };
     gh = {
       enable = true;
       gitCredentialHelper.enable = true;
-      settings = { };
+      settings = {};
     };
 
     firefox = {
@@ -83,70 +80,74 @@
           search = {
             engines = {
               "Nix Packages" = {
-                urls = [{
-                  template = "https://search.nixos.org/packages";
-                  params = [
-                    {
-                      name = "type";
-                      value = "packages";
-                    }
-                    {
-                      name = "query";
-                      value = "{searchTerms}";
-                    }
-                  ];
-                }];
-                icon =
-                  "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-                definedAliases = [ "@np" ];
+                urls = [
+                  {
+                    template = "https://search.nixos.org/packages";
+                    params = [
+                      {
+                        name = "type";
+                        value = "packages";
+                      }
+                      {
+                        name = "query";
+                        value = "{searchTerms}";
+                      }
+                    ];
+                  }
+                ];
+                icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+                definedAliases = ["@np"];
               };
 
               "Nix Options" = {
-                urls = [{
-                  template = "https://search.nixos.org/options";
-                  params = [
-                    {
-                      name = "type";
-                      value = "options";
-                    }
-                    {
-                      name = "query";
-                      value = "{searchTerms}";
-                    }
-                  ];
-                }];
-                icon =
-                  "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-                definedAliases = [ "@no" ];
+                urls = [
+                  {
+                    template = "https://search.nixos.org/options";
+                    params = [
+                      {
+                        name = "type";
+                        value = "options";
+                      }
+                      {
+                        name = "query";
+                        value = "{searchTerms}";
+                      }
+                    ];
+                  }
+                ];
+                icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+                definedAliases = ["@no"];
               };
 
               "NixOS Wiki" = {
-                urls = [{
-                  template =
-                    "https://nixos.wiki/index.php?search={searchTerms}";
-                }];
+                urls = [
+                  {
+                    template = "https://nixos.wiki/index.php?search={searchTerms}";
+                  }
+                ];
                 iconUpdateURL = "https://nixos.wiki/favicon.png";
                 updateInterval = 24 * 60 * 60 * 1000; # every day
-                definedAliases = [ "@nw" ];
+                definedAliases = ["@nw"];
               };
 
               "Home Manager" = {
-                urls = [{
-                  template =
-                    "https://mipmip.github.io/home-manager-option-search/?query={searchTerms}";
-                }];
-                iconUpdateURL =
-                  "https://mipmip.github.io/home-manager-option-search/images/favicon.png";
-                definedAliases = [ "@nh" "@hm" ];
+                urls = [
+                  {
+                    template = "https://mipmip.github.io/home-manager-option-search/?query={searchTerms}";
+                  }
+                ];
+                iconUpdateURL = "https://mipmip.github.io/home-manager-option-search/images/favicon.png";
+                definedAliases = ["@nh" "@hm"];
               };
 
               "Brave" = {
-                urls = [{
-                  template = "https://search.brave.com/search?q={searchTerms}";
-                }];
-                iconUpdateURL =
-                  "https://cdn.search.brave.com/serp/v2/_app/immutable/assets/favicon-32x32.86083f5b.png";
-                definedAliases = [ "@b" ];
+                urls = [
+                  {
+                    template = "https://search.brave.com/search?q={searchTerms}";
+                  }
+                ];
+                iconUpdateURL = "https://cdn.search.brave.com/serp/v2/_app/immutable/assets/favicon-32x32.86083f5b.png";
+                definedAliases = ["@b"];
               };
 
               "Wikipedia".metaData.alias = "@w";
@@ -156,7 +157,6 @@
               "Google".metaData.hidden = true;
               "Amazon.com".metaData.hidden = true;
               "eBay".metaData.hidden = true;
-
             };
             force = true;
             order = [
@@ -195,7 +195,6 @@
       ripgrep
       fd
       fzf
-
     ];
   };
 

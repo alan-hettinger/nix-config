@@ -1,5 +1,9 @@
-{ config, lib, pkgs, ... }: {
-
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   ## This file is currently used kind of inconsistently
   ## TODO move all program fonts into here
 

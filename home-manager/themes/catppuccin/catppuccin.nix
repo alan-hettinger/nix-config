@@ -1,11 +1,14 @@
-{ pkgs, config, ... }: {
-
+{
+  pkgs,
+  config,
+  ...
+}: {
   nixpkgs.overlays = [
     (final: prev: {
       catppuccin-gtk = prev.catppuccin-gtk.override {
-        accents = [ "rosewater" ];
+        accents = ["rosewater"];
         size = "compact"; # standard|compact
-        tweaks = [ "rimless" ];
+        tweaks = ["rimless"];
         variant = "macchiato";
       };
     })
@@ -39,11 +42,12 @@
   };
 
   programs = {
-
-    neovim.plugins = with pkgs.vimPlugins; [{
-      plugin = catppuccin-nvim;
-      config = "colorscheme catppuccin-macchiato";
-    }];
+    neovim.plugins = with pkgs.vimPlugins; [
+      {
+        plugin = catppuccin-nvim;
+        config = "colorscheme catppuccin-macchiato";
+      }
+    ];
 
     starship.settings = {
       palette = "catppuccin_macchiato";
@@ -104,11 +108,12 @@
 
   home.activation = {
     applyCatppuccinKdeColors = let
-      themePath = (builtins.fetchTarball {
-        url =
-          "https://github.com/catppuccin/kde/releases/download/v0.2.6/Macchiato-color-schemes.tar.gz";
-        sha256 = "1wn7b8k8k3a7jwqsv932drrzj2brgj095kn53659rgyw4iq7kz8a";
-      } + "/CatppuccinMacchiatoRosewater.colors");
+      themePath =
+        builtins.fetchTarball {
+          url = "https://github.com/catppuccin/kde/releases/download/v0.2.6/Macchiato-color-schemes.tar.gz";
+          sha256 = "1wn7b8k8k3a7jwqsv932drrzj2brgj095kn53659rgyw4iq7kz8a";
+        }
+        + "/CatppuccinMacchiatoRosewater.colors";
     in ''
       if ! ${pkgs.gnugrep}/bin/grep -qi catppuccin ${config.home.homeDirectory}/.config/kdeglobals; then
        cat ${themePath} >> ${config.home.homeDirectory}/.config/kdeglobals;

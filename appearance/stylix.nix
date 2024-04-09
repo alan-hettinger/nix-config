@@ -1,5 +1,8 @@
-{ pkgs, stylix, ... }: {
-
+{
+  pkgs,
+  stylix,
+  ...
+}: {
   stylix = {
     autoEnable = true;
     cursor = {
@@ -9,8 +12,7 @@
     };
     image =
       ../home-manager/dotfiles/awesome/assets/wall-mountains-catppuccin.png;
-    base16Scheme =
-      "${pkgs.base16-schemes}/share/themes/catppuccin-macchiato.yaml";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-macchiato.yaml";
     polarity = "dark";
     fonts = {
       serif = {
@@ -35,11 +37,10 @@
 
     targets = {
       plymouth.enable = true;
-
     };
   };
 
-  home-manager.sharedModules = [ ./stylix-qt-fix/hm.nix ];
+  home-manager.sharedModules = [./stylix-qt-fix/hm.nix];
   home-manager.users.alan.stylix = {
     autoEnable = true;
     targets = {

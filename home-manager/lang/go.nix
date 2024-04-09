@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   home.packages = with pkgs; [
     go
     gore
@@ -8,7 +6,5 @@
     gotests
     gomodifytags
     gopls
-
   ];
-
 }

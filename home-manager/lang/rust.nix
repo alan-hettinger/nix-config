@@ -1,5 +1,4 @@
-{ pkgs, ... }: {
-
+{pkgs, ...}: {
   home.packages = with pkgs; [
     # rustup
     rustc
@@ -7,7 +6,5 @@
     cargo
     rust-analyzer
     bacon # background code checker
-
   ];
-
 }

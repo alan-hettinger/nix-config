@@ -1,12 +1,12 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   # console.font = "ter-m32n";
   fonts = {
     fontDir.enable = true;
     fontconfig = {
       enable = true;
-      defaultFonts.monospace = [ "jetbrains-mono" ];
-      defaultFonts.sansSerif = [ "source-sans-pro" ];
-      defaultFonts.serif = [ "source-serif-pro" ];
+      defaultFonts.monospace = ["jetbrains-mono"];
+      defaultFonts.sansSerif = ["source-sans-pro"];
+      defaultFonts.serif = ["source-serif-pro"];
     };
     packages = with pkgs; [
       gyre-fonts
