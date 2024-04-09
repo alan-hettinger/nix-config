@@ -18,6 +18,7 @@
       spotify
       spicetify-cli
       cinnamon.nemo-with-extensions
+      qbittorrent
 
       rofi-power-menu # FIXME should be installed by rofi plugins but isnt
 

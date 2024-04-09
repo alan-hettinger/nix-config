@@ -31,7 +31,7 @@
 
     jdk # Java is required by EmmyLua LSP. Gross.
 
-    nixfmt
+    nixfmt-rfc-style
     languagetool
   ];
 
