@@ -2,9 +2,6 @@
   description = "Alan's Nix config";
 
   inputs = {
-    # nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
-    # nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    ## just using all unstable for now
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
@@ -16,9 +13,6 @@
     hyprland.url = "github:hyprwm/Hyprland";
 
     stylix.url = "github:danth/stylix";
-
-    alejandra.url = "github:kamadorueda/alejandra/3.0.0";
-    alejandra.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
@@ -28,7 +22,6 @@
     nix-doom-emacs,
     hyprland,
     stylix,
-    alejandra,
     ...
   } @ inputs: let
     ## add my helper functions to lib
@@ -100,11 +93,7 @@
           )
           ++ (
             if coding == true
-            then [
-              ./software/coding
-
-              {environment.systemPackages = [alejandra.defaultPackage.${system}];}
-            ]
+            then [./software/coding]
             else []
           )
           ++ (
