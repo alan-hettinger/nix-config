@@ -280,16 +280,18 @@
 (use-package lsp-mode
   :ensure t)
 
-(use-package lsp-nix
-  :ensure lsp-mode
-  :after (lsp-mode)
-  :demand t
-  :custom
-  (lsp-nix-nil-formatter ["nixpkgs-fmt"]))
+(set-formatter! 'alejandra '("alejandra" "--quiet") :modes '(nix-mode))
 
-(use-package nix-mode
-  :hook (nix-mode . lsp-deferred)
-  :ensure t)
+;; (use-package lsp-nix
+;;   :ensure lsp-mode
+;;   :after (lsp-mode)
+;;   :demand t
+;;   :custom
+;;   (lsp-nix-nil-formatter ["nixpkgs-fmt"]))
+
+;; (use-package nix-mode
+;;   :hook (nix-mode . lsp-deferred)
+;;   :ensure t)
 
 ;;; open eshell as if it were a terminal:
 ;; - invoked via 'emacsclient -a "" -c -e '(server-eshell)'
