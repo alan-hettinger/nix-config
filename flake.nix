@@ -10,7 +10,7 @@
     };
     nixos-hardware.url = "github:nixos/nixos-hardware";
     nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
-    hyprland.url = "github:hyprwm/Hyprland";
+    # hyprland.url = "github:hyprwm/Hyprland";
 
     stylix.url = "github:danth/stylix";
   };
@@ -20,7 +20,7 @@
     home-manager,
     nixos-hardware,
     nix-doom-emacs,
-    hyprland,
+    # hyprland,
     stylix,
     ...
   } @ inputs: let
@@ -29,6 +29,16 @@
     # credit to https://github.com/kclejeune/system/blob/2ae7ced193f862ae3deace320c37f4657a873bd0/flake.nix#L49
       nixpkgs.lib.extend (final: prev: (import ./lib final) // home-manager.lib);
     lib = mkLib nixpkgs;
+
+    systems = [
+      "aarch64-linux"
+      "i686-linux"
+      "x86_64-linux"
+      "aarch64-darwin"
+      "x86_64-darwin"
+    ];
+
+    forAllSystems = nixpkgs.lib.genAttrs systems;
 
     ## set the defaults for nixos system configs:
     generateNixosSystem = {
@@ -108,6 +118,8 @@
           );
       };
   in {
+    packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
+
     nixosConfigurations = {
       alan-desktop-linux = generateNixosSystem {
         systemModule = [./systems/desktop];

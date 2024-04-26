@@ -33,6 +33,7 @@
       haskell-language-server # #installing here because haskellPackages.haskell-language-server didn't cooperate
       transmission-gtk
       comma
+      roll
     ];
 
     # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
