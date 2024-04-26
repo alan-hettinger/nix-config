@@ -85,6 +85,7 @@
           ++ desktopModules
           ++ extraModules
           ++ [./common]
+          ++ [./pkgs]
           ++ (
             if enableXorg == true
             then [./desktop/xorg.nix]

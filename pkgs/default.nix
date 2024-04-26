@@ -1,3 +1,4 @@
-pkgs: {
-  roll = pkgs.callPackage ./roll {};
+{pkgs, ...}: {
+  # roll = pkgs.callPackage ./roll {};
+  environment.systemPackages = [(pkgs.callPackage ./roll {})];
 }
