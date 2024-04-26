@@ -16,7 +16,8 @@
       libsForQt5.kio-admin
       libsForQt5.kio-extras
       libsForQt5.qtstyleplugins
-      # libsForQt5.qt5ct
+
+      gwenview
 
       brave
       spotify
