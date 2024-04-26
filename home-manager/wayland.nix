@@ -13,7 +13,10 @@
   wayland.windowManager.hyprland = {
     systemdIntegration = true;
     recommendedEnvironment = true;
-    extraConfig = {};
+    systemd = {
+      variables = ["--all"];
+    };
+    settings = {};
   };
 
   programs.waybar = {
