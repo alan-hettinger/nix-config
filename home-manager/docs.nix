@@ -2,7 +2,8 @@
   home.packages = with pkgs; [
     libreoffice
     pandoc
-    calibre
+    # calibre
+    foliate
     libsForQt5.okular
     pdfarranger
     # nextcloud-client

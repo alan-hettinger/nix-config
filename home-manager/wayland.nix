@@ -4,6 +4,9 @@
   pkgs,
   ...
 }: {
+  imports = [
+    ./hyprland/bind.nix
+  ];
   wayland.windowManager = {
     sway.enable = false;
     hyprland.enable = true;
