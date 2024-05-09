@@ -102,6 +102,29 @@
     };
   };
 
+  services.kanshi = {
+    ## TODO this is just a placeholder
+    enable = false;
+    extraConfig = "";
+    profiles = {
+      desktop = {
+        outputs = [
+          {
+            criteria = "DP-1";
+            mode = "2560x1440@144Hz";
+            position = "0,0";
+            adaptiveSync = true;
+            scale = 1.25;
+            status = "enable";
+          }
+        ];
+        exec = [
+          "echo 'hello world'"
+        ];
+      };
+    };
+  };
+
   programs.wlogout = {
     enable = true;
     # layout = [{}];
