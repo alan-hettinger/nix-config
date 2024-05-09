@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   nixpkgs = {
     overlays = [
       # make gamemode work in xivlauncher for ffxiv
@@ -183,6 +187,17 @@
       "$HOME/.emacs.d/bin"
     ];
 
+    pointerCursor = {
+      gtk.enable = true;
+      x11 = {
+        enable = true;
+        defaultCursor = "Vanilla-DMZ";
+      };
+      package = lib.mkForce pkgs.vanilla-dmz;
+      name = "Vanilla-DMZ";
+      size = 48;
+    };
+
     sessionVariables = {
       TERM = "alacritty";
       GOPATH = "$HOME/go";
@@ -195,6 +210,7 @@
       ripgrep
       fd
       fzf
+      pavucontrol
     ];
   };
 

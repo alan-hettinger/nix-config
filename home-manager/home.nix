@@ -2,6 +2,7 @@
   imports = [
     ./common.nix
     ./desktop.nix
+    ./wayland.nix
     ./docs.nix
     ./emacs.nix
     ./media.nix
@@ -13,7 +14,7 @@
     ./lang/rust.nix
     ./lang/cc.nix
     ./lang/haskell.nix
-    ./lang/python.nix
+    # ./lang/python.nix
     ./lang/js.nix
     ./themes/catppuccin/catppuccin.nix
     ./themes/fonts.nix

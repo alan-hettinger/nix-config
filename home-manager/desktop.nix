@@ -57,6 +57,7 @@
   programs = {
     rofi = {
       enable = true;
+      package = pkgs.rofi-wayland;
       # font = "JetbrainsMono Nerd Font 16";
       location = "center";
       terminal = "alacritty";
@@ -96,20 +97,20 @@
   };
 
   services = {
-    network-manager-applet.enable = true;
+    network-manager-applet.enable = false;
     nextcloud-client = {
       enable = true;
       startInBackground = true;
     };
-    pasystray.enable = true;
+    pasystray.enable = false;
 
     clipmenu = {
-      enable = true;
+      enable = false;
       launcher = "rofi";
     };
 
     picom = {
-      enable = true;
+      enable = false;
       # package = pkgs.picom-jonaburg-unstable;
 
       activeOpacity = 1;

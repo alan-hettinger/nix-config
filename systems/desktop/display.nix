@@ -37,7 +37,7 @@
     driSupport = true;
     driSupport32Bit = true;
   };
-  environment.extraInit = ''
-    xset s off -dpms
-  '';
+  # environment.extraInit = ''
+  #   xset s off -dpms
+  # '';
 }

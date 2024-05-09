@@ -129,6 +129,7 @@
           nixos-hardware.nixosModules.common-pc-ssd
           nixos-hardware.nixosModules.common-gpu-amd
         ];
+        enableWayland = true;
         games = true;
         coding = true;
       };

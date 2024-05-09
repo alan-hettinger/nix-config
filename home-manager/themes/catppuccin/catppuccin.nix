@@ -96,7 +96,7 @@
 
     # rofi.theme = ../dotfiles/rofi/catppuccin-macchiato.rasi; ## FIXME this is how it's supposed to work
     rofi.theme = "catppuccin-macchiato"; # # FIXME depends on hacky fix below
-    waybar.style = ./waybar.css;
+    # waybar.style = ./waybar.css;
   };
   home.file.".config/rofi/catppuccin-macchiato.rasi".source =
     ./rofi/catppuccin-macchiato.rasi;

@@ -5,167 +5,78 @@
   ...
 }: {
   imports = [
-    ./hyprland/bind.nix
+    ./hyprland/default.nix
   ];
+  home.packages = with pkgs; [
+    hyprpaper
+    slurp
+    wayshot
+  ];
+
   wayland.windowManager = {
     sway.enable = false;
     hyprland.enable = true;
   };
   programs.waybar.enable = true;
 
-  wayland.windowManager.hyprland = {
-    systemdIntegration = true;
-    recommendedEnvironment = true;
-    systemd = {
-      variables = ["--all"];
-    };
-    settings = {};
-  };
-
   programs.waybar = {
+    systemd.enable = true;
     settings = {
-      layer = "top";
-      position = "left"; # bar position - top/bottom/left/right
-      modules-left = ["clock" "clock#clock2" "clock#clock3" "sway/workspaces" "sway/mode"];
-      modules-center = [];
-      modules-right = ["battery" "memory" "temperature" "tray"];
-
-      "sway/workspaces" = {
-        disable-scroll = true;
-        all-outputs = true;
-        format = "{icon}";
-
-        persistent_workspaces = {
-          "1" = [];
-          "2" = [];
-          "3" = [];
-          "4" = [];
-          "5" = [];
+      mainBar = {
+        layer = "top";
+        position = "top";
+        height = 30;
+        modules-left = ["hyprland/workspaces"];
+        modules-center = ["clock"];
+        modules-right = ["systemd-failed-units" "network" "wireplumber" "cpu" "temperature" "temperature#gpu"];
+        "hyprland/workspaces" = {
+          format = "{id}: {name}";
         };
-        format-icons = {
-          "1" = "";
-          "2" = "";
-          "3" = "";
-          "4" = "";
-          "5" = "@";
+        "cpu" = {
+          format = "[ CPU: {usage}%,";
         };
-        align = 0;
-      };
-      "sway/mode" = {format = ''<span style="italic">{}<span>'';};
-      "tray" = {
-        rotate = 90;
-        icon-size = 20;
-      };
-      "clock".format = " {:%I}";
-      "clock#clock2".format = " {:%M}";
-      "clock#clock3".format = " {:%p}";
-      "battery".format = "{capacity}%";
-      "cpu" = {
-        interval = 1;
-        format = ": {usage}%";
-        tooltip = false;
-      };
-      "temperature" = {
-        interval = 4;
-        hwmon-path =
-          /sys/class/hwmon/hwmon3/temp1_input; # TODO should this be a string?
-        format = "{temperatureC}°";
-      };
-      "network" = {
-        format-wifi = "  {essid}";
-        format-ethernet = "{ifname}: {ipaddr}/{cidr} ";
-        format-linked = "{ifname} (No IP) ";
-        format-disconnected = "";
-        format-alt = "{ifname}: {ipaddr}/{cidr}";
-        family = "ipv4";
-        tooltip-format-wifi = ''
-            {ifname} @ {essid}
-          IP: {ipaddr}
-          Strength: {signalStrength}%
-          Freq: {frequency}MHz
-           {bandwidthUpBits}  {bandwidthDownBits}'';
-        tooltip-format-ethernet = ''
-           {ifname}
-          IP: {ipaddr}
-           {bandwidthUpBits}  {bandwidthDownBits}'';
-      };
-      "memory" = {
-        interval = 30;
-        format = "{}%";
+        "temperature" = {
+          format = "{temperatureC}°C ]";
+        };
+        "temperature#gpu" = {
+          hwmon-path = "/sys/devices/pci0000:00/0000:00:03.1/0000:2b:00.0/0000:2c:00.0/0000:2d:00.0/hwmon/hwmon1/temp2_input";
+          format = "[ GPU: {temperatureC}°C ]";
+        };
+        "tray" = {
+          icon-size = 21;
+          spacing = 10;
+          show-passive-items = true;
+        };
+        "wireplumber" = {
+          format = "[ Vol: {volume}% ]";
+          on-click = "pavucontrol";
+        };
+        "mpris" = {
+          format = "Playing: {title} {position} / {length}";
+          format-paused = "Paused: {title}";
+        };
+        "network" = {
+          format = "[ Net: {essid} {signalStrength}% ]";
+        };
+        "clock" = {
+          format = "{:%I:%M %p, %a, %b %d}";
+        };
       };
     };
-    systemd.enable = true;
   };
 
-  wayland.windowManager.sway = {
-    # keeping this config for posterity
-    config = {
-      focus = {
-        followMouse = false;
-        mouseWarping = false;
+  services = {
+    dunst = {
+      enable = true;
+      settings = {
+        global = {
+          width = 400;
+          height = 300;
+        };
       };
-      fonts = {
-      };
-      bars.waybar.command = "waybar";
-      gaps = {
-        # gap sizes are ints
-        # bottom = ;
-        # horizontal = ;
-        inner = 10;
-        # outer = ;
-        # right = ;
-        # top = ;
-        # vertical = ;
-        smartBorders = "off";
-        smartGaps = "off";
-      };
-
-      input = {
-        # attribute set of strings
-      };
-      modifier = "Mod4";
-      keybindings = {
-        "$mod+Return" = "exec $term";
-        "$mod+q" = "kill";
-        "$mod+d" = "exec $menu";
-        "$mod+Ctrl+r" = "reload";
-        "$mod+p" = "exec $scshot";
-        "$mod+Shift+p" = "exec $regionshot";
-        "$mod+b" = "splith";
-        "$mod+v" = "splitv";
-        "$mod+s" = "layout stacking";
-        "$mod+t" = "layout tabbed";
-        "$mod+w" = "layout splitv";
-        "$mod+e" = "layout toggle splith tabbed";
-        "$mod+f" = "fullscreen";
-        "$mod+Shift+space" = "floating toggle";
-        "$mod+space" = "focus mode_toggle";
-        "$mod+a" = "focus parent";
-        "$mod+r" = "mode 'resize'";
-        "$mod+Escape" = "exec $powermenu";
-        "$mod+x" = "exec $browser";
-        "$mod+z" = "exec $filemgr";
-      };
-      output = {
-      };
-      terminal = "alacritty";
-      menu = "rofi -show drun";
-      window = {
-        border = 2;
-        hideEdgeBorders = "none";
-        titlebar = false;
-      };
-      workspaceLayout = "default";
-
-      extraConfig = ''
-        set $scshot exec grim
-        set $regionshot exec grim -g "$(slurp)"
-
-        set $powermenu exec wlogout -p layer-shell
-        set $browser exec 'firefox'
-        set $filemgr exec nemo
-
-      '';
+    };
+    clipman = {
+      enable = true;
     };
   };
 }
