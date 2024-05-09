@@ -3,30 +3,16 @@
     xorg.xrandr
     xorg.xkill
     xorg.xwininfo
-    catppuccin-sddm-corners
   ];
 
   services = {
+    displayManager.defaultSession = "hyprland";
     xserver = {
       displayManager = {
-        sddm = {
-          enable = false;
-          enableHidpi = true;
-          autoNumlock = true;
-          wayland.enable = false;
-          extraPackages = with pkgs; [
-            kdePackages.qtwayland
-          ];
-        };
         gdm = {
           enable = true;
           wayland = true;
         };
-        # defaultSession = "xfce+awesome";
-        # sessionCommands = ''
-        #   xset s off -dpms
-        # ''; # TODO is this necessary with xfce handling displays
-        defaultSession = "hyprland";
       };
       excludePackages = with pkgs; [xterm];
       enable = true;
