@@ -14,7 +14,8 @@
   screenshotFull = "wayshot -f ${screenshotPath}/$(date --iso-8601=seconds).jpg";
   filemanager = "dolphin";
   browser2 = "brave";
-  powerMenu = "rofi -show power-menu -modi power-menu:rofi-power-menu -location 3";
+  # powerMenu = "rofi -show power-menu -modi power-menu:rofi-power-menu -location 3";
+  powerMenu = "wlogout";
   clipboard = "clipman pick -t rofi";
 in {
   wayland.windowManager.hyprland.settings = {

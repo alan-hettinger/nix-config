@@ -80,4 +80,30 @@
   services.clipman = {
     enable = true;
   };
+
+  services.gammastep = {
+    enable = true;
+    dawnTime = "8:30-10:00";
+    duskTime = "22:30-23:59";
+    temperature = {
+      day = 6500;
+      night = 4000;
+    };
+    provider = "manual";
+    latitude = 33.7;
+    longitude = -84.3;
+    settings = {
+      general = {
+        brightness-day = 1.0;
+        brightness-night = 0.7;
+        fade = 1;
+        adjustment-method = "wayland";
+      };
+    };
+  };
+
+  programs.wlogout = {
+    enable = true;
+    # layout = [{}];
+  };
 }
