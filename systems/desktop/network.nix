@@ -10,10 +10,15 @@
     networkmanager = {
       enable = true;
       dns = "default";
-      extraConfig = ''
-        [main]
-        rc-manager=symlink
-      '';
+      settings = {
+        main = {
+          rc-manager = "symlink";
+        };
+      };
+      #   ''
+      #   [main]
+      #   rc-manager=symlink
+      # '';
     };
 
     wireguard.enable = true;
@@ -36,6 +41,6 @@
   services.mullvad-vpn = {
     enable = true;
     package =
-      pkgs.mullvad-vpn; # "mullvad" is CLI only, "mullvad-vpn" is CLI and GUI
+      pkgs.mullvad; # "mullvad" is CLI only, "mullvad-vpn" is CLI and GUI
   };
 }
