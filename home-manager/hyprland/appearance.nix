@@ -2,6 +2,13 @@
   wallpaperLavender = config.lib.stylix.pixel "base07";
   wallpaperBase = config.lib.stylix.pixel "base00";
   wallpaperBlue = config.lib.stylix.pixel "base0D";
+
+  themeColors = {
+    # FIXME this should be set by stylix
+    text = "rgb(cad3f5)";
+    bgInactive = "rgb(24273a)";
+    bgActive = "rgb(181926)";
+  };
 in {
   wayland.windowManager.hyprland.settings = {
     general = {
@@ -33,6 +40,20 @@ in {
     animations = {
       enabled = true;
       first_launch_animation = false;
+    };
+    group = {
+      groupbar = {
+        enabled = true;
+        font_family = "Source Sans Variable";
+        font_size = 16;
+        height = 20;
+
+        text_color = themeColors.text;
+        "col.active" = themeColors.bgActive;
+        "col.inactive" = themeColors.bgInactive;
+        "col.locked_active" = themeColors.bgActive;
+        "col.locked_inactive" = themeColors.bgInactive;
+      };
     };
     exec-once = [
       "hyprpaper"
