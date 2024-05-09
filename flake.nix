@@ -13,6 +13,7 @@
     # hyprland.url = "github:hyprwm/Hyprland";
 
     stylix.url = "github:danth/stylix";
+    hyprlock.url = "github:hyprwm/hyprlock";
   };
 
   outputs = {
