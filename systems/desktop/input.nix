@@ -4,6 +4,6 @@
   pkgs,
   ...
 }: {
-  services.xserver.libinput.mouse.middleEmulation = false;
+  services.libinput.mouse.middleEmulation = false;
   services.acpid.enable = true;
 }
