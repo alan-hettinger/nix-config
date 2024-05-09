@@ -14,6 +14,7 @@
 
     stylix.url = "github:danth/stylix";
     hyprlock.url = "github:hyprwm/hyprlock";
+    hyprland-plugins.url = "github:hyprwm/hyprland-plugins";
   };
 
   outputs = {
@@ -21,8 +22,8 @@
     home-manager,
     nixos-hardware,
     nix-doom-emacs,
-    # hyprland,
     stylix,
+    hyprlock,
     ...
   } @ inputs: let
     ## add my helper functions to lib
@@ -66,6 +67,7 @@
           home-manager.useUserPackages = true;
           home-manager.backupFileExtension = "backup";
           home-manager.users.alan = import ./home-manager/home.nix;
+          home-manager.extraSpecialArgs = {inherit hyprlock;};
         }
       ],
       ## most customization occurs here:
