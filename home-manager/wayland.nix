@@ -8,7 +8,6 @@
     ./hyprland/default.nix
   ];
   home.packages = with pkgs; [
-    hyprpaper
     slurp
     wayshot
   ];
@@ -26,12 +25,9 @@
         layer = "top";
         position = "top";
         height = 30;
-        modules-left = ["hyprland/workspaces"];
+        modules-left = []; # hyprland file places workspaces here
         modules-center = ["clock"];
-        modules-right = ["systemd-failed-units" "network" "wireplumber" "cpu" "temperature" "temperature#gpu"];
-        "hyprland/workspaces" = {
-          format = "{id}: {name}";
-        };
+        modules-right = ["network" "wireplumber" "cpu" "temperature" "temperature#gpu"];
         "cpu" = {
           format = "[ CPU: {usage}%,";
         };
@@ -70,8 +66,18 @@
       enable = true;
       settings = {
         global = {
+          follow = "mouse";
+          layer = "overlay";
+          format = "%a\n<b>%s</b>\n%b";
+          history_length = 50;
+
           width = 400;
           height = 300;
+          corner_radius = 15;
+
+          mouse_left_click = "do_action, close_current";
+          mouse_middle_click = "close_all";
+          mouse_right_click = "close_current";
         };
       };
     };
