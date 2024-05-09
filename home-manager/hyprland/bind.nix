@@ -17,7 +17,9 @@
   # powerMenu = "rofi -show power-menu -modi power-menu:rofi-power-menu -location 3";
   powerMenu = "wlogout";
   clipboard = "clipman pick -t rofi";
+  lock = "hyprlock";
 in {
+  home.packages = with pkgs; [killall];
   wayland.windowManager.hyprland.settings = {
     "$mod" = "SUPER";
 
@@ -40,6 +42,7 @@ in {
         "$mod, W, exec, ${windowswitcher}"
         "$mod, Escape, exec, ${powerMenu}"
         "$mod, comma, exec, ${clipboard}"
+        "$mod, grave, exec, ${lock}"
 
         "$mod, Q, killactive"
 
@@ -53,9 +56,28 @@ in {
         "$mod, F, fullscreen"
         "$mod SHIFT, F, fakefullscreen"
 
-        "$mod, Space, togglefloating, active"
+        "$mod CTRL, Space, togglefloating, active"
         "$mod, Tab, workspace, e+1"
         "$mod SHIFT, Tab, workspace, e-1"
+
+        "$mod, T, togglegroup"
+        "$mod, Right, changegroupactive, f"
+        "$mod, Left, changegroupactive, b"
+        "$mod SHIFT, Left, moveintogroup, l"
+        "$mod SHIFT, Right, moveintogroup, right"
+        "$mod SHIFT, Up, moveintogroup, up"
+        "$mod SHIFT, Down, moveintogroup, down"
+
+        # TODO mod,b toggles bar
+        "$mod, b, exec, killall -SIGUSR1 waybar"
+        # TODO mod,= reduces gap size
+        # TODO mod,- increases gap size
+        # TODO mod,CTRL,j|k cycles screens
+        # TODO mod,CTRL,Enter launches default apps
+        # TODO mod,Shift,q quits
+        # TODO mod,/ toggles tray visibility
+        # TODO mod,F10|F11|F12 control volume
+        # TODO mod,n controls minimized
       ]
       ++ (
         builtins.concatLists (builtins.genList (
@@ -66,7 +88,7 @@ in {
                 builtins.toString (x + 1 - (c * 10));
             in [
               "$mod, ${ws}, workspace, ${toString (x + 1)}"
-              "$mod SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}"
+              "$mod SHIFT, ${ws}, movetoworkspacesilent, ${toString (x + 1)}"
             ]
           )
           10)
