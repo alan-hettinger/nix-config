@@ -7,6 +7,7 @@
   imports = lib.helperFunctions.getNixFilesFromDir ./.;
   home.packages = with pkgs; [
     hyprpaper
+    wl-clipboard
   ];
 
   wayland.windowManager.hyprland = {
@@ -18,6 +19,7 @@
       general = {
         resize_on_border = false;
       };
+      debug.disable_logs = false;
       env = [
         "GDK_BACKEND, wayland, x11, *"
         "QT_QPA_PLATFORM, wayland; xcb"
@@ -29,7 +31,8 @@
         "XCURSOR_SIZE, 48"
       ];
       exec-once = [
-        "clipman clear"
+        "wl-paste --type text --watch cliphist store"
+        "wl-paste --type image --watch cliphist store"
       ];
     };
   };

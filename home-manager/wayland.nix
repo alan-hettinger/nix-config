@@ -73,13 +73,22 @@
   };
 
   services.clipman = {
+    enable = false;
+  };
+
+  services.cliphist = {
     enable = true;
+    allowImages = true;
+    extraOptions = [
+      "-max-items"
+      "100"
+    ];
   };
 
   services.gammastep = {
     enable = true;
     dawnTime = "8:30-10:00";
-    duskTime = "22:30-23:59";
+    duskTime = "20:30-22:00";
     temperature = {
       day = 6500;
       night = 4000;

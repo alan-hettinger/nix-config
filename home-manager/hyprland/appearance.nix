@@ -8,6 +8,7 @@
     text = "rgb(cad3f5)";
     bgInactive = "rgb(24273a)";
     bgActive = "rgb(181926)";
+    borderMaximized = "rgb(ee99a0)";
   };
 in {
   wayland.windowManager.hyprland.settings = {
@@ -15,6 +16,7 @@ in {
       gaps_in = 5;
       gaps_out = 15;
       border_size = 3;
+      cursor_inactive_timeout = 30;
     };
     misc = {
       disable_hyprland_logo = true;
@@ -57,6 +59,9 @@ in {
     };
     exec-once = [
       "hyprpaper"
+    ];
+    windowrulev2 = [
+      "bordercolor ${themeColors.borderMaximized}, fullscreen:1"
     ];
   };
 

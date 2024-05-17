@@ -72,11 +72,14 @@
       coreutils
       gparted
       gnome.gnome-disk-utility
+
+      gnome.gnome-boxes
     ];
   };
   xdg.portal = {
     enable = true;
     wlr.enable = true;
+    xdgOpenUsePortal = true;
     extraPortals = [pkgs.xdg-desktop-portal-gtk];
   };
 
@@ -116,4 +119,15 @@
       extraGroups = ["networkmanager" "wheel" "video" "audio"];
     };
   };
+
+  # virtualization:
+  virtualisation = {
+    # libvirtd = {
+    #   enable = true;
+    # };
+    waydroid.enable = true;
+  };
+  # programs.virt-manager = {
+  #   enable = true;
+  # };
 }

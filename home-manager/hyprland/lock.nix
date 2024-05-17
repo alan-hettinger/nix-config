@@ -5,9 +5,9 @@
   hyprlock,
   ...
 }: {
-  imports = [hyprlock.homeManagerModules.hyprlock];
+  imports = [hyprlock.homeManagerModules.default];
   programs.hyprlock = {
-    enable = true;
+    # enable = true;
     general = {
       grace = 5;
       hide_cursor = false;

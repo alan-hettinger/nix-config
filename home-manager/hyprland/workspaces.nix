@@ -17,6 +17,10 @@
       "8, defaultName:media"
       "9, defaultName:game"
       "10, defaultName:"
+      "f[1],gapsout:0"
+      "special:emacs, on-created-empty:emacsclient -c, gapsout:0 0 0 1500, border:false, shadow:false, rounding:false"
+      "special:discord, on-created-empty:discord, gapsout:0 0 0 1500, border:false, shadow:false, rounding:false"
+      "special:term, on-created-empty:alacritty, gapsout:0 0 0 1500, border:false, shadow:false, rounding:false"
     ];
     master = {
       mfact = 0.55;
