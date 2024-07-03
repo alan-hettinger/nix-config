@@ -18,7 +18,7 @@
   powerMenu = "wlogout";
   # clipboard = "clipman pick -t rofi";
   clipboard = "cliphist list | rofi -dmenu | cliphist decode | wl-copy";
-  lock = "hyprlock";
+  # lock = "hyprlock";
 in {
   home.packages = with pkgs; [
     killall
@@ -50,11 +50,15 @@ in {
           "$mod, C, togglespecialworkspace, discord"
           "$mod, Return, togglespecialworkspace, term"
 
+          "$mod, BackSpace, movetoworkspace, +0"
+
           "$mod, X, exec, [workspace 1] ${browser}"
           "$mod SHIFT, X, exec, [workspace 1] ${browser2}"
-          # "$mod, Return, exec, ${terminal}"
-          "$mod, Z, exec, ${filemanager}"
-          # "$mod, C, exec, [workspace 6] discord"
+          "$mod SHIFT, Return, exec, ${terminal}"
+
+          "$mod, Z, togglespecialworkspace, file-manager"
+          "$mod SHIFT, Z, exec, ${filemanager}"
+
           "$mod, V, exec, ${editor}"
           "$mod, D, exec, ${launcher}"
           "$mod, P, exec, ${screenshot}"
@@ -62,7 +66,7 @@ in {
           "$mod, W, exec, ${windowswitcher}"
           "$mod, Escape, exec, ${powerMenu}"
           "$mod, comma, exec, ${clipboard}"
-          "$mod, grave, exec, ${lock}"
+          "$mod, grave, exec, hyprlock"
 
           "$mod, Q, killactive"
 
@@ -89,7 +93,7 @@ in {
           "$mod, M, fullscreen, 1"
 
           # TODO mod,b toggles bar
-          "$mod, B, exec, killall -SIGUSR1 waybar"
+          "$mod, B, exec, pkill -SIGUSR1 waybar"
           # TODO mod,= reduces gap size
           # TODO mod,- increases gap size
           # TODO mod,CTRL,j|k cycles screens
