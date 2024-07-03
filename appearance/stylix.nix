@@ -4,6 +4,7 @@
   ...
 }: {
   stylix = {
+    enable = true;
     autoEnable = true;
     cursor = {
       # package = pkgs.vanilla-dmz;
@@ -42,6 +43,7 @@
 
   home-manager.sharedModules = [./stylix-qt-fix/hm.nix];
   home-manager.users.alan.stylix = {
+    enable = true;
     autoEnable = true;
     targets = {
       alacritty.enable = true;

@@ -16,7 +16,9 @@ in {
       gaps_in = 5;
       gaps_out = 15;
       border_size = 3;
-      cursor_inactive_timeout = 30;
+    };
+    cursor = {
+      inactive_timeout = 30;
     };
     misc = {
       disable_hyprland_logo = true;
@@ -51,10 +53,10 @@ in {
         height = 20;
 
         text_color = themeColors.text;
-        "col.active" = themeColors.bgActive;
-        "col.inactive" = themeColors.bgInactive;
-        "col.locked_active" = themeColors.bgActive;
-        "col.locked_inactive" = themeColors.bgInactive;
+        # "col.active" = themeColors.bgActive;
+        # "col.inactive" = themeColors.bgInactive;
+        # "col.locked_active" = themeColors.bgActive;
+        # "col.locked_inactive" = themeColors.bgInactive;
       };
     };
     exec-once = [
