@@ -64,6 +64,9 @@ in {
     ];
     windowrulev2 = [
       "bordercolor ${themeColors.borderMaximized}, fullscreen:1"
+      "rounding 0, fullscreen:1"
+      "noblur, fullscreen:1"
+      "noshadow, fullscreen:1"
     ];
   };
 

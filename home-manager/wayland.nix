@@ -1,10 +1,12 @@
 {pkgs, ...}: {
   imports = [
-    ./hyprland/default.nix
+    ./hyprland
   ];
   home.packages = with pkgs; [
     slurp
     wayshot
+
+    brightnessctl
   ];
 
   wayland.windowManager = {
@@ -59,7 +61,7 @@
     settings.global = {
       follow = "mouse";
       layer = "overlay";
-      format = "%a\n<b>%s</b>\n%b";
+      format = "%a\\n<b>%s</b>\\n%b";
       history_length = 50;
 
       width = 400;
@@ -86,7 +88,7 @@
   };
 
   services.gammastep = {
-    enable = true;
+    enable = false;
     dawnTime = "8:30-10:00";
     duskTime = "20:30-22:00";
     temperature = {
@@ -103,6 +105,18 @@
         fade = 1;
         adjustment-method = "wayland";
       };
+    };
+  };
+
+  services.wlsunset = {
+    enable = true;
+    # latitude = 33.7;
+    # longitude = -84.3;
+    sunrise = "07:00";
+    sunset = "21:00";
+    temperature = {
+      day = 6500;
+      night = 4500;
     };
   };
 
