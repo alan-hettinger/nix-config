@@ -32,7 +32,7 @@
     nil # nix lsp
     # (python38.withPackages (ps: with ps; [ jupyter ]))
 
-    jdk # Java is required by EmmyLua LSP. Gross.
+    # jdk # Java is required by EmmyLua LSP. Gross.
 
     alejandra
     languagetool

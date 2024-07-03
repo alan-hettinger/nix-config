@@ -3,6 +3,13 @@
   config,
   ...
 }: {
+  # nixpkgs.overlays = [
+  #   (final: prev: {
+  #     jdk = prev.jdk.override {
+  #       enableJavaFX = true;
+  #     };
+  #   })
+  # ];
   home = {
     packages = with pkgs; [
       i3lock-color
@@ -17,7 +24,15 @@
       libsForQt5.kio-extras
       libsForQt5.qtstyleplugins
 
+      distrobox
+      podman
+
+      bottles
+      # jdk
+      # javaPackages.openjfx22
+
       gwenview
+      inkscape
 
       brave
       spotify

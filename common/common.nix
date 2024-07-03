@@ -7,6 +7,10 @@
 }: {
   services.udisks2.enable = true;
 
+  services.upower = {
+    enable = true;
+  };
+
   services.printing = {
     enable = true;
     drivers = with pkgs; [
@@ -116,18 +120,28 @@
       isNormalUser = true;
       description = "alan";
       initialPassword = "";
-      extraGroups = ["networkmanager" "wheel" "video" "audio"];
+      extraGroups = ["networkmanager" "wheel" "video" "audio" "libvirtd"];
     };
   };
 
   # virtualization:
   virtualisation = {
-    # libvirtd = {
-    #   enable = true;
-    # };
     waydroid.enable = true;
+    libvirtd = {
+      enable = true;
+    };
+    containers.enable = true;
+    podman = {
+      enable = true;
+      dockerCompat = true;
+    };
+    # qemu = {
+    #   guestAgent.enable = true;
+    # };
   };
-  # programs.virt-manager = {
-  #   enable = true;
-  # };
+  programs.virt-manager.enable = true;
+  programs.java = {
+    enable = true;
+    package = pkgs.jdk.override {enableJavaFX = true;};
+  };
 }
