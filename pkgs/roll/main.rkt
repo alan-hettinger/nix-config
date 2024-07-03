@@ -12,6 +12,6 @@
                (io-loop process-input)))))
 
 (define (main) (if (terminal-port? (current-input-port))
-                    (io-loop parse-dice-notation)
+                    (io-loop roll)
                     '()))
 (main)
