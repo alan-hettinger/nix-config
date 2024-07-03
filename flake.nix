@@ -10,11 +10,9 @@
     };
     nixos-hardware.url = "github:nixos/nixos-hardware";
     nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
-    # hyprland.url = "github:hyprwm/Hyprland";
 
     stylix.url = "github:danth/stylix";
     hyprlock.url = "github:hyprwm/hyprlock";
-    hyprland-plugins.url = "github:hyprwm/hyprland-plugins";
   };
 
   outputs = {
