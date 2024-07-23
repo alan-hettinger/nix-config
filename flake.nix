@@ -13,6 +13,9 @@
 
     stylix.url = "github:danth/stylix";
     hyprlock.url = "github:hyprwm/hyprlock";
+
+    anyrun.url = "github:anyrun-org/anyrun";
+    anyrun.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
@@ -22,6 +25,7 @@
     nix-doom-emacs,
     stylix,
     hyprlock,
+    anyrun,
     ...
   } @ inputs: let
     ## add my helper functions to lib
