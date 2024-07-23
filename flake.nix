@@ -66,10 +66,14 @@
       hmModules ? [
         home-manager.nixosModules.home-manager
         {
-          home-manager.extraSpecialArgs = {inherit hyprlock;};
+          home-manager.extraSpecialArgs = {inherit inputs hyprlock;};
           home-manager.useUserPackages = true;
           home-manager.backupFileExtension = "backup";
-          home-manager.users.alan = import ./home-manager/home.nix;
+          # home-manager.users.alan = import ./home-manager/home.nix;
+          home-manager.users.alan.imports = [
+            ./home-manager/home.nix
+            anyrun.homeManagerModules.anyrun
+          ];
         }
       ],
       ## most customization occurs here:
