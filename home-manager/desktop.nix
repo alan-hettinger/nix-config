@@ -3,13 +3,6 @@
   config,
   ...
 }: {
-  # nixpkgs.overlays = [
-  #   (final: prev: {
-  #     jdk = prev.jdk.override {
-  #       enableJavaFX = true;
-  #     };
-  #   })
-  # ];
   home = {
     packages = with pkgs; [
       i3lock-color
@@ -28,8 +21,6 @@
       podman
 
       bottles
-      # jdk
-      # javaPackages.openjfx22
 
       gwenview
       inkscape
@@ -42,7 +33,7 @@
 
       rofi-power-menu # FIXME should be installed by rofi plugins but isnt
 
-      gnome.gnome-font-viewer
+      gnome-font-viewer
       playerctl
       bitwarden
 
@@ -50,8 +41,8 @@
       papirus-icon-theme
       hicolor-icon-theme
       gnome-icon-theme
-      gnome.adwaita-icon-theme
-      gnome.gnome-themes-extra
+      adwaita-icon-theme
+      gnome-themes-extra
     ];
 
     # install awesome config and dependencies (currently lain is the only dep)
@@ -112,7 +103,7 @@
   };
 
   services = {
-    network-manager-applet.enable = false;
+    network-manager-applet.enable = true;
     nextcloud-client = {
       enable = true;
       startInBackground = true;

@@ -75,7 +75,7 @@
       numlockx
       coreutils
       gparted
-      gnome.gnome-disk-utility
+      gnome-disk-utility
 
       gnome.gnome-boxes
     ];
