@@ -23,7 +23,7 @@
       height = 30;
       modules-left = []; # hyprland file places workspaces here
       modules-center = ["clock"];
-      modules-right = ["network" "wireplumber" "cpu" "temperature" "temperature#gpu"];
+      modules-right = ["tray" "network" "wireplumber" "cpu" "temperature" "temperature#gpu"];
       "cpu" = {
         format = "[ CPU: {usage}%,";
       };
