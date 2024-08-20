@@ -58,19 +58,21 @@
       ## plus one of xorg or wayland:
       enableXorg ? true,
       enableWayland ? false,
+      hmExtraModules ? [],
       ## hmModules includes whatever users are wanted
-      hmModules ? [
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.extraSpecialArgs = {inherit inputs hyprlock;};
-          home-manager.useUserPackages = true;
-          home-manager.backupFileExtension = "backup";
-          # home-manager.users.alan = import ./home-manager/home.nix;
-          home-manager.users.alan.imports = [
-            ./home-manager/home.nix
-          ];
-        }
-      ],
+      hmModules ?
+        [
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.extraSpecialArgs = {inherit inputs hyprlock;};
+            home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "backup";
+            home-manager.users.alan.imports = [
+              ./home-manager/home.nix
+            ];
+          }
+        ]
+        ++ hmExtraModules,
       ## most customization occurs here:
       ## - modules for specific use-cases:
       games ? false,
@@ -133,6 +135,7 @@
           nixos-hardware.nixosModules.common-pc-ssd
           nixos-hardware.nixosModules.common-gpu-amd
         ];
+        hmExtraModules = [./systems/hm-desktop];
         enableWayland = true;
         games = true;
         coding = true;
@@ -142,6 +145,7 @@
         systemModule = [./systems/laptop];
         hardwareModules = [nixos-hardware.nixosModules.lenovo-thinkpad-t14-amd-gen2];
         games = true;
+        enableWayland = true;
       };
     };
   };
