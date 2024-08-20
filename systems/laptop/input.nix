@@ -6,8 +6,8 @@
 }: {
   boot.kernelParams = ["psmouse.synaptics_intertouch=0"];
   services = {
-    xserver.libinput.enable = true;
-    xserver.libinput.touchpad = {
+    libinput.enable = true;
+    libinput.touchpad = {
       accelSpeed = null; # null or string
       clickMethod = "clickfinger";
       disableWhileTyping = true;
