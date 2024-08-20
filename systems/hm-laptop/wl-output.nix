@@ -12,6 +12,9 @@
       modules-right = [
         "battery"
       ];
+      "battery" = {
+        format = "[ Bat: {capacity}% {timeTo} ]";
+      };
     };
   };
 }

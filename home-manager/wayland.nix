@@ -46,8 +46,10 @@
       "network" = let
         bandwidthStr = "↓{bandwidthDownBytes} ↑{bandwidthUpBytes}";
       in {
-        format-wifi = "[ Net: {essid} {signalStrength}% ${bandwidthStr} ]";
+        format-wifi = "[ Net: {essid} ↕{bandwidthTotalBytes} ]";
         format-ethernet = "[ Net: ${bandwidthStr} ]";
+        tooltip = true;
+        tooltip-format = "{signalStrength}% ${bandwidthStr}";
       };
       "clock" = {
         format = "{:%I:%M %p, %a, %b %d}";
