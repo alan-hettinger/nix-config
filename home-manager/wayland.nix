@@ -43,8 +43,11 @@
         format = "Playing: {title} {position} / {length}";
         format-paused = "Paused: {title}";
       };
-      "network" = {
-        format = "[ Net: {essid} {signalStrength}% ]";
+      "network" = let
+        bandwidthStr = "↓{bandwidthDownBytes} ↑{bandwidthUpBytes}";
+      in {
+        format-wifi = "[ Net: {essid} {signalStrength}% ${bandwidthStr} ]";
+        format-ethernet = "[ Net: ${bandwidthStr} ]";
       };
       "clock" = {
         format = "{:%I:%M %p, %a, %b %d}";
