@@ -76,7 +76,7 @@ in {
           "$mod SHIFT, K, swapnext, prev"
 
           "$mod, F, fullscreen"
-          "$mod SHIFT, F, fakefullscreen"
+          # "$mod SHIFT, F, fakefullscreen" # FIXME broken after update
 
           "$mod CTRL, Space, togglefloating, active"
           "$mod, Tab, workspace, e+1"
