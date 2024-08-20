@@ -60,19 +60,19 @@
       enableWayland ? false,
       hmExtraModules ? [],
       ## hmModules includes whatever users are wanted
-      hmModules ?
-        [
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.extraSpecialArgs = {inherit inputs hyprlock;};
-            home-manager.useUserPackages = true;
-            home-manager.backupFileExtension = "backup";
-            home-manager.users.alan.imports = [
+      hmModules ? [
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.extraSpecialArgs = {inherit inputs hyprlock;};
+          home-manager.useUserPackages = true;
+          home-manager.backupFileExtension = "backup";
+          home-manager.users.alan.imports =
+            [
               ./home-manager/home.nix
-            ];
-          }
-        ]
-        ++ hmExtraModules,
+            ]
+            ++ hmExtraModules; ## TODO this is a bodgy way to include system-specific hm modules
+        }
+      ],
       ## most customization occurs here:
       ## - modules for specific use-cases:
       games ? false,
