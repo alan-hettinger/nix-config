@@ -7,6 +7,10 @@
 }: {
   services.udisks2.enable = true;
 
+  services.upower = {
+    enable = true;
+  };
+
   services.printing = {
     enable = true;
     drivers = with pkgs; [
@@ -71,11 +75,15 @@
       numlockx
       coreutils
       gparted
-      gnome.gnome-disk-utility
+      gnome-disk-utility
+
+      gnome.gnome-boxes
     ];
   };
   xdg.portal = {
     enable = true;
+    wlr.enable = true;
+    xdgOpenUsePortal = true;
     extraPortals = [pkgs.xdg-desktop-portal-gtk];
   };
 
@@ -112,7 +120,28 @@
       isNormalUser = true;
       description = "alan";
       initialPassword = "";
-      extraGroups = ["networkmanager" "wheel" "video" "audio"];
+      extraGroups = ["networkmanager" "wheel" "video" "audio" "libvirtd"];
     };
+  };
+
+  # virtualization:
+  virtualisation = {
+    waydroid.enable = true;
+    libvirtd = {
+      enable = true;
+    };
+    containers.enable = true;
+    podman = {
+      enable = true;
+      dockerCompat = true;
+    };
+    # qemu = {
+    #   guestAgent.enable = true;
+    # };
+  };
+  programs.virt-manager.enable = true;
+  programs.java = {
+    enable = true;
+    package = pkgs.jdk.override {enableJavaFX = true;};
   };
 }

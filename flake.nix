@@ -10,9 +10,9 @@
     };
     nixos-hardware.url = "github:nixos/nixos-hardware";
     nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
-    # hyprland.url = "github:hyprwm/Hyprland";
 
     stylix.url = "github:danth/stylix";
+    hyprlock.url = "github:hyprwm/hyprlock";
   };
 
   outputs = {
@@ -20,8 +20,8 @@
     home-manager,
     nixos-hardware,
     nix-doom-emacs,
-    # hyprland,
     stylix,
+    hyprlock,
     ...
   } @ inputs: let
     ## add my helper functions to lib
@@ -58,13 +58,19 @@
       ## plus one of xorg or wayland:
       enableXorg ? true,
       enableWayland ? false,
+      hmExtraModules ? [],
       ## hmModules includes whatever users are wanted
       hmModules ? [
         home-manager.nixosModules.home-manager
         {
+          home-manager.extraSpecialArgs = {inherit inputs hyprlock;};
           home-manager.useUserPackages = true;
           home-manager.backupFileExtension = "backup";
-          home-manager.users.alan = import ./home-manager/home.nix;
+          home-manager.users.alan.imports =
+            [
+              ./home-manager/home.nix
+            ]
+            ++ hmExtraModules; ## TODO this is a bodgy way to include system-specific hm modules
         }
       ],
       ## most customization occurs here:
@@ -129,6 +135,8 @@
           nixos-hardware.nixosModules.common-pc-ssd
           nixos-hardware.nixosModules.common-gpu-amd
         ];
+        hmExtraModules = [./systems/hm-desktop];
+        enableWayland = true;
         games = true;
         coding = true;
       };
@@ -137,6 +145,7 @@
         systemModule = [./systems/laptop];
         hardwareModules = [nixos-hardware.nixosModules.lenovo-thinkpad-t14-amd-gen2];
         games = true;
+        enableWayland = true;
       };
     };
   };

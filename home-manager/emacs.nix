@@ -4,7 +4,7 @@
   ...
 }: {
   home.packages = with pkgs; [
-    emacs-gtk
+    emacs29-pgtk
     git
     emacsPackages.vterm
     libvterm
@@ -32,14 +32,14 @@
     nil # nix lsp
     # (python38.withPackages (ps: with ps; [ jupyter ]))
 
-    jdk # Java is required by EmmyLua LSP. Gross.
+    # jdk # Java is required by EmmyLua LSP. Gross.
 
     alejandra
     languagetool
   ];
 
   services.emacs = {
-    package = pkgs.emacs-gtk;
+    package = pkgs.emacs29-pgtk;
     enable = true;
     client.enable = true;
     defaultEditor = true;

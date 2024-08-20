@@ -6,46 +6,24 @@
   ];
 
   services = {
+    displayManager.defaultSession = "hyprland";
     xserver = {
+      displayManager = {
+        gdm = {
+          enable = true;
+          wayland = true;
+        };
+      };
       excludePackages = with pkgs; [xterm];
       enable = true;
       desktopManager = {
         xterm.enable = false;
         xfce = {
-          enable = true;
+          enable = false;
           noDesktop = true;
           enableXfwm = false;
           enableScreensaver = true;
         };
-      };
-      displayManager = {
-        lightdm = {
-          enable = true;
-          greeters.slick = {
-            enable = true;
-            theme = {
-              package = pkgs.catppuccin-gtk.override {
-                accents = ["rosewater"];
-                size = "compact";
-                variant = "macchiato";
-              };
-              name = "Catppuccin-Macchiato-Compact-Rosewater-Dark";
-            };
-            font = {
-              package = pkgs.source-sans-pro;
-              name = "Source Sans Pro 16";
-            };
-            cursorTheme = {
-              size = 48;
-              package = pkgs.vanilla-dmz;
-              name = "Vanilla-DMZ";
-            };
-          };
-        };
-        defaultSession = "xfce+awesome";
-        sessionCommands = ''
-          xset s off -dpms
-        ''; # TODO is this necessary with xfce handling displays
       };
       windowManager.awesome = {
         enable = true;
@@ -64,7 +42,7 @@
       };
     };
     redshift = {
-      enable = true;
+      enable = false;
       executable = "/bin/redshift-gtk";
       temperature = {
         day = 6500;

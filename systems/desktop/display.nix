@@ -33,11 +33,7 @@
     }
   ];
   services.xserver.deviceSection = ''Option "VariableRefresh" "True"'';
-  hardware.opengl = {
-    driSupport = true;
-    driSupport32Bit = true;
-  };
-  environment.extraInit = ''
-    xset s off -dpms
-  '';
+  # environment.extraInit = ''
+  #   xset s off -dpms
+  # '';
 }

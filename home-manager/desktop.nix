@@ -17,7 +17,13 @@
       libsForQt5.kio-extras
       libsForQt5.qtstyleplugins
 
+      distrobox
+      podman
+
+      bottles
+
       gwenview
+      inkscape
 
       brave
       spotify
@@ -27,7 +33,7 @@
 
       rofi-power-menu # FIXME should be installed by rofi plugins but isnt
 
-      gnome.gnome-font-viewer
+      gnome-font-viewer
       playerctl
       bitwarden
 
@@ -35,8 +41,8 @@
       papirus-icon-theme
       hicolor-icon-theme
       gnome-icon-theme
-      gnome.adwaita-icon-theme
-      gnome.gnome-themes-extra
+      adwaita-icon-theme
+      gnome-themes-extra
     ];
 
     # install awesome config and dependencies (currently lain is the only dep)
@@ -57,6 +63,7 @@
   programs = {
     rofi = {
       enable = true;
+      package = pkgs.rofi-wayland;
       # font = "JetbrainsMono Nerd Font 16";
       location = "center";
       terminal = "alacritty";
@@ -101,15 +108,15 @@
       enable = true;
       startInBackground = true;
     };
-    pasystray.enable = true;
+    pasystray.enable = false;
 
     clipmenu = {
-      enable = true;
+      enable = false;
       launcher = "rofi";
     };
 
     picom = {
-      enable = true;
+      enable = false;
       # package = pkgs.picom-jonaburg-unstable;
 
       activeOpacity = 1;

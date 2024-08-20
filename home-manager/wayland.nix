@@ -1,171 +1,146 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [
-    ./hyprland/bind.nix
+    ./hyprland
   ];
+  home.packages = with pkgs; [
+    slurp
+    wayshot
+
+    brightnessctl
+  ];
+
   wayland.windowManager = {
     sway.enable = false;
     hyprland.enable = true;
   };
-  programs.waybar.enable = true;
-
-  wayland.windowManager.hyprland = {
-    systemdIntegration = true;
-    recommendedEnvironment = true;
-    systemd = {
-      variables = ["--all"];
-    };
-    settings = {};
-  };
 
   programs.waybar = {
-    settings = {
+    enable = true;
+    systemd.enable = true;
+    settings.mainBar = {
       layer = "top";
-      position = "left"; # bar position - top/bottom/left/right
-      modules-left = ["clock" "clock#clock2" "clock#clock3" "sway/workspaces" "sway/mode"];
-      modules-center = [];
-      modules-right = ["battery" "memory" "temperature" "tray"];
-
-      "sway/workspaces" = {
-        disable-scroll = true;
-        all-outputs = true;
-        format = "{icon}";
-
-        persistent_workspaces = {
-          "1" = [];
-          "2" = [];
-          "3" = [];
-          "4" = [];
-          "5" = [];
-        };
-        format-icons = {
-          "1" = "";
-          "2" = "";
-          "3" = "";
-          "4" = "";
-          "5" = "@";
-        };
-        align = 0;
-      };
-      "sway/mode" = {format = ''<span style="italic">{}<span>'';};
-      "tray" = {
-        rotate = 90;
-        icon-size = 20;
-      };
-      "clock".format = " {:%I}";
-      "clock#clock2".format = " {:%M}";
-      "clock#clock3".format = " {:%p}";
-      "battery".format = "{capacity}%";
+      position = "top";
+      height = 30;
+      modules-left = []; # hyprland file places workspaces here
+      modules-center = ["clock"];
+      modules-right = ["tray" "network" "wireplumber" "cpu" "temperature"]; # system-specific files add to this
       "cpu" = {
-        interval = 1;
-        format = ": {usage}%";
-        tooltip = false;
+        format = "[ CPU: {usage}%,";
       };
       "temperature" = {
-        interval = 4;
-        hwmon-path =
-          /sys/class/hwmon/hwmon3/temp1_input; # TODO should this be a string?
-        format = "{temperatureC}°";
+        format = "{temperatureC}°C ]";
+      };
+      "tray" = {
+        icon-size = 21;
+        spacing = 10;
+        show-passive-items = true;
+      };
+      "wireplumber" = {
+        format = "[ Vol: {volume}% ]";
+        on-click = "pavucontrol";
+      };
+      "mpris" = {
+        format = "Playing: {title} {position} / {length}";
+        format-paused = "Paused: {title}";
       };
       "network" = {
-        format-wifi = "  {essid}";
-        format-ethernet = "{ifname}: {ipaddr}/{cidr} ";
-        format-linked = "{ifname} (No IP) ";
-        format-disconnected = "";
-        format-alt = "{ifname}: {ipaddr}/{cidr}";
-        family = "ipv4";
-        tooltip-format-wifi = ''
-            {ifname} @ {essid}
-          IP: {ipaddr}
-          Strength: {signalStrength}%
-          Freq: {frequency}MHz
-           {bandwidthUpBits}  {bandwidthDownBits}'';
-        tooltip-format-ethernet = ''
-           {ifname}
-          IP: {ipaddr}
-           {bandwidthUpBits}  {bandwidthDownBits}'';
+        format = "[ Net: {essid} {signalStrength}% ]";
       };
-      "memory" = {
-        interval = 30;
-        format = "{}%";
+      "clock" = {
+        format = "{:%I:%M %p, %a, %b %d}";
       };
     };
-    systemd.enable = true;
   };
 
-  wayland.windowManager.sway = {
-    # keeping this config for posterity
-    config = {
-      focus = {
-        followMouse = false;
-        mouseWarping = false;
-      };
-      fonts = {
-      };
-      bars.waybar.command = "waybar";
-      gaps = {
-        # gap sizes are ints
-        # bottom = ;
-        # horizontal = ;
-        inner = 10;
-        # outer = ;
-        # right = ;
-        # top = ;
-        # vertical = ;
-        smartBorders = "off";
-        smartGaps = "off";
-      };
+  services.dunst = {
+    enable = true;
+    settings.global = {
+      follow = "mouse";
+      layer = "overlay";
+      format = "%a\\n<b>%s</b>\\n%b";
+      history_length = 50;
 
-      input = {
-        # attribute set of strings
-      };
-      modifier = "Mod4";
-      keybindings = {
-        "$mod+Return" = "exec $term";
-        "$mod+q" = "kill";
-        "$mod+d" = "exec $menu";
-        "$mod+Ctrl+r" = "reload";
-        "$mod+p" = "exec $scshot";
-        "$mod+Shift+p" = "exec $regionshot";
-        "$mod+b" = "splith";
-        "$mod+v" = "splitv";
-        "$mod+s" = "layout stacking";
-        "$mod+t" = "layout tabbed";
-        "$mod+w" = "layout splitv";
-        "$mod+e" = "layout toggle splith tabbed";
-        "$mod+f" = "fullscreen";
-        "$mod+Shift+space" = "floating toggle";
-        "$mod+space" = "focus mode_toggle";
-        "$mod+a" = "focus parent";
-        "$mod+r" = "mode 'resize'";
-        "$mod+Escape" = "exec $powermenu";
-        "$mod+x" = "exec $browser";
-        "$mod+z" = "exec $filemgr";
-      };
-      output = {
-      };
-      terminal = "alacritty";
-      menu = "rofi -show drun";
-      window = {
-        border = 2;
-        hideEdgeBorders = "none";
-        titlebar = false;
-      };
-      workspaceLayout = "default";
+      width = 400;
+      height = 300;
+      corner_radius = 15;
 
-      extraConfig = ''
-        set $scshot exec grim
-        set $regionshot exec grim -g "$(slurp)"
-
-        set $powermenu exec wlogout -p layer-shell
-        set $browser exec 'firefox'
-        set $filemgr exec nemo
-
-      '';
+      mouse_left_click = "do_action, close_current";
+      mouse_middle_click = "close_all";
+      mouse_right_click = "close_current";
     };
+  };
+
+  services.clipman = {
+    enable = false;
+  };
+
+  services.cliphist = {
+    enable = true;
+    allowImages = true;
+    extraOptions = [
+      "-max-items"
+      "100"
+    ];
+  };
+
+  services.gammastep = {
+    enable = false;
+    dawnTime = "8:30-10:00";
+    duskTime = "20:30-22:00";
+    temperature = {
+      day = 6500;
+      night = 4000;
+    };
+    provider = "manual";
+    latitude = 33.7;
+    longitude = -84.3;
+    settings = {
+      general = {
+        brightness-day = 1.0;
+        brightness-night = 0.7;
+        fade = 1;
+        adjustment-method = "wayland";
+      };
+    };
+  };
+
+  services.wlsunset = {
+    enable = true;
+    # latitude = 33.7;
+    # longitude = -84.3;
+    sunrise = "07:00";
+    sunset = "21:00";
+    temperature = {
+      day = 6500;
+      night = 4500;
+    };
+  };
+
+  services.kanshi = {
+    ## TODO this is just a placeholder
+    enable = false;
+    extraConfig = "";
+    profiles = {
+      desktop = {
+        outputs = [
+          {
+            criteria = "DP-1";
+            mode = "2560x1440@144Hz";
+            position = "0,0";
+            adaptiveSync = true;
+            scale = 1.25;
+            status = "enable";
+          }
+        ];
+        exec = [
+          "echo 'hello world'"
+        ];
+      };
+    };
+  };
+
+  programs.wlogout = {
+    enable = true;
+    # layout = [{}];
   };
 }

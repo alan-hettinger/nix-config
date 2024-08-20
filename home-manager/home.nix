@@ -2,6 +2,7 @@
   imports = [
     ./common.nix
     ./desktop.nix
+    ./wayland.nix
     ./docs.nix
     ./emacs.nix
     ./media.nix
@@ -13,7 +14,7 @@
     ./lang/rust.nix
     ./lang/cc.nix
     ./lang/haskell.nix
-    ./lang/python.nix
+    # ./lang/python.nix
     ./lang/js.nix
     ./themes/catppuccin/catppuccin.nix
     ./themes/fonts.nix
@@ -31,7 +32,7 @@
     packages = with pkgs; [
       # python311Packages.pip ## broke for some reason
       haskell-language-server # #installing here because haskellPackages.haskell-language-server didn't cooperate
-      transmission-gtk
+      transmission_4-gtk
       comma
     ];
 
