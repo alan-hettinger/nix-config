@@ -6,7 +6,6 @@
     foliate
     libsForQt5.okular
     pdfarranger
-    # nextcloud-client
     thunderbird
     zotero
     onlyoffice-bin
