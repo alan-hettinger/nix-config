@@ -21,6 +21,9 @@
         CPU_SCALING_GOVERNOR_ON_AC = "performance";
         CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
 
+        CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+        CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+
         # cpu "turbo core" - 0=disable 1=enable
         CPU_BOOST_ON_AC = 1;
         CPU_BOOST_ON_BAT = 0;
@@ -33,8 +36,16 @@
         DEVICES_TO_DIABLE_ON_STARTUP = "bluetooth";
 
         # runtime power management for PCIe devices:
-        RUNTIME_PM_ON_AC = "on"; # devices powered on constantly
+        RUNTIME_PM_ON_AC = "auto";
         RUNTIME_PM_ON_BAT = "auto";
+
+        # wifi power saving mode
+        # off = performance; on = save power
+        WIFI_PWR_ON_AC = "off";
+        WIFI_PWR_ON_BAT = "off"; # power saving causes unstable connection
+
+        # do not autosuspend bluetooth USB devices
+        USB_EXCLUDE_BTUSB = 1;
       };
     };
 
