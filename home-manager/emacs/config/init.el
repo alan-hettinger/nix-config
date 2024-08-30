@@ -35,8 +35,7 @@
 (load-theme 'catppuccin t)
 
 (let ((new-bg (catppuccin-get-color 'crust)))
-  (set-face-background 'hl-line new-bg)
-  )
+  (set-face-background 'hl-line new-bg))
 
 (setq enable-recursive-minibuffers t
       split-height-threshold nil
@@ -67,6 +66,7 @@
 		org-hide-leading-stars t
 		org-ellipsis " ▼ "))
 (add-hook 'org-mode-hook (display-line-numbers-mode -1))
+(add-hook 'org-mode-hook #'org-indent-mode)
 
 (setq evil-want-keybinding nil
       evil-want-fine-undo t

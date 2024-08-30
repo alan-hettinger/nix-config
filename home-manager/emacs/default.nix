@@ -95,7 +95,8 @@ in {
     startWithUserSession = "graphical";
   };
 
-  home.file.".emacs.d/init.el" = {
-    source = ./init.el;
+  home.file.".emacs.d" = {
+    source = ./config;
+    recursive = true;
   };
 }
