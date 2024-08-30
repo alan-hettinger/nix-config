@@ -1,72 +1,84 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
-  myEmacsPkg = with pkgs;
-   ((emacsPackagesFor emacs29-pgtk).emacsWithPackages (
-    epkgs: with epkgs; [
-      evil
-      evil-args
-      evil-collection
-      evil-easymotion
-      evil-embrace
-      evil-escape
-      evil-indent-plus
-      evil-markdown
-      org-evil
+{pkgs, ...}: let
+  myEmacsPkg = with pkgs; ((emacsPackagesFor emacs29-pgtk).emacsWithPackages (
+    epkgs:
+      with epkgs; [
+        evil
+        evil-args
+        evil-collection
+        evil-easymotion
+        evil-embrace
+        evil-escape
+        evil-indent-plus
+        evil-markdown
+        org-evil
+        evil-better-visual-line
 
-      consult
-      consult-flycheck
-      embark
-      embark-consult
-      marginalia
-      orderless
-      vertico
-      wgrep
+        consult
+        consult-flycheck
+        embark
+        embark-consult
+        marginalia
+        orderless
+        vertico
+        wgrep
 
-      treemacs
-      lsp-treemacs
-      treemacs-evil
-      treemacs-magit
-      treemacs-persp
-      treemacs-projectile
+        treemacs
+        lsp-treemacs
+        treemacs-evil
+        treemacs-magit
+        treemacs-persp
+        treemacs-projectile
 
-      magit
-			# magit-tools
-			# evil-magit
+        magit
+        # magit-tools
+        # evil-magit
 
-      vterm
+        vterm
 
-      flycheck
-      flycheck-popup-tip
-      flycheck-posframe
+        flycheck
+        flycheck-popup-tip
+        flycheck-posframe
 
-      flyspell-correct
-      flyspell-lazy
+        flyspell-correct
+        flyspell-lazy
 
-      pdf-tools
+        pdf-tools
 
-      doom-modeline
-      nix-mode
-      company-nixos-options
-      nix-update
+        doom-modeline
+        nix-mode
+        company-nixos-options
+        nix-update
 
-      evil-org
-      org-superstar
-      org-fancy-priorities
+        evil-org
+        org-superstar
+        org-fancy-priorities
 
-      racket-mode
+        racket-mode
 
-      catppuccin-theme
-    ]
+        catppuccin-theme
+
+        tree-sitter-langs
+
+        general
+
+        apheleia
+
+        olivetti
+
+        mixed-pitch
+
+        which-key
+      ]
   ));
 in {
   home.packages = with pkgs; [
     git
     libvterm
     gcc
+
+    alejandra
+
+    nil
   ];
 
   programs.emacs = {
@@ -83,7 +95,7 @@ in {
     startWithUserSession = "graphical";
   };
 
-  xdg.configFile."emacs/init.el" = {
+  home.file.".emacs.d/init.el" = {
     source = ./init.el;
   };
 }

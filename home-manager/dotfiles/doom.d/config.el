@@ -1,42 +1,23 @@
-;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
-
 (setq user-full-name "Alan Hettinger"
       user-mail-address "alan.hettinger@proton.me")
 
 (load! "appearance")
 (after! org
-  (load! "writing/thesis"))
-
-(defun my/disable-scroll-bars (frame)
-  (modify-frame-parameters frame
-                           '((vertical-scroll-bars . nil)
-                             (horizontal-scroll-bars . nil))))
-(add-hook 'after-make-frame-functions 'my/disable-scroll-bars)
+	(load! "writing/thesis"))
 
 (use-package! evil-better-visual-line
-  :config (evil-better-visual-line-on))
+	      :config (evil-better-visual-line-on))
 (+global-word-wrap-mode +1)
-
-(setq split-height-threshold nil
-      split-width-threshold 40)
-
-(setq company-minimum-prefix-length 3)
-
-(global-auto-revert-mode 1)
-(setq global-auto-revert-non-file-buffers t)
 
 (setq ispell-dictionary "en_US")
 (setq +word-wrap-disabled-modes '(vterm-mode))
 
-(setq evil-want-fine-undo t
-      )
-
 (map! :leader
       (:prefix "t"
-       :desc "toggle modeline"  "m" #'hide-mode-line-mode)
+	       :desc "toggle modeline"  "m" #'hide-mode-line-mode)
       (:prefix "q"
-       :desc "save and quit server-edit frame" "e" #'server-edit
-       :desc "abort server-edit frame" "E" #'server-edit-abort)
+	       :desc "save and quit server-edit frame" "e" #'server-edit
+	       :desc "abort server-edit frame" "E" #'server-edit-abort)
       )
 
 (map! :i "M-TAB" (cmds! (not (minibufferp)) #'company-complete-common))
@@ -65,27 +46,27 @@
                               (set-window-buffer nil (current-buffer))))))
 
 (after! org
-  (setq org-startup-folded t)
-  (setq org-directory "~/Documents/")
-  ;; makes info files linkable from org
-  (add-to-list 'org-modules 'ol-info)
+	(setq org-startup-folded t)
+	(setq org-directory "~/Documents/")
+	;; makes info files linkable from org
+	(add-to-list 'org-modules 'ol-info)
 
-  (add-hook 'org-mode-hook
-	    (setq org-pretty-entities t
-		  org-hide-emphasis-markers t
-		  org-adapt-indentation t))
-  (setq org-ellipsis " ▼ ")
-  )
+	(add-hook 'org-mode-hook
+		  (setq org-pretty-entities t
+			org-hide-emphasis-markers t
+			org-adapt-indentation t))
+	(setq org-ellipsis " ▼ ")
+	)
 
 (add-hook 'org-mode-hook
           (lambda () (setq-local company-idle-delay nil)))
 
 (after! org
-  (setq org-export-with-section-numbers nil
-        org-export-with-toc nil
-        ;; org-odt-preferred-output-format docx
-        )
-  )
+	(setq org-export-with-section-numbers nil
+              org-export-with-toc nil
+              ;; org-odt-preferred-output-format docx
+              )
+	)
 
 (defun org-remove-headlines (backend)
   (org-map-entries (lambda () (delete-region (pos-bol) (pos-eol)))
@@ -104,48 +85,48 @@
    ))
 
 (after! org
-  (require 'org-tempo)
-  (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
-  (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-  (add-to-list 'org-structure-template-alist '("lua" . "src lua"))
-  (add-to-list 'org-structure-template-alist '("sc" . "src scheme"))
-  (add-to-list 'org-structure-template-alist '("r" . "src racket"))
-  ;; automatically tangle certain config files on save:
-  ;; (defun alan/org-babel-tangle-config ()
-  ;;   (when (string-equal (buffer-file-name)
-  ;;                       (expand-file-name "./config.org"))
-  ;;     (let ((org-confirm-babel-evaluate nil))
-  ;;       (org-babel-tangle))))
-  ;; (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'alan/org-babel-tangle-config)))
-  )
+	(require 'org-tempo)
+	(add-to-list 'org-structure-template-alist '("sh" . "src shell"))
+	(add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+	(add-to-list 'org-structure-template-alist '("lua" . "src lua"))
+	(add-to-list 'org-structure-template-alist '("sc" . "src scheme"))
+	(add-to-list 'org-structure-template-alist '("r" . "src racket"))
+	;; automatically tangle certain config files on save:
+	;; (defun alan/org-babel-tangle-config ()
+	;;   (when (string-equal (buffer-file-name)
+	;;                       (expand-file-name "./config.org"))
+	;;     (let ((org-confirm-babel-evaluate nil))
+	;;       (org-babel-tangle))))
+	;; (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'alan/org-babel-tangle-config)))
+	)
 
 (use-package! ob-racket
-  :after org
-  ;;   :config (add-hook 'ob-racket-pre-runtime-library-load-hook
-  ;;               #'ob-racket-raco-make-runtime-library)
-  )
+	      :after org
+	      ;;   :config (add-hook 'ob-racket-pre-runtime-library-load-hook
+	      ;;               #'ob-racket-raco-make-runtime-library)
+	      )
 ;; (setq ob-racket-default-lang "sicp")
 
 (after! org
 
-  (setq org-latex-packages-alist '(("margin=2cm" "geometry" nil)))
-  (setq org-cite-insert-processor 'citar
-        org-cite-follow-processor 'citar
-        org-cite-activate-processor 'citar
-        citar-bibliography org-cite-global-bibliography
-        org-cite-csl-styles-dir "~/Zotero/styles/"
-        citar-citeproc-csl-styles-dir "~/Zotero/styles/"
-        org-cite-export-processors
-        '((latex . (csl "chicago-author-date.csl"))
-          (odt . (csl "chicago-author-date.csl"))
-          (t . (csl "chicago-author-date.csl")))
-        )
-  )
+	(setq org-latex-packages-alist '(("margin=2cm" "geometry" nil)))
+	(setq org-cite-insert-processor 'citar
+              org-cite-follow-processor 'citar
+              org-cite-activate-processor 'citar
+              citar-bibliography org-cite-global-bibliography
+              org-cite-csl-styles-dir "~/Zotero/styles/"
+              citar-citeproc-csl-styles-dir "~/Zotero/styles/"
+              org-cite-export-processors
+              '((latex . (csl "chicago-author-date.csl"))
+		(odt . (csl "chicago-author-date.csl"))
+		(t . (csl "chicago-author-date.csl")))
+              )
+	)
 
 (after! writeroom-mode
-  (setq +zen-text-scale 1)
-  (setq writeroom-mode-line 't)
-  )
+	(setq +zen-text-scale 1)
+	(setq writeroom-mode-line 't)
+	)
 
 (setq olivetti-style nil ;; 'fancy | nil
       olivetti-body-width 70)
@@ -153,8 +134,8 @@
 
 (map! :leader
       (:prefix "t"
-       :desc "toggle Olivetti mode" "o" #'olivetti-mode
-       ))
+	       :desc "toggle Olivetti mode" "o" #'olivetti-mode
+	       ))
 
 (add-hook 'doom-docs-mode-hook (lambda () (olivetti-mode 'nil)))
 
@@ -165,26 +146,26 @@
 
 (set-popup-rule! "^ ?\\*Treemacs" :ignore t)
 (after! treemacs
-  (define-key treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action)
-  (treemacs-git-commit-diff-mode 't)
-  (treemacs-git-mode 'extended)
-  (treemacs-indent-guide-mode 't)
-  (hide-mode-line-mode 't)
-  (setq treemacs-indentation 1
-        treemacs-indentation-string "┃"
-        treemacs-width 25
-        treemacs-wide-toggle-width 40
-        treemacs-text-scale 1
-        ))
+	(define-key treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action)
+	(treemacs-git-commit-diff-mode 't)
+	(treemacs-git-mode 'extended)
+	(treemacs-indent-guide-mode 't)
+	(hide-mode-line-mode 't)
+	(setq treemacs-indentation 1
+              treemacs-indentation-string "┃"
+              treemacs-width 25
+              treemacs-wide-toggle-width 40
+              treemacs-text-scale 1
+              ))
 
 (remove-hook 'vterm-mode-hook #'hide-mode-line-mode)
 (after! vterm
-  (setq  vterm-shell "zsh"
-         vterm-copy-exclude-prompt 't
-         vterm-buffer-name-string "vterm %s"
-         vterm-always-compile-module 't
-         )
-  )
+	(setq  vterm-shell "zsh"
+               vterm-copy-exclude-prompt 't
+               vterm-buffer-name-string "vterm %s"
+               vterm-always-compile-module 't
+               )
+	)
 
 (add-hook 'dired-mode-hook
           (lambda ()
@@ -204,12 +185,12 @@
 
 (map! :leader
       (:prefix "d"
-       :desc "toggle details"  "s" #'dired-hide-details-mode
-       :desc "dired edit" "w" #'dired-toggle-read-only
-       :desc "finish edit" "W" #'wdired-finish-edit
-       :desc "cancel edit" "x" #'wdired-abort-changes
-       :desc "open file" "o" #'dired-open-file
-       ))
+	       :desc "toggle details"  "s" #'dired-hide-details-mode
+	       :desc "dired edit" "w" #'dired-toggle-read-only
+	       :desc "finish edit" "W" #'wdired-finish-edit
+	       :desc "cancel edit" "x" #'wdired-abort-changes
+	       :desc "open file" "o" #'dired-open-file
+	       ))
 
 (defun my-dired-init ()
   "Bunch of stuff to run for dired, either immediately or when it's
@@ -233,9 +214,9 @@
 
 (map! :leader
       (:prefix "d"
-       :desc "Open dired"  "d" (function
-                                (lambda nil (interactive)
-                                  (dired-single-magic-buffer default-directory)))))
+	       :desc "Open dired"  "d" (function
+					(lambda nil (interactive)
+					  (dired-single-magic-buffer default-directory)))))
 
 (use-package dired-subtree :ensure t)
 (evil-define-key 'normal dired-mode-map
@@ -243,7 +224,7 @@
   (kbd "<backtab>") 'dired-subtree-cycle
   )
 (after! dired
-  (setq dired-subtree-use-backgrounds nil))
+	(setq dired-subtree-use-backgrounds nil))
 
 (use-package dired-open
   :config
@@ -258,12 +239,12 @@
                                 )))
 
 (after! ranger
-  (setq ranger-show-hidden t
-        ranger-max-parent-width 0.4
-        ranger-width-preview 0.4
-        ranger-max-preview-size 10
-        ranger-dont-show-binary t
-        ))
+	(setq ranger-show-hidden t
+              ranger-max-parent-width 0.4
+              ranger-width-preview 0.4
+              ranger-max-preview-size 10
+              ranger-dont-show-binary t
+              ))
 (add-hook 'ranger-mode-hook 'hide-mode-line-mode)
 
 (setq geiser-repl-query-on-kill-p nil)
@@ -273,7 +254,7 @@
 (setq lsp-treemacs-errors-position-params `((side . right)))
 
 (after! lua-mode (setq lsp-clients-lua-language-server-bin (executable-find "lua-language-server"))
-  (set-lsp-priority! 'lua-language-server 1))
+	(set-lsp-priority! 'lua-language-server 1))
 
 
 
