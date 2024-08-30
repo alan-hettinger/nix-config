@@ -1,15 +1,15 @@
 
+;; FIXME:
+(defun my/load-hack (file-name)
+  "Load .el files from .emacs.d or equivalent.
+   Needed because emacs can't find those files, likely because of symlinks related to nixos."
+  (load-file (format "%s%s.el" user-emacs-directory file-name)))
+
 ;; basic UI setup:
-(global-display-line-numbers-mode 1)
-(setq display-line-numbers-type t) ;; t | 'relative
-(scroll-bar-mode -1)
-(blink-cursor-mode -1)
-(global-hl-line-mode 1)
-(tool-bar-mode -1)
-(menu-bar-mode -1)
-(doom-modeline-mode 1)
-(global-company-mode 1)
-(which-key-mode)
+(add-hook 'after-init-hook (lambda () (my/load-hack "ui-config")))
+
+;; load completion:
+(add-hook 'after-init-hook (lambda () (my/load-hack "completion-config")))
 
 ;; start tree-sitter:
 (require 'tree-sitter-langs)
@@ -20,13 +20,6 @@
 (require 'mixed-pitch)
 (setq mixed-pitch-set-height t)
 
-(electric-pair-mode)
-
-(defun my/disable-scroll-bars (frame)
-  (modify-frame-parameters frame
-                           '((vertical-scroll-bars . nil)
-                             (horizontal-scroll-bars . nil))))
-(add-hook 'after-make-frame-functions 'my/disable-scroll-bars)
 
 (setq catppuccin-flavor 'macchiato
       catppuccin-italic-blockquotes nil
@@ -40,24 +33,8 @@
 (setq enable-recursive-minibuffers t
       split-height-threshold nil
       split-width-threshold 40
-      company-minimum-prefix-length 3
       default-frame-alist '((undecorated . t))
       frame-title-format '("%b"))
-
-(setq doom-modeline-enable-word-count t
-      doom-modeline-major-mode-icon t
-      doom-modeline-persp-name t
-      doom-modeline-height 30
-      doom-modeline-icon t
-      doom-modeline-modal-modern-icon nil
-      doom-modeline-buffer-modification-icon t
-      doom-modeline-highlight-modified-buffer-name nil
-      doom-modeline-hud t
-      doom-modeline-continuous-word-count-modes '(markdown-mode org-mode)
-      doom-modeline-buffer-encoding nil
-      doom-modeline-project-detection 'project)
-(remove-hook 'doom-modeline-mode-hook #'size-indication-mode)
-(remove-hook 'doom-modeline-mode-hook #'column-number-mode)
 
 (add-hook 'org-mode-hook
 	  (setq org-pretty-entities t
@@ -77,19 +54,6 @@
 ;; (evil-org-set-key-theme '(navigation insert textobjects additional calendar))
 
 (add-hook 'evil-mode-hook #'evil-better-visual-line-on)
-
-(vertico-mode 1)
-(savehist-mode 1)
-(setq minibuffer-prompt-properties
-      '(read-only t cursor-intangible t face minibuffer-prompt))
-(add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
-(setq read-extended-command-predicate #'command-completion-default-include-p)
-(require 'orderless)
-(setq completion-styles '(orderless basic))
-(setq completion-category-defaults nil)
-(setq completion-category-overrides '((file (styles partial-completion))))
-(require 'marginalia)
-(marginalia-mode 1)
 
 (global-auto-revert-mode 1)
 (setq global-auto-revert-non-file-buffers t)
