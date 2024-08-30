@@ -4,7 +4,7 @@
     ./desktop.nix
     ./wayland.nix
     ./docs.nix
-    ./emacs.nix
+    ./emacs
     ./media.nix
     ./term.nix
     ./dev.nix
