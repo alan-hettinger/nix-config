@@ -7,9 +7,18 @@
 
 (alan/leader-keys
   "SPC" '(consult-buffer :which-key "switch buffers")
-  "," '(consult-buffer :which-key "switch buffers")
+  ;; "," '(consult-buffer :which-key "switch buffers")
   "." '(find-file :which-key "find file")
   "/" '(consult-line :which-key "find-line")
+
+  ;; prefix for all evil-window commands:
+  "w" '(evil-window-map :which-key "window")
+
+  ;; for all help commands:
+  "h" '(help-command :which-key "help")
+
+  "b" '(:ignore t :which-key "buffer")
+  "bk" '(kill-current-buffer :which-key "close")
   
   "t" '(:ignore t :which-key "toggle")
   "tl" '(display-line-numbers-mode :which-key "line numbers")
@@ -17,8 +26,8 @@
   "op" '(treemacs :which-key "treemacs")
   "oe" '(eshell :which-key "eshell")
 
-  "p" '(:ignore t :which-key "project")
-  "pp" '(projectile-switch-project "switch project")
+  ;; all projectile command keys:
+  "p" '(projectile-command-map :which-key "project")
 
   "f" '(:ignore t :which-key "file")
   "fs" '(save-buffer :which-key "save")
@@ -26,7 +35,7 @@
   "fr" '(recentf :which-key "recent")
 
   "g" '(:ignore t :which-key "magit")
-  "gg" '(magit :which-key "open magit")
+  "gg" '(magit-status :which-key "open magit")
   "gs" '(magit-stage-buffer-file :which-key "stage current file")
   "gS" '(magit-stage-file :which-key "stage file")
 

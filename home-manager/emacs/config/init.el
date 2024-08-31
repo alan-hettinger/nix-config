@@ -87,3 +87,8 @@
 (add-hook 'emacs-lisp-mode-hook 'highlight-quoted-mode)
 
 (add-hook 'after-init-hook (my/load-hack "keybinds"))
+
+(setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1
+      projectile-switch-project-action 'magit-status)
+
+(add-hook 'after-init-hook #'projectile-mode)
