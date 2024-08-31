@@ -1,7 +1,7 @@
 
 (add-hook 'company-mode-hook
 	  (lambda () (setq company-minimum-prefix-length 3
-			   company-idle-delay 1.0
+			   company-idle-delay 0.2
 			   company-tooltip-align-annotations t
 			   company-tooltip-flip-when-above t
 			   company-show-quick-access 'left)))
@@ -21,3 +21,10 @@
 (setq completion-category-overrides '((file (styles partial-completion))))
 (require 'marginalia)
 (marginalia-mode 1)
+
+(general-define-key :keymaps 'vertico-map
+                    "C-j" 'vertico-next)
+(general-define-key :keymaps 'vertico-map
+                    "C-k" 'vertico-previous)
+
+(keymap-global-set "C-x b" #'consult-buffer)

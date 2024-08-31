@@ -16,10 +16,11 @@
 (global-tree-sitter-mode)
 (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
 
+(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+
 (set-face-attribute 'default nil :font "mononoki" :height 160)
 (require 'mixed-pitch)
 (setq mixed-pitch-set-height t)
-
 
 (setq catppuccin-flavor 'macchiato
       catppuccin-italic-blockquotes nil
@@ -27,8 +28,9 @@
       catppuccin-italic-variables nil)
 (load-theme 'catppuccin t)
 
-(let ((new-bg (catppuccin-get-color 'crust)))
-  (set-face-background 'hl-line new-bg))
+(add-hook 'global-hl-line-mode-hook
+          (lambda () (let ((new-bg (catppuccin-get-color 'crust)))
+                       (set-face-background 'hl-line new-bg))))
 
 (setq enable-recursive-minibuffers t
       split-height-threshold nil
@@ -36,22 +38,14 @@
       default-frame-alist '((undecorated . t))
       frame-title-format '("%b"))
 
-(add-hook 'org-mode-hook
-	  (setq org-pretty-entities t
-		org-hide-emphasis-markers t
-		org-adapt-indentation t
-		org-hide-leading-stars t
-		org-ellipsis " ▼ "))
-(add-hook 'org-mode-hook (display-line-numbers-mode -1))
-(add-hook 'org-mode-hook #'org-indent-mode)
+(add-hook 'org-mode-hook (lambda () (my/load-hack "org-config")))
 
 (setq evil-want-keybinding nil
       evil-want-fine-undo t
-      evil-undo-system 'undo-redo)
+      evil-undo-system 'undo-redo
+      evil-want-integration t)
 (evil-collection-init)
 (evil-mode 1)
-(add-hook 'org-mode-hook 'evil-org-mode)
-;; (evil-org-set-key-theme '(navigation insert textobjects additional calendar))
 
 (add-hook 'evil-mode-hook #'evil-better-visual-line-on)
 
@@ -70,16 +64,26 @@
   (add-to-list 'eglot-server-programs '(nix-mode . ("nil"))))
 (add-hook 'nix-mode-hook #'eglot-ensure)
 
-(with-eval-after-load 'treemacs
-  (progn
-    (setq treemacs-indentation 1
-	  treemacs-indentation-string "┃"
-	  treemacs-width 25
-	  treemacs-wide-toggle-width 40
-	  treemacs-text-scale 1)
-    (define-key treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action)
-    (treemacs-git-commit-diff-mode t)
-    (treemacs-git-mode 'extended)
-    (treemacs-indent-guide-mode t)
-    ;; (hide-mode-line-mode t)
-    ))
+(defun my/treemacs-setup ()
+  (progn (setq treemacs-indentation 1
+               treemacs-indentation-string "┃"
+               treemacs-width 35
+               treemacs-wide-toggle-width 40
+               treemacs-text-scale 0.5
+	       treemacs-icon-size 10
+               treemacs-is-never-other-window nil)
+         (define-key treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action)
+         (treemacs-git-commit-diff-mode t)
+         (treemacs-git-mode 'extended)
+         ;; (treemacs-indent-guide-mode t) ;; FIXME throws type error about arrayp
+	 (treemacs-follow-mode t)
+	 (with-eval-after-load 'evil 'treemacs-evil) ;; FIXME throws error about void-function. Is package on path?
+	 ;; (with-eval-after-load 'magit (treemacs-magit)) ;; FIXME throws same void-function error
+	 (display-line-numbers-mode -1)))
+(add-hook 'treemacs-mode-hook #'my/treemacs-setup)
+
+(setq-default indent-tabs-mode nil)
+
+(add-hook 'emacs-lisp-mode-hook 'highlight-quoted-mode)
+
+(add-hook 'after-init-hook (my/load-hack "keybinds"))
