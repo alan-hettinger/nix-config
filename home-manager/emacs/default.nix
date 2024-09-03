@@ -37,7 +37,8 @@
         vcPkgs = [
           magit
           # magit-tools
-          # evil-magit
+          hl-todo # not strictly vcs-related
+          magit-todos
         ];
         checkerPkgs = [
           flycheck

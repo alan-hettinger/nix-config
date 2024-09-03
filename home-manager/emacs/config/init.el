@@ -11,6 +11,8 @@
 ;; load completion:
 (add-hook 'after-init-hook (lambda () (my/load-hack "completion-config")))
 
+(add-hook 'after-init-hook (lambda () (my/load-hack "programming-config")))
+
 ;; start tree-sitter:
 (require 'tree-sitter-langs)
 (global-tree-sitter-mode)
@@ -88,7 +90,13 @@
 
 (add-hook 'after-init-hook (my/load-hack "keybinds"))
 
-(setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1
-      projectile-switch-project-action 'magit-status)
+;; magit config:
+;; TODO split into separate file
+(setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
+(add-hook 'magit-mode-hook 'magit-todos-mode)
 
 (add-hook 'after-init-hook #'projectile-mode)
+(add-hook 'projectile-mode-hook
+          (lambda ()
+            (setq projectile-project-search-path '("~/nix-config/")
+                  projectile-switch-project-action 'projectile-dired)))
