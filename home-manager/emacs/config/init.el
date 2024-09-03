@@ -1,17 +1,17 @@
 
 ;; FIXME:
-(defun my/load-hack (file-name)
+(defun alan/load-hack (file-name)
   "Load .el files from .emacs.d or equivalent.
    Needed because emacs can't find those files, likely because of symlinks related to nixos."
   (load-file (format "%s%s.el" user-emacs-directory file-name)))
 
 ;; basic UI setup:
-(add-hook 'after-init-hook (lambda () (my/load-hack "ui-config")))
+(add-hook 'after-init-hook (lambda () (alan/load-hack "ui-config")))
 
 ;; load completion:
-(add-hook 'after-init-hook (lambda () (my/load-hack "completion-config")))
+(add-hook 'after-init-hook (lambda () (alan/load-hack "completion-config")))
 
-(add-hook 'after-init-hook (lambda () (my/load-hack "programming-config")))
+(add-hook 'after-init-hook (lambda () (alan/load-hack "programming-config")))
 
 ;; start tree-sitter:
 (require 'tree-sitter-langs)
@@ -40,7 +40,7 @@
       default-frame-alist '((undecorated . t))
       frame-title-format '("%b"))
 
-(add-hook 'org-mode-hook (lambda () (my/load-hack "org-config")))
+(add-hook 'org-mode-hook (lambda () (alan/load-hack "org-config")))
 
 (setq evil-want-keybinding nil
       evil-want-fine-undo t
@@ -66,7 +66,7 @@
   (add-to-list 'eglot-server-programs '(nix-mode . ("nil"))))
 (add-hook 'nix-mode-hook #'eglot-ensure)
 
-(defun my/treemacs-setup ()
+(defun alan/treemacs-setup ()
   (progn (setq treemacs-indentation 1
                treemacs-indentation-string "┃"
                treemacs-width 35
@@ -82,13 +82,13 @@
 	 (with-eval-after-load 'evil 'treemacs-evil) ;; FIXME throws error about void-function. Is package on path?
 	 ;; (with-eval-after-load 'magit (treemacs-magit)) ;; FIXME throws same void-function error
 	 (display-line-numbers-mode -1)))
-(add-hook 'treemacs-mode-hook #'my/treemacs-setup)
+(add-hook 'treemacs-mode-hook #'alan/treemacs-setup)
 
 (setq-default indent-tabs-mode nil)
 
 (add-hook 'emacs-lisp-mode-hook 'highlight-quoted-mode)
 
-(add-hook 'after-init-hook (my/load-hack "keybinds"))
+(add-hook 'after-init-hook (alan/load-hack "keybinds"))
 
 ;; magit config:
 ;; TODO split into separate file

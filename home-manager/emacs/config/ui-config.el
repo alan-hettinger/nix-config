@@ -11,12 +11,12 @@
 (set-fringe-mode 20)
 (global-visual-line-mode 1)
 
-(defun my/disable-scroll-bars (frame)
+(defun alan/disable-scroll-bars (frame)
   "Always hide scroll bars. Useful with emacs server."
   (modify-frame-parameters frame
                            '((vertical-scroll-bars . nil)
                              (horizontal-scroll-bars . nil))))
-(add-hook 'after-make-frame-functions 'my/disable-scroll-bars)
+(add-hook 'after-make-frame-functions 'alan/disable-scroll-bars)
 
 ;; load packages that should always be on
 (defun ui/doom-modeline-setup ()
