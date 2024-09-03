@@ -24,6 +24,7 @@
           vertico
           wgrep
           company-nixos-options
+          pkgs.ripgrep
         ];
         treemacsPkgs = [
           treemacs
