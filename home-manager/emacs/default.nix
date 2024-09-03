@@ -96,6 +96,7 @@ in {
     alejandra
     nil
     python3
+    ripgrep
   ];
 
   programs.emacs = {
