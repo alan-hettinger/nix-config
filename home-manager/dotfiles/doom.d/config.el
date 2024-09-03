@@ -1,26 +1,12 @@
 (setq user-full-name "Alan Hettinger"
       user-mail-address "alan.hettinger@proton.me")
 
-(load! "appearance")
-(after! org
-	(load! "writing/thesis"))
-
-(use-package! evil-better-visual-line
-	      :config (evil-better-visual-line-on))
-(+global-word-wrap-mode +1)
-
-(setq ispell-dictionary "en_US")
-(setq +word-wrap-disabled-modes '(vterm-mode))
-
 (map! :leader
       (:prefix "t"
 	       :desc "toggle modeline"  "m" #'hide-mode-line-mode)
       (:prefix "q"
 	       :desc "save and quit server-edit frame" "e" #'server-edit
-	       :desc "abort server-edit frame" "E" #'server-edit-abort)
-      )
-
-(map! :i "M-TAB" (cmds! (not (minibufferp)) #'company-complete-common))
+	       :desc "abort server-edit frame" "E" #'server-edit-abort))
 
 ;; rebind lispyville away from bracket keys, per doom docs:
 (map! :after (lispy lispyville)
@@ -31,7 +17,6 @@
       ;; re-bind commands bound to bracket keys by default
       "M-[" #'lispyville-previous-opening
       "M-]" #'lispyville.next-opening)
-
 
 (add-hook 'pdf-view-mode-hook
           (lambda () (pdf-view-auto-slice-minor-mode 1)))
@@ -50,16 +35,7 @@
 	(setq org-directory "~/Documents/")
 	;; makes info files linkable from org
 	(add-to-list 'org-modules 'ol-info)
-
-	(add-hook 'org-mode-hook
-		  (setq org-pretty-entities t
-			org-hide-emphasis-markers t
-			org-adapt-indentation t))
-	(setq org-ellipsis " ▼ ")
 	)
-
-(add-hook 'org-mode-hook
-          (lambda () (setq-local company-idle-delay nil)))
 
 (after! org
 	(setq org-export-with-section-numbers nil
@@ -91,13 +67,6 @@
 	(add-to-list 'org-structure-template-alist '("lua" . "src lua"))
 	(add-to-list 'org-structure-template-alist '("sc" . "src scheme"))
 	(add-to-list 'org-structure-template-alist '("r" . "src racket"))
-	;; automatically tangle certain config files on save:
-	;; (defun alan/org-babel-tangle-config ()
-	;;   (when (string-equal (buffer-file-name)
-	;;                       (expand-file-name "./config.org"))
-	;;     (let ((org-confirm-babel-evaluate nil))
-	;;       (org-babel-tangle))))
-	;; (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'alan/org-babel-tangle-config)))
 	)
 
 (use-package! ob-racket
@@ -105,7 +74,6 @@
 	      ;;   :config (add-hook 'ob-racket-pre-runtime-library-load-hook
 	      ;;               #'ob-racket-raco-make-runtime-library)
 	      )
-;; (setq ob-racket-default-lang "sicp")
 
 (after! org
 
@@ -122,22 +90,6 @@
 		(t . (csl "chicago-author-date.csl")))
               )
 	)
-
-(after! writeroom-mode
-	(setq +zen-text-scale 1)
-	(setq writeroom-mode-line 't)
-	)
-
-(setq olivetti-style nil ;; 'fancy | nil
-      olivetti-body-width 70)
-(add-hook 'org-mode-hook (lambda () (olivetti-mode 1)))
-
-(map! :leader
-      (:prefix "t"
-	       :desc "toggle Olivetti mode" "o" #'olivetti-mode
-	       ))
-
-(add-hook 'doom-docs-mode-hook (lambda () (olivetti-mode 'nil)))
 
 (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
 
@@ -165,14 +117,6 @@
                vterm-buffer-name-string "vterm %s"
                vterm-always-compile-module 't))
 
-;; if dired's already loaded, then the keymap will be bound
-(if (boundp 'dired-mode-map)
-    ;; we're good to go; just add our bindings
-    (my-dired-init)
-  ;; it's not loaded yet, so add our bindings to the load-hook
-  (add-hook 'dired-mode-hook 'my-dired-init))
-
-
 (map! :leader
       (:prefix "d"
 	       :desc "Open dired"  "d" (function
@@ -191,56 +135,10 @@
                                 ("odp" . "libreoffice")
                                 )))
 
-(setq geiser-repl-query-on-kill-p nil)
-;; (setq geiser-active-implementations '(guile))
-;; (setq geiser-default-implementation '(guile))
-
 (setq lsp-treemacs-errors-position-params `((side . right)))
 
 (after! lua-mode (setq lsp-clients-lua-language-server-bin (executable-find "lua-language-server"))
 	(set-lsp-priority! 'lua-language-server 1))
-
-
-
-(use-package lsp-mode
-  :ensure t)
-
-(set-formatter! 'alejandra '("alejandra" "--quiet") :modes '(nix-mode))
-
-;; (use-package lsp-nix
-;;   :ensure lsp-mode
-;;   :after (lsp-mode)
-;;   :demand t
-;;   :custom
-;;   (lsp-nix-nil-formatter ["nixpkgs-fmt"]))
-
-;; (use-package nix-mode
-;;   :hook (nix-mode . lsp-deferred)
-;;   :ensure t)
-
-;;; open eshell as if it were a terminal:
-;; - invoked via 'emacsclient -a "" -c -e '(server-eshell)'
-;; - per https://www.emacswiki.org/emacs/EshellAndEmacsServer
-;; (require 'cl)
-;; (defun server-eshell ()
-;; "Command to be called by emacs-client to start a new shell.
-;;
-;; A new eshell will be created. When the frame is closed, the buffer is deleted or the shell exits,
-;; then hooks will take care that the other actions happen. For example, when the frame is closed,
-;; then the buffer will be deleted and the client disconnected."
-;; (lexical-let ((buf (eshell t))
-;; (client (first server-clients))
-;; (frame (selected-frame)))
-;; (labels ((close (&optional arg)
-;; (when (not (boundp 'cve/recurse))
-;; (let ((cve/recurse t))
-;; (delete-frame frame)
-;; (kill-buffer buf)
-;; (server-delete-client client)))))
-;; (add-hook 'eshell-exit-hook #'close t t)
-;; (add-hook 'delete-frame-functions #'close t t))
-;; (delete-other-windows)
-;; nil))
 
 ;;; eshell aliases and functions:
 (setq alan/eshell-aliases
