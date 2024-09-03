@@ -7,7 +7,6 @@
 
 (alan/leader-keys
   "SPC" '(consult-buffer :which-key "switch buffers")
-  ;; "," '(consult-buffer :which-key "switch buffers")
   "." '(find-file :which-key "find file")
   "/" '(consult-line :which-key "find-line")
 
