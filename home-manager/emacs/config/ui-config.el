@@ -9,6 +9,7 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (set-fringe-mode 20)
+(global-visual-line-mode 1)
 
 (defun my/disable-scroll-bars (frame)
   "Always hide scroll bars. Useful with emacs server."
