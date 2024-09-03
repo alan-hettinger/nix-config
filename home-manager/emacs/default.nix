@@ -65,6 +65,7 @@
           dired-subtree
           dired-single
           dired-open
+          all-the-icons-dired
         ];
         langs = {
           nixLang = [

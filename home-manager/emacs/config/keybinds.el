@@ -1,9 +1,9 @@
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
 (general-create-definer alan/leader-keys
-  :keymaps '(normal insert visual emacs)
-  :prefix "SPC"
-  :global-prefix "C-SPC")
+  :states 'normal
+  :keymaps 'override
+  :prefix "SPC")
 
 (alan/leader-keys
   "SPC" '(consult-buffer :which-key "switch buffers")
@@ -24,6 +24,8 @@
   "o" '(:ignore t :which-key "open")
   "op" '(treemacs :which-key "treemacs")
   "oe" '(eshell :which-key "eshell")
+
+  "dd" '(dired-jump :which-key "dired here")
 
   ;; all projectile command keys:
   "p" '(projectile-command-map :which-key "project")
