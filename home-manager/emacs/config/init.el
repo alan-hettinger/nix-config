@@ -13,6 +13,8 @@
 
 (add-hook 'after-init-hook (lambda () (alan/load-hack "programming-config")))
 
+(add-hook 'dired-mode-hook (lambda () (alan/load-hack "dired-config")))
+
 ;; start tree-sitter:
 (require 'tree-sitter-langs)
 (global-tree-sitter-mode)

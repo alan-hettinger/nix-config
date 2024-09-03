@@ -163,44 +163,7 @@
 	(setq  vterm-shell "zsh"
                vterm-copy-exclude-prompt 't
                vterm-buffer-name-string "vterm %s"
-               vterm-always-compile-module 't
-               )
-	)
-
-(add-hook 'dired-mode-hook
-          (lambda ()
-            (dired-hide-details-mode)))
-
-(setq delete-by-moving-to-trash t
-      trash-directory "~/.local/share/Trash/files/")
-
-(evil-define-key 'normal dired-mode-map
-  (kbd "h") 'dired-up-directory
-  (kbd "l") 'dired-find-file
-  (kbd "C") 'dired-do-copy
-  (kbd "D") 'dired-do-delete
-  (kbd "R") 'dired-do-rename
-  (kbd "RET") #'dired-open-file
-  )
-
-(map! :leader
-      (:prefix "d"
-	       :desc "toggle details"  "s" #'dired-hide-details-mode
-	       :desc "dired edit" "w" #'dired-toggle-read-only
-	       :desc "finish edit" "W" #'wdired-finish-edit
-	       :desc "cancel edit" "x" #'wdired-abort-changes
-	       :desc "open file" "o" #'dired-open-file
-	       ))
-
-(defun my-dired-init ()
-  "Bunch of stuff to run for dired, either immediately or when it's
-   loaded."
-  (define-key dired-mode-map [remap dired-find-file]
-              'dired-single-buffer)
-  (define-key dired-mode-map [remap dired-mouse-find-file-other-window]
-              'dired-single-buffer-mouse)
-  (define-key dired-mode-map [remap dired-up-directory]
-              'dired-single-up-directory))
+               vterm-always-compile-module 't))
 
 ;; if dired's already loaded, then the keymap will be bound
 (if (boundp 'dired-mode-map)
@@ -209,22 +172,12 @@
   ;; it's not loaded yet, so add our bindings to the load-hook
   (add-hook 'dired-mode-hook 'my-dired-init))
 
-(setq dired-single-use-magic-buffer t
-      dired-single-magic-buffer-name "*dired*")
 
 (map! :leader
       (:prefix "d"
 	       :desc "Open dired"  "d" (function
 					(lambda nil (interactive)
 					  (dired-single-magic-buffer default-directory)))))
-
-(use-package dired-subtree :ensure t)
-(evil-define-key 'normal dired-mode-map
-  (kbd "<tab>") 'dired-subtree-toggle
-  (kbd "<backtab>") 'dired-subtree-cycle
-  )
-(after! dired
-	(setq dired-subtree-use-backgrounds nil))
 
 (use-package dired-open
   :config
@@ -237,15 +190,6 @@
                                 ("pptx" . "libreoffice")
                                 ("odp" . "libreoffice")
                                 )))
-
-(after! ranger
-	(setq ranger-show-hidden t
-              ranger-max-parent-width 0.4
-              ranger-width-preview 0.4
-              ranger-max-preview-size 10
-              ranger-dont-show-binary t
-              ))
-(add-hook 'ranger-mode-hook 'hide-mode-line-mode)
 
 (setq geiser-repl-query-on-kill-p nil)
 ;; (setq geiser-active-implementations '(guile))

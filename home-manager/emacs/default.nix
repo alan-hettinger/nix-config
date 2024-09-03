@@ -61,6 +61,11 @@
           org-superstar
           org-fancy-priorities
         ];
+        diredPkgs = [
+          dired-subtree
+          dired-single
+          dired-open
+        ];
         langs = {
           nixLang = [
             nix-mode
@@ -80,6 +85,7 @@
         ++ langs.racket
         ++ uiPkgs
         ++ orgPkgs
+        ++ diredPkgs
         ++ [
           vterm
           pdf-tools
