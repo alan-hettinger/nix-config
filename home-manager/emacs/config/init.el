@@ -5,14 +5,9 @@
    Needed because emacs can't find those files, likely because of symlinks related to nixos."
   (load-file (format "%s%s.el" user-emacs-directory file-name)))
 
-;; basic UI setup:
 (add-hook 'after-init-hook (lambda () (alan/load-hack "ui-config")))
-
-;; load completion:
 (add-hook 'after-init-hook (lambda () (alan/load-hack "completion-config")))
-
 (add-hook 'after-init-hook (lambda () (alan/load-hack "programming-config")))
-
 (add-hook 'dired-mode-hook (lambda () (alan/load-hack "dired-config")))
 
 ;; start tree-sitter:
@@ -24,7 +19,9 @@
 
 (set-face-attribute 'default nil :font "mononoki" :height 160)
 (require 'mixed-pitch)
-(setq mixed-pitch-set-height t)
+(setq mixed-pitch-set-height t
+      ispell-dictionary "en_US")
+;; (set-face-attribute 'variable-pitch nil :height 1.2)
 
 (setq catppuccin-flavor 'macchiato
       catppuccin-italic-blockquotes nil
@@ -52,7 +49,6 @@
 (add-hook 'evil-mode-hook #'evil-better-visual-line-on)
 (evil-mode 1)
 
-
 (global-auto-revert-mode 1)
 (setq global-auto-revert-non-file-buffers t)
 
@@ -62,7 +58,6 @@
 
 (setq olivetti-style 'fancy
       olivetti-body-width 90)
-(add-hook 'org-mode-hook (lambda () (olivetti-mode 1)))
 
 (with-eval-after-load 'eglot
   (add-to-list 'eglot-server-programs '(nix-mode . ("nil"))))

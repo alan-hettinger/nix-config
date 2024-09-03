@@ -2,7 +2,9 @@
 ;; set some basic modes:
 (global-display-line-numbers-mode 0)
 (setq display-line-numbers-type t
-      inhibit-startup-message t)
+      inhibit-startup-message t
+      default-frame-alist '((undecorated . t)))
+
 (scroll-bar-mode -1)
 (blink-cursor-mode -1)
 (global-hl-line-mode 1)
