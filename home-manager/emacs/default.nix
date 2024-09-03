@@ -24,7 +24,6 @@
           vertico
           wgrep
           company-nixos-options
-          pkgs.ripgrep
         ];
         treemacsPkgs = [
           treemacs
@@ -110,6 +109,8 @@
             ]))
           general
           apheleia
+          projectile-ripgrep
+          projectile
         ]
   ));
 in {
