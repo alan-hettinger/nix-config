@@ -45,9 +45,9 @@
       evil-undo-system 'undo-redo
       evil-want-integration t)
 (evil-collection-init)
+(add-hook 'evil-mode-hook #'evil-better-visual-line-on)
 (evil-mode 1)
 
-(add-hook 'evil-mode-hook #'evil-better-visual-line-on)
 
 (global-auto-revert-mode 1)
 (setq global-auto-revert-non-file-buffers t)
