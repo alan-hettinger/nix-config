@@ -178,5 +178,11 @@ likely because of symlinks related to nixos."
                   recentf-auto-cleanup 'never)))
 (add-hook 'after-init-hook (lambda () (recentf-mode +1)))
 
+(add-hook 'ibuffer-hook
+          (lambda () (progn
+                       (ibuffer-projectile-set-filter-groups)
+                       (setq ibuffer-expert t
+                             ibuffer-default-sorting-mode 'major-mode))))
+
 (provide 'init)
 ;;; init.el ends here

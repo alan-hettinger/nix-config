@@ -20,6 +20,7 @@
 
   "b" '(:ignore t :which-key "buffer")
   "bk" '(kill-current-buffer :which-key "close")
+  "bb" '(ibuffer :which-key "ibuffer")
 
   "t" '(:ignore t :which-key "toggle")
   "tl" '(display-line-numbers-mode :which-key "line numbers")

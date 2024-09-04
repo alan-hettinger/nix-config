@@ -120,6 +120,8 @@
           apheleia
           projectile-ripgrep
           projectile
+          ibuffer-projectile
+          all-the-icons-ibuffer
           helpful
         ]
   ));
