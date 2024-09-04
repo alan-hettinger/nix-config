@@ -57,6 +57,7 @@
           highlight-quoted
           highlight-numbers
           solaire-mode
+          golden-ratio
         ];
         orgPkgs = [
           evil-org

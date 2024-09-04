@@ -106,8 +106,6 @@ likely because of symlinks related to nixos."
                        (set-face-background 'hl-line new-bg))))
 
 (setq enable-recursive-minibuffers t
-      split-height-threshold nil
-      split-width-threshold 40
       default-frame-alist '((undecorated . t))
       frame-title-format '("%b"))
 

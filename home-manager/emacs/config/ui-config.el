@@ -70,6 +70,12 @@
 (require 'solaire-mode)
 (solaire-global-mode +1)
 
+(when (functionp 'golden-ratio)
+  (progn (setq golden-ratio-auto-scale t
+               golden-ratio-adjust-factor .8
+               golden-ratio-wide-adjust-factor .8)
+         (golden-ratio-mode 1)))
+
 ;; highlight number literals:
 (require 'highlight-numbers)
 (add-hook 'prog-mode-hook 'highlight-numbers-mode)
