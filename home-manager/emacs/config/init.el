@@ -178,11 +178,20 @@ likely because of symlinks related to nixos."
                   recentf-auto-cleanup 'never)))
 (add-hook 'after-init-hook (lambda () (recentf-mode +1)))
 
-(add-hook 'ibuffer-hook
-          (lambda () (progn
-                       (ibuffer-projectile-set-filter-groups)
-                       (setq ibuffer-expert t
-                             ibuffer-default-sorting-mode 'major-mode))))
+(defun alan/ibuffer-setup ()
+  (progn (ibuffer-projectile-set-filter-groups)
+         (all-the-icons-ibuffer-mode)
+         (setq ibuffer-expert t
+               ibuffer-show-empty-filter-groups nil
+               all-the-icons-ibuffer-icon-size 0.8
+               ibuffer-default-sorting-mode 'major-mode)
+         (define-ibuffer-column size
+           ;; Make size column human-readable
+           (:name "Size"
+                  :inline t
+                  :header-mouse-map ibuffer-size-header-map)
+           (file-size-human-readable (buffer-size)))))
+(add-hook 'ibuffer-hook #'alan/ibuffer-setup)
 
 (provide 'init)
 ;;; init.el ends here
