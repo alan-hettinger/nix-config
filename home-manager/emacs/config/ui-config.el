@@ -25,6 +25,7 @@
 (tooltip-mode 0) ; make help text appear in echo area
 (set-fringe-mode 20)
 (setq flycheck-emacs-lisp-load-path 'inherit
+      flycheck-disabled-checkers '(emacs-lisp-checkdock)
       flycheck-idle-change-delay 1.0
       flycheck-posframe-border-width 1
       flycheck-posframe-border-use-error-face t
