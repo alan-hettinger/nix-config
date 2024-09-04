@@ -11,4 +11,3 @@
 (org-indent-mode t)
 (evil-org-mode)
 (olivetti-mode 1)
-;; (evil-org-set-key-theme '(navigation insert textobjects additional calendar))
