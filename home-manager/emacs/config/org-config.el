@@ -1,3 +1,4 @@
+;;; org-config.el  -*- lexical-binding: t -*-
 
 (setq org-pretty-entities t
       org-hide-emphasis-markers t

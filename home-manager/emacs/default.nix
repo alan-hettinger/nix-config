@@ -38,6 +38,7 @@
           # magit-tools
           hl-todo # not strictly vcs-related
           magit-todos
+          diff-hl
         ];
         checkerPkgs = [
           flycheck
@@ -54,6 +55,7 @@
           which-key
           rainbow-delimiters
           highlight-quoted
+          highlight-numbers
           solaire-mode
         ];
         orgPkgs = [

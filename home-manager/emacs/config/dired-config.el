@@ -1,3 +1,5 @@
+;;; dired-config.el -*- lexical-binding: t -*-
+
 (dired-hide-details-mode 1)
 (all-the-icons-dired-mode)
 (setq delete-by-moving-to-trash t

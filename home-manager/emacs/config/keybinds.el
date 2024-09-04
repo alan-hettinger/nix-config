@@ -1,3 +1,5 @@
+;;; keybinds.el  -*- lexical-binding: t -*-
+
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
 (general-create-definer alan/leader-keys
