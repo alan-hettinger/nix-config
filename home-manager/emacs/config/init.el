@@ -50,15 +50,6 @@ likely because of symlinks related to nixos."
       mouse-wheel-scroll-amount '(2 ((shift) . hscroll))
       mouse-wheel-scroll-amount-horizontal 2)
 
-;; performance settings:
-;; largely copied from doom-emacs.
-(setq gc-cons-threshold (* 100 1024 1024)
-      large-file-warning-threshold (* 100 1024 1024)
-      redisplay-skip-fontification-on-input t)
-(setq-default cursor-in-non-selected-windows nil)
-(when (boundp 'pgtk-wait-for-event-timeout) ;; save performance on PGTK
-  (setq pgtk-wait-for-event-timeout 0.001))
-
 ;; set up the custom file in case the customization interface is desired.
 ;; note that this file is not tracked by git.
 (defvar alan/custom-file (expand-file-name "custom.el" user-emacs-directory))
@@ -106,7 +97,6 @@ likely because of symlinks related to nixos."
                        (set-face-background 'hl-line new-bg))))
 
 (setq enable-recursive-minibuffers t
-      default-frame-alist '((undecorated . t))
       frame-title-format '("%b"))
 
 (add-hook 'org-mode-hook (lambda () (alan/load-hack "org-config")))

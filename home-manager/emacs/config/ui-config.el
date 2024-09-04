@@ -10,21 +10,11 @@
               display-line-numbers-widen t)
 (require 'display-line-numbers)
 (setq display-line-numbers-type t
-      inhibit-startup-message t
-      default-frame-alist '((undecorated . t))
-      frame-resize-pixelwise t
-      frame-inhibit-implied-resize t
-      window-resize-pixelwise nil
       echo-keystrokes 0.02
       auto-save-no-message t)
 
 ;; Some standard modes:
 ;; (scroll-bar-mode -1)
-(blink-cursor-mode -1)
-(global-hl-line-mode 1)
-(tool-bar-mode -1)
-(menu-bar-mode -1)
-(tooltip-mode 0) ; make help text appear in echo area
 (set-fringe-mode 20)
 (setq flycheck-emacs-lisp-load-path 'inherit
       flycheck-disabled-checkers '(emacs-lisp-checkdock)
