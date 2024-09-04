@@ -20,7 +20,7 @@
 
   "b" '(:ignore t :which-key "buffer")
   "bk" '(kill-current-buffer :which-key "close")
-  
+
   "t" '(:ignore t :which-key "toggle")
   "tl" '(display-line-numbers-mode :which-key "line numbers")
   "o" '(:ignore t :which-key "open")
@@ -42,3 +42,11 @@
   "gs" '(magit-stage-buffer-file :which-key "stage current file")
   "gS" '(magit-stage-file :which-key "stage file")
   "gt" '(magit-todos-list :which-key "list todos"))
+
+(when (functionp 'helpful-callable)
+  (general-define-key
+   [remap describe-function] #'helpful-callable
+   [remap describe-key] #'helpful-key
+   [remap describe-variable] #'helpful-variable
+   [remap view-hello-file] #'helpful-at-point ;; [leader]-h-h. view-hello-file is kind of pointless
+   ))

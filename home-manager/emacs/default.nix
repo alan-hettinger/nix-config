@@ -120,6 +120,7 @@
           apheleia
           projectile-ripgrep
           projectile
+          helpful
         ]
   ));
 in {
