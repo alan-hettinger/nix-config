@@ -81,12 +81,18 @@ likely because of symlinks related to nixos."
 (require 'rainbow-delimiters)
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 
-(set-face-attribute 'default nil :font "mononoki" :height 160)
+(defconst alan/mono-font "mononoki"
+  "The mono-width font to use.")
+(defconst alan/serif-font "Source Serif Variable")
+(defconst alan/sans-font "Source Sans Variable")
+(defconst alan/font-size 160)
+
+(set-face-attribute 'default nil :family alan/mono-font :height alan/font-size)
+(set-face-attribute 'variable-pitch nil :family alan/serif-font :height alan/font-size)
 (require 'mixed-pitch)
 (require 'ispell)
 (setq mixed-pitch-set-height t
       ispell-dictionary "en_US")
-;; (set-face-attribute 'variable-pitch nil :height 1.2)
 
 (require 'catppuccin-theme)
 (setq catppuccin-flavor 'macchiato
