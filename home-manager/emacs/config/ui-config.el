@@ -13,6 +13,7 @@
       inhibit-startup-message t
       default-frame-alist '((undecorated . t))
       frame-resize-pixelwise t
+      frame-inhibit-implied-resize t
       window-resize-pixelwise nil
       echo-keystrokes 0.02
       auto-save-no-message t)

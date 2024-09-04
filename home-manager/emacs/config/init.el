@@ -13,8 +13,7 @@ likely because of symlinks related to nixos."
   (load-file (format "%s%s.el" user-emacs-directory file-name)))
 
 ;; basic setup:
-(setq load-prefer-newer t
-      sentence-end-double-space nil
+(setq sentence-end-double-space nil
       ring-bell-function 'ignore
       require-final-newline t
       confirm-kill-emacs 'y-or-n-p
@@ -27,7 +26,8 @@ likely because of symlinks related to nixos."
       x-stretch-cursor nil
       find-file-visit-truename t
       vc-follow-symlinks t
-      find-file-suppress-same-file-warnings t)
+      find-file-suppress-same-file-warnings t
+      use-short-answers t)
 (setq-default indent-tabs-mode nil
               tab-width 4
               fill-column 80
@@ -196,6 +196,8 @@ likely because of symlinks related to nixos."
                   :header-mouse-map ibuffer-size-header-map)
            (file-size-human-readable (buffer-size)))))
 (add-hook 'ibuffer-hook #'alan/ibuffer-setup)
+
+;; TODO "server-after-make-frame-hook"
 
 (provide 'init)
 ;;; init.el ends here
