@@ -14,7 +14,8 @@
       default-frame-alist '((undecorated . t))
       frame-resize-pixelwise t
       window-resize-pixelwise nil
-      echo-keystrokes 0.02)
+      echo-keystrokes 0.02
+      auto-save-no-message t)
 
 ;; Some standard modes:
 ;; (scroll-bar-mode -1)
