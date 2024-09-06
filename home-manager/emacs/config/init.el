@@ -151,7 +151,8 @@ likely because of symlinks related to nixos."
 
 ;; magit config:
 ;; TODO split into separate file
-(setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
+(setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1
+      magit-diff-refine-hunk t)
 (add-hook 'magit-mode-hook 'magit-todos-mode)
 
 (add-hook 'after-init-hook #'projectile-mode)

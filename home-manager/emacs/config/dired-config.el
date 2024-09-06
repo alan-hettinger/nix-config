@@ -6,6 +6,12 @@
       trash-directory "~/.local/share/Trash/files/"
       dired-single-use-magic-buffer t
       dired-single-magic-buffer-name "*dired*"
+      dired-auto-revert-buffer #'dired-directory-changed-p
+      dired-make-directory-clickable t
+      dired-mouse-drag-files t
+      dired-dwim-target t
+      dired-clean-up-buffers-too t
+      dired-vc-rename-file t
       dired-subtree-use-backgrounds nil)
 
 (require 'dired-subtree)
