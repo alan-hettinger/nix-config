@@ -10,8 +10,19 @@
 			               company-idle-delay 0.2
 			               company-tooltip-align-annotations t
 			               company-tooltip-flip-when-above t
-			               company-show-quick-access 'left)))
+			               company-show-quick-access 'left
+                           company-dabbrev-ignore-case 'keep-prefix)))
+
+;; for org, markdown, etc:
+(defun alan/text-mode-company-hook ()
+  (setq-local company-backends
+              '((company-dabbrev company-ispell :separate)
+                company-files)))
+(add-hook 'text-mode-hook #'alan/text-mode-company-hook)
+
 (global-company-mode)
+(add-hook 'which-key-mode-hook
+          (lambda () (setq which-key-popup-type 'minibuffer)))
 (which-key-mode)
 (electric-pair-mode)
 

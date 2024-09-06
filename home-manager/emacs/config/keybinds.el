@@ -7,6 +7,10 @@
   :keymaps 'override
   :prefix "SPC")
 
+(general-create-definer alan/local-leader
+  :states 'normal
+  :prefix "SPC m")
+
 (alan/leader-keys
   "SPC" '(consult-buffer :which-key "switch buffers")
   "." '(find-file :which-key "find file")

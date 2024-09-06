@@ -14,7 +14,6 @@
     unzip
     poppler
     gcc
-    (aspellWithDicts (dicts: with dicts; [en en-computers en-science de es]))
 
     ## hunspell dictionaries
     # hunspell

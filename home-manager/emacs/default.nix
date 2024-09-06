@@ -135,6 +135,7 @@ in {
     nil
     python3
     ripgrep
+    (aspellWithDicts (dicts: with dicts; [en en-computers en-science de es]))
   ];
 
   programs.emacs = {
