@@ -80,6 +80,10 @@
           racket = [
             racket-mode
           ];
+          lisps = [
+            lispy
+            lispyville
+          ];
         };
       in
         evilModePkgs
@@ -89,6 +93,7 @@
         ++ checkerPkgs
         ++ langs.nixLang
         ++ langs.racket
+        ++ langs.lisps
         ++ uiPkgs
         ++ orgPkgs
         ++ diredPkgs
