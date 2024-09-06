@@ -58,6 +58,8 @@
           highlight-numbers
           solaire-mode
           golden-ratio
+          visual-fill-column
+          highlight-indent-guides
         ];
         orgPkgs = [
           evil-org
