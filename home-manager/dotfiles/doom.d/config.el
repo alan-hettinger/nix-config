@@ -3,10 +3,10 @@
 
 (map! :leader
       (:prefix "t"
-	       :desc "toggle modeline"  "m" #'hide-mode-line-mode)
+	           :desc "toggle modeline"  "m" #'hide-mode-line-mode)
       (:prefix "q"
-	       :desc "save and quit server-edit frame" "e" #'server-edit
-	       :desc "abort server-edit frame" "E" #'server-edit-abort))
+	           :desc "save and quit server-edit frame" "e" #'server-edit
+	           :desc "abort server-edit frame" "E" #'server-edit-abort))
 
 ;; rebind lispyville away from bracket keys, per doom docs:
 (map! :after (lispy lispyville)
@@ -31,18 +31,18 @@
                               (set-window-buffer nil (current-buffer))))))
 
 (after! org
-	(setq org-startup-folded t)
-	(setq org-directory "~/Documents/")
-	;; makes info files linkable from org
-	(add-to-list 'org-modules 'ol-info)
-	)
+	    (setq org-startup-folded t)
+	    (setq org-directory "~/Documents/")
+	    ;; makes info files linkable from org
+	    (add-to-list 'org-modules 'ol-info)
+	    )
 
 (after! org
-	(setq org-export-with-section-numbers nil
+	    (setq org-export-with-section-numbers nil
               org-export-with-toc nil
               ;; org-odt-preferred-output-format docx
               )
-	)
+	    )
 
 (defun org-remove-headlines (backend)
   (org-map-entries (lambda () (delete-region (pos-bol) (pos-eol)))
@@ -61,24 +61,24 @@
    ))
 
 (after! org
-	(require 'org-tempo)
-	(add-to-list 'org-structure-template-alist '("sh" . "src shell"))
-	(add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-	(add-to-list 'org-structure-template-alist '("lua" . "src lua"))
-	(add-to-list 'org-structure-template-alist '("sc" . "src scheme"))
-	(add-to-list 'org-structure-template-alist '("r" . "src racket"))
-	)
+	    (require 'org-tempo)
+	    (add-to-list 'org-structure-template-alist '("sh" . "src shell"))
+	    (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+	    (add-to-list 'org-structure-template-alist '("lua" . "src lua"))
+	    (add-to-list 'org-structure-template-alist '("sc" . "src scheme"))
+	    (add-to-list 'org-structure-template-alist '("r" . "src racket"))
+	    )
 
 (use-package! ob-racket
-	      :after org
-	      ;;   :config (add-hook 'ob-racket-pre-runtime-library-load-hook
-	      ;;               #'ob-racket-raco-make-runtime-library)
-	      )
+	          :after org
+	          ;;   :config (add-hook 'ob-racket-pre-runtime-library-load-hook
+	          ;;               #'ob-racket-raco-make-runtime-library)
+	          )
 
 (after! org
 
-	(setq org-latex-packages-alist '(("margin=2cm" "geometry" nil)))
-	(setq org-cite-insert-processor 'citar
+	    (setq org-latex-packages-alist '(("margin=2cm" "geometry" nil)))
+	    (setq org-cite-insert-processor 'citar
               org-cite-follow-processor 'citar
               org-cite-activate-processor 'citar
               citar-bibliography org-cite-global-bibliography
@@ -86,10 +86,10 @@
               citar-citeproc-csl-styles-dir "~/Zotero/styles/"
               org-cite-export-processors
               '((latex . (csl "chicago-author-date.csl"))
-		(odt . (csl "chicago-author-date.csl"))
-		(t . (csl "chicago-author-date.csl")))
+		        (odt . (csl "chicago-author-date.csl"))
+		        (t . (csl "chicago-author-date.csl")))
               )
-	)
+	    )
 
 (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
 
@@ -98,12 +98,12 @@
 
 (set-popup-rule! "^ ?\\*Treemacs" :ignore t)
 (after! treemacs
-	(define-key treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action)
-	(treemacs-git-commit-diff-mode 't)
-	(treemacs-git-mode 'extended)
-	(treemacs-indent-guide-mode 't)
-	(hide-mode-line-mode 't)
-	(setq treemacs-indentation 1
+	    (define-key treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action)
+	    (treemacs-git-commit-diff-mode 't)
+	    (treemacs-git-mode 'extended)
+	    (treemacs-indent-guide-mode 't)
+	    (hide-mode-line-mode 't)
+	    (setq treemacs-indentation 1
               treemacs-indentation-string "┃"
               treemacs-width 25
               treemacs-wide-toggle-width 40
@@ -112,16 +112,16 @@
 
 (remove-hook 'vterm-mode-hook #'hide-mode-line-mode)
 (after! vterm
-	(setq  vterm-shell "zsh"
+	    (setq  vterm-shell "zsh"
                vterm-copy-exclude-prompt 't
                vterm-buffer-name-string "vterm %s"
                vterm-always-compile-module 't))
 
 (map! :leader
       (:prefix "d"
-	       :desc "Open dired"  "d" (function
-					(lambda nil (interactive)
-					  (dired-single-magic-buffer default-directory)))))
+	           :desc "Open dired"  "d" (function
+					                    (lambda nil (interactive)
+					                      (dired-single-magic-buffer default-directory)))))
 
 (use-package dired-open
   :config
@@ -138,7 +138,7 @@
 (setq lsp-treemacs-errors-position-params `((side . right)))
 
 (after! lua-mode (setq lsp-clients-lua-language-server-bin (executable-find "lua-language-server"))
-	(set-lsp-priority! 'lua-language-server 1))
+	    (set-lsp-priority! 'lua-language-server 1))
 
 ;;; eshell aliases and functions:
 (setq alan/eshell-aliases
