@@ -12,6 +12,8 @@ Needed because Emacs can't find those files,
 likely because of symlinks related to nixos."
   (load-file (format "%s%s.el" user-emacs-directory file-name)))
 
+(alan/load-hack "user-consts")
+
 ;; basic setup:
 (setq sentence-end-double-space nil
       ring-bell-function 'ignore
@@ -72,29 +74,29 @@ likely because of symlinks related to nixos."
 (require 'rainbow-delimiters)
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 
-(defconst alan/mono-font "mononoki"
-  "The mono-width font to use.")
-(defconst alan/serif-font "Source Serif Variable")
-(defconst alan/sans-font "Source Sans Variable")
-(defconst alan/font-size 160)
-
 (set-face-attribute 'default nil :family alan/mono-font :height alan/font-size)
 (set-face-attribute 'variable-pitch nil :family alan/serif-font :height alan/font-size)
 (require 'mixed-pitch)
 (require 'ispell)
 (setq mixed-pitch-set-height t
-      ispell-dictionary "en_US")
+      ispell-dictionary "en_US"
+      ispell-complete-word-dict "en_US")
 
-(require 'catppuccin-theme)
-(setq catppuccin-flavor 'macchiato
-      catppuccin-italic-blockquotes nil
-      catppuccin-highlight-matches t
-      catppuccin-italic-variables nil)
-(load-theme 'catppuccin t)
-
-(add-hook 'global-hl-line-mode-hook
-          (lambda () (let ((new-bg (catppuccin-get-color 'crust)))
-                       (set-face-background 'hl-line new-bg))))
+(defun alan/enable-catppuccin-theme ()
+  (progn (require 'catppuccin-theme)
+         (setq catppuccin-flavor 'macchiato
+               catppuccin-italic-blockquotes nil
+               catpuccin-highlight-matches t
+               catppuccin-italic-variables nil)
+         (load-theme 'catppuccin t)
+         (add-hook 'global-hl-line-mode-hook
+                   (lambda () (let ((new-bg (catppuccin-get-color 'crust)))
+                                (set-face-background 'hl-line new-bg))))
+         ;; HACK refresh global-hl-line-mode if it is already enabled to reapply hook
+         (when global-hl-line-mode (global-hl-line-mode 1))
+         (setq alan/theme-initialized-p t)))
+(fset 'alan/enable-theme 'alan/enable-catppuccin-theme)
+(unless alan/theme-initialized-p (alan/enable-theme))
 
 (setq enable-recursive-minibuffers t
       frame-title-format '("%b"))
