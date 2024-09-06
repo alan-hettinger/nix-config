@@ -34,6 +34,9 @@ likely because of symlinks related to nixos."
               tab-width 4
               fill-column 80
               word-wrap t)
+(when (native-comp-available-p)
+  (setq native-comp-async-report-warnings-errors 'silent
+        native-comp-prune-cache t))
 (global-auto-revert-mode 1)
 (require 'autorevert)
 (setq auto-revert-verbose nil)
