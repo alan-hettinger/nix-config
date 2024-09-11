@@ -56,7 +56,8 @@ likely because of symlinks related to nixos."
       scroll-preserve-screen-position t
       auto-window-vscroll nil
       mouse-wheel-scroll-amount '(2 ((shift) . hscroll))
-      mouse-wheel-scroll-amount-horizontal 2)
+      mouse-wheel-scroll-amount-horizontal 2
+      mouse-wheel-progressive-speed nil)
 
 ;; set up the custom file in case the customization interface is desired.
 ;; note that this file is not tracked by git.
