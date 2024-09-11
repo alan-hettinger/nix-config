@@ -133,17 +133,16 @@ likely because of symlinks related to nixos."
                treemacs-indentation-string "┃"
                treemacs-width 35
                treemacs-wide-toggle-width 40
-               treemacs-text-scale 0.5
-	           treemacs-icon-size 10
-               treemacs-is-never-other-window nil)
-         (define-key treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action)
-         (treemacs-git-commit-diff-mode t)
-         (treemacs-git-mode 'extended)
-         ;; (treemacs-indent-guide-mode t) ;; FIXME throws type error about arrayp
-	     (treemacs-follow-mode t)
-	     (with-eval-after-load 'evil 'treemacs-evil) ;; FIXME throws error about void-function. Is package on path?
-	     ;; (with-eval-after-load 'magit (treemacs-magit)) ;; FIXME throws same void-function error
-	     (display-line-numbers-mode -1)))
+               ;; FIXME: Treemacs text scale doesn't apply on first run
+               treemacs-text-scale -1)
+         (treemacs-git-mode -1)
+         ;; ^ FIXME enabling treemacs git mode causes emacs to hang.
+         ;; Traced issue to "treemacs-process-file-events".
+	     (treemacs-follow-mode nil)
+		 ;; ^ FIXME enabling follow mode causes error:
+         ;; "error running timer 'treemacs--follow' wrong type argument arrayp nil"
+         (treemacs-follow-mode 1)
+         (display-line-numbers-mode -1)))
 (add-hook 'treemacs-mode-hook #'alan/treemacs-setup)
 
 (setq-default indent-tabs-mode nil)
