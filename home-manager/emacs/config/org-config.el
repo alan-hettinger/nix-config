@@ -29,6 +29,7 @@
 
 (display-line-numbers-mode -1)
 (org-indent-mode t)
+(add-hook 'evil-org-mode-hook (lambda () (setq evil-org-use-additional-insert t)))
 (evil-org-mode)
 (visual-fill-column-mode 1)
 (setq-local visual-fill-column-width 120
