@@ -168,11 +168,16 @@ likely because of symlinks related to nixos."
           (lambda ()
             (setq projectile-project-search-path '("~/nix-config/")
                   projectile-switch-project-action 'projectile-dired)))
+
+(require 'diff-hl)
 (add-hook 'diff-hl-mode-hook #'diff-hl-margin-mode)
 (add-hook 'diff-hl-mode-hook
           (lambda () (setq diff-hl-global-modes '(not image-mode pdf-view-mode)
-                           diff-hl-update-async t)))
-(add-hook 'after-init-hook #'global-diff-hl-mode)
+                           diff-hl-update-async t
+                           diff-hl-side (if visual-fill-column-mode
+                                            'right
+                                          'left))))
+(add-hook 'prog-mode-hook #'diff-hl-mode)
 
 ;; recentf mode:
 (add-hook 'recentf-mode-hook
