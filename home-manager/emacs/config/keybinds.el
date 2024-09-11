@@ -34,6 +34,8 @@
   "." '(find-file :which-key "find file")
   "/" '(consult-line :which-key "find-line")
 
+  "s" '(consult-ripgrep :which-key "search directory or project")
+
   ;; prefix for all evil-window commands:
   "w" '(evil-window-map :which-key "window")
 
