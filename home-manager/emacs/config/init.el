@@ -30,6 +30,8 @@ likely because of symlinks related to nixos."
       find-file-visit-truename t
       vc-follow-symlinks t
       find-file-suppress-same-file-warnings t
+	  backup-directory-alist `(("." . ,(expand-file-name "tmp/backups/"
+                                                         user-emacs-directory)))
       use-short-answers t)
 (setq-default indent-tabs-mode nil
               tab-width 4
