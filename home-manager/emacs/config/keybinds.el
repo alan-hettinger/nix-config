@@ -1,5 +1,23 @@
 ;;; keybinds.el  -*- lexical-binding: t -*-
 
+(define-minor-mode alan/minimal-ui-mode
+  "Hide as many extraneous UI elements as possible."
+  :init-value nil
+  :interactive t
+  :global t
+  :lighter "Min"
+  (if alan/minimal-ui-mode
+      (progn (when (functionp 'hide-mode-line-mode)
+               (global-hide-mode-line-mode 1))
+             (when (window-with-parameter 'window-side nil)
+               (window-toggle-side-windows))
+             (delete-other-windows)
+             (diff-hl-mode -1))
+    (progn (when (functionp 'hide-mode-line-mode)
+             (global-hide-mode-line-mode -1))
+           (window-toggle-side-windows)
+           (diff-hl-mode 1))))
+
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
 (general-create-definer alan/leader-keys
@@ -28,6 +46,8 @@
 
   "t" '(:ignore t :which-key "toggle")
   "tl" '(display-line-numbers-mode :which-key "line numbers")
+  "tm" '(alan/minimal-ui-mode :which-key "minimal UI")
+
   "o" '(:ignore t :which-key "open")
   "op" '(treemacs :which-key "treemacs")
   "oe" '(eshell :which-key "eshell")
