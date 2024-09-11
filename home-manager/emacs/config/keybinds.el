@@ -46,7 +46,8 @@
   "gg" '(magit-status :which-key "open magit")
   "gs" '(magit-stage-buffer-file :which-key "stage current file")
   "gS" '(magit-stage-file :which-key "stage file")
-  "gt" '(magit-todos-list :which-key "list todos"))
+  "gt" '(magit-todos-list :which-key "list todos")
+  "gc" '(magit-commit :which-key "commit"))
 
 (when (functionp 'helpful-callable)
   (general-define-key
