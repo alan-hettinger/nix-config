@@ -59,6 +59,8 @@
           solaire-mode
           visual-fill-column
           adaptive-wrap
+          hide-mode-line
+          anzu
         ];
         orgPkgs = [
           evil-org

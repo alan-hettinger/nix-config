@@ -32,6 +32,7 @@
 (add-hook 'global-hl-line-mode-hook
           (lambda () (setq hl-line-sticky-flag nil)))
 (global-hl-line-mode 1)
+(global-anzu-mode 1)
 
 (defun alan/disable-scroll-bars (frame)
   "Hide scroll bars on creating any FRAME. Useful with Emacs server."
@@ -79,6 +80,7 @@
                                :height mode-line-font-height))))
 (add-hook 'doom-modeline-mode-hook #'alan/doom-modeline-setup)
 (doom-modeline-mode 1)
+(ace-window-display-mode 1)
 
 (require 'solaire-mode)
 (solaire-global-mode +1)

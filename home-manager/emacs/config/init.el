@@ -132,11 +132,13 @@ likely because of symlinks related to nixos."
   (add-to-list 'eglot-server-programs '(nix-mode . ("nil"))))
 (add-hook 'nix-mode-hook #'eglot-ensure)
 
+;;; treemacs configuration:
+;; TODO move to separate file
 (require 'treemacs)
 (defun alan/before-treemacs-setup ()
   (setq treemacs-indentation 1
         treemacs-indentation-string "┃"
-        treemacs-width 35
+        treemacs-width 30
         treemacs-wide-toggle-width 40
         treemacs-text-scale -1))
 (defun alan/treemacs-setup ()
@@ -148,7 +150,8 @@ likely because of symlinks related to nixos."
 	;; ^ FIXME enabling follow mode causes error:
     ;; "error running timer 'treemacs--follow' wrong type argument arrayp nil"
     (treemacs-follow-mode 1)
-    (display-line-numbers-mode -1)))
+    (display-line-numbers-mode -1)
+    (hide-mode-line-mode 1)))
 (add-hook 'after-init-hook #'alan/before-treemacs-setup)
 (add-hook 'treemacs-mode-hook #'alan/treemacs-setup)
 
