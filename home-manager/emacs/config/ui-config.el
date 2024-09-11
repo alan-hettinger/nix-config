@@ -1,4 +1,4 @@
-;;; ui-config.el --- appearance and basic behavior  -*- lexical-binding: t -*-
+;;; ui-config.el  -*- lexical-binding: t -*-
 
 ;;; Commentary:
 

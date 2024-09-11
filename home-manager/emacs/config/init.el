@@ -20,6 +20,7 @@ likely because of symlinks related to nixos."
       require-final-newline t
       confirm-kill-emacs 'y-or-n-p
       create-lockfiles nil
+      ;; ^ TODO do I need this after all because I use emacs server?
       uniquify-buffer-name-style 'forward
       uniquify-after-kill-buffer-p t
       uniquify-ignore-buffers-re "\\*"
