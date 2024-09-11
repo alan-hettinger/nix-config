@@ -59,7 +59,6 @@
           solaire-mode
           visual-fill-column
           adaptive-wrap
-          highlight-indent-guides
         ];
         orgPkgs = [
           evil-org

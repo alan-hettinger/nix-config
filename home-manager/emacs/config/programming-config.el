@@ -2,11 +2,6 @@
 
 (global-hl-todo-mode 1)
 
-(add-hook 'highlight-indent-guides-mode-hook
-          (lambda () (setq highlight-indent-guides-method 'bitmap
-                           highlight-indent-guides-responsive 'top)))
-;; (add-hook 'prog-mode-hook #'highlight-indent-guides-mode) ;; FIXME this causes some kind of error with completion
-
 (defun alan/visual-fill-prog ()
   (progn (setq-local visual-fill-column-center-text t
                      visual-fill-column-width 80
