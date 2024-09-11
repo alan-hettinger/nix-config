@@ -60,7 +60,8 @@
 	             doom-modeline-buffer-modification-icon t
 	             doom-modeline-highlight-modified-buffer-name nil
 	             doom-modeline-hud t
-	             doom-modeline-continuous-word-count-modes '(markdown-mode org-mode)
+	             doom-modeline-continuous-word-count-modes '(markdown-mode
+                                                             org-mode)
 	             doom-modeline-buffer-encoding nil
 	             doom-modeline-project-detection 'project
                  mode-line-right-align-edge 'right-fringe)
@@ -87,7 +88,8 @@
 (add-hook 'prog-mode-hook 'highlight-numbers-mode)
 (add-hook 'highlight-numbers-mode-hook
           (lambda ()
-            (setq highlight-numbers-generic-regexp "\\_<[[:digit:]]+\\(?:\\.[0-9]*\\)?\\_>")))
+            (setq highlight-numbers-generic-regexp
+                  "\\_<[[:digit:]]+\\(?:\\.[0-9]*\\)?\\_>")))
 
 (provide 'ui-config)
 ;;; ui-config.el ends here.
