@@ -135,6 +135,7 @@ likely because of symlinks related to nixos."
 ;;; treemacs configuration:
 ;; TODO move to separate file
 (require 'treemacs)
+(require 'treemacs-nerd-icons)
 (defun alan/before-treemacs-setup ()
   (setq treemacs-indentation 1
         treemacs-indentation-string "┃"
@@ -146,11 +147,9 @@ likely because of symlinks related to nixos."
     (treemacs-git-mode -1)
     ;; ^ FIXME enabling treemacs git mode causes emacs to hang.
     ;; Traced issue to "treemacs-process-file-events".
-	(treemacs-follow-mode nil)
-	;; ^ FIXME enabling follow mode causes error:
-    ;; "error running timer 'treemacs--follow' wrong type argument arrayp nil"
     (treemacs-follow-mode 1)
     (display-line-numbers-mode -1)
+    (treemacs-load-theme "nerd-icons")
     (hide-mode-line-mode 1)))
 (add-hook 'after-init-hook #'alan/before-treemacs-setup)
 (add-hook 'treemacs-mode-hook #'alan/treemacs-setup)

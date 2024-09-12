@@ -27,11 +27,11 @@
         ];
         treemacsPkgs = [
           treemacs
-          lsp-treemacs
           treemacs-evil
           treemacs-magit
           treemacs-persp
           treemacs-projectile
+          treemacs-nerd-icons
         ];
         vcPkgs = [
           magit
