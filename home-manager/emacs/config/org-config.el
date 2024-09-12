@@ -35,7 +35,6 @@
 (setq-local visual-fill-column-width 120
             visual-fill-column-center-text t)
 (org-superstar-mode 1)
-(mixed-pitch-mode 1)
 
 (add-hook 'mixed-pitch-mode-hook
           (lambda () (dolist (face '(org-document-title
@@ -48,6 +47,7 @@
                                      org-level-7
                                      org-level-8))
                        (set-face-attribute face nil :family alan/sans-font))))
+(mixed-pitch-mode 1)
 
 ;; Keybindings:
 (alan/local-leader
