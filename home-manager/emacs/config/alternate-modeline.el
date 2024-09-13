@@ -37,6 +37,8 @@
        (not (mode-line-window-selected-p))))
 
 (defun alan-mode-line/--construct-mode-line (left center right)
+  "Concatenate the LEFT, CENTER, and RIGHT elements for the mode line, with
+even spacing between them."
   (list
    left
    '(:eval (alan/mode-line-fill-center 'mode-line (reserve-left/middle)))
@@ -73,6 +75,8 @@ Otherwise return an empty string. Empty string seems to work better than nil."
   "Amount of padding to add to right of mode-line.")
 
 (defun alan/mode-line-fill-right (face reserve)
+  "Fill the mode line with space characters in FACE from center to right
+RESERVE, as a % of mode-line length."
   (unless reserve
     (setq reserve 20))
   (when (and window-system (eq 'right (get-scroll-bar-mode)))
@@ -82,39 +86,43 @@ Otherwise return an empty string. Empty string seems to work better than nil."
               'face face))
 
 (defun reserve-left/middle ()
+  "Calculate the amount of space to reserve from left to middle."
   ;; FIXME dividing by 2 should align center but 1.5 looks better
   (/ (length (format-mode-line alan/mode-line-center)) 1.5))
 (defun reserve-middle/right ()
+  "Calculate the amount of space to reserve from middle to right"
   (+ RIGHT_PADDING (length (format-mode-line alan/mode-line-right))))
 
 
 ;;; Faces:
 (defface alan/mode-line--buffer-face
-  `((t :inherit mode-line :weight normal :foreground ,(catppuccin-color 'rosewater)))
-  "test docstring")
+  `((t :inherit mode-line :weight normal
+       :foreground ,(catppuccin-color 'rosewater)))
+  "Buffer name in mode line when active and unmodified.")
 (defface alan/mode-line--buffer-modified-face
   `((t :inherit mode-line :weight semibold :foreground ,(catppuccin-color 'maroon)))
-  "test docstring")
+  "Buffer name in mode line when modified.")
 (defface alan/mode-line--buffer-ro-face
   `((t :inherit mode-line :weight normal :foreground ,(catppuccin-color 'blue)))
-  "fake docstring")
+  "Buffer name in mode line when read-only.")
 (defface alan-mode-line/buffer--unfocused-face
-  `((t :inherit mode-line :foreground ,(catppuccin-color 'subtext2)))
+  `((t :inherit mode-line :foreground ,(catppuccin-color 'subtext0)))
   "Color for buffer title in mode-line when unfocused.")
 (defface alan-mode-line/side-elements-face
   `((t :inherit mode-line :weight light :foreground ,(catppuccin-color 'subtext1)))
-  "placeholder docstring")
-
+  "Side elements in mode line, which should blend in visually.")
 (defface alan-mode-line/evil-state-normal-face
   `((t :inherit alan-mode-line/side-elements-face :weight bold :foreground ,(catppuccin-color 'green)))
-  "placeholder docstring")
+  "Normal state mode line indicator.")
 (defface alan-mode-line/evil-state-insert-face
   `((t :inherit alan-mode-line/evil-state-normal-face :foreground ,(catppuccin-color 'mauve)))
-  "placeholder-docstring")
+  "Insert state mode line indicator.")
 (defface alan-mode-line/evil-state-visual-face
   `((t :inherit alan-mode-line/evil-state-normal-face :foreground ,(catppuccin-color 'flamingo)))
-  "placeholder docstring")
+  "Visual state mode line indicator.")
+;; TODO 2024-09 evil state faces for emacs state and possibly others.
 
+;; TODO 2024-09 put this into proper control flow
 (set-face-attribute 'mode-line nil :height 1.0 :inherit 'alan-mode-line/side-elements-face)
 
 (set-face-attribute 'mode-line-active nil :overline (catppuccin-color 'subtext0)
@@ -123,6 +131,8 @@ Otherwise return an empty string. Empty string seems to work better than nil."
 ;;; Functions for the mode-line elements:
 ;; Buffer name:
 (defun alan/mode-line--format-title (buffer-str)
+  "Set the face for buffer name BUFFER-STR.
+Returns string with face attributes."
   (propertize
    buffer-str
    'face (cond ((buffer-modified-p)
@@ -136,9 +146,11 @@ Otherwise return an empty string. Empty string seems to work better than nil."
                 'alan/mode-line--buffer-face))))
 
 (defun alan/modeline--buffer-name ()
+  "Buffer name as formatted by alan/mode-line--format-title."
   (alan/mode-line--format-title (buffer-name)))
 (defvar-local alan/mode-line-buffer-title
-    '(:eval (alan/modeline--buffer-name)))
+    '(:eval (alan/modeline--buffer-name))
+  "Buffer title as formatted by helper functions.")
 
 (defun alan-mode-line/ace-window-display ()
   "Show the window number if the window count is high enough and ace window
@@ -153,22 +165,30 @@ exists. Otherwise return the empty string."
     ""))
 
 (defun alan-mode-line/vc-mode-display ()
+  "Show version control status, if any, in the mode line."
   (alan/mode-line--show-only-on-selected
-   (format "[%s]"
-           (propertize
-            (string-replace " " "" vc-mode)
-            'face 'alan-mode-line/side-elements-face))))
+   ;; test if vc-mode is active so we don't try to evaluate nil as a string:
+   (if vc-mode
+       (format "[%s]"
+               (propertize
+                (string-replace " " "" vc-mode)
+                'face 'alan-mode-line/side-elements-face))
+     "")))
 
-;; Major mode:
 (defun alan/modeline--major-mode ()
+  "Helper function to get a proper string for the active major mode."
   (capitalize (string-replace "-mode" "" (symbol-name major-mode))))
-(defvar-local alan/modeline-mode-icon
-    '(:eval (propertize (format "%s " (nerd-icons-icon-for-buffer))
-                        'face 'alan-mode-line/side-elements-face)))
 (defvar-local alan/mode-line-major-mode-name
     `(:eval (propertize (alan/mode-line--show-only-on-selected
                          (alan/modeline--major-mode))
-                        'face 'alan-mode-line/side-elements-face)))
+                        'face 'alan-mode-line/side-elements-face))
+  "The major mode name element for the mode-line.")
+
+(defvar-local alan/modeline-mode-icon
+    '(:eval (propertize (format "%s " (nerd-icons-icon-for-buffer))
+                        'face 'alan-mode-line/side-elements-face))
+  "Icon to be shown for the active major mode.")
+
 (defvar-local alan/mode-line--evil-mode-line-tag
     `(:eval (propertize
              (alan/mode-line--show-only-on-selected
@@ -180,17 +200,24 @@ exists. Otherwise return the empty string."
                      'alan-mode-line/evil-state-insert-face)
                     ((string= evil-state "visual")
                      'alan-mode-line/evil-state-visual-face)
-                    ((eval t) 'alan-mode-line/side-elements-face)))))
+                    ((eval t) 'alan-mode-line/side-elements-face))))
+  "Formatted evil mode state tag for mode line.")
+
 (defvar-local alan-mode-line/word-count
     `(:eval (alan/mode-line--show-only-on-selected
              (when text-mode-variant
                (propertize
                 (format " %dW" (count-words (point-min) (point-max)))
-                'face 'alan-mode-line/side-elements-face)))))
+                'face 'alan-mode-line/side-elements-face))))
+  "Formatted word count for mode line, in text-mode variants like org.")
+
 (defvar-local alan-mode-line/defining-kbd-macro
     `(:eval (alan/mode-line--show-only-on-selected
              (when defining-kbd-macro
                (propertize "MACRO" 'face
                            '(:foreground ,(catppuccin-color 'red)
-                                         :weight bold))))))
+                                         :weight bold)))))
+  "Indicator in mode line when defining keyboard macro.")
+
+
 (provide 'alternate-modeline)
