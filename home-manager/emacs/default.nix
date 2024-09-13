@@ -64,6 +64,7 @@
           adaptive-wrap
           hide-mode-line
           anzu
+          rainbow-mode
         ];
         orgPkgs = [
           evil-org
