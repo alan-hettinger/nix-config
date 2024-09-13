@@ -38,6 +38,7 @@
 
   ;; prefix for all evil-window commands:
   "w" '(evil-window-map :which-key "window")
+  "wm" '(delete-other-windows :which-key "maximize")
 
   ;; for all help commands:
   "h" '(help-command :which-key "help")
