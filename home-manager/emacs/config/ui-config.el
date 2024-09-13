@@ -48,7 +48,8 @@
                               (alan/disable-scroll-bars frame)
                             (alan/hide-minibuffer-scroll-bar frame))))
 
-;; load packages that should always be on
+(alan/load-hack "alternate-modeline")
+
 (require 'doom-modeline)
 (defun alan/doom-modeline-setup ()
   (let ((mode-line-font-height (round (* 1.0 alan/font-size))))
@@ -79,7 +80,7 @@
                                :family alan/mono-font
                                :height mode-line-font-height))))
 (add-hook 'doom-modeline-mode-hook #'alan/doom-modeline-setup)
-(doom-modeline-mode 1)
+;; (doom-modeline-mode 1)
 (ace-window-display-mode 1)
 
 (require 'solaire-mode)
