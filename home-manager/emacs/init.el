@@ -17,50 +17,69 @@
 
 ;; (alan/load-hack "user-consts")
 
-;; basic setup:
-(setq sentence-end-double-space nil
-      ring-bell-function 'ignore
-      require-final-newline t
-      confirm-kill-emacs 'y-or-n-p
-      create-lockfiles nil
-      ;; ^ TODO do I need this after all because I use emacs server?
-      uniquify-buffer-name-style 'forward
-      uniquify-after-kill-buffer-p t
-      uniquify-ignore-buffers-re "\\*"
-      highlight-nonselected-windows nil
-      fast-but-imprecise-scrolling t
-      x-stretch-cursor nil
-      find-file-visit-truename t
-      vc-follow-symlinks t
-      find-file-suppress-same-file-warnings t
-	  backup-directory-alist `(("." . ,(expand-file-name "tmp/backups/"
-                                                         user-emacs-directory)))
-      use-short-answers t)
-(setq-default indent-tabs-mode nil
-              tab-width 4
-              fill-column 80
-              word-wrap t)
-(when (native-comp-available-p)
-  (setq native-comp-async-report-warnings-errors 'silent
-        native-comp-prune-cache t))
-(global-auto-revert-mode 1)
-(require 'autorevert)
-(setq auto-revert-verbose nil)
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-(fset 'yes-or-no-p 'y-or-n-p)
-(set-language-environment "UTF-8")
-;; set-language-environment overrides default-input-method:
-(setq default-input-method nil)
-;; Scrolling (largely copied from Doom)
-(setq hscroll-margin 2
-      hscroll-step 1
-      scroll-conservatively 10
-      scroll-margin 2
-      scroll-preserve-screen-position t
-      auto-window-vscroll nil
-      mouse-wheel-scroll-amount '(2 ((shift) . hscroll))
-      mouse-wheel-scroll-amount-horizontal 2
-      mouse-wheel-progressive-speed nil)
+(use-package use-package
+  :defer nil
+  :demand t
+  :init
+  ;; Always use the system-installed version of a package (through NixOS),
+  ;; never install through use-package or package-install
+  (setq package-archives nil
+        use-package-always-ensure nil
+        ;; other package defaults:
+        use-package-compute-statistics t
+        use-package-always-defer t))
+
+(use-package emacs
+  ;; Pseudo-package to set up built-in functionality
+  :demand t
+  :defer nil
+  :init
+  (when (native-comp-available-p)
+    (setq native-comp-async-report-warnings-errors 'silent
+          native-comp-prune-cache t))
+  :custom (sentence-end-double-space nil)
+  (ring-bell-function 'ignore)
+  (require-final-newline t)
+  (confirm-kill-emacs 'y-or-n-p)
+  (create-lockfiles nil) ;; TODO do I need this after all for server?
+  (uniquify-buffer-name-style 'forward)
+  (uniquify-after-kill-buffer-p t)
+  (uniquify-ignore-buffers-re "\\*")
+  (highlight-nonselected-windows nil)
+  (fast-but-imprecise-scrolling t)
+  (x-stretch-cursor nil)
+  (find-file-visit-truename t)
+  (vc-follow-symlinks t)
+  (find-file-suppress-same-file-warnings t)
+  (backup-directory-alist
+   `(("." . ,(expand-file-name "tmp/backups/"
+                               user-emacs-directory))))
+  (use-short-answers t)
+  (default-input-method nil)
+  ;; Scrolling:
+  (hscroll-margin 2)
+  (hscroll-step 1)
+  (scroll-conservatively 10)
+  (scroll-margin 2)
+  (scroll-preserve-screen-position t)
+  (auto-window-vscroll nil)
+  (mouse-wheel-scroll-amount '(2 ((shift) . hscroll)))
+  (mouse-wheel-scroll-amount-horizontal 2)
+  (mouse-wheel-progressive-speed nil)
+  :config
+  (setq-default indent-tabs-mode nil
+                tab-width 4
+                fill-column 80
+                word-wrap t)
+  (add-hook 'before-save-hook 'delete-trailing-whitespace)
+  (fset 'yes-or-no-p 'y-or-n-p)
+  (set-language-environment "UTF-8")
+  )
+
+(use-package autorevert
+  :custom (auto-revert-verbose nil)
+  :config (global-auto-revert-mode 1))
+
 
 ;; set up the custom file in case the customization interface is desired.
 ;; note that this file is not tracked by git.
@@ -94,86 +113,63 @@
 ;; (require 'treesit-auto)
 ;; (global-treesit-auto-mode)
 
-(require 'rainbow-delimiters)
-(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+(use-package rainbow-delimiters
+  :hook prog-mode)
 
-(set-face-attribute 'default nil :family alan/mono-font :height alan/font-size)
-(set-face-attribute 'variable-pitch nil :family alan/serif-font :height alan/font-size)
-(require 'mixed-pitch)
-(require 'ispell)
-(setq mixed-pitch-set-height t
-      ispell-dictionary "en_US"
-      ispell-complete-word-dict "en_US")
+(use-package mixed-pitch
+  :hook text-mode
+  :custom (mixed-pitch-set-height t))
 
-(defun alan/enable-catppuccin-theme ()
-  (progn (require 'catppuccin-theme)
-         (setq catppuccin-flavor 'macchiato
-               catppuccin-italic-blockquotes nil
-               catpuccin-highlight-matches t
-               catppuccin-italic-variables nil)
-         (load-theme 'catppuccin t)
-         (add-hook 'global-hl-line-mode-hook
-                   (lambda () (let ((new-bg (catppuccin-get-color 'crust)))
-                                (set-face-background 'hl-line new-bg))))
-         ;; HACK refresh global-hl-line-mode if it is already enabled to reapply hook
-         (when global-hl-line-mode (global-hl-line-mode 1))
-         (setq alan/theme-initialized-p t)))
-(fset 'alan/enable-theme 'alan/enable-catppuccin-theme)
-(unless alan/theme-initialized-p (alan/enable-theme))
+(use-package ispell
+  :hook ((prog-mode text-mode) . ispell-minor-mode)
+  :custom (ispell-dictionary "en_US")
+  (ispell-complete-word-dict "en_US"))
+
+(use-package hl-line
+  :after catppuccin-theme
+  :hook (after-init . global-hl-line-mode))
 
 (setq enable-recursive-minibuffers t
       frame-title-format '("%b"))
 
-
-(setq evil-want-keybinding nil
-      evil-want-fine-undo t
-      evil-undo-system 'undo-redo
-      evil-want-integration t)
-(evil-collection-init)
-(add-hook 'evil-mode-hook #'evil-better-visual-line-on)
-(evil-mode 1)
 (add-hook 'org-mode-hook (lambda () (require 'org-config)))
 
 (global-auto-revert-mode 1)
 (setq global-auto-revert-non-file-buffers t)
 
-(require 'apheleia)
-(apheleia-global-mode +1)
-(push '(nixfmt . ("alejandra")) apheleia-formatters)
+(use-package apheleia
+  :hook prog-mode
+  :config
+  (push '(nixfmt . ("alejandra")) apheleia-formatters))
 
-(setq olivetti-style 'fancy
-      olivetti-body-width 90)
-
-(with-eval-after-load 'eglot
-  (add-to-list 'eglot-server-programs '(nix-mode . ("nil"))))
-(add-hook 'nix-mode-hook #'eglot-ensure)
+(use-package eglot
+  :defer nil)
 
 ;;; treemacs configuration:
 ;; TODO move to separate file
-(require 'treemacs)
-(require 'treemacs-nerd-icons)
-(defun alan/before-treemacs-setup ()
+(use-package treemacs
+  :init
   (setq treemacs-indentation 1
         treemacs-indentation-string "┃"
         treemacs-width 30
         treemacs-wide-toggle-width 40
         treemacs-user-mode-line-format 'none
-        treemacs-text-scale -1))
-(defun alan/treemacs-setup ()
-  (progn
-    (treemacs-git-mode -1)
-    ;; ^ FIXME enabling treemacs git mode causes emacs to hang.
-    ;; Traced issue to "treemacs-process-file-events".
-    (treemacs-follow-mode 1)
-    (display-line-numbers-mode -1)
-    (treemacs-load-theme "nerd-icons")
-    (hide-mode-line-mode 1)))
-(add-hook 'after-init-hook #'alan/before-treemacs-setup)
-(add-hook 'treemacs-mode-hook #'alan/treemacs-setup)
+        treemacs-text-scale -1)
+  :config
+  (treemacs-git-mode -1)
+  ;; ^ FIXME enabling treemacs git mode causes emacs to hang.
+  ;; Traced issue to "treemacs-process-file-events".
+  (treemacs-follow-mode 1)
+  (display-line-numbers-mode -1))
+(use-package treemacs-nerd-icons
+  :after treemacs
+  :demand t
+  :config (treemacs-load-theme "nerd-icons"))
 
 (setq-default indent-tabs-mode nil)
 
-(add-hook 'emacs-lisp-mode-hook 'highlight-quoted-mode)
+(use-package highlight-quoted
+  :hook emacs-lisp-mode)
 
 ;; (add-hook 'after-init-hook (alan/load-hack "keybinds"))
 ;; (use-package keybinds
@@ -192,15 +188,17 @@
             (setq projectile-project-search-path '("~/nix-config/")
                   projectile-switch-project-action 'projectile-dired)))
 
-(require 'diff-hl)
-(add-hook 'diff-hl-mode-hook #'diff-hl-margin-mode)
-(add-hook 'diff-hl-mode-hook
-          (lambda () (setq diff-hl-global-modes '(not image-mode pdf-view-mode)
-                           diff-hl-update-async t
-                           diff-hl-side (if visual-fill-column-mode
-                                            'right
-                                          'left))))
-(add-hook 'prog-mode-hook #'diff-hl-mode)
+(use-package visual-fill-column)
+(use-package diff-hl
+  :hook prog-mode
+  :after visual-fill-column
+  :init (setq diff-hl-global-modes '(not image-mode pdf-view-mode)
+              diff-hl-update-async t
+              diff-hl-side (if visual-fill-column-mode
+                               'right
+                             'left))
+  :config
+  (diff-hl-margin-mode))
 
 ;; recentf mode:
 (add-hook 'recentf-mode-hook

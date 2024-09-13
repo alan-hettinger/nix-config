@@ -18,6 +18,31 @@
       kill-do-not-save-duplicates t
       scroll-error-top-bottom t)
 
+(set-face-attribute 'default nil :family alan/mono-font :height alan/font-size)
+(set-face-attribute 'variable-pitch nil :family alan/serif-font :height alan/font-size)
+
+
+(use-package catppuccin-theme
+  :defer nil
+  :custom
+  (catppuccin-flavor 'macchiato)
+  (catppuccin-italic-blockquotes nil)
+  (catppuccin-highlight-matches t)
+  (catppuccin-italic-variables nil)
+  :config
+  (load-theme 'catppuccin t)
+  (add-hook 'global-hl-line-mode-hook
+            (lambda () (let ((new-bg (catppuccin-get-color 'crust)))
+                         (set-face-background 'hl-line new-bg))))
+  ;; TODO this function might not be needed now
+  (defun alan/enable-catppuccin-theme ()
+    (progn
+      (load-theme 'catppuccin t)
+      ;; HACK refresh global-hl-line-mode if it is already enabled to reapply hook
+      (when global-hl-line-mode (global-hl-line-mode 1))
+      (setq alan/theme-initialized-p t)))
+  (fset 'alan/enable-theme 'alan/enable-catppuccin-theme))
+
 ;; Some standard modes:
 (set-fringe-mode 20)
 (setq flycheck-emacs-lisp-load-path 'inherit
