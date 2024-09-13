@@ -142,6 +142,7 @@ likely because of symlinks related to nixos."
         treemacs-indentation-string "┃"
         treemacs-width 30
         treemacs-wide-toggle-width 40
+        treemacs-user-mode-line-format 'none
         treemacs-text-scale -1))
 (defun alan/treemacs-setup ()
   (progn
