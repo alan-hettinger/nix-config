@@ -74,9 +74,10 @@ likely because of symlinks related to nixos."
 (add-hook 'dired-mode-hook (lambda () (alan/load-hack "dired-config")))
 
 ;; start tree-sitter:
-(require 'tree-sitter-langs)
-(global-tree-sitter-mode)
-(add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
+;; (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
+;; (global-tree-sitter-mode)
+;; (require 'treesit-auto)
+;; (global-treesit-auto-mode)
 
 (require 'rainbow-delimiters)
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
