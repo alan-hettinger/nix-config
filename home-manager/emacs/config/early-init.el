@@ -50,7 +50,7 @@ Also from protesilaos."
                inhibit-x-resources t
                inhibit-startup-echo-area-message user-login-name
                inhibit-startup-buffer-menu t)
-         (alan/avoid-initial-white-screen)
+         ;; (alan/avoid-initial-white-screen)
          (blink-cursor-mode -1)
          (tool-bar-mode -1)
          (tooltip-mode 0) ; make help text appear in echo area
