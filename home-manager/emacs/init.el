@@ -6,13 +6,16 @@
 ;;; Code:
 
 ;; FIXME: this hack shouldn't be necessary
-(defun alan/load-hack (file-name)
-  "Load FILE-NAME.el files from .emacs.d or equivalent.
-Needed because Emacs can't find those files,
-likely because of symlinks related to nixos."
-  (load-file (format "%s%s.el" user-emacs-directory file-name)))
+;; (defun alan/load-hack (file-name)
+;; "Load FILE-NAME.el files from .emacs.d or equivalent.
+;; Needed because Emacs can't find those files,
+;; likely because of symlinks related to nixos."
+;; (load-file (format "%s%s.el" user-emacs-directory file-name)))
 
-(alan/load-hack "user-consts")
+(add-to-list 'load-path (expand-file-name "./config/" user-emacs-directory))
+(require 'user-consts)
+
+;; (alan/load-hack "user-consts")
 
 ;; basic setup:
 (setq sentence-end-double-space nil
@@ -68,10 +71,22 @@ likely because of symlinks related to nixos."
 (load-file alan/custom-file)
 
 ;; TODO make following lines DRYer
-(add-hook 'after-init-hook (lambda () (alan/load-hack "ui-config")))
-(add-hook 'after-init-hook (lambda () (alan/load-hack "completion-config")))
-(add-hook 'after-init-hook (lambda () (alan/load-hack "programming-config")))
-(add-hook 'dired-mode-hook (lambda () (alan/load-hack "dired-config")))
+;; (add-hook 'after-init-hook (lambda () (alan/load-hack "ui-config")))
+;; (add-hook 'after-init-hook (lambda () (alan/load-hack "completion-config")))
+;; (add-hook 'after-init-hook (lambda () (alan/load-hack "programming-config")))
+;; (add-hook 'after-init-hook (lambda () (alan/load-hack "evil-config")))
+;; (add-hook 'dired-mode-hook (lambda () (alan/load-hack "dired-config")))
+
+(add-hook 'after-init-hook
+          (lambda ()
+            (progn
+              (require 'ui-config)
+              (require 'alternate-modeline)
+              (require 'keybinds)
+              (require 'completion-config)
+              (require 'programming-config)
+              (require 'evil-config))))
+(add-hook 'dired-mode-hook (lambda () (require 'dired-config))) ;; FIXME
 
 ;; start tree-sitter:
 ;; (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
@@ -109,7 +124,6 @@ likely because of symlinks related to nixos."
 (setq enable-recursive-minibuffers t
       frame-title-format '("%b"))
 
-(add-hook 'org-mode-hook (lambda () (alan/load-hack "org-config")))
 
 (setq evil-want-keybinding nil
       evil-want-fine-undo t
@@ -118,6 +132,7 @@ likely because of symlinks related to nixos."
 (evil-collection-init)
 (add-hook 'evil-mode-hook #'evil-better-visual-line-on)
 (evil-mode 1)
+(add-hook 'org-mode-hook (lambda () (require 'org-config)))
 
 (global-auto-revert-mode 1)
 (setq global-auto-revert-non-file-buffers t)
@@ -160,7 +175,10 @@ likely because of symlinks related to nixos."
 
 (add-hook 'emacs-lisp-mode-hook 'highlight-quoted-mode)
 
-(add-hook 'after-init-hook (alan/load-hack "keybinds"))
+;; (add-hook 'after-init-hook (alan/load-hack "keybinds"))
+;; (use-package keybinds
+;;   :defer nil
+;;   :demand t)
 
 ;; magit config:
 ;; TODO split into separate file

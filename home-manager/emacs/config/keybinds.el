@@ -79,3 +79,5 @@
    [remap describe-variable] #'helpful-variable
    [remap view-hello-file] #'helpful-at-point ;; [leader]-h-h. view-hello-file is kind of pointless
    ))
+
+(provide 'keybinds)

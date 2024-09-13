@@ -62,3 +62,5 @@
  [remap yank-pop] #'consult-yank-pop)
 
 (keymap-global-set "C-x b" #'consult-buffer)
+
+(provide 'completion-config)

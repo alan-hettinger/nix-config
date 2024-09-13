@@ -33,3 +33,5 @@
   "dW" '(wdired-finish-edit :which-key "finish edit")
   "dx" '(wdired-abort-changes :which-key "cancel edit")
   "do" '(dired-open-file :which-key "open file"))
+
+(provide 'dired-config)

@@ -25,3 +25,5 @@
   "s" #'nix-search
   "f" #'(:ignore t :which-key "flake")
   "fu" #'(nix-flake-update :which-key "update"))
+
+(provide 'programming-config)

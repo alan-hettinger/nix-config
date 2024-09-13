@@ -60,3 +60,5 @@
   "T" '(org-todo-list :which-key "show to-do list")
   "x" '(org-toggle-checkbox :which-key "toggle checkbox")
   )
+
+(provide 'org-config)

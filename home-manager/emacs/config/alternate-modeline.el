@@ -193,21 +193,4 @@ exists. Otherwise return the empty string."
                (propertize "MACRO" 'face
                            '(:foreground ,(catppuccin-color 'red)
                                          :weight bold))))))
-
-(setq alan/mode-line-left
-      '("%e"
-        (:eval alan/mode-line--evil-mode-line-tag)
-        (:eval (alan-mode-line/ace-window-display))
-        (:eval (alan/mode-line--show-only-on-selected mode-line-position))
-        (:eval alan-mode-line/word-count)
-        (:eval alan-mode-line/defining-kbd-macro)))
-(setq alan/mode-line-center
-      '((:eval alan/modeline-mode-icon)
-        (:eval alan/mode-line-buffer-title)))
-(setq alan/mode-line-right
-      '(
-        (:eval (anzu--update-mode-line))
-        (:eval (alan/mode-line--show-only-on-selected mode-line-misc-info))
-	    (:eval (alan-mode-line/vc-mode-display))
-        "  "
-        (:eval alan/mode-line-major-mode-name)))
+(provide 'alternate-modeline)

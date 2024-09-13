@@ -143,9 +143,17 @@ in {
     startWithUserSession = "graphical";
   };
 
-  home.file.".emacs.d" = {
-    source = ./config;
-    recursive = true;
+  home.file = {
+    ".emacs.d/init.el" = {
+      source = ./init.el;
+    };
+    ".emacs.d/early-init.el" = {
+      source = ./early-init.el;
+    };
+    ".emacs.d/config" = {
+      source = ./config;
+      recursive = true;
+    };
   };
   # home.file.".emacs.d/tree-sitter" = {
   # source = "${treesitGrammars}/lib";
