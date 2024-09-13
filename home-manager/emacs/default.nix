@@ -1,5 +1,8 @@
 {pkgs, ...}: let
-  myEmacsPkg = with pkgs; ((emacsPackagesFor emacs29-pgtk).emacsWithPackages (
+  emacsBasePkg = pkgs.emacs29-pgtk;
+  treesitGrammars = (pkgs.emacsPackagesFor emacsBasePkg).treesit-grammars.with-all-grammars;
+
+  myEmacsPkg = with pkgs; ((emacsPackagesFor emacsBasePkg).emacsWithPackages (
     epkgs:
       with epkgs; let
         evilModePkgs = [
@@ -102,29 +105,8 @@
           vterm
           pdf-tools
           tree-sitter-langs
-          (treesit-grammars.with-grammars (grammars:
-            with grammars; [
-              tree-sitter-bash
-              tree-sitter-c
-              tree-sitter-cpp
-              tree-sitter-css
-              tree-sitter-html
-              tree-sitter-javascript
-              tree-sitter-typescript
-              tree-sitter-json
-              tree-sitter-yaml
-              tree-sitter-clojure
-              tree-sitter-commonlisp
-              tree-sitter-elisp
-              tree-sitter-go
-              tree-sitter-latex
-              tree-sitter-lua
-              tree-sitter-nix
-              tree-sitter-python
-              tree-sitter-regex
-              tree-sitter-rust
-              tree-sitter-scheme
-            ]))
+          treesit-auto
+          # treesitGrammars
           general
           apheleia
           projectile-ripgrep
@@ -164,4 +146,8 @@ in {
     source = ./config;
     recursive = true;
   };
+  # home.file.".emacs.d/tree-sitter" = {
+  # source = "${treesitGrammars}/lib";
+  # recursive = true;
+  # };
 }
