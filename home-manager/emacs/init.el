@@ -5,19 +5,15 @@
 
 ;;; Code:
 
-;; FIXME: this hack shouldn't be necessary
-;; (defun alan/load-hack (file-name)
-;; "Load FILE-NAME.el files from .emacs.d or equivalent.
-;; Needed because Emacs can't find those files,
-;; likely because of symlinks related to nixos."
-;; (load-file (format "%s%s.el" user-emacs-directory file-name)))
-
+;;; Add own config files to the load path so we can require them:
+;;; (Shouldn't be necessary but likely something with nixos.)
 (add-to-list 'load-path (expand-file-name "./config/" user-emacs-directory))
+
+;; Load user-consts early so other files can reference them.
 (require 'user-consts)
 
-;; (alan/load-hack "user-consts")
-
 (use-package use-package
+  ;; Settings for use-package itself:
   :defer nil
   :demand t
   :init
@@ -89,13 +85,8 @@
   (make-empty-file alan/custom-file))
 (load-file alan/custom-file)
 
-;; TODO make following lines DRYer
-;; (add-hook 'after-init-hook (lambda () (alan/load-hack "ui-config")))
-;; (add-hook 'after-init-hook (lambda () (alan/load-hack "completion-config")))
-;; (add-hook 'after-init-hook (lambda () (alan/load-hack "programming-config")))
-;; (add-hook 'after-init-hook (lambda () (alan/load-hack "evil-config")))
-;; (add-hook 'dired-mode-hook (lambda () (alan/load-hack "dired-config")))
-
+;; TODO 2024-09 - better control flow in these lines.
+;; Errors if change eval order.
 (add-hook 'after-init-hook
           (lambda ()
             (progn
@@ -106,12 +97,6 @@
               (require 'programming-config)
               (require 'evil-config))))
 (add-hook 'dired-mode-hook (lambda () (require 'dired-config))) ;; FIXME
-
-;; start tree-sitter:
-;; (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
-;; (global-tree-sitter-mode)
-;; (require 'treesit-auto)
-;; (global-treesit-auto-mode)
 
 (use-package rainbow-delimiters
   :hook prog-mode)
@@ -170,11 +155,6 @@
 
 (use-package highlight-quoted
   :hook emacs-lisp-mode)
-
-;; (add-hook 'after-init-hook (alan/load-hack "keybinds"))
-;; (use-package keybinds
-;;   :defer nil
-;;   :demand t)
 
 ;; magit config:
 ;; TODO split into separate file
