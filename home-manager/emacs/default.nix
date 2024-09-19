@@ -32,9 +32,9 @@
           treemacs
           treemacs-evil
           treemacs-magit
-          treemacs-persp
           treemacs-projectile
           treemacs-nerd-icons
+          treemacs-perspective
         ];
         vcPkgs = [
           magit
@@ -115,6 +115,8 @@
           ibuffer-projectile
           all-the-icons-ibuffer
           helpful
+
+          perspective
         ]
   ));
 in {

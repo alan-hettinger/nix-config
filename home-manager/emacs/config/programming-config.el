@@ -17,7 +17,7 @@
 (add-hook 'lisp-mode-hook #'lispy-mode)
 ;; HACK flycheck doesn't recognize elisp packages installed by nix,
 ;; which causes erroneous undefined variable warnings constantly.
-(add-hook 'emacs-lisp-mode-hook (lambda () (flycheck-mode -1)))
+;; (add-hook 'emacs-lisp-mode-hook (lambda () (flycheck-mode -1)))
 
 (use-package nix-mode
   :init
@@ -29,5 +29,9 @@
   "s" #'nix-search
   "f" #'(:ignore t :which-key "flake")
   "fu" #'(nix-flake-update :which-key "update"))
+
+(alan/local-leader
+  :keymaps 'prog-mode-map
+  "c" #'consult-flycheck)
 
 (provide 'programming-config)

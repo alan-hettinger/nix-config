@@ -135,5 +135,22 @@
             (setq highlight-numbers-generic-regexp
                   "\\_<[[:digit:]]+\\(?:\\.[0-9]*\\)?\\_>")))
 
+;; Perspective mode:
+(use-package perspective
+  :init
+  (defconst alan/perspective-state-file
+    (expand-file-name "persp-save" alan/cache-dir))
+  (unless (file-exists-p alan/perspective-state-file)
+    (make-empty-file alan/perspective-state-file))
+  (persp-mode)
+  :general
+  (alan/leader-keys "TAB" '(perspective-map :which-key "perspective"))
+  :custom
+  (persp-suppress-no-prefix-key-warning t) ;; not needed with general map
+  (persp-initial-frame-name "main")
+  (persp-sort 'created)
+  (persp-state-default-file (expand-file-name "persp-save" alan/cache-dir))
+  (persp-show-modestring nil))
+
 (provide 'ui-config)
 ;;; ui-config.el ends here.

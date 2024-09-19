@@ -14,4 +14,7 @@
 (defconst alan/sans-font "Source Sans Variable")
 (defconst alan/font-size 160)
 
+;;; Directories:
+(defconst alan/cache-dir (expand-file-name ".cache/" user-emacs-directory))
+
 (provide 'user-consts)

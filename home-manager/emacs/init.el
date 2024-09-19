@@ -25,6 +25,12 @@
         use-package-compute-statistics t
         use-package-always-defer t))
 
+(use-package general
+  :defer nil
+  :demand t)
+;; Need general before init so that ':general' tags in use-package evaluate
+(add-hook 'before-init-hook (require 'general))
+
 (use-package emacs
   ;; Pseudo-package to set up built-in functionality
   :demand t
@@ -48,8 +54,9 @@
   (vc-follow-symlinks t)
   (find-file-suppress-same-file-warnings t)
   (backup-directory-alist
-   `(("." . ,(expand-file-name "tmp/backups/"
-                               user-emacs-directory))))
+   `(("." . ,(expand-file-name "tmp/backups/" alan/cache-dir))))
+  (auto-save-list-file-prefix
+   (expand-file-name "auto-save-list/.saves-" alan/cache-dir))
   (use-short-answers t)
   (default-input-method nil)
   ;; Scrolling:
@@ -69,13 +76,15 @@
                 word-wrap t)
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
   (fset 'yes-or-no-p 'y-or-n-p)
-  (set-language-environment "UTF-8")
-  )
+  (set-language-environment "UTF-8"))
 
 (use-package autorevert
   :custom (auto-revert-verbose nil)
   :config (global-auto-revert-mode 1))
 
+(use-package bookmark
+  :custom
+  (bookmark-default-file (expand-file-name "bookmarks" alan/cache-dir)))
 
 ;; set up the custom file in case the customization interface is desired.
 ;; note that this file is not tracked by git.
@@ -87,16 +96,17 @@
 
 ;; TODO 2024-09 - better control flow in these lines.
 ;; Errors if change eval order.
+(require 'completion-config)
+(require 'keybinds)
+(require 'eshell-config)
+(require 'dired-config)
 (add-hook 'after-init-hook
           (lambda ()
             (progn
               (require 'ui-config)
               (require 'alternate-modeline)
-              (require 'keybinds)
-              (require 'completion-config)
               (require 'programming-config)
               (require 'evil-config))))
-(add-hook 'dired-mode-hook (lambda () (require 'dired-config))) ;; FIXME
 
 (use-package rainbow-delimiters
   :hook prog-mode)
@@ -167,6 +177,12 @@
           (lambda ()
             (setq projectile-project-search-path '("~/nix-config/")
                   projectile-switch-project-action 'projectile-dired)))
+
+(add-hook 'projectile-before-switch-project-hook
+          (lambda () (when persp-mode (persp-switch "project-switching"))))
+(add-hook 'projectile-after-switch-project-hook
+          (lambda () (when persp-mode (persp-rename (projectile-project-name)))))
+
 
 (use-package visual-fill-column)
 (use-package diff-hl
