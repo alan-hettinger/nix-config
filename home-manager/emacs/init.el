@@ -96,8 +96,8 @@
 
 ;; TODO 2024-09 - better control flow in these lines.
 ;; Errors if change eval order.
-(require 'completion-config)
 (require 'keybinds)
+(require 'completion-config)
 (require 'eshell-config)
 (require 'dired-config)
 (add-hook 'after-init-hook
