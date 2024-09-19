@@ -73,23 +73,23 @@
                               (alan/disable-scroll-bars frame)
                             (alan/hide-minibuffer-scroll-bar frame))))
 
-(setq alan/mode-line-left
+(setq alan-mode-line/left
       '("%e"
-        (:eval alan/mode-line--evil-mode-line-tag)
+        (:eval alan-mode-line/evil-mode-line-tag)
         (:eval (alan-mode-line/ace-window-display))
-        (:eval (alan/mode-line--show-only-on-selected mode-line-position))
+        (:eval (alan-mode-line/show-only-on-selected mode-line-position))
         (:eval alan-mode-line/word-count)
         (:eval alan-mode-line/defining-kbd-macro)))
-(setq alan/mode-line-center
+(setq alan-mode-line/center
       '((:eval alan/modeline-mode-icon)
-        (:eval alan/mode-line-buffer-title)))
-(setq alan/mode-line-right
+        (:eval alan-mode-line/buffer-title)))
+(setq alan-mode-line/right
       '(
         (:eval (anzu--update-mode-line))
-        (:eval (alan/mode-line--show-only-on-selected mode-line-misc-info))
+        (:eval (alan-mode-line/show-only-on-selected mode-line-misc-info))
 	    (:eval (alan-mode-line/vc-mode-display))
         "  "
-        (:eval alan/mode-line-major-mode-name)))
+        (:eval alan-mode-line/major-mode-name)))
 
 (require 'doom-modeline)
 (defun alan/doom-modeline-setup ()

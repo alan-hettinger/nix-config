@@ -1,4 +1,9 @@
-;; alternate-modeline.el -*- lexical-binding: t -*-
+;;; alternate-modeline.el --- personal modeline -*- lexical-binding: t -*-
+
+;;; Commentary:
+;; TODO
+
+;;; Code:
 
 (defgroup alan-mode-line nil
   "Custom mode line."
@@ -7,17 +12,17 @@
   "Faces for my custom mode line."
   :group 'alan-mode-line)
 
-(defcustom alan/mode-line-left ""
+(defcustom alan-mode-line/left ""
   "List of elements to include on the left of the mode-line."
   :type 'sexp
   :risky t
   :group 'alan-mode-line)
-(defcustom alan/mode-line-center ""
+(defcustom alan-mode-line/center ""
   "List of elements to include in the center of the mode-line."
   :type 'sexp
   :risky t
   :group 'alan-mode-line)
-(defcustom alan/mode-line-right ""
+(defcustom alan-mode-line/right ""
   "List of elements to include on the right of the mode-line."
   :type 'sexp
   :risky t
@@ -31,36 +36,37 @@
   :type 'integer
   :group 'alan-mode-line)
 
-(defun alan-mode-line/--minify-p ()
-  "Returns t if mode-line elements should be minified on the current window."
+(defun alan-mode-line/minify-p ()
+  "Return t if mode-line elements should be minified on the current window."
   (and alan-mode-line/minimal-other-windows
        (not (mode-line-window-selected-p))))
 
-(defun alan-mode-line/--construct-mode-line (left center right)
-  "Concatenate the LEFT, CENTER, and RIGHT elements for the mode line, with
-even spacing between them."
+(defun alan-mode-line/construct-mode-line (left center right)
+  "Concatenate the LEFT, CENTER, and RIGHT elements for the mode line.
+Use even spacing between them."
   (list
    left
-   '(:eval (alan/mode-line-fill-center 'mode-line (reserve-left/middle)))
+   '(:eval (alan-mode-line/fill-center 'mode-line (reserve-left/middle)))
    center
-   '(:eval (alan/mode-line-fill-right 'mode-line (reserve-middle/right)))
+   '(:eval (alan-mode-line/fill-right 'mode-line (reserve-middle/right)))
    right))
 
-(setq-default mode-line-format (alan-mode-line/--construct-mode-line
-                                alan/mode-line-left
-                                alan/mode-line-center
-                                alan/mode-line-right))
+(setq-default mode-line-format (alan-mode-line/construct-mode-line
+                                alan-mode-line/left
+                                alan-mode-line/center
+                                alan-mode-line/right))
 
-(defun alan/mode-line--show-only-on-selected (construct)
-  "Return CONSTRUCT for inclusion in the modeline if the window is active
-or alan-mode-line/minimal-other-windows is nil.
+(defun alan-mode-line/show-only-on-selected (construct)
+  "Return CONSTRUCT for inclusion in the modeline when desired.
+If window is active or alan-mode-line/minimal-other-windows is nil, show.
 Otherwise return an empty string. Empty string seems to work better than nil."
-  (if (not (alan-mode-line/--minify-p))
+  (if (not (alan-mode-line/minify-p))
       construct
     ""))
 
-(defun alan/mode-line-fill-center (face reserve)
-  "Fill the mode line with space characters in FACE from left to RESERVE, as a % of mode-line length."
+(defun alan-mode-line/fill-center (face reserve)
+  "Fill the mode line with space characters in FACE from left to RESERVE.
+RESERVE is a % of mode-line length."
   (unless reserve (setq reserve 20))
   (when (and window-system (eq 'right (get-scroll-bar-mode)))
     (setq reserve (- reserve 3)))
@@ -71,11 +77,11 @@ Otherwise return an empty string. Empty string seems to work better than nil."
                                     (.5 . left-margin))))
               'face face))
 
-(defconst RIGHT_PADDING 5
+(defconst alan-mode-line/RIGHT_PADDING 5
   "Amount of padding to add to right of mode-line.")
 
-(defun alan/mode-line-fill-right (face reserve)
-  "Fill the mode line with space characters in FACE from center to right
+(defun alan-mode-line/fill-right (face reserve)
+  "Fill the mode line with space characters in FACE from center to right.
 RESERVE, as a % of mode-line length."
   (unless reserve
     (setq reserve 20))
@@ -88,21 +94,21 @@ RESERVE, as a % of mode-line length."
 (defun reserve-left/middle ()
   "Calculate the amount of space to reserve from left to middle."
   ;; FIXME dividing by 2 should align center but 1.5 looks better
-  (/ (length (format-mode-line alan/mode-line-center)) 1.5))
+  (/ (length (format-mode-line alan-mode-line/center)) 1.5))
 (defun reserve-middle/right ()
-  "Calculate the amount of space to reserve from middle to right"
-  (+ RIGHT_PADDING (length (format-mode-line alan/mode-line-right))))
+  "Calculate the amount of space to reserve from middle to right."
+  (+ alan-mode-line/RIGHT_PADDING (length (format-mode-line alan-mode-line/right))))
 
 
 ;;; Faces:
-(defface alan/mode-line--buffer-face
+(defface alan-mode-line/buffer-face
   `((t :inherit mode-line :weight normal
        :foreground ,(catppuccin-color 'rosewater)))
   "Buffer name in mode line when active and unmodified.")
-(defface alan/mode-line--buffer-modified-face
+(defface alan-mode-line/buffer-modified-face
   `((t :inherit mode-line :weight semibold :foreground ,(catppuccin-color 'maroon)))
   "Buffer name in mode line when modified.")
-(defface alan/mode-line--buffer-ro-face
+(defface alan-mode-line/buffer-ro-face
   `((t :inherit mode-line :weight normal :foreground ,(catppuccin-color 'blue)))
   "Buffer name in mode line when read-only.")
 (defface alan-mode-line/buffer--unfocused-face
@@ -130,31 +136,31 @@ RESERVE, as a % of mode-line length."
 
 ;;; Functions for the mode-line elements:
 ;; Buffer name:
-(defun alan/mode-line--format-title (buffer-str)
+(defun alan-mode-line/format-title (buffer-str)
   "Set the face for buffer name BUFFER-STR.
 Returns string with face attributes."
   (propertize
    buffer-str
    'face (cond ((buffer-modified-p)
-                'alan/mode-line--buffer-modified-face)
+                'alan-mode-line/buffer-modified-face)
                ((and (not (mode-line-window-selected-p))
                      alan-mode-line/minimal-other-windows)
                 'alan-mode-line/buffer--unfocused-face)
                ((eval buffer-read-only)
-                'alan/mode-line--buffer-ro-face)
+                'alan-mode-line/buffer-ro-face)
                ((eval t)
-                'alan/mode-line--buffer-face))))
+                'alan-mode-line/buffer-face))))
 
 (defun alan/modeline--buffer-name ()
-  "Buffer name as formatted by alan/mode-line--format-title."
-  (alan/mode-line--format-title (buffer-name)))
-(defvar-local alan/mode-line-buffer-title
+  "Buffer name as formatted by alan-mode-line/format-title."
+  (alan-mode-line/format-title (buffer-name)))
+(defvar-local alan-mode-line/buffer-title
     '(:eval (alan/modeline--buffer-name))
   "Buffer title as formatted by helper functions.")
 
 (defun alan-mode-line/ace-window-display ()
-  "Show the window number if the window count is high enough and ace window
-exists. Otherwise return the empty string."
+  "Show the window number if the window count is high enough and ace window exists.
+Otherwise return the empty string."
   (if (and (>= (count-windows) alan-mode-line/show-ace-wins-after)
            ace-window-display-mode)
       (propertize (format " [window %s] "
@@ -166,7 +172,7 @@ exists. Otherwise return the empty string."
 
 (defun alan-mode-line/vc-mode-display ()
   "Show version control status, if any, in the mode line."
-  (alan/mode-line--show-only-on-selected
+  (alan-mode-line/show-only-on-selected
    ;; test if vc-mode is active so we don't try to evaluate nil as a string:
    (if vc-mode
        (format "[%s]"
@@ -178,8 +184,8 @@ exists. Otherwise return the empty string."
 (defun alan/modeline--major-mode ()
   "Helper function to get a proper string for the active major mode."
   (capitalize (string-replace "-mode" "" (symbol-name major-mode))))
-(defvar-local alan/mode-line-major-mode-name
-    `(:eval (propertize (alan/mode-line--show-only-on-selected
+(defvar-local alan-mode-line/major-mode-name
+    `(:eval (propertize (alan-mode-line/show-only-on-selected
                          (alan/modeline--major-mode))
                         'face 'alan-mode-line/side-elements-face))
   "The major mode name element for the mode-line.")
@@ -189,9 +195,9 @@ exists. Otherwise return the empty string."
                         'face 'alan-mode-line/side-elements-face))
   "Icon to be shown for the active major mode.")
 
-(defvar-local alan/mode-line--evil-mode-line-tag
+(defvar-local alan-mode-line/evil-mode-line-tag
     `(:eval (propertize
-             (alan/mode-line--show-only-on-selected
+             (alan-mode-line/show-only-on-selected
               evil-mode-line-tag)
              'face (cond
                     ((string= evil-state "normal")
@@ -204,15 +210,15 @@ exists. Otherwise return the empty string."
   "Formatted evil mode state tag for mode line.")
 
 (defvar-local alan-mode-line/word-count
-    `(:eval (alan/mode-line--show-only-on-selected
+    `(:eval (alan-mode-line/show-only-on-selected
              (when text-mode-variant
                (propertize
                 (format " %dW" (count-words (point-min) (point-max)))
                 'face 'alan-mode-line/side-elements-face))))
-  "Formatted word count for mode line, in text-mode variants like org.")
+  "Formatted word count for mode line, in `text-mode' variants like org.")
 
 (defvar-local alan-mode-line/defining-kbd-macro
-    `(:eval (alan/mode-line--show-only-on-selected
+    `(:eval (alan-mode-line/show-only-on-selected
              (when defining-kbd-macro
                (propertize "MACRO" 'face
                            '(:foreground ,(catppuccin-color 'red)
@@ -221,3 +227,4 @@ exists. Otherwise return the empty string."
 
 
 (provide 'alternate-modeline)
+;;; alternate-modeline.el ends here.
