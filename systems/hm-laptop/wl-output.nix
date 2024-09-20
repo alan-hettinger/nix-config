@@ -13,7 +13,7 @@
         "battery"
       ];
       "battery" = {
-        format = "[ Bat: {capacity}% {timeTo} ]";
+        format = "[ Bat: {capacity}% {time} ]";
       };
     };
   };
