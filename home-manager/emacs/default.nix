@@ -29,7 +29,7 @@
           corfu
           corfu-candidate-overlay
           nerd-icons-corfu
-          # company-nixos-options
+          cape
         ];
         treemacsPkgs = [
           treemacs

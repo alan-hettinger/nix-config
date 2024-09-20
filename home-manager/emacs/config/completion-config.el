@@ -10,14 +10,22 @@
   :custom
   (corfu-cycle t)
   (corfu-auto t)
+  (corfu-auto-delay 0.2)
+  (corfu-auto-prefix 3)
   (corfu-on-exact-match nil)
   (corfu-quit-no-match 'separator)
+  (corfu-quit-at-boundary 'separator)
   (corfu-scroll-margin 5)
   (corfu-preselect 'directory)
   (corfu-popupinfo-delay 0.5)
   :config
   (corfu-popupinfo-mode)
   (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter)
+  (add-hook 'eshell-mode-hook
+            (lambda () (setq-local corfu-quit-at-boundary t
+                                   corfu-quit-no-match t
+                                   corfu-auto nil)
+              (corfu-mode)))
   :general
   (:keymaps 'corfu-map
             ;; Only complete on TAB unless in shell modes:
@@ -25,7 +33,17 @@
                               ,(lambda (&optional _)
                                  (and (derived-mode-p
                                        'eshell-mode 'comint-mode)
-                                      #'corfu-send)))))
+                                      #'corfu-send)))
+            "M-SPC" 'corfu-insert-separator))
+
+;; Added completion functionality with `corfu'
+(use-package cape
+  :init
+  (add-to-list 'completion-at-point-functions #'cape-file)
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+  :config
+  (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-silent)
+  (advice-add 'pcomplete-completions-at-point :around #'cape-wrap-purify))
 
 (use-package which-key
   :hook after-init
