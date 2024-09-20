@@ -14,7 +14,6 @@
     unzip
     poppler
     gcc
-    (aspellWithDicts (dicts: with dicts; [en en-computers en-science de es]))
 
     ## hunspell dictionaries
     # hunspell
@@ -47,12 +46,6 @@
     startWithUserSession = "graphical";
     # extraOptions = [  ];
   };
-
-  # # nix-doom-emacs is having some issues at the moment, back to the old way
-  # programs.doom-emacs = {
-  #   enable = true;
-  #   doomPrivateDir = ./dotfiles/doom.d;
-  # };
 
   home.file.".doom.d" = {
     source = ./dotfiles/doom.d;

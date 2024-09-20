@@ -7,30 +7,31 @@ help_text="Valid commands:\n
  - s | search = search nixpkgs\n
  - r | run = run something from nixpkgs\n"
 
-
 if [ "$1" = "" ]; then
-    echo -e "$err_text";
+    echo -e "$err_text"
 fi
 
 while [ "$1" != "" ]; do
     case $1 in
-        help)
-            echo -e "$help_text"
-            ;;
-        rs | rebuild)
-            sudo nixos-rebuild switch
-            ;;
-        gc | collect-garbage)
-            nix-collect-garbage -d && sudo nix-collect-garbage -d
-            ;;
-        s | search)
-            shift
-            nix search nixpkgs "$1"
-            ;;
-        r | run)
-            shift
-            nix run nixpkgs#"$1"
-            ;;
+    help)
+        echo -e "$help_text"
+        ;;
+    rs | rebuild)
+        sudo nixos-rebuild switch &&
+            notify-send "system rebuild complete"
+        ;;
+    gc | collect-garbage)
+        nix-collect-garbage -d && sudo nix-collect-garbage -d
+        notify-send "finished collecting garbage"
+        ;;
+    s | search)
+        shift
+        nix search nixpkgs "$1"
+        ;;
+    r | run)
+        shift
+        nix run nixpkgs#"$1"
+        ;;
     esac
     shift
 done

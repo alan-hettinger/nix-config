@@ -41,6 +41,6 @@
   services.mullvad-vpn = {
     enable = true;
     package =
-      pkgs.mullvad; # "mullvad" is CLI only, "mullvad-vpn" is CLI and GUI
+      pkgs.mullvad-vpn; # "mullvad" is CLI only, "mullvad-vpn" is CLI and GUI
   };
 }
