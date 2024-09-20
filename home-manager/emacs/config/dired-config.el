@@ -33,6 +33,7 @@
     "d" '(:ignore t :which-key "dired")
     "dd" 'dired-jump)
   (alan/local-leader
+    :keymaps 'dired-mode-map
     "s" 'dired-hide-details-mode
     "w" '(dired-toggle-read-only :which-key "dired edit")
     "W" '(wdired-finish-edit :which-key "finish edit")
