@@ -69,6 +69,8 @@
   (mouse-wheel-scroll-amount '(2 ((shift) . hscroll)))
   (mouse-wheel-scroll-amount-horizontal 2)
   (mouse-wheel-progressive-speed nil)
+  (tab-always-indent 'complete)
+  (read-extended-command-predicate #'command-completion-default-include-p)
   :config
   (setq-default indent-tabs-mode nil
                 tab-width 4

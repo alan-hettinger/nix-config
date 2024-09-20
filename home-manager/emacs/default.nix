@@ -26,7 +26,10 @@
           orderless
           vertico
           wgrep
-          company-nixos-options
+          corfu
+          corfu-candidate-overlay
+          nerd-icons-corfu
+          # company-nixos-options
         ];
         treemacsPkgs = [
           treemacs

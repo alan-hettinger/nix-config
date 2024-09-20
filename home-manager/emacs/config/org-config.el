@@ -6,7 +6,6 @@
       org-hide-leading-stars t
       org-ellipsis " ▼ "
       evil-auto-indent nil
-      company-idle-delay nil
       org-fold-catch-invisible-edits 'show
       org-insert-heading-respect-content t
       org-directory (expand-file-name "~/Documents/Notes"))
