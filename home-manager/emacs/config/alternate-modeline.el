@@ -52,6 +52,25 @@
   :type 'sexp
   :risky t
   :group 'alan-mode-line)
+
+;;; Header line
+(defcustom alan-mode-line/header-left ""
+  "List of elements to include on the left of the header line."
+  :type 'sexp
+  :risky t
+  :group 'alan-mode-line)
+(defcustom alan-mode-line/header-center ""
+  "List of elements to include on the center of the header line."
+  :type 'sexp
+  :risky t
+  :group 'alan-mode-line)
+(defcustom alan-mode-line/header-right ""
+  "List of elements to include on right of header line."
+  :type 'sexp
+  :risky t
+  :group 'alan-mode-line)
+
+;;; Customization vars
 (defcustom alan-mode-line/minimal-other-windows t
   "Show a minimal mode-line on non-focused windows."
   :type 'boolean
@@ -105,6 +124,7 @@ RESERVE is a % of mode-line length."
 (defconst alan-mode-line/RIGHT_PADDING 5
   "Amount of padding to add to right of mode-line.")
 
+;; TODO do we need to evaluate this every time the mode line refreshes?
 (defun alan-mode-line/fill-right (face reserve)
   "Fill the mode line with space characters in FACE from center to right.
 RESERVE, as a % of mode-line length."
@@ -113,7 +133,10 @@ RESERVE, as a % of mode-line length."
   (when (and window-system (eq 'right (get-scroll-bar-mode)))
     (setq reserve (- reserve 3)))
   (propertize " "
-              'display `((space :align-to (- (+ right right-fringe right-margin) ,reserve)))
+              'display `((space :align-to (- (+ right
+                                                right-fringe
+                                                right-margin)
+                                             ,reserve)))
               'face face))
 
 (defun reserve-left/middle ()
@@ -176,6 +199,7 @@ Returns string with face attributes."
                ((eval t)
                 'alan-mode-line/buffer-face))))
 
+;; TODO set variable on hook, maybe `buffer-list-update-hook'
 (defun alan/modeline--buffer-name ()
   "Buffer name as formatted by alan-mode-line/format-title."
   (alan-mode-line/format-title (buffer-name)))
@@ -183,6 +207,7 @@ Returns string with face attributes."
     '(:eval (alan/modeline--buffer-name))
   "Buffer title as formatted by helper functions.")
 
+;; TODO set this only on `window-state-change-hook'
 (defun alan-mode-line/ace-window-display ()
   "Show the window number if the window count is high enough and ace window exists.
 Otherwise return the empty string."
@@ -215,11 +240,13 @@ Otherwise return the empty string."
                         'face 'alan-mode-line/side-elements-face))
   "The major mode name element for the mode-line.")
 
+;; TODO set on `change-major-mode-hook'
 (defvar-local alan/modeline-mode-icon
     '(:eval (propertize (format "%s " (nerd-icons-icon-for-buffer))
                         'face 'alan-mode-line/side-elements-face))
   "Icon to be shown for the active major mode.")
 
+;; TODO update on hook? Isn't a simple evil state change hook
 (defvar-local alan-mode-line/evil-mode-line-tag
     `(:eval (propertize
              (alan-mode-line/show-only-on-selected
@@ -234,6 +261,7 @@ Otherwise return the empty string."
                     ((eval t) 'alan-mode-line/side-elements-face))))
   "Formatted evil mode state tag for mode line.")
 
+;; TODO maybe only evaluate when in `text-mode'
 (defvar-local alan-mode-line/word-count
     `(:eval (alan-mode-line/show-only-on-selected
              (when text-mode-variant
@@ -242,6 +270,7 @@ Otherwise return the empty string."
                 'face 'alan-mode-line/side-elements-face))))
   "Formatted word count for mode line, in `text-mode' variants like org.")
 
+;; TODO only eval when relevant
 (defvar-local alan-mode-line/defining-kbd-macro
     `(:eval (alan-mode-line/show-only-on-selected
              (when defining-kbd-macro
