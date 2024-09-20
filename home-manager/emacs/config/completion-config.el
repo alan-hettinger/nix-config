@@ -5,21 +5,27 @@
 
 ;;; Code:
 
-(use-package company
-  :hook (after-init . global-company-mode)
+(use-package corfu
+  :hook (after-init . global-corfu-mode)
   :custom
-  (company-minimum-prefix-length 3)
-  (company-idle-delay 0.2)
-  (company-tooltip-align-annotations t)
-  (company-tooltip-flip-when-above t)
-  (company-show-quick-access 'left)
-  (company-dabbrev-ignore-case 'keep-prefix)
+  (corfu-cycle t)
+  (corfu-auto t)
+  (corfu-on-exact-match nil)
+  (corfu-quit-no-match 'separator)
+  (corfu-scroll-margin 5)
+  (corfu-preselect 'directory)
+  (corfu-popupinfo-delay 0.5)
   :config
-  (defun alan/text-mode-company-hook ()
-    (setq-local company-backends
-                '((company-dabbrev company-ispell :separate)
-                  company-files)))
-  (add-hook 'text-mode-hook #'alan/text-mode-company-hook))
+  (corfu-popupinfo-mode)
+  (add-to-list 'corfu-margin-formatters #'nerd-icons-corfu-formatter)
+  :general
+  (:keymaps 'corfu-map
+            ;; Only complete on TAB unless in shell modes:
+            "RET" `(menu-item "" nil :filter
+                              ,(lambda (&optional _)
+                                 (and (derived-mode-p
+                                       'eshell-mode 'comint-mode)
+                                      #'corfu-send)))))
 
 (use-package which-key
   :hook after-init
