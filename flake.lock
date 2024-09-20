@@ -388,19 +388,11 @@
         ]
       },
       "locked": {
-<<<<<<< HEAD
-        "lastModified": 1726036828,
-        "narHash": "sha256-ZQHbpyti0jcAKnwQY1lwmooecLmSG6wX1JakQ/eZNeM=",
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "8a1671642826633586d12ac3158e463c7a50a112",
-=======
         "lastModified": 1726825546,
         "narHash": "sha256-HiBzfzgqojA9OjPB+vdi2o+gy4Zw/MEipuGopgGsZEw=",
         "owner": "nix-community",
         "repo": "home-manager",
         "rev": "0b052dd8119005c6ba819db48bcc657e48f401b7",
->>>>>>> emacs-nondoom-migration
         "type": "github"
       },
       "original": {
@@ -566,19 +558,11 @@
     },
     "nixos-hardware": {
       "locked": {
-<<<<<<< HEAD
-        "lastModified": 1725885300,
-        "narHash": "sha256-5RLEnou1/GJQl+Wd+Bxaj7QY7FFQ9wjnFq1VNEaxTmc=",
-        "owner": "nixos",
-        "repo": "nixos-hardware",
-        "rev": "166dee4f88a7e3ba1b7a243edb1aca822f00680e",
-=======
         "lastModified": 1726724509,
         "narHash": "sha256-sVeAM1tgVi52S1e29fFBTPUAFSzgQwgLon3CrztXGm8=",
         "owner": "nixos",
         "repo": "nixos-hardware",
         "rev": "10d5e0ecc32984c1bf1a9a46586be3451c42fd94",
->>>>>>> emacs-nondoom-migration
         "type": "github"
       },
       "original": {
@@ -620,19 +604,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-<<<<<<< HEAD
-        "lastModified": 1725983898,
-        "narHash": "sha256-4b3A9zPpxAxLnkF9MawJNHDtOOl6ruL0r6Og1TEDGCE=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "1355a0cbfeac61d785b7183c0caaec1f97361b43",
-=======
         "lastModified": 1726755586,
         "narHash": "sha256-PmUr/2GQGvFTIJ6/Tvsins7Q43KTMvMFhvG6oaYK+Wk=",
         "owner": "nixos",
         "repo": "nixpkgs",
         "rev": "c04d5652cfa9742b1d519688f65d1bbccea9eb7e",
->>>>>>> emacs-nondoom-migration
         "type": "github"
       },
       "original": {
@@ -829,19 +805,11 @@
         "systems": "systems_3"
       },
       "locked": {
-<<<<<<< HEAD
-        "lastModified": 1725290973,
-        "narHash": "sha256-+jwXF9KI0HfvDgpsoJGvOdfOGGSKOrID1wQB79zjUbo=",
-        "owner": "danth",
-        "repo": "stylix",
-        "rev": "ef81ad9e85e60420cc83d4642619c14b57139d33",
-=======
         "lastModified": 1726828291,
         "narHash": "sha256-pGRPVVm7UXf+fx2NVpH6FFSWR9AynG6eoVlagaqH9i4=",
         "owner": "danth",
         "repo": "stylix",
         "rev": "53bcceb4e46d0b3e8ae6434a7a6bcc3463092093",
->>>>>>> emacs-nondoom-migration
         "type": "github"
       },
       "original": {
