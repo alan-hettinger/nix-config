@@ -1,9 +1,34 @@
 ;;; alternate-modeline.el --- personal modeline -*- lexical-binding: t -*-
 
 ;;; Commentary:
-;; TODO
+;; TODO: move most state into local vars that are updated on hooks
+;; 		- This reduces the number of times functions are reevaluated
 
 ;;; Code:
+
+(define-minor-mode alan/mode-line-mode
+  "Apply my custom mode line."
+  :init-value nil
+  :interactive t
+  :global t
+  :group 'alan-mode-line
+  (if (not alan/mode-line-mode)
+      ;; Entry:
+      (progn (alan-mode-line/save-previous-format))
+    ;; Exit:
+    (progn (when (boundp 'alan-mode-line/prev-format)
+             (alan-mode-line/restore-previous-format)))
+    ))
+
+(defvar-local alan-mode-line/prev-format nil
+  "Previous mode line format, if any.")
+(defun alan-mode-line/save-previous-format ()
+  "Save previous mode line format."
+  (unless alan/mode-line-mode
+    (setq-local alan-mode-line/prev-format mode-line-format)))
+(defun alan-mode-line/restore-previous-format ()
+  "Restore previous mode line format."
+  (setq-local mode-line-format alan-mode-line/prev-format))
 
 (defgroup alan-mode-line nil
   "Custom mode line."
