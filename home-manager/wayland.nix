@@ -23,12 +23,25 @@
       height = 30;
       modules-left = []; # hyprland file places workspaces here
       modules-center = ["clock"];
-      modules-right = ["tray" "network" "wireplumber" "cpu" "temperature"]; # system-specific files add to this
+      modules-right = [
+        "tray"
+        "custom/separator"
+        "network"
+        "custom/separator"
+        "wireplumber"
+        "custom/separator"
+        "cpu"
+        "temperature"
+      ]; # system-specific files add to this
       "cpu" = {
-        format = "[ CPU: {usage}%,";
+        format = "   {usage}%,";
+      };
+      "custom/separator" = {
+        format = "";
+        tooltip = false;
       };
       "temperature" = {
-        format = "{temperatureC}°C ]";
+        format = "{temperatureC}°C";
       };
       "tray" = {
         icon-size = 21;
@@ -36,7 +49,8 @@
         show-passive-items = true;
       };
       "wireplumber" = {
-        format = "[ Vol: {volume}% ]";
+        format = "  {volume}%";
+        format-muted = " ";
         on-click = "pavucontrol";
       };
       "mpris" = {
@@ -46,8 +60,8 @@
       "network" = let
         bandwidthStr = "↓{bandwidthDownBytes} ↑{bandwidthUpBytes}";
       in {
-        format-wifi = "[ Net: {essid} ↕{bandwidthTotalBytes} ]";
-        format-ethernet = "[ Net: ${bandwidthStr} ]";
+        format-wifi = "󰤨  {essid}";
+        format-ethernet = "Net: ${bandwidthStr}";
         tooltip = true;
         tooltip-format = "{signalStrength}% ${bandwidthStr}";
       };

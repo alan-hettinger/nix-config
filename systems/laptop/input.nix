@@ -11,7 +11,7 @@
       accelSpeed = null; # null or string
       clickMethod = "clickfinger";
       disableWhileTyping = true;
-      naturalScrolling = true;
+      naturalScrolling = false;
       scrollMethod = "twofinger";
       tapping = true;
       tappingButtonMap = "lrm";

@@ -10,10 +10,11 @@
   programs.waybar = {
     settings.mainBar = {
       modules-right = [
+        "custom/separator"
         "battery"
       ];
       "battery" = {
-        format = "[ Bat: {capacity}% {time} ]";
+        format = "󰁹 {capacity}% {time}";
       };
     };
   };

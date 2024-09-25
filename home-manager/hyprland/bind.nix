@@ -19,6 +19,9 @@
   # clipboard = "clipman pick -t rofi";
   clipboard = "cliphist list | rofi -dmenu | cliphist decode | wl-copy";
   # lock = "hyprlock";
+  volumeUpCmd = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+";
+  volumeDownCmd = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";
+  volumeMuteCmd = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
 in {
   home.packages = with pkgs; [
     killall
@@ -42,6 +45,11 @@ in {
       binde = [
         "$mod, H, layoutmsg, mfact -0.05"
         "$mod, L, layoutmsg, mfact +0.05"
+        ", XF86MonBrightnessUp, exec, brightnessctl s +5%"
+        ", XF86MonBrightnessDown, exec, brightnessctl s 5%-"
+        ", XF86AudioLowerVolume, exec, ${volumeDownCmd}"
+        ", XF86AudioRaiseVolume, exec, ${volumeUpCmd}"
+        ", XF86AudioMute, exec, ${volumeMuteCmd}"
       ];
 
       bind =
