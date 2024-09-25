@@ -54,7 +54,6 @@
           flyspell-lazy
         ];
         uiPkgs = [
-          doom-modeline
           catppuccin-theme
           olivetti
           mixed-pitch

@@ -91,37 +91,6 @@
         "  "
         (:eval alan-mode-line/major-mode-name)))
 
-(require 'doom-modeline)
-(defun alan/doom-modeline-setup ()
-  (let ((mode-line-font-height (round (* 1.0 alan/font-size))))
-    (progn (setq doom-modeline-enable-word-count t
-	             doom-modeline-major-mode-icon t
-	             doom-modeline-persp-name t
-	             doom-modeline-height 30
-	             doom-modeline-icon t
-	             doom-modeline-modal-modern-icon nil
-	             doom-modeline-buffer-modification-icon t
-	             doom-modeline-highlight-modified-buffer-name nil
-	             doom-modeline-hud t
-	             doom-modeline-continuous-word-count-modes '(markdown-mode
-                                                             org-mode)
-	             doom-modeline-buffer-encoding nil
-	             doom-modeline-project-detection 'project
-                 mode-line-right-align-edge 'right-fringe)
-	       (remove-hook 'doom-modeline-mode-hook #'size-indication-mode)
-	       (remove-hook 'doom-modeline-mode-hook #'column-number-mode)
-           (if (facep 'mode-line-active)
-               (set-face-attribute 'mode-line-active nil
-                                   :family alan/mono-font
-                                   :height mode-line-font-height)
-             (set-face-attribute 'mode-line nil
-                                 :family alan/mono-font
-                                 :height mode-line-font-height))
-           (set-face-attribute 'mode-line-inactive nil
-                               :family alan/mono-font
-                               :height mode-line-font-height))))
-(add-hook 'doom-modeline-mode-hook #'alan/doom-modeline-setup)
-;; (doom-modeline-mode 1)
 (ace-window-display-mode 1)
 
 (require 'solaire-mode)
