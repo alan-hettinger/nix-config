@@ -17,9 +17,10 @@
 
     steam
 
-    (xivlauncher.override {
-      steam =
-        pkgs.steam.override {extraLibraries = pkgs: [pkgs.gamemode.lib];};
-    })
+    # FIXME build failure
+    # (xivlauncher.override {
+    #   steam =
+    #     pkgs.steam.override {extraLibraries = pkgs: [pkgs.gamemode.lib];};
+    # })
   ];
 }
