@@ -119,7 +119,7 @@
   (persp-initial-frame-name "main")
   (persp-sort 'created)
   (persp-state-default-file (expand-file-name "persp-save" alan/cache-dir))
-  (persp-show-modestring nil))
+  (persp-show-modestring t))
 
 (provide 'ui-config)
 ;;; ui-config.el ends here.
