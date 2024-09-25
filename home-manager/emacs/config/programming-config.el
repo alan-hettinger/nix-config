@@ -1,5 +1,7 @@
 ;;; programming-config.el  -*- lexical-binding: t -*-
 
+;; TODO keybindings to rotate bools etc
+
 (global-hl-todo-mode 1)
 
 (defun alan/visual-fill-prog ()
