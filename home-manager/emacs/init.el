@@ -124,7 +124,7 @@
 
 (use-package hl-line
   :after catppuccin-theme
-  :hook (after-init . global-hl-line-mode))
+  :hook ((prog-mode text-mode) . hl-line-mode))
 
 (setq enable-recursive-minibuffers t
       frame-title-format '("%b"))
