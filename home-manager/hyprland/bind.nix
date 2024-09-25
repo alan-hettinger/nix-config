@@ -6,7 +6,7 @@
 }: let
   browser = "firefox";
   terminal = "alacritty -e tmux attach";
-  launcher = "rofi -show combi -location 1 -display-combi '>>'";
+  launcher = "pkill rofi || rofi -show combi -location 1 -display-combi '>>'";
   windowswitcher = "rofi -show window -sidebar-mode";
   editor = "emacsclient -c";
   screenshotPath = "~/Pictures/screenshots";
@@ -15,13 +15,17 @@
   filemanager = "dolphin";
   browser2 = "brave";
   # powerMenu = "rofi -show power-menu -modi power-menu:rofi-power-menu -location 3";
-  powerMenu = "wlogout";
+  powerMenu = "pkill wlogout || wlogout";
   # clipboard = "clipman pick -t rofi";
-  clipboard = "cliphist list | rofi -dmenu | cliphist decode | wl-copy";
+  clipboard = "pkill rofi || cliphist list | rofi -dmenu | cliphist decode | wl-copy";
   # lock = "hyprlock";
-  volumeUpCmd = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+";
-  volumeDownCmd = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";
-  volumeMuteCmd = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+  volumeUpCmd = "swayosd-client --output-volume raise";
+  volumeDownCmd = "swayosd-client --output-volume lower";
+  volumeMuteCmd = "swayosd-client --output-volume mute-toggle";
+  inputMuteCmd = "swayosd-client --input-volume mute-toggle";
+
+  brightnessUpCmd = "swayosd-client --brightness raise";
+  brightnessDownCmd = "swayosd-client --brightness lower";
 in {
   home.packages = with pkgs; [
     killall
@@ -45,11 +49,12 @@ in {
       binde = [
         "$mod, H, layoutmsg, mfact -0.05"
         "$mod, L, layoutmsg, mfact +0.05"
-        ", XF86MonBrightnessUp, exec, brightnessctl s +5%"
-        ", XF86MonBrightnessDown, exec, brightnessctl s 5%-"
+        ", XF86MonBrightnessUp, exec, ${brightnessUpCmd}"
+        ", XF86MonBrightnessDown, exec, ${brightnessDownCmd}"
         ", XF86AudioLowerVolume, exec, ${volumeDownCmd}"
         ", XF86AudioRaiseVolume, exec, ${volumeUpCmd}"
         ", XF86AudioMute, exec, ${volumeMuteCmd}"
+        ", XF86AudioMicMute, exec, ${inputMuteCmd}"
       ];
 
       bind =
@@ -100,16 +105,15 @@ in {
 
           "$mod, M, fullscreen, 1"
 
-          # TODO mod,b toggles bar
+          "$mod, backslash, layoutmsg, orientationcycle left center"
+
           "$mod, B, exec, pkill -SIGUSR1 waybar"
           # TODO mod,= reduces gap size
           # TODO mod,- increases gap size
           # TODO mod,CTRL,j|k cycles screens
           # TODO mod,CTRL,Enter launches default apps
-          # TODO mod,Shift,q quits
           # TODO mod,/ toggles tray visibility
           # TODO mod,F10|F11|F12 control volume
-          # TODO mod,n controls minimized
         ]
         ++ (
           builtins.concatLists (builtins.genList (

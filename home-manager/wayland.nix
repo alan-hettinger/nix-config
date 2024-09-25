@@ -158,6 +158,11 @@
     };
   };
 
+  services.swayosd = {
+    enable = true;
+    topMargin = 0.1;
+  };
+
   programs.wlogout = {
     enable = true;
     # layout = [{}];
