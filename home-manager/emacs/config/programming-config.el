@@ -36,4 +36,12 @@
   :keymaps 'prog-mode-map
   "c" #'consult-flycheck)
 
+;; lua-mode:
+(use-package lua-mode
+  :init
+  (add-to-list 'eglot-server-programs '(lua-mode . ("lua-language-server")))
+  :custom
+  (lua-indent-level 2)
+  )
+
 (provide 'programming-config)

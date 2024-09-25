@@ -93,6 +93,9 @@
             lispy
             lispyville
           ];
+          lua = [
+            lua-mode
+          ];
         };
       in
         evilModePkgs
@@ -103,6 +106,7 @@
         ++ langs.nixLang
         ++ langs.racket
         ++ langs.lisps
+        ++ langs.lua
         ++ uiPkgs
         ++ orgPkgs
         ++ diredPkgs
@@ -132,6 +136,7 @@ in {
     nil
     python3
     ripgrep
+    lua-language-server
     (aspellWithDicts (dicts: with dicts; [en en-computers en-science de es]))
   ];
 
