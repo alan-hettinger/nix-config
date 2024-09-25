@@ -140,7 +140,17 @@
   (push '(nixfmt . ("alejandra")) apheleia-formatters))
 
 (use-package eglot
-  :defer nil)
+  :defer nil
+  :custom
+  (eglot-autoshutdown t)
+  (eglot-sync-connect 1))
+
+(use-package consult-eglot
+  :general
+  (:keymaps 'eglot-mode-map
+            [remap xref-find-apropos] #'consult-eglot-symbols))
+(use-package flycheck-eglot
+  :hook (eglot-managed-mode . flycheck-eglot-mode))
 
 ;;; treemacs configuration:
 ;; TODO move to separate file

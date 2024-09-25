@@ -20,6 +20,7 @@
         verticoSuitePkgs = [
           consult
           consult-flycheck
+          consult-eglot
           embark
           embark-consult
           marginalia
@@ -52,6 +53,7 @@
           flycheck-posframe
           flyspell-correct
           flyspell-lazy
+          flycheck-eglot
         ];
         uiPkgs = [
           catppuccin-theme
