@@ -5,7 +5,16 @@
   pkgs,
   ...
 }: {
-  nixpkgs.config = {allowUnfree = true;};
+  programs.nh = {
+    enable = true;
+    clean = {
+      enable = true;
+    };
+    flake = "/home/alan/nix-config/";
+  };
+  nixpkgs.config = {
+    allowUnfree = true;
+  };
   nix = {
     # This will add each flake input as a registry
     # To make nix3 commands consistent with your flake
