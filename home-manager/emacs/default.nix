@@ -5,16 +5,16 @@
   myEmacsPkg = with pkgs; ((emacsPackagesFor emacsBasePkg).emacsWithPackages (
     epkgs:
       with epkgs; let
+        # TODO which of the following are actually used in use-package?
         evilModePkgs = [
           evil
-          evil-args
+          evil-args # TODO config?
           evil-collection
-          evil-easymotion
-          evil-embrace
-          evil-escape
-          evil-indent-plus
-          evil-markdown
-          org-evil
+          evil-easymotion # TODO not used
+          evil-embrace # TODO not used
+          evil-escape # TODO not used
+          evil-indent-plus # TODO not used
+          evil-markdown # TODO not used
           evil-better-visual-line
         ];
         verticoSuitePkgs = [
