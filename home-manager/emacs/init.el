@@ -130,28 +130,8 @@
 (setq enable-recursive-minibuffers t
       frame-title-format '("%b"))
 
-(add-hook 'org-mode-hook (lambda () (require 'org-config)))
-
 (global-auto-revert-mode 1)
 (setq global-auto-revert-non-file-buffers t)
-
-(use-package apheleia
-  :hook prog-mode
-  :config
-  (push '(nixfmt . ("alejandra")) apheleia-formatters))
-
-(use-package eglot
-  :defer nil
-  :custom
-  (eglot-autoshutdown t)
-  (eglot-sync-connect 1))
-
-(use-package consult-eglot
-  :general
-  (:keymaps 'eglot-mode-map
-            [remap xref-find-apropos] #'consult-eglot-symbols))
-(use-package flycheck-eglot
-  :hook (eglot-managed-mode . flycheck-eglot-mode))
 
 ;;; treemacs configuration:
 ;; TODO move to separate file
@@ -197,7 +177,24 @@
           (lambda () (when persp-mode (persp-rename (projectile-project-name)))))
 
 
-(use-package visual-fill-column)
+(use-package visual-fill-column
+  :hook ((text-mode prog-mode) . visual-line-fill-column-mode)
+  :init
+  (defun alan/visual-fill-prog ()
+    (setq-local visual-fill-column-width 80)
+    (when (and (boundp 'diff-hl-mode) diff-hl-mode) (setq-local diff-hl-side 'right)))
+  (add-hook 'prog-mode-hook #'alan/visual-fill-prog)
+  (defun alan/visual-fill-text-setup ()
+    (setq-local visual-fill-column-width 120))
+  (add-hook 'org-mode-hook #'alan/visual-fill-text-setup)
+  :custom
+  (visual-fill-column-center-text t)
+  (visual-fill-column-enable-sensible-window-split t)
+  (visual-fill-column-fringes-outside-margins t))
+
+(use-package adaptive-wrap
+  :hook (visual-line-fill-column-mode . adaptive-wrap-prefix-mode))
+
 (use-package diff-hl
   :hook prog-mode
   :after visual-fill-column

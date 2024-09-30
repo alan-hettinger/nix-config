@@ -4,22 +4,38 @@
 
 ;;; Code:
 
+
 ;; some basic settings:
-(global-display-line-numbers-mode 0)
-(setq-default display-line-numbers-width 3
-              display-line-numbers-widen t
-              truncate-partial-width-windows nil)
-(require 'display-line-numbers)
-(setq display-line-numbers-type t
-      echo-keystrokes 0.02
-      auto-save-no-message t
-      help-window-select t
-      eval-expression-print-length nil
-      kill-do-not-save-duplicates t
-      scroll-error-top-bottom t)
+(setq-default truncate-partial-width-windows nil)
+(setq
+ echo-keystrokes 0.02
+ auto-save-no-message t
+ help-window-select t
+ eval-expression-print-length nil
+ kill-do-not-save-duplicates t
+ scroll-error-top-bottom t)
+
+(setq display-buffer-alist
+      ;; Entries have form: (buffer-matcher display-functions optional-parameters)
+      `(
+        ((or . ((derived-mode . helpful-mode)
+                (derived-mode . eshell-mode)
+                (derived-mode . vterm-mode)))
+         (display-buffer-reuse-mode-window
+          display-buffer-pop-up-window
+          )
+         (dedicated . t))
+        ))
 
 (set-face-attribute 'default nil :family alan/mono-font :height alan/font-size)
 (set-face-attribute 'variable-pitch nil :family alan/serif-font :height alan/font-size)
+
+
+(use-package display-line-numbers
+  :custom
+  (display-line-numbers-width 3)
+  (display-line-numbers-widen 3)
+  (display-line-numbers-type t))
 
 
 (use-package catppuccin-theme
@@ -31,7 +47,7 @@
   (catppuccin-italic-variables nil)
   :config
   (load-theme 'catppuccin t)
-  (add-hook 'global-hl-line-mode-hook
+  (add-hook 'hl-line-mode-hook
             (lambda () (let ((new-bg (catppuccin-get-color 'crust)))
                          (set-face-background 'hl-line new-bg))))
   ;; TODO this function might not be needed now
@@ -54,9 +70,8 @@
 (add-hook 'flycheck-mode-hook #'flycheck-posframe-mode)
 (add-hook 'text-mode-hook #'visual-line-mode)
 (global-flycheck-mode 1)
-(add-hook 'global-hl-line-mode-hook
+(add-hook 'hl-line-mode-hook
           (lambda () (setq hl-line-sticky-flag nil)))
-(global-hl-line-mode 1)
 (global-anzu-mode 1)
 
 (defun alan/disable-scroll-bars (frame)

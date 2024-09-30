@@ -1,36 +1,51 @@
-;;; programming-config.el  -*- lexical-binding: t -*-
+;;; programming-config.el --- programming config  -*- lexical-binding: t -*-
 
+;;; Commentary:
 ;; TODO keybindings to rotate bools etc
+;; TODO Langs:
+;;      - scheme
+;;      - common-lisp
+;;      - racket
+;;      - rust
+;;      - python?
+;;		- js? and html+css
 
-(global-hl-todo-mode 1)
+;;; Code:
 
-(defun alan/visual-fill-prog ()
-  (progn (setq-local visual-fill-column-center-text t
-                     visual-fill-column-width 80
-                     visual-fill-column-enable-sensible-window-split t
-                     visual-fill-column-fringes-outside-margins t)
-         (visual-line-fill-column-mode 1)
-         (adaptive-wrap-prefix-mode 1)
-         (when (and (boundp 'diff-hl-mode) diff-hl-mode) (setq-local diff-hl-side 'right))))
-(add-hook 'prog-mode-hook #'alan/visual-fill-prog)
+(use-package eglot
+  :defer nil
+  :custom
+  (eglot-autoshutdown t)
+  (eglot-sync-connect 1))
+(use-package consult-eglot
+  :general
+  (:keymaps 'eglot-mode-map
+            [remap xref-find-apropos] #'consult-eglot-symbols))
+(use-package flycheck-eglot
+  :hook (eglot-managed-mode . flycheck-eglot-mode))
 
-(add-hook 'lispy-mode-hook #'lispyville-mode)
-(add-hook 'emacs-lisp-mode-hook #'lispy-mode)
-(add-hook 'lisp-mode-hook #'lispy-mode)
-;; HACK flycheck doesn't recognize elisp packages installed by nix,
-;; which causes erroneous undefined variable warnings constantly.
-;; (add-hook 'emacs-lisp-mode-hook (lambda () (flycheck-mode -1)))
+(use-package hl-todo
+  :hook prog-mode)
+
+(use-package apheleia
+  :hook prog-mode
+  :config
+  (push '(nixfmt . ("alejandra")) apheleia-formatters))
+
+(use-package lispy
+  :hook (emacs-lisp-mode lisp-mode scheme-mode racket-mode))
+(use-package lispyville
+  :hook lispy-mode)
 
 (use-package nix-mode
   :init
-  (add-hook 'nix-mode-hook #'eglot-ensure))
-
-;; nix-mode keybinds:
-(alan/local-leader
-  :keymaps 'nix-mode-map
-  "s" #'nix-search
-  "f" #'(:ignore t :which-key "flake")
-  "fu" #'(nix-flake-update :which-key "update"))
+  (add-hook 'nix-mode-hook #'eglot-ensure)
+  :general
+  (alan/local-leader
+    :keymaps 'nix-mode-map
+    "s" #'nix-search
+    "f" #'(:ignore t :which-key "flake")
+    "fu" #'(nix-flake-update :which-key "update")))
 
 (alan/local-leader
   :keymaps 'prog-mode-map
@@ -38,10 +53,11 @@
 
 ;; lua-mode:
 (use-package lua-mode
+  :after 'eglot
   :init
   (add-to-list 'eglot-server-programs '(lua-mode . ("lua-language-server")))
   :custom
-  (lua-indent-level 2)
-  )
+  (lua-indent-level 2))
 
 (provide 'programming-config)
+;;; programming-config.el ends here.
