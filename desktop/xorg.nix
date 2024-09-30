@@ -6,6 +6,7 @@
   ];
 
   services = {
+    displayManager.enable = true;
     displayManager.defaultSession = "hyprland";
     xserver = {
       displayManager = {
