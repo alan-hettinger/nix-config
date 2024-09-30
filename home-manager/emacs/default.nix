@@ -74,6 +74,8 @@
           evil-org
           org-superstar
           org-fancy-priorities
+          ox-pandoc
+          citar
         ];
         diredPkgs = [
           dired-subtree
