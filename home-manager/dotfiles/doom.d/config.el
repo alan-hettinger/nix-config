@@ -1,54 +1,8 @@
 (setq user-full-name "Alan Hettinger"
       user-mail-address "alan.hettinger@proton.me")
 
-(map! :leader
-      (:prefix "t"
-	           :desc "toggle modeline"  "m" #'hide-mode-line-mode)
-      (:prefix "q"
-	           :desc "save and quit server-edit frame" "e" #'server-edit
-	           :desc "abort server-edit frame" "E" #'server-edit-abort))
-
-;; rebind lispyville away from bracket keys, per doom docs:
-(map! :after (lispy lispyville)
-      :map lispy-mode-map-lispy
-      ;; unbind individual bracket keys
-      "[" nil
-      "]" nil
-      ;; re-bind commands bound to bracket keys by default
-      "M-[" #'lispyville-previous-opening
-      "M-]" #'lispyville.next-opening)
-
 (add-hook 'pdf-view-mode-hook
           (lambda () (pdf-view-auto-slice-minor-mode 1)))
-
-(dolist (mode '(org-mode-hook
-                markdown-mode-hook
-                Info-mode-hook))
-  (add-hook mode (lambda () (mixed-pitch-mode 1) ))
-  (add-hook mode (lambda () (progn
-                              (setq left-margin-width 4)
-                              (setq right-margin-width 4)
-                              (set-window-buffer nil (current-buffer))))))
-
-(after! org
-	    (setq org-startup-folded t)
-	    (setq org-directory "~/Documents/")
-	    ;; makes info files linkable from org
-	    (add-to-list 'org-modules 'ol-info)
-	    )
-
-(after! org
-	    (setq org-export-with-section-numbers nil
-              org-export-with-toc nil
-              ;; org-odt-preferred-output-format docx
-              )
-	    )
-
-(defun org-remove-headlines (backend)
-  (org-map-entries (lambda () (delete-region (pos-bol) (pos-eol)))
-                   "ignore"))
-
-(add-hook 'org-export-before-processing-functions #'org-remove-headlines)
 
 
 (org-babel-do-load-languages
@@ -75,21 +29,6 @@
 	          ;;               #'ob-racket-raco-make-runtime-library)
 	          )
 
-(after! org
-
-	    (setq org-latex-packages-alist '(("margin=2cm" "geometry" nil)))
-	    (setq org-cite-insert-processor 'citar
-              org-cite-follow-processor 'citar
-              org-cite-activate-processor 'citar
-              citar-bibliography org-cite-global-bibliography
-              org-cite-csl-styles-dir "~/Zotero/styles/"
-              citar-citeproc-csl-styles-dir "~/Zotero/styles/"
-              org-cite-export-processors
-              '((latex . (csl "chicago-author-date.csl"))
-		        (odt . (csl "chicago-author-date.csl"))
-		        (t . (csl "chicago-author-date.csl")))
-              )
-	    )
 
 (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
 
