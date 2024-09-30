@@ -7,6 +7,14 @@ help_text="Valid commands:\n
  - s | search = search nixpkgs\n
  - r | run = run something from nixpkgs\n"
 
+rs-command() {
+    if hash nh 2>/dev/null; then
+        nh os switch
+    else
+        sudo nixos-rebuild switch
+    fi
+}
+
 if [ "$1" = "" ]; then
     echo -e "$err_text"
 fi
@@ -17,7 +25,7 @@ while [ "$1" != "" ]; do
         echo -e "$help_text"
         ;;
     rs | rebuild)
-        sudo nixos-rebuild switch &&
+        rs-command &&
             notify-send "system rebuild complete"
         ;;
     gc | collect-garbage)
