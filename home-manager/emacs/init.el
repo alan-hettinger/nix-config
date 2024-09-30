@@ -108,7 +108,8 @@
               (require 'ui-config)
               (require 'alternate-modeline)
               (require 'programming-config)
-              (require 'evil-config))))
+              (require 'evil-config)
+              (require 'org-config))))
 
 (use-package rainbow-delimiters
   :hook prog-mode)
