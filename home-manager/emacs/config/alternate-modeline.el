@@ -2,10 +2,11 @@
 
 ;;; Commentary:
 ;; TODO: move most state into local vars that are updated on hooks
-;; 		- This reduces the number of times functions are reevaluated
+;; 		- This should reduce the number of times functions are reevaluated
 
 ;;; Code:
 
+;; TODO:
 (define-minor-mode alan/mode-line-mode
   "Apply my custom mode line."
   :init-value nil
@@ -17,8 +18,7 @@
       (progn (alan-mode-line/save-previous-format))
     ;; Exit:
     (progn (when (boundp 'alan-mode-line/prev-format)
-             (alan-mode-line/restore-previous-format)))
-    ))
+             (alan-mode-line/restore-previous-format)))))
 
 (defvar-local alan-mode-line/prev-format nil
   "Previous mode line format, if any.")
