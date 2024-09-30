@@ -42,7 +42,7 @@
 (defun alan-binds/switch-buffer-smart ()
   "Switch buffers using preferred command based on context"
   (interactive)
-  (cond ((and projectile-mode
+  (cond ((and projectile-project-name
               (fboundp 'consult-project-buffer))
          (consult-project-buffer))
         ((fboundp 'consult-buffer)
