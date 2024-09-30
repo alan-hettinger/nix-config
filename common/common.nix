@@ -77,7 +77,7 @@
       gparted
       gnome-disk-utility
 
-      gnome.gnome-boxes
+      gnome-boxes
     ];
   };
   xdg.portal = {
