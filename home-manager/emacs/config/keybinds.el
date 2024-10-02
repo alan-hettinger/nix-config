@@ -92,12 +92,6 @@
   "ff" '(find-file :which-key "find")
   "fr" '(recentf :which-key "recent")
 
-  "g" '(:ignore t :which-key "magit")
-  "gg" '(magit-status :which-key "open magit")
-  "gs" '(magit-stage-buffer-file :which-key "stage current file")
-  "gS" '(magit-stage-file :which-key "stage file")
-  "gt" '(magit-todos-list :which-key "list todos")
-  "gc" '(magit-commit :which-key "commit"))
 
 (alan/quit-map-definer
   "q" 'save-buffers-kill-emacs
@@ -112,5 +106,9 @@
    [remap describe-variable] #'helpful-variable
    [remap view-hello-file] #'helpful-at-point ;; [leader]-h-h. view-hello-file is kind of pointless
    ))
+  (general-create-definer alan/vc-map-definer
+    :wrapping alan/leader-keys
+    :infix "g")
+  (alan/vc-map-definer "" '(:ignore t :which-key "git"))
 
 (provide 'keybinds)

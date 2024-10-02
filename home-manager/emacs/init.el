@@ -25,11 +25,8 @@
         use-package-compute-statistics t
         use-package-always-defer t))
 
-(use-package general
-  :defer nil
-  :demand t)
 ;; Need general before init so that ':general' tags in use-package evaluate
-(add-hook 'before-init-hook (require 'general))
+(add-hook 'before-init-hook (require 'keybinds))
 
 (use-package emacs
   ;; Pseudo-package to set up built-in functionality
@@ -98,14 +95,14 @@
 
 ;; TODO 2024-09 - better control flow in these lines.
 ;; Errors if change eval order.
-(require 'keybinds)
 (require 'completion-config)
+(require 'ui-config)
 (require 'eshell-config)
 (require 'dired-config)
+(require 'vc-config)
 (add-hook 'after-init-hook
           (lambda ()
             (progn
-              (require 'ui-config)
               (require 'alternate-modeline)
               (require 'programming-config)
               (require 'evil-config)
