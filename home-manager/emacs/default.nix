@@ -71,6 +71,7 @@
           rainbow-mode
         ];
         orgPkgs = [
+          org
           evil-org
           org-superstar
           org-fancy-priorities
@@ -140,6 +141,7 @@ in {
     ripgrep
     lua-language-server
     (aspellWithDicts (dicts: with dicts; [en en-computers en-science de es]))
+    texlive.combined.scheme-full
   ];
 
   programs.emacs = {

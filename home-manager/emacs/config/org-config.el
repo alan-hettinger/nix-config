@@ -29,6 +29,7 @@
   (org-pretty-entities t)
   (org-hide-emphasis-markers t)
   (org-adapt-indentation t)
+  (org-list-indent-offset 2)
   (org-hide-leading-stars t)
   (org-ellipsis " ▼ ")
   (org-fold-catch-invisible-edits 'show)
@@ -44,21 +45,22 @@
   (org-startup-indented t)
   (org-startup-folded t)
   (org-special-ctrl-a/e t)
+  (org-return-follows-link t)
+  (org-footnote-auto-adjust t)
+  (org-cycle-emulate-tab t)
   (org-todo-keywords
-   '((sequence
-      "TODO(t)"
-      "PROJ(p)"
-      "LOOP(r)"
-      "STRT(s)"
-      "WAIT(w)"
-      "IDEA(i)"
-      "|"
-      "DONE(d)"
-      "KILL(k)")
-     (sequence
-      "[ ](T)"
-      "[-](S)"
-      "[X](D)")))
+   '((sequence "TODO(t)"
+               "PROJ(p)"
+               "LOOP(r)"
+               "STRT(s)"
+               "WAIT(w)"
+               "IDEA(i)"
+               "|"
+               "DONE(d)"
+               "KILL(k)")
+     (sequence "[ ](T)"
+               "[-](S)"
+               "[X](D)")))
 
   ;; exporting:
   (org-export-with-section-numbers nil)
