@@ -7,6 +7,7 @@
 
 (use-package eshell
   :init
+  (alan-ui/display-buffer-enforce-side-popup 'eshell-mode)
   (defun alan/eshell-toggle (arg &optional command)
     "Toggle eshell popup. Shamelessly stolen from Doom."
     (interactive "P")
@@ -34,6 +35,24 @@
               (run-hooks 'eshell-mode-hook)
             (eshell-mode)))
         (pop-to-buffer eshell-buffer))))
+
+  (defun alan-eshell/frame ()
+    "Open a frame dedicated to eshell."
+    ;; Simplified from a doom function.
+    (interactive "P")
+    (let ((buf (generate-new-buffer eshell-buffer-name)))
+      ;;   (unless (frame-parameter nil 'saved-wconf)  ;; TODO what does this do?
+      ;;     (set-frame-parameter nil 'saved-wconf (current-window-configuration)))
+      ;;   (delete-other-windows)
+      ;;   (with-current-buffer (switch-to-buffer buf)
+      ;;     (eshell-mode))
+
+      (with-current-buffer (switch-to-buffer buf)
+        (if (eq major-mode 'eshell-mode)
+            (run-hooks 'eshell-mode-hook)
+          (eshell-mode)))
+      buf))
+
   :custom
   (eshell-directory-name (expand-file-name "eshell" alan/cache-dir))
   :general
