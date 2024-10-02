@@ -153,12 +153,6 @@
       };
     };
 
-    wezterm = {
-      enable = true;
-      enableZshIntegration = true;
-      extraConfig = builtins.readFile ./dotfiles/wezterm.lua;
-    };
-
     alacritty = {
       enable = true;
       settings = {
