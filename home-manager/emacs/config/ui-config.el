@@ -4,7 +4,6 @@
 
 ;;; Code:
 
-
 ;; some basic settings:
 (setq-default truncate-partial-width-windows nil)
 (setq

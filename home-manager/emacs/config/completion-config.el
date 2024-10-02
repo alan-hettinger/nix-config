@@ -92,9 +92,6 @@
   (completion-category-overrides '((file (styles partial-completion)))))
 
 (use-package consult
-  :after vertico
-  :demand t
-  :defer nil
   :custom
   (consult-async-min-input 3)
   (consult-async-refresh-delay 0.2)

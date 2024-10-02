@@ -12,15 +12,17 @@
 ;; Load user-consts early so other files can reference them.
 (require 'user-consts)
 
+(use-package package
+  :custom
+  ;; Always use the system-installed version of a package (through NixOS),
+  ;; never install through use-package or package-install
+  (package-archives nil))
 (use-package use-package
   ;; Settings for use-package itself:
   :defer nil
   :demand t
   :init
-  ;; Always use the system-installed version of a package (through NixOS),
-  ;; never install through use-package or package-install
-  (setq package-archives nil
-        use-package-always-ensure nil
+  (setq use-package-always-ensure nil
         ;; other package defaults:
         use-package-compute-statistics t
         use-package-always-defer t))
@@ -68,6 +70,12 @@
   (mouse-wheel-progressive-speed nil)
   (tab-always-indent 'complete)
   (read-extended-command-predicate #'command-completion-default-include-p)
+
+  ;; delete all whitespace on backspace, including newlines
+  ;; could also be `hungry' to exclude newlines
+  ;; TODO this should work differently for languages with significant whitespace
+  (backward-delete-char-untabify-method 'all)
+
   :config
   (setq-default indent-tabs-mode nil
                 tab-width 4
@@ -75,7 +83,9 @@
                 word-wrap t)
   (add-hook 'before-save-hook 'delete-trailing-whitespace)
   (fset 'yes-or-no-p 'y-or-n-p)
-  (set-language-environment "UTF-8"))
+  (set-language-environment "UTF-8")
+  (setq user-full-name "Alan Hettinger"
+        user-mail-address "alan.hettinger@proton.me"))
 
 (use-package autorevert
   :custom (auto-revert-verbose nil)
@@ -127,8 +137,10 @@
 (setq enable-recursive-minibuffers t
       frame-title-format '("%b"))
 
-(global-auto-revert-mode 1)
-(setq global-auto-revert-non-file-buffers t)
+(use-package autorevert
+  :hook (after-init . global-auto-revert-mode)
+  :custom
+  (global-auto-revert-non-file-buffers t))
 
 ;;; treemacs configuration:
 ;; TODO move to separate file
