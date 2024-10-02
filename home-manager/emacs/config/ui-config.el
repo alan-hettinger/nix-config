@@ -15,20 +15,23 @@
  kill-do-not-save-duplicates t
  scroll-error-top-bottom t)
 
-(setq display-buffer-alist
-      ;; Entries have form: (buffer-matcher display-functions optional-parameters)
-      `(
-        ((or . ((derived-mode . helpful-mode)
-                (derived-mode . eshell-mode)
-                (derived-mode . vterm-mode)))
-         (display-buffer-reuse-mode-window
-          display-buffer-pop-up-window
-          )
-         (dedicated . t))
-        ))
 
 (set-face-attribute 'default nil :family alan/mono-font :height alan/font-size)
 (set-face-attribute 'variable-pitch nil :family alan/serif-font :height alan/font-size)
+
+
+(defun alan-ui/display-buffer-enforce-side-popup (mode &optional side-select)
+  "Add MODE to `display-buffer-alist' with popup window properties.
+If SIDE-SELECT is provided, the popup will display on that side."
+  (add-to-list 'display-buffer-alist
+               `((derived-mode . ,mode)
+                 (display-buffer-reuse-mode-window
+                  display-buffer-in-side-window)
+                 (side . ,(if side-select side-select 'right))
+                 ;; `window-width' : int -> columns
+                 ;;                : float -> portion of frame size
+                 (window-width . 90)
+                 (dedicated . t))))
 
 
 (use-package display-line-numbers

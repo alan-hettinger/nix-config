@@ -1,4 +1,4 @@
-;;; org-config.el  -*- lexical-binding: t -*-
+;;; org-config.el --- org configuration  -*- lexical-binding: t -*-
 
 ;;; Commentary:
 ;; Org configuration. Also contains some general text-mode config.
@@ -66,6 +66,13 @@
   (org-latex-packages-alist '(("margin=2cm" "geometry" nil)))
 
   :general
+  (alan/org-global-map-definer
+    ;; globally-accessible org binds
+    "l" #'org-store-link
+    "a" #'org-agenda
+    "c" #'org-capture)
+
+  :general-config
   (:keymaps 'org-mode-map
             "S-RET" #'alan/org-shift-return)
   (alan/local-leader
@@ -77,7 +84,11 @@
     "f" '(org-footnote-action :which-key "footnote")
     "t" '(org-todo :which-key "to-do")
     "T" '(org-todo-list :which-key "show to-do list")
-    "x" '(org-toggle-checkbox :which-key "toggle checkbox")))
+    "x" '(org-toggle-checkbox :which-key "toggle checkbox")
+
+    "l" '(:ignore t :which-key "link")
+    "ll" #'org-insert-link
+    ))
 
 (use-package citar
   :hook (org-mode . citar-capf-setup)

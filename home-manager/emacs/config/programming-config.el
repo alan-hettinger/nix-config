@@ -13,10 +13,16 @@
 ;;; Code:
 
 (use-package eglot
-  :defer nil
   :custom
   (eglot-autoshutdown t)
-  (eglot-sync-connect 1))
+  (eglot-sync-connect 1)
+  :general-config
+  (alan/lsp-map-definer
+    :keymaps 'eglot-mode-map
+    "a" #'eglot-code-actions
+    "r" #'eglot-rename
+    "j" #'consult-eglot-symbols))
+
 (use-package consult-eglot
   :general
   (:keymaps 'eglot-mode-map
@@ -40,7 +46,7 @@
 (use-package nix-mode
   :init
   (add-hook 'nix-mode-hook #'eglot-ensure)
-  :general
+  :general-config
   (alan/local-leader
     :keymaps 'nix-mode-map
     "s" #'nix-search
@@ -49,7 +55,8 @@
 
 (alan/local-leader
   :keymaps 'prog-mode-map
-  "c" #'consult-flycheck)
+  "c" #'consult-flycheck
+  "d" #'evil-goto-definition)
 
 ;; lua-mode:
 (use-package lua-mode

@@ -156,23 +156,19 @@
 (use-package highlight-quoted
   :hook emacs-lisp-mode)
 
-;; magit config:
-;; TODO split into separate file
-(setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1
-      magit-diff-refine-hunk t)
-(add-hook 'magit-mode-hook 'magit-todos-mode)
-
-(add-hook 'after-init-hook #'projectile-mode)
-(add-hook 'projectile-mode-hook
-          (lambda ()
-            (setq projectile-project-search-path '("~/nix-config/")
-                  projectile-switch-project-action 'projectile-dired)))
-
-(add-hook 'projectile-before-switch-project-hook
-          (lambda () (when persp-mode (persp-switch "project-switching"))))
-(add-hook 'projectile-after-switch-project-hook
-          (lambda () (when persp-mode (persp-rename (projectile-project-name)))))
-
+(use-package projectile
+  :hook (after-init . projectile-mode)
+  :config
+  (add-hook 'projectile-before-switch-project-hook
+            (lambda () (when persp-mode (persp-switch "project-switching"))))
+  (add-hook 'projectile-after-switch-project-hook
+            (lambda () (when persp-mode (persp-rename (projectile-project-name)))))
+  :general
+  (alan/leader-keys
+    "p" '(projectile-command-map :which-key "project"))
+  :custom
+  (projectile-project-search-path '("~/nix-config/"))
+  (projectile-switch-project-action 'projectile-dired))
 
 (use-package visual-fill-column
   :hook ((text-mode prog-mode) . visual-line-fill-column-mode)
@@ -203,6 +199,15 @@
   :config
   (diff-hl-margin-mode))
 
+(use-package helpful
+  :init
+  (alan-ui/display-buffer-enforce-side-popup 'helpful-mode)
+  :general
+  ([remap describe-function] #'helpful-callable
+   [remap describe-key] #'helpful-key
+   [remap describe-variable] #'helpful-variable
+   [remap view-hello-file] #'helpful-at-point))
+
 ;; recentf mode:
 (add-hook 'recentf-mode-hook
           (lambda ()
@@ -226,6 +231,53 @@
                   :header-mouse-map ibuffer-size-header-map)
            (file-size-human-readable (buffer-size)))))
 (add-hook 'ibuffer-hook #'alan/ibuffer-setup)
+
+
+(use-package pdf-tools)
+
+(use-package vterm
+  :commands (alan-vterm/toggle vterm-mode)
+  :init
+  (alan-ui/display-buffer-enforce-side-popup 'vterm-mode)
+  (defun alan-vterm/toggle (arg)
+    "Toggles a terminal popup window at project root.
+If prefix ARG is non-nil, recreate vterm buffer in the current project's root.
+Returns the vterm buffer.
+Shamelessly stolen from Doom."
+    (interactive "P")
+    (let ((buffer-name
+           (format "*vterm-popup:%s*"
+                   (if (bound-and-true-p persp-mode)
+                       (safe-persp-name (get-current-persp))
+                     "main")))
+          confirm-kill-processes
+          current-prefix-arg)
+      (when arg
+        (let ((buffer (get-buffer buffer-name))
+              (window (get-buffer-window buffer-name)))
+          (when (buffer-live-p buffer)
+            (kill-buffer buffer))
+          (when (window-live-p window)
+            (delete-window window))))
+      (if-let (win (get-buffer-window buffer-name))
+          (delete-window win)
+        (let ((buffer (or
+                       (get-buffer buffer-name)
+                       (get-buffer-create buffer-name))))
+          (with-current-buffer buffer
+            (setq-local +vterm--id buffer-name)
+            (unless (eq major-mode 'vterm-mode)
+              (vterm-mode)))
+          (pop-to-buffer buffer)))
+      (get-buffer buffer-name)))
+
+  :custom
+  (vterm-kill-buffer-on-exit t)
+  (vterm-copy-exclude-prompt t)
+  :general
+  (alan/leader-keys
+    "ot" '(alan-vterm/toggle :which-key "vterm"))
+  )
 
 ;; TODO "server-after-make-frame-hook"
 

@@ -20,6 +20,10 @@
   (dired-vc-rename-file t)
   (dired-hide-details-hide-symlink-targets t)
   :general
+  (alan/leader-keys
+    "d" '(:ignore t :which-key "dired")
+    "dd" 'dired-jump)
+  :general-config
   (:keymaps 'dired-mode-map
             :states 'normal
             "h" 'dired-up-directory
@@ -29,9 +33,6 @@
             "D" 'dired-do-delete
             "R" 'dired-do-rename
             "RET" 'dired-open-file)
-  (alan/leader-keys
-    "d" '(:ignore t :which-key "dired")
-    "dd" 'dired-jump)
   (alan/local-leader
     :keymaps 'dired-mode-map
     "s" 'dired-hide-details-mode
@@ -59,7 +60,6 @@
    [remap dired-up-directory] 'dired-single-up-directory))
 
 (use-package dired-subtree
-  ;; :after dired
   :custom
   (dired-subtree-use-backgrounds nil)
   :general

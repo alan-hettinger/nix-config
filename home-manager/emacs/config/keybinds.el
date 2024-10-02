@@ -20,25 +20,17 @@
 
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
-(general-create-definer alan/leader-keys
-  :states 'normal
-  :keymaps 'override
-  :prefix "SPC")
 
-(general-create-definer alan/local-leader
-  :states 'normal
-  :prefix "SPC m")
-
-(general-create-definer alan/quit-map-definer
-  :states 'normal
-  :prefix "SPC q")
+(use-package general
+  :defer nil
+  :demand t
+  :config
+  (general-create-definer alan/leader-keys
+    :states 'normal
+    :keymaps 'override
+    :prefix "SPC")
 
 ;;; Functions used by keybinds:
-(defun alan-binds/revert-buffer-noconfirm ()
-  "Revert buffer without confirming"
-  (interactive)
-  (revert-buffer nil t))
-
 (defun alan-binds/switch-buffer-smart ()
   "Switch buffers using preferred command based on context"
   (interactive)
@@ -55,60 +47,90 @@
   (if persp-mode
       (persp-ibuffer nil)
     (ibuffer)))
+  (defun alan-binds/revert-buffer-noconfirm ()
+    "Revert buffer without confirming"
+    (interactive)
+    (revert-buffer nil t))
 
 ;;; Leader key binds:
-(alan/leader-keys
-  "SPC" '(alan-binds/switch-buffer-smart :which-key "switch buffers")
-  "." '(find-file :which-key "find file")
-  "/" '(consult-line :which-key "find-line")
+  (alan/leader-keys
+    "SPC" '(alan-binds/switch-buffer-smart :which-key "switch buffers")
+    "." '(find-file :which-key "find file")
+    "/" '(consult-line :which-key "find-line")
 
-  "s" '(consult-ripgrep :which-key "search directory or project")
+    "s" '(consult-ripgrep :which-key "search directory or project")
 
-  ;; prefix for all evil-window commands:
-  "w" '(evil-window-map :which-key "window")
-  "wm" '(delete-other-windows :which-key "maximize")
+    ;; prefix for all evil-window commands:
+    "w" '(evil-window-map :which-key "window")
+    "wm" '(delete-other-windows :which-key "maximize")
 
-  ;; for all help commands:
-  "h" '(help-command :which-key "help")
+    "W" #'window-toggle-side-windows
 
-  "b" '(:ignore t :which-key "buffer")
-  "bk" '(kill-current-buffer :which-key "close")
-  "bb" '(alan-binds/ibuffer-maybe-persp :which-key "ibuffer")
-  "br" '(alan-binds/revert-buffer-noconfirm :which-key "revert")
+    ;; for all help commands:
+    "h" '(help-command :which-key "help")
 
-  "t" '(:ignore t :which-key "toggle")
-  "tl" '(display-line-numbers-mode :which-key "line numbers")
-  "tm" '(alan/minimal-ui-mode :which-key "minimal UI")
+    "t" '(:ignore t :which-key "toggle")
+    "tl" '(display-line-numbers-mode :which-key "line numbers")
+    "tm" '(alan/minimal-ui-mode :which-key "minimal UI")
 
-  "o" '(:ignore t :which-key "open")
-  "op" '(treemacs :which-key "treemacs")
-  "oe" '(eshell :which-key "eshell")
+    "o" '(:ignore t :which-key "open")
+    "op" '(treemacs :which-key "treemacs")
 
-  ;; all projectile command keys:
-  "p" '(projectile-command-map :which-key "project")
-
-  "f" '(:ignore t :which-key "file")
-  "fs" '(save-buffer :which-key "save")
-  "ff" '(find-file :which-key "find")
-  "fr" '(recentf :which-key "recent")
+    "f" '(:ignore t :which-key "file")
+    "fs" '(save-buffer :which-key "save")
+    "ff" '(find-file :which-key "find")
+    "fr" '(recentf :which-key "recent"))
 
 
-(alan/quit-map-definer
-  "q" 'save-buffers-kill-emacs
-  "f" 'delete-frame
-  "b" 'kill-current-buffer
-  "w" 'delete-window)
+  ;; wrappers for specific key maps:
+  (general-create-definer alan/quit-map-definer
+    :wrapping alan/leader-keys
+    :infix "q")
+  (alan/quit-map-definer
+    "" '(:ignore t :which-key "quit")
+    "q" 'save-buffers-kill-emacs
+    "f" 'delete-frame
+    "b" 'kill-current-buffer
+    "w" 'delete-window)
 
-(when (functionp 'helpful-callable)
-  (general-define-key
-   [remap describe-function] #'helpful-callable
-   [remap describe-key] #'helpful-key
-   [remap describe-variable] #'helpful-variable
-   [remap view-hello-file] #'helpful-at-point ;; [leader]-h-h. view-hello-file is kind of pointless
-   ))
+  (general-create-definer alan/buffer-map-definer
+    :wrapping alan/leader-keys
+    :infix "b")
+  (alan/buffer-map-definer
+    "" '(nil :which-key "buffer")
+    "k" '(kill-current-buffer :which-key "close")
+    "b" '(alan-binds/ibuffer-maybe-persp :which-key "ibuffer")
+    "r" '(alan-binds/revert-buffer-noconfirm :which-key "revert")
+    "c" '(clone-indirect-buffer :which-key "clone"))
+
+  ;; Definers to be used by packages:
+  (general-create-definer alan/local-leader
+    :wrapping alan/leader-keys
+    :infix "m")
+  (alan/local-leader
+    "" '(:ignore t :which-key "local mode"))
+
+  (general-create-definer alan/lsp-map-definer
+    :wrapping alan/leader-keys
+    :infix "l")
+  (alan/lsp-map-definer
+    "" '(:ignore t :which-key "LSP"))
+
   (general-create-definer alan/vc-map-definer
     :wrapping alan/leader-keys
     :infix "g")
   (alan/vc-map-definer "" '(:ignore t :which-key "git"))
+
+  (general-create-definer alan/org-global-map-definer
+    ;; Only for globally-accessible org bindings.
+    :wrapping alan/leader-keys
+    :infix "n")
+  (alan/org-global-map-definer "" '(:ignore t :which-key "org"))
+
+  (general-define-key :states 'normal
+                      "C-=" #'text-scale-increase
+                      "C--" #'text-scale-decrease)
+  )
+
 
 (provide 'keybinds)

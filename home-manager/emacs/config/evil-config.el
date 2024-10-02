@@ -28,6 +28,7 @@
 
 (use-package evil-better-visual-line
   :after evil
+  :ensure t
   :defer nil
   :config (evil-better-visual-line-on))
 
