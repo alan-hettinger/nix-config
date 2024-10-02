@@ -1,9 +1,3 @@
-(setq user-full-name "Alan Hettinger"
-      user-mail-address "alan.hettinger@proton.me")
-
-(add-hook 'pdf-view-mode-hook
-          (lambda () (pdf-view-auto-slice-minor-mode 1)))
-
 
 (org-babel-do-load-languages
  'org-babel-load-languages
