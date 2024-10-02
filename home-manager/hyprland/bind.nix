@@ -33,7 +33,11 @@ in {
   ];
   wayland.windowManager.hyprland = {
     settings = {
-      "$mod" = "SUPER";
+      "$mod" = "Super_L";
+
+      binds = [
+        ", Super_R, sendshortcut, Hyper_R"
+      ];
 
       bindm = [
         "$mod, mouse:272, movewindow"
