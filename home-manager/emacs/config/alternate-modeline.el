@@ -247,9 +247,11 @@ Use even spacing between groups."
                     :underline nil
                     :height 1.0)
 
-(set-face-attribute 'persp-selected-face nil
-                    :foreground (face-attribute 'default :foreground)
-                    :weight 'normal)
+(add-hook 'persp-mode-hook
+          (lambda () (set-face-attribute
+                      'persp-selected-face nil
+                      :foreground (face-attribute 'default :foreground)
+                      :weight 'normal)))
 
 ;;; Functions for the mode-line elements:
 ;; Buffer name:
