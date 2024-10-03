@@ -131,7 +131,6 @@
   (ispell-complete-word-dict "en_US"))
 
 (use-package hl-line
-  :after catppuccin-theme
   :hook ((prog-mode text-mode) . hl-line-mode))
 
 (setq enable-recursive-minibuffers t
@@ -260,7 +259,7 @@ Shamelessly stolen from Doom."
     (let ((buffer-name
            (format "*vterm-popup:%s*"
                    (if (bound-and-true-p persp-mode)
-                       (safe-persp-name (get-current-persp))
+                       (persp-current-name)
                      "main")))
           confirm-kill-processes
           current-prefix-arg)
