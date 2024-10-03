@@ -31,22 +31,22 @@
     :prefix "SPC")
 
 ;;; Functions used by keybinds:
-(defun alan-binds/switch-buffer-smart ()
-  "Switch buffers using preferred command based on context"
-  (interactive)
-  (cond ((and projectile-project-name
-              (fboundp 'consult-project-buffer))
-         (consult-project-buffer))
-        ((fboundp 'consult-buffer)
-         (consult-buffer))
-        ((eval t) (call-interactively 'switch-to-buffer))))
+  (defun alan-binds/switch-buffer-smart ()
+    "Switch buffers using preferred command based on context"
+    (interactive)
+    (cond ((and projectile-project-name
+                (fboundp 'consult-project-buffer))
+           (consult-project-buffer))
+          ((fboundp 'consult-buffer)
+           (consult-buffer))
+          ((eval t) (call-interactively 'switch-to-buffer))))
 
-(defun alan-binds/ibuffer-maybe-persp ()
-  "Open ibuffer, with persp-ibuffer when available"
-  (interactive)
-  (if persp-mode
-      (persp-ibuffer nil)
-    (ibuffer)))
+  (defun alan-binds/ibuffer-maybe-persp ()
+    "Open ibuffer, with persp-ibuffer when available"
+    (interactive)
+    (if persp-mode
+        (persp-ibuffer nil)
+      (ibuffer)))
   (defun alan-binds/revert-buffer-noconfirm ()
     "Revert buffer without confirming"
     (interactive)
@@ -72,6 +72,7 @@
     "t" '(:ignore t :which-key "toggle")
     "tl" '(display-line-numbers-mode :which-key "line numbers")
     "tm" '(alan/minimal-ui-mode :which-key "minimal UI")
+    "tp" '(alan/padding-mode :which-key "padding")
 
     "o" '(:ignore t :which-key "open")
     "op" '(treemacs :which-key "treemacs")

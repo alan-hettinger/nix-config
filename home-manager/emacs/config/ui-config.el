@@ -32,6 +32,33 @@ If SIDE-SELECT is provided, the popup will display on that side."
                  (window-width . 90)
                  (dedicated . t))))
 
+(define-minor-mode alan/padding-mode
+  "docstring"
+  :init-value nil
+  :interactive t
+  :global t
+  :group 'alan-ui
+  (let ((b-width (if alan/padding-mode 15 0))
+        (f-width (if alan/padding-mode 20 20))
+        (padding-color (if alan/padding-mode
+                           (face-attribute 'default :background)
+                         nil)))
+    (progn (modify-all-frames-parameters
+            `((internal-border-width . ,b-width)
+              (right-divider-width . ,b-width)
+              (bottom-divider-width . ,(if alan/padding-mode 10 0))
+              (left-fringe . ,f-width)
+              (right-fringe . ,f-width)))
+           (set-face-background 'fringe padding-color)
+           (set-face-foreground 'window-divider padding-color)
+           (dolist (face (list 'fringe
+                               'internal-border))
+             (set-face-background face padding-color))
+           (dolist (face (list 'window-divider
+                               'window-divider-first-pixel
+                               'window-divider-last-pixel))
+             (set-face-foreground face padding-color)))))
+
 
 (use-package display-line-numbers
   :custom
