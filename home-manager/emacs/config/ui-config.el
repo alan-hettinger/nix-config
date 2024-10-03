@@ -1,6 +1,7 @@
 ;;; ui-config.el  -*- lexical-binding: t -*-
 
 ;;; Commentary:
+;; TODO
 
 ;;; Code:
 
@@ -32,8 +33,9 @@ If SIDE-SELECT is provided, the popup will display on that side."
                  (window-width . 90)
                  (dedicated . t))))
 
+
 (define-minor-mode alan/padding-mode
-  "docstring"
+  "Add extra padding around the frame and between windows."
   :init-value nil
   :interactive t
   :global t
@@ -59,14 +61,13 @@ If SIDE-SELECT is provided, the popup will display on that side."
                                'window-divider-last-pixel))
              (set-face-foreground face padding-color)))))
 
-
-(use-package display-line-numbers
-  :custom
-  (display-line-numbers-width 3)
-  (display-line-numbers-widen 3)
-  (display-line-numbers-type t))
+(add-hook 'window-setup-hook (lambda () (alan/padding-mode t)))
+(add-hook 'server-after-make-frame-hook (lambda () (alan/padding-mode t)))
+(add-hook 'alan/minimal-ui-mode-hook (lambda () (alan/padding-mode -1)))
 
 
+
+;;; Colorscheme:
 (use-package catppuccin-theme
   :defer nil
   :custom
@@ -77,7 +78,7 @@ If SIDE-SELECT is provided, the popup will display on that side."
   :config
   (load-theme 'catppuccin t)
   (add-hook 'hl-line-mode-hook
-            (lambda () (let ((new-bg (catppuccin-get-color 'crust)))
+            (lambda () (let ((new-bg (catppuccin-get-color 'mantle)))
                          (set-face-background 'hl-line new-bg))))
   ;; TODO this function might not be needed now
   (defun alan/enable-catppuccin-theme ()
@@ -89,7 +90,14 @@ If SIDE-SELECT is provided, the popup will display on that side."
   (fset 'alan/enable-theme 'alan/enable-catppuccin-theme)
   (set-face-background 'mode-line (catppuccin-get-color 'crust)))
 
-;; Some standard modes:
+
+;;; Some standard modes:
+(use-package display-line-numbers
+  :custom
+  (display-line-numbers-width 3)
+  (display-line-numbers-widen 3)
+  (display-line-numbers-type t))
+
 (set-fringe-mode 20)
 (setq flycheck-emacs-lisp-load-path 'inherit
       flycheck-disabled-checkers '(emacs-lisp-checkdock)
@@ -122,7 +130,6 @@ If SIDE-SELECT is provided, the popup will display on that side."
 (ace-window-display-mode 1)
 
 (use-package solaire-mode
-  ;; :preface (copy-face 'mode-line 'alan/before-solaire-mode-line)
   :hook ((window-setup server-after-make-frame) . solaire-global-mode)
   :config
   (setq solaire-mode-remap-alist
