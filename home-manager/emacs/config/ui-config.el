@@ -130,7 +130,7 @@ If SIDE-SELECT is provided, the popup will display on that side."
 (ace-window-display-mode 1)
 
 (use-package solaire-mode
-  :hook ((window-setup server-after-make-frame) . solaire-global-mode)
+  :hook ((window-setup server-after-make-frame) . (lambda () (solaire-global-mode t)))
   :config
   (setq solaire-mode-remap-alist
         ;; Don't remap the mode-line or header-line. I'll map them myself.
