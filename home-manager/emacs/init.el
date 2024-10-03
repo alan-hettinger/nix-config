@@ -107,13 +107,13 @@
 ;; Errors if change eval order.
 (require 'completion-config)
 (require 'ui-config)
+(require 'alternate-modeline)
 (require 'eshell-config)
 (require 'dired-config)
 (require 'vc-config)
 (add-hook 'after-init-hook
           (lambda ()
             (progn
-              (require 'alternate-modeline)
               (require 'programming-config)
               (require 'evil-config)
               (require 'org-config))))

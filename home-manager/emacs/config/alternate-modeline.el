@@ -13,13 +13,21 @@
   :interactive t
   :global t
   :group 'alan-mode-line
-  (if (not alan/mode-line-mode)
+  (if alan/mode-line-mode
       ;; Entry:
-      (progn (alan-mode-line/save-previous-format))
+      (progn (alan-mode-line/save-previous-format)
+             (alan-mode-line/set-mode-line)
+             (alan-mode-line/set-header-line)
+             (run-hooks 'alan/mode-line-mode-hook))
     ;; Exit:
     (progn (when (boundp 'alan-mode-line/prev-format)
-             (alan-mode-line/restore-previous-format)))))
+             (alan-mode-line/restore-previous-format))))
+  )
 
+(add-hook 'window-setup-hook (lambda () (alan/mode-line-mode t)))
+(add-hook 'server-after-make-frame-hook (lambda () (alan/mode-line-mode t)))
+
+;;; Save and restore previous format. TODO make this work.
 (defvar-local alan-mode-line/prev-format nil
   "Previous mode line format, if any.")
 (defun alan-mode-line/save-previous-format ()
@@ -37,34 +45,34 @@
   "Faces for my custom mode line."
   :group 'alan-mode-line)
 
-(defcustom alan-mode-line/left ""
+(defcustom alan-mode-line/left " "
   "List of elements to include on the left of the mode-line."
   :type 'sexp
   :risky t
   :group 'alan-mode-line)
-(defcustom alan-mode-line/center ""
+(defcustom alan-mode-line/center " "
   "List of elements to include in the center of the mode-line."
   :type 'sexp
   :risky t
   :group 'alan-mode-line)
-(defcustom alan-mode-line/right ""
+(defcustom alan-mode-line/right " "
   "List of elements to include on the right of the mode-line."
   :type 'sexp
   :risky t
   :group 'alan-mode-line)
 
 ;;; Header line
-(defcustom alan-mode-line/header-left ""
+(defcustom alan-mode-line/header-left " "
   "List of elements to include on the left of the header line."
   :type 'sexp
   :risky t
   :group 'alan-mode-line)
-(defcustom alan-mode-line/header-center ""
+(defcustom alan-mode-line/header-center " "
   "List of elements to include on the center of the header line."
   :type 'sexp
   :risky t
   :group 'alan-mode-line)
-(defcustom alan-mode-line/header-right ""
+(defcustom alan-mode-line/header-right " "
   "List of elements to include on right of header line."
   :type 'sexp
   :risky t
@@ -75,7 +83,7 @@
   "Show a minimal mode-line on non-focused windows."
   :type 'boolean
   :group 'alan-mode-line)
-(defcustom alan-mode-line/show-ace-wins-after 3
+(defcustom alan-mode-line/show-ace-wins-after 1
   "Include the Ace window number if this many windows are in frame."
   :type 'integer
   :group 'alan-mode-line)
@@ -85,20 +93,6 @@
   (and alan-mode-line/minimal-other-windows
        (not (mode-line-window-selected-p))))
 
-(defun alan-mode-line/construct-mode-line (left center right)
-  "Concatenate the LEFT, CENTER, and RIGHT elements for the mode line.
-Use even spacing between them."
-  (list
-   left
-   '(:eval (alan-mode-line/fill-center 'mode-line (reserve-left/middle)))
-   center
-   '(:eval (alan-mode-line/fill-right 'mode-line (reserve-middle/right)))
-   right))
-
-(setq-default mode-line-format (alan-mode-line/construct-mode-line
-                                alan-mode-line/left
-                                alan-mode-line/center
-                                alan-mode-line/right))
 
 (defun alan-mode-line/show-only-on-selected (construct)
   "Return CONSTRUCT for inclusion in the modeline when desired.
@@ -139,48 +133,123 @@ RESERVE, as a % of mode-line length."
                                              ,reserve)))
               'face face))
 
-(defun reserve-left/middle ()
+(defun alan--mode-line/reserve-left-middle (elem-list)
   "Calculate the amount of space to reserve from left to middle."
   ;; FIXME dividing by 2 should align center but 1.5 looks better
-  (/ (length (format-mode-line alan-mode-line/center)) 1.5))
-(defun reserve-middle/right ()
+  (/ (length (format-mode-line elem-list)) 1.5))
+(defun alan--mode-line/reserve-middle-right (elem-list)
   "Calculate the amount of space to reserve from middle to right."
-  (+ alan-mode-line/RIGHT_PADDING (length (format-mode-line alan-mode-line/right))))
+  (+ alan-mode-line/RIGHT_PADDING (length (format-mode-line elem-list))))
+
+(defun alan--mode-line/reserve-ml-left ()
+  (alan--mode-line/reserve-left-middle alan-mode-line/center))
+(defun alan--mode-line/reserve-ml-right ()
+  (alan--mode-line/reserve-middle-right alan-mode-line/right))
+(defun alan--mode-line/reserve-hl-left ()
+  (alan--mode-line/reserve-left-middle alan-mode-line/header-center))
+(defun alan--mode-line/reserve-hl-right ()
+  (alan--mode-line/reserve-middle-right alan-mode-line/header-right))
+
+
+;;; Make the mode line and header line:
+(defun alan-mode-line/construct-line (left center right &optional header-p)
+  "Concatenate the LEFT, CENTER, and RIGHT elements for the mode line.
+If HEADER-P is provided, instead concatenate for the header-line.
+Use even spacing between groups."
+  (list
+   left
+   `(:eval (alan-mode-line/fill-center
+            'mode-line ,(if header-p
+                            (alan--mode-line/reserve-hl-left)
+                          (alan--mode-line/reserve-ml-left))))
+   center
+   `(:eval (alan-mode-line/fill-right
+            'mode-line ,(if header-p
+                            (alan--mode-line/reserve-hl-right)
+                          (alan--mode-line/reserve-ml-right))))
+   right))
+
+(defun alan--mode-line/ml-format ()
+  (alan-mode-line/construct-line
+   alan-mode-line/left
+   alan-mode-line/center
+   alan-mode-line/right))
+(defun alan--mode-line/hl-format ()
+  (alan-mode-line/construct-line
+   alan-mode-line/header-left
+   alan-mode-line/header-center
+   alan-mode-line/header-right
+   t))
+(defun alan-mode-line/set-mode-line ()
+  "docstring"
+  (setq mode-line-format '(:eval (alan--mode-line/ml-format)))
+  (setq-default mode-line-format '(:eval (alan--mode-line/ml-format))))
+(defun alan-mode-line/set-header-line ()
+  "docstring"
+  (setq header-line-format '(:eval (alan--mode-line/hl-format)))
+  (setq-default header-line-format '(:eval (alan--mode-line/hl-format))))
 
 
 ;;; Faces:
 (defface alan-mode-line/buffer-face
-  `((t :inherit mode-line :weight normal
-       :foreground ,(catppuccin-color 'rosewater)))
+  `((t :inherit mode-line
+       :weight normal
+       :foreground ,(face-attribute 'default :foreground)))
   "Buffer name in mode line when active and unmodified.")
 (defface alan-mode-line/buffer-modified-face
-  `((t :inherit mode-line :weight semibold :foreground ,(catppuccin-color 'maroon)))
+  `((t :inherit alan-mode-line/buffer-face
+       :weight normal
+       :foreground ,(face-attribute 'ansi-color-red :foreground)))
   "Buffer name in mode line when modified.")
+(defface alan-mode-line/buffer-not-file
+  `((t :inherit alan-mode-line/buffer-face
+       :slant italic))
+  "Buffer name in non-file buffers.")
 (defface alan-mode-line/buffer-ro-face
-  `((t :inherit mode-line :weight normal :foreground ,(catppuccin-color 'blue)))
+  `((t :inherit alan-mode-line/buffer-face
+       :weight normal
+       :foreground ,(face-attribute 'ansi-color-blue :foreground)))
   "Buffer name in mode line when read-only.")
 (defface alan-mode-line/buffer--unfocused-face
-  `((t :inherit mode-line :foreground ,(catppuccin-color 'subtext0)))
+  `((t :inherit mode-line-inactive
+       :foreground ,(face-attribute 'shadow :foreground)))
   "Color for buffer title in mode-line when unfocused.")
 (defface alan-mode-line/side-elements-face
-  `((t :inherit mode-line :weight light :foreground ,(catppuccin-color 'subtext1)))
+  `((t :weight light
+       :inherit shadow
+       ))
   "Side elements in mode line, which should blend in visually.")
+
 (defface alan-mode-line/evil-state-normal-face
-  `((t :inherit alan-mode-line/side-elements-face :weight bold :foreground ,(catppuccin-color 'green)))
+  `((t :inherit (ansi-color-green alan-mode-line/side-elements-face)
+       :weight bold
+       ))
   "Normal state mode line indicator.")
 (defface alan-mode-line/evil-state-insert-face
-  `((t :inherit alan-mode-line/evil-state-normal-face :foreground ,(catppuccin-color 'mauve)))
+  `((t :inherit (ansi-color-blue alan-mode-line/evil-state-normal-face)))
   "Insert state mode line indicator.")
 (defface alan-mode-line/evil-state-visual-face
-  `((t :inherit alan-mode-line/evil-state-normal-face :foreground ,(catppuccin-color 'flamingo)))
+  `((t :inherit (ansi-color-magenta alan-mode-line/evil-state-normal-face)))
   "Visual state mode line indicator.")
 ;; TODO 2024-09 evil state faces for emacs state and possibly others.
+(defface alan-mode-line/evil-state-emacs
+  `((t :inherit (ansi-color-red alan-mode-line/evil-state-normal-face)))
+  "Emacs state mode line indicator.")
 
 ;; TODO 2024-09 put this into proper control flow
-(set-face-attribute 'mode-line nil :height 1.0 :inherit 'alan-mode-line/side-elements-face)
+(set-face-attribute 'mode-line nil :height 1.0
+                    :inherit 'alan-mode-line/side-elements-face)
 
-(set-face-attribute 'mode-line-active nil :overline (catppuccin-color 'subtext0)
+(set-face-attribute 'mode-line-active nil
+                    :overline (face-attribute 'ansi-color-white :foreground)
                     :height 1.0)
+(set-face-attribute 'header-line nil
+                    :underline nil
+                    :height 1.0)
+
+(set-face-attribute 'persp-selected-face nil
+                    :foreground (face-attribute 'default :foreground)
+                    :weight 'normal)
 
 ;;; Functions for the mode-line elements:
 ;; Buffer name:
@@ -189,7 +258,9 @@ RESERVE, as a % of mode-line length."
 Returns string with face attributes."
   (propertize
    buffer-str
-   'face (cond ((buffer-modified-p)
+   'face (cond ((not buffer-file-name)
+                'alan-mode-line/buffer-not-file)
+               ((buffer-modified-p)
                 'alan-mode-line/buffer-modified-face)
                ((and (not (mode-line-window-selected-p))
                      alan-mode-line/minimal-other-windows)
@@ -213,7 +284,7 @@ Returns string with face attributes."
 Otherwise return the empty string."
   (if (and (>= (count-windows) alan-mode-line/show-ace-wins-after)
            ace-window-display-mode)
-      (propertize (format " [window %s] "
+      (propertize (format " [ %s ] "
                           (window-parameter
                            (selected-window)
                            'ace-window-path))
@@ -258,6 +329,8 @@ Otherwise return the empty string."
                      'alan-mode-line/evil-state-insert-face)
                     ((string= evil-state "visual")
                      'alan-mode-line/evil-state-visual-face)
+                    ((string= evil-state "emacs")
+                     'alan-mode-line/evil-state-emacs)
                     ((eval t) 'alan-mode-line/side-elements-face))))
   "Formatted evil mode state tag for mode line.")
 
@@ -275,10 +348,34 @@ Otherwise return the empty string."
     `(:eval (alan-mode-line/show-only-on-selected
              (when defining-kbd-macro
                (propertize "MACRO" 'face
-                           '(:foreground ,(catppuccin-color 'red)
-                                         :weight bold)))))
+                           '(:foreground
+                             ,(face-attribute 'ansi-color-red :foreground)
+                             :weight bold)))))
   "Indicator in mode line when defining keyboard macro.")
 
+(add-hook 'alan/mode-line-mode-hook
+          (lambda ()
+            (progn (setq alan-mode-line/left
+                         '("%e"
+                           (:eval alan-mode-line/evil-mode-line-tag)
+                           (:eval (alan-mode-line/show-only-on-selected mode-line-position))
+                           (:eval alan-mode-line/word-count)
+                           (:eval alan-mode-line/defining-kbd-macro)))
+                   (setq alan-mode-line/center
+                         '((:eval alan/modeline-mode-icon)
+                           (:eval alan-mode-line/buffer-title)))
+                   (setq alan-mode-line/right
+                         '((:eval (anzu--update-mode-line))
+                           (:eval (alan-mode-line/show-only-on-selected mode-line-misc-info))
+                           "  "
+	                       (:eval (alan-mode-line/vc-mode-display))))
+
+                   (setq alan-mode-line/header-left
+                         '((:eval (alan-mode-line/ace-window-display))))
+                   (setq alan-mode-line/header-center
+                         '((:eval (alan-mode-line/show-only-on-selected (persp-mode-line)))))
+                   (setq alan-mode-line/header-right
+                         '("")))))
 
 (provide 'alternate-modeline)
 ;;; alternate-modeline.el ends here.

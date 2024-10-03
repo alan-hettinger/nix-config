@@ -86,7 +86,8 @@ If SIDE-SELECT is provided, the popup will display on that side."
       ;; HACK refresh global-hl-line-mode if it is already enabled to reapply hook
       (when global-hl-line-mode (global-hl-line-mode 1))
       (setq alan/theme-initialized-p t)))
-  (fset 'alan/enable-theme 'alan/enable-catppuccin-theme))
+  (fset 'alan/enable-theme 'alan/enable-catppuccin-theme)
+  (set-face-background 'mode-line (catppuccin-get-color 'crust)))
 
 ;; Some standard modes:
 (set-fringe-mode 20)
@@ -117,28 +118,23 @@ If SIDE-SELECT is provided, the popup will display on that side."
                               (alan/disable-scroll-bars frame)
                             (alan/hide-minibuffer-scroll-bar frame))))
 
-(setq alan-mode-line/left
-      '("%e"
-        (:eval alan-mode-line/evil-mode-line-tag)
-        (:eval (alan-mode-line/ace-window-display))
-        (:eval (alan-mode-line/show-only-on-selected mode-line-position))
-        (:eval alan-mode-line/word-count)
-        (:eval alan-mode-line/defining-kbd-macro)))
-(setq alan-mode-line/center
-      '((:eval alan/modeline-mode-icon)
-        (:eval alan-mode-line/buffer-title)))
-(setq alan-mode-line/right
-      '(
-        (:eval (anzu--update-mode-line))
-        (:eval (alan-mode-line/show-only-on-selected mode-line-misc-info))
-	    (:eval (alan-mode-line/vc-mode-display))
-        "  "
-        (:eval alan-mode-line/major-mode-name)))
 
 (ace-window-display-mode 1)
 
-(require 'solaire-mode)
-(solaire-global-mode +1)
+(use-package solaire-mode
+  ;; :preface (copy-face 'mode-line 'alan/before-solaire-mode-line)
+  :hook ((window-setup server-after-make-frame) . solaire-global-mode)
+  :config
+  (setq solaire-mode-remap-alist
+        ;; Don't remap the mode-line or header-line. I'll map them myself.
+        (assoc-delete-all
+         'header-line
+         (assoc-delete-all
+          'mode-line solaire-mode-remap-alist
+          (lambda (k a)
+            (string-prefix-p (symbol-name a) (symbol-name k) t)))))
+  )
+
 
 ;; highlight number literals:
 (require 'highlight-numbers)
@@ -150,12 +146,14 @@ If SIDE-SELECT is provided, the popup will display on that side."
 
 ;; Perspective mode:
 (use-package perspective
+  :hook (projectile-mode . persp-mode)
   :init
   (defconst alan/perspective-state-file
     (expand-file-name "persp-save" alan/cache-dir))
   (unless (file-exists-p alan/perspective-state-file)
     (make-empty-file alan/perspective-state-file))
-  (persp-mode)
+  ;; perspective tries to take over header-line:
+  (add-hook 'persp-mode-hook 'alan-mode-line/set-header-line)
   :general
   (alan/leader-keys "TAB" '(perspective-map :which-key "perspective"))
   :custom
@@ -163,7 +161,7 @@ If SIDE-SELECT is provided, the popup will display on that side."
   (persp-initial-frame-name "main")
   (persp-sort 'created)
   (persp-state-default-file (expand-file-name "persp-save" alan/cache-dir))
-  (persp-show-modestring t))
+  (persp-show-modestring 'header))
 
 (provide 'ui-config)
 ;;; ui-config.el ends here.
