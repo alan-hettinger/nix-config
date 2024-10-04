@@ -78,7 +78,7 @@ If SIDE-SELECT is provided, the popup will display on that side."
   :config
   (load-theme 'catppuccin t)
   (add-hook 'hl-line-mode-hook
-            (lambda () (let ((new-bg (catppuccin-get-color 'mantle)))
+            (lambda () (let ((new-bg (catppuccin-get-color 'crust)))
                          (set-face-background 'hl-line new-bg))))
   ;; TODO this function might not be needed now
   (defun alan/enable-catppuccin-theme ()
@@ -185,7 +185,8 @@ If SIDE-SELECT is provided, the popup will display on that side."
             (setq highlight-numbers-generic-regexp
                   "\\_<[[:digit:]]+\\(?:\\.[0-9]*\\)?\\_>")))
 
-;; Perspective mode:
+;;; Perspective mode:
+;; TODO more keybinds: move buffer to new persp; move persp to new frame; scratch buffer popup; clone persp?
 (use-package perspective
   :hook (projectile-mode . persp-mode)
   :init
