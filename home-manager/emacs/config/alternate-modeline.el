@@ -5,8 +5,9 @@
 ;; 		- This should reduce the number of times functions are reevaluated
 
 ;;; Code:
+(require 'cl-lib)
+(require 'lib-alan)
 
-;; TODO:
 (define-minor-mode alan/mode-line-mode
   "Apply my custom mode line."
   :init-value nil
@@ -21,11 +22,69 @@
              (run-hooks 'alan/mode-line-mode-hook))
     ;; Exit:
     (progn (when (boundp 'alan-mode-line/prev-format)
-             (alan-mode-line/restore-previous-format))))
-  )
+             (alan-mode-line/restore-previous-format)))))
 
-(add-hook 'window-setup-hook (lambda () (alan/mode-line-mode t)))
-(add-hook 'server-after-make-frame-hook (lambda () (alan/mode-line-mode t)))
+(defun alan/mode-line-mode-enable ()
+  "Enable `alan/mode-line-mode'."
+  (interactive)
+  (alan/mode-line-mode t))
+
+(alan/add-multiple-hooks 'alan/mode-line-mode-enable
+                         (list 'window-setup-hook
+                               'server-after-make-frame-hook))
+
+;;; Helper functions:
+(defun alan--mode-line/applied-p (line)
+  "If LINE is formatted per `alan/mode-line-mode', return t, else nil."
+  (if (string-search "alan" (format "%s" line)) t nil))
+(defun alan--mode-line/hl-applied-p ()
+  "If header-line is formatted per `alan/mode-line-mode' return t, else nil."
+  (alan--mode-line/applied-p header-line-format))
+(defun alan--mode-line/ml-applied-p ()
+  "If mode-line is formatted per `alan/mode-line-mode' return t, else nil."
+  (alan--mode-line/applied-p mode-line-format))
+
+(cl-defun alan--mode-line/elem-add
+    (&key element
+          (line 'mode)
+          (side 'left)
+          (append t)
+          (refresh nil))
+  "Add ELEMENT to LINE on segment SIDE.
+If APPEND, add to end of segment, otherwise beginning.
+Re-apply mode-line when REFRESH.
+ELEMENT: sexp. LINE: `'mode' or `'header'. SIDE: `'left' `'center' | `'right'."
+  (let ((target-prefix (if (eq line 'mode)
+                           "alan-mode-line/"
+                         "alan-mode-line/header-")))
+    (cl-flet ((append-list (l e)
+                (add-to-list l e t)))
+      (progn (funcall
+              (if append #'append-list #'add-to-list)
+              (intern (format "%s%s" target-prefix (symbol-name side)))
+              element)
+             (when refresh (alan-mode-line/set-mode-line)
+                   (alan-mode-line/set-header-line))))))
+
+(defun alan--mode-line/preserve-reapply (line side)
+  "Place existing elements of LINE in SIDE of that line, format LINE.
+LINE should be either `'mode' or `'header'.
+SIDE should be one of `'left', `'center' or `'right'."
+  (unless (and (alan--mode-line/ml-applied-p)
+               (alan--mode-line/hl-applied-p))
+    (let ((prev-line (if (eq line 'mode)
+                         mode-line-format
+                       header-line-format)))
+      (alan--mode-line/elem-add :element prev-line :line line
+                                :side side :append t :refresh t))))
+
+;;; Bonk modes that don't cooperate:
+(defun alan/info-mode-header-line-fix ()
+  "Fix info header line."
+  (run-with-timer 1 nil (lambda () (alan--mode-line/preserve-reapply 'header 'left))))
+
+(alan/add-hook-maybe-do 'Info-mode #'alan/info-mode-header-line-fix)
+
 
 ;;; Save and restore previous format. TODO make this work.
 (defvar-local alan-mode-line/prev-format nil
