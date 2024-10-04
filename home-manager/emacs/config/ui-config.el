@@ -127,7 +127,41 @@ If SIDE-SELECT is provided, the popup will display on that side."
                             (alan/hide-minibuffer-scroll-bar frame))))
 
 
-(ace-window-display-mode 1)
+(use-package ace-window
+  :defer nil
+  :demand t
+  :init (ace-window-display-mode t)
+  :config
+  (defun alan/aw-switch-to-n (n)
+    "docstring"
+    (aw-switch-to-window (nth (- n 1) (aw-window-list))))
+
+  ;; fuck it we'll do it live:
+  (defun alan/aw-switch-to-1 () (interactive) (alan/aw-switch-to-n 1))
+  (defun alan/aw-switch-to-2 () (interactive) (alan/aw-switch-to-n 2))
+  (defun alan/aw-switch-to-3 () (interactive) (alan/aw-switch-to-n 3))
+  (defun alan/aw-switch-to-4 () (interactive) (alan/aw-switch-to-n 4))
+  (defun alan/aw-switch-to-5 () (interactive) (alan/aw-switch-to-n 5))
+  (defun alan/aw-switch-to-6 () (interactive) (alan/aw-switch-to-n 6))
+  (defun alan/aw-switch-to-7 () (interactive) (alan/aw-switch-to-n 7))
+  (defun alan/aw-switch-to-8 () (interactive) (alan/aw-switch-to-n 8))
+  (defun alan/aw-switch-to-9 () (interactive) (alan/aw-switch-to-n 9))
+  :general
+  (alan/leader-keys
+    "1" '(alan/aw-switch-to-1 :which-key "window 1")
+    "2" '(alan/aw-switch-to-2 :which-key "window 2")
+    "3" '(alan/aw-switch-to-3 :which-key "window 3")
+    "4" '(alan/aw-switch-to-4 :which-key "window 4")
+    "5" '(alan/aw-switch-to-5 :which-key "window 5")
+    "6" '(alan/aw-switch-to-6 :which-key "window 6")
+    "7" '(alan/aw-switch-to-7 :which-key "window 7")
+    "8" '(alan/aw-switch-to-8 :which-key "window 8")
+    "9" '(alan/aw-switch-to-9 :which-key "window 9"))
+
+  :custom
+  (aw-dispatch-always t)
+  (aw-background t)
+  (aw-display-mode-overlay nil))
 
 (use-package solaire-mode
   :hook ((window-setup server-after-make-frame) . (lambda () (solaire-global-mode t)))
