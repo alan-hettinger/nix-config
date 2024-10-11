@@ -30,6 +30,14 @@
 ;; Need general before init so that ':general' tags in use-package evaluate
 (add-hook 'before-init-hook (require 'keybinds))
 
+
+;;; TODO: could be useful to wrap my local settings in a group for documentation.
+(defgroup alan-settings nil
+  "Customization group for my local settings."
+  :prefix "alan/"
+  :group 'local)
+
+
 (use-package emacs
   ;; Pseudo-package to set up built-in functionality
   :demand t
@@ -131,7 +139,7 @@
   (ispell-complete-word-dict "en_US"))
 
 (use-package hl-line
-  :hook ((prog-mode text-mode) . hl-line-mode))
+  :hook ((prog-mode text-mode ibuffer-mode dired-mode) . hl-line-mode))
 
 (setq enable-recursive-minibuffers t
       frame-title-format '("%b"))
@@ -140,27 +148,6 @@
   :hook (after-init . global-auto-revert-mode)
   :custom
   (global-auto-revert-non-file-buffers t))
-
-;;; treemacs configuration:
-;; TODO move to separate file
-(use-package treemacs
-  :init
-  (setq treemacs-indentation 1
-        treemacs-indentation-string "┃"
-        treemacs-width 30
-        treemacs-wide-toggle-width 40
-        treemacs-user-mode-line-format 'none
-        treemacs-text-scale -1)
-  :config
-  (treemacs-git-mode -1)
-  ;; ^ FIXME enabling treemacs git mode causes emacs to hang.
-  ;; Traced issue to "treemacs-process-file-events".
-  (treemacs-follow-mode 1)
-  (display-line-numbers-mode -1))
-(use-package treemacs-nerd-icons
-  :after treemacs
-  :demand t
-  :config (treemacs-load-theme "nerd-icons"))
 
 (setq-default indent-tabs-mode nil)
 
@@ -182,7 +169,7 @@
   (projectile-switch-project-action 'projectile-dired))
 
 (use-package visual-fill-column
-  :hook ((text-mode prog-mode) . visual-line-fill-column-mode)
+  :hook ((text-mode prog-mode dired-mode) . visual-line-fill-column-mode)
   :init
   (defun alan/visual-fill-prog ()
     (setq-local visual-fill-column-width 80)
@@ -191,6 +178,8 @@
   (defun alan/visual-fill-text-setup ()
     (setq-local visual-fill-column-width 120))
   (add-hook 'org-mode-hook #'alan/visual-fill-text-setup)
+  :config
+  (setq-default visual-fill-column-width 80)
   :custom
   (visual-fill-column-center-text t)
   (visual-fill-column-enable-sensible-window-split t)

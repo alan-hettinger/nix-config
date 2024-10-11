@@ -31,7 +31,7 @@
     :prefix "SPC")
 
 ;;; Functions used by keybinds:
-  (defun alan-binds/switch-buffer-smart ()
+  (defun alan-binds/switch-buffer-maybe-project ()
     "Switch buffers using preferred command based on context"
     (interactive)
     (cond ((and projectile-project-name
@@ -40,6 +40,14 @@
           ((fboundp 'consult-buffer)
            (consult-buffer))
           ((eval t) (call-interactively 'switch-to-buffer))))
+
+  (defun alan-binds/switch-buffer-maybe-persp ()
+    "Switch buffer, within perspective if available."
+    (interactive)
+    (let ((switch-command 'persp-switch-to-buffer*))
+      (cond ((fboundp switch-command) (call-interactively switch-command))
+            ((fboundp 'consult-buffer) (consult-buffer))
+            ((eval t) (call-interactively 'switch-to-buffer)))))
 
   (defun alan-binds/ibuffer-maybe-persp ()
     "Open ibuffer, with persp-ibuffer when available"
@@ -54,7 +62,7 @@
 
 ;;; Leader key binds:
   (alan/leader-keys
-    "SPC" '(alan-binds/switch-buffer-smart :which-key "switch buffers")
+    "SPC" '(alan-binds/switch-buffer-maybe-persp :which-key "switch buffers")
     "." '(find-file :which-key "find file")
     "/" '(consult-line :which-key "find-line")
 
@@ -100,11 +108,12 @@
   (alan/buffer-map-definer
     "" '(nil :which-key "buffer")
     "k" '(kill-current-buffer :which-key "close")
-    "b" '(alan-binds/ibuffer-maybe-persp :which-key "ibuffer")
+    ;; "b" '(alan-binds/ibuffer-maybe-persp :which-key "ibuffer")
+    "b" 'ibuffer
     "r" '(alan-binds/revert-buffer-noconfirm :which-key "revert")
     "c" '(clone-indirect-buffer :which-key "clone"))
 
-  ;; Definers to be used by packages:
+;;; Definers to be used by packages:
   (general-create-definer alan/local-leader
     :wrapping alan/leader-keys
     :infix "m")
@@ -130,8 +139,7 @@
 
   (general-define-key :states 'normal
                       "C-=" #'text-scale-increase
-                      "C--" #'text-scale-decrease)
-  )
+                      "C--" #'text-scale-decrease))
 
 
 (provide 'keybinds)

@@ -38,6 +38,9 @@
 
 ;; Added completion functionality with `corfu'
 (use-package cape
+  :after corfu
+  :defer nil
+  :demand t
   :init
   (add-to-list 'completion-at-point-functions #'cape-file)
   (add-to-list 'completion-at-point-functions #'cape-dabbrev)
@@ -107,7 +110,10 @@
    [remap man] #'consult-man
    [remap recentf] #'consult-recent-file
    [remap yank-pop] #'consult-yank-pop
-   [remap switch-to-buffer] #'consult-buffer))
+   [remap switch-to-buffer] #'consult-buffer)
+  (alan/local-leader :keymaps 'prog-mode-map
+    "c" #'consult-flycheck)
+  )
 
 (use-package marginalia)
 

@@ -5,6 +5,26 @@
 
 ;;; Code:
 
+(require 'config)
+
+;;; Customization group:
+(defgroup alan/dired nil
+  "Dired-related personal customization."
+  :group 'alan-settings)
+(defcustom alan/preferred-file-tree nil
+  "The file tree that should be used."
+  :type '(choice (const :tag "None" nil)
+                 (const :tag "Treemacs" treemacs)
+                 (const :tag "Dirvish" dirvish))
+  :group 'alan/dired)
+(defcustom alan/dired-style 'simple
+  "Defines the set of Dired configuration to be applied."
+  :type '(choice (const :tag "Default" nil)
+                 (const :tag "Simple" simple)
+                 (const :tag "Dirvish" dirvish))
+  :group 'alan/dired)
+
+
 (use-package dired
   ;; :init
   :config
@@ -60,6 +80,7 @@
    [remap dired-up-directory] 'dired-single-up-directory))
 
 (use-package dired-subtree
+  :unless (package-installed-p 'dirvish)
   :custom
   (dired-subtree-use-backgrounds nil)
   :general
@@ -68,7 +89,31 @@
             "<backtab>" 'dired-subtree-cycle))
 
 (use-package all-the-icons-dired
+  :unless (package-installed-p 'dirvish)
   :hook dired-mode)
+
+
+;;; treemacs configuration:
+;; it's not dired but this is the best place for it
+(use-package treemacs
+  :init
+  (setq treemacs-indentation 1
+        treemacs-indentation-string "┃"
+        treemacs-width 30
+        treemacs-wide-toggle-width 40
+        treemacs-user-mode-line-format 'none
+        treemacs-text-scale -1)
+  :config
+  (treemacs-git-mode -1)
+  ;; ^ FIXME enabling treemacs git mode causes emacs to hang.
+  ;; Traced issue to "treemacs-process-file-events".
+  (treemacs-follow-mode 1)
+  (display-line-numbers-mode -1))
+(use-package treemacs-nerd-icons
+  :after treemacs
+  :demand t
+  :config (treemacs-load-theme "nerd-icons"))
+
 
 (provide 'dired-config)
 ;;; dired-config.el ends here.
