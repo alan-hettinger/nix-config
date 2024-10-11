@@ -40,6 +40,15 @@
     sudo.extraConfig = "Defaults pwfeedback";
     polkit.enable = true;
     rtkit.enable = true;
+
+    pam.loginLimits = [
+      {
+        item = "nofile";
+        value = 4096;
+        domain = "*";
+        type = "soft";
+      }
+    ];
   };
   networking.networkmanager.enable = true;
 

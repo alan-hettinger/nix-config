@@ -200,7 +200,7 @@ If SIDE-SELECT is provided, the popup will display on that side."
   (alan/leader-keys "TAB" '(perspective-map :which-key "perspective"))
   :custom
   (persp-suppress-no-prefix-key-warning t) ;; not needed with general map
-  (persp-initial-frame-name "main")
+  (persp-initial-frame-name "default")
   (persp-sort 'created)
   (persp-state-default-file (expand-file-name "persp-save" alan/cache-dir))
   (persp-show-modestring 'header))
