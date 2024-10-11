@@ -5,5 +5,5 @@
   ...
 }: {
   programs.gamemode.enable = true;
-  # hardware.xone.enable = true; # FIXME build failure
+  hardware.xone.enable = true;
 }
