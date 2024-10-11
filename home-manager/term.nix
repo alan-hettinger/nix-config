@@ -31,7 +31,7 @@
   programs = {
     nushell = {
       # just to try out
-      enable = true;
+      enable = false;
     };
 
     zsh = {
@@ -58,7 +58,7 @@
     };
 
     fish = {
-      enable = true;
+      enable = false;
       functions = {
       };
       interactiveShellInit = ''
@@ -67,7 +67,7 @@
         set fish_cursor_insert line
         set fish_cursor_replace_one underscore
       '';
-      # plugins = with pkgs.fishPlugins; [ ## FIXME it's not supposed to be formatted this way
+      # plugins = with pkgs.fishPlugins; [ ## FIXME it's not supposed to be formatted this way (<- 2024-10: what does this mean?)
       #   pisces
       #   fzf
       #   autopair
@@ -103,7 +103,7 @@
           "$character"
         ];
 
-        directory.read_only = "  "; # # formatting looks wrong but this is a lock icon
+        directory.read_only = "  ";
         character = {
           success_symbol = "[->](green)";
           error_symbol = "[X->](red)";
