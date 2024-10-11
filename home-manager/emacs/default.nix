@@ -95,10 +95,16 @@
           lisps = [
             lispy
             lispyville
+            macrostep
           ];
           lua = [
             lua-mode
           ];
+          web =
+            # HTML/CSS
+            [
+              web-mode
+            ];
         };
       in
         evilModePkgs
@@ -110,6 +116,7 @@
         ++ langs.racket
         ++ langs.lisps
         ++ langs.lua
+        ++ langs.web
         ++ uiPkgs
         ++ orgPkgs
         ++ diredPkgs
@@ -169,6 +176,7 @@ in {
       source = ./config;
       recursive = true;
     };
+    ".emacs.d/config/config.el".source = ./config.el;
   };
   # home.file.".emacs.d/tree-sitter" = {
   # source = "${treesitGrammars}/lib";

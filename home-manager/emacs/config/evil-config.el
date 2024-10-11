@@ -17,7 +17,11 @@
   (evil-undo-system 'undo-redo)
   (evil-kbd-macro-suppress-motion-error t)
   (evil-visual-update-x-selection-p nil)
-  (evil-visual-state-cursor 'hollow))
+  (evil-visual-state-cursor 'hollow)
+  :general
+  (alan/local-leader
+    :keymaps 'prog-mode-map
+    "d" #'evil-goto-definition))
 
 (use-package evil-collection
   :after evil
