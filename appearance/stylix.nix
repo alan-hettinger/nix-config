@@ -1,3 +1,4 @@
+# Note: the current scheme is exported to ~/.config/stylix/
 {
   pkgs,
   stylix,

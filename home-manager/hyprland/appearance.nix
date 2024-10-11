@@ -31,7 +31,7 @@ in {
       };
       drop_shadow = true;
       shadow_ignore_window = true;
-      shadow_offset = "10 15";
+      shadow_offset = "8 12";
       shadow_range = 4;
       shadow_render_power = 3;
       shadow_scale = 1.0;
