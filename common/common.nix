@@ -129,7 +129,7 @@
       isNormalUser = true;
       description = "alan";
       initialPassword = "";
-      extraGroups = ["networkmanager" "wheel" "video" "audio" "libvirtd"];
+      extraGroups = ["networkmanager" "gamemode" "wheel" "video" "audio" "libvirtd"];
     };
   };
 

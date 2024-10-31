@@ -15,11 +15,19 @@
       ];
     })
 
-    steam
-
     (xivlauncher.override {
       steam =
         pkgs.steam.override {extraLibraries = pkgs: [pkgs.gamemode.lib];};
     })
   ];
+
+  programs.mangohud = {
+    enable = true;
+    enableSessionWide = true;
+    settings = {
+      gpu_temp = true;
+      cpu_temp = true;
+      fps = true;
+    };
+  };
 }
