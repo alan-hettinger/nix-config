@@ -85,6 +85,8 @@ in {
           "$mod, comma, exec, ${clipboard}"
           "$mod, grave, exec, hyprlock"
 
+          "$mod, F1, exec, ~/.local/share/scripts/wayland/hypr-game-mode.sh"
+
           "$mod, Q, killactive"
 
           "$mod, J, cyclenext"

@@ -7,7 +7,8 @@ if [ "$HYPRGAMEMODE" = 1 ]; then
     keyword decoration:drop_shadow 0;\
     keyword decoration:blur:enabled 0;\
     keyword decoration:rounding 0"
+    systemctl --user stop wlsunset.service
     exit
 fi
-wlsunset-toggle
+systemctl --user start wlsunset.service
 hyprctl reload
