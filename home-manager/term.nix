@@ -79,7 +79,6 @@
     eza = {
       enable = true;
       git = true;
-      icons = false;
     };
 
     starship = {
