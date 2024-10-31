@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+if pidof wlsunset; then
+    systemctl --user stop wlsunset.service
+else
+    systemctl --user start wlsunset.service
+fi
