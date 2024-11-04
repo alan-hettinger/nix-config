@@ -62,6 +62,7 @@
     "o" '(dired-open-file :which-key "open file")))
 
 (use-package dired-single
+  :disabled ;; FIXME removed from melpa and nixpkgs? (2024-11)
   :init
   (defun alan/dired-single-open-here ()
     "Open dired-single here"
