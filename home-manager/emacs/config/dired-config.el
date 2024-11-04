@@ -39,6 +39,7 @@
   (dired-clean-up-buffers-too t)
   (dired-vc-rename-file t)
   (dired-hide-details-hide-symlink-targets t)
+  (dired-kill-when-opening-new-dired-buffer t)
   :general
   (alan/leader-keys
     "d" '(:ignore t :which-key "dired")
@@ -60,25 +61,6 @@
     "W" '(wdired-finish-edit :which-key "finish edit")
     "x" '(wdired-abort-changes :which-key "cancel edit")
     "o" '(dired-open-file :which-key "open file")))
-
-(use-package dired-single
-  :disabled ;; FIXME removed from melpa and nixpkgs? (2024-11)
-  :init
-  (defun alan/dired-single-open-here ()
-    "Open dired-single here"
-    (interactive)
-    ;; feels like a HACK
-    (dired-single-magic-buffer
-     (cond (buffer-file-name (file-name-directory (buffer-file-name)))
-           (projectile-mode (projectile-project-root))
-           (t "~/"))))
-  :custom
-  (dired-single-use-magic-buffer t)
-  (dired-single-magic-buffer-name "*dired*")
-  :general
-  ([remap dired-jump] #'alan/dired-single-open-here
-   [remap dired-find-file] 'dired-single-buffer
-   [remap dired-up-directory] 'dired-single-up-directory))
 
 (use-package dired-subtree
   :unless (package-installed-p 'dirvish)

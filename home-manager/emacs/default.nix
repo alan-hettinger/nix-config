@@ -80,7 +80,6 @@
         ];
         diredPkgs = [
           dired-subtree
-          # dired-single # FIXME: removed from melpa and nixpkgs? (2024-11)
           dired-open
           all-the-icons-dired
         ];
