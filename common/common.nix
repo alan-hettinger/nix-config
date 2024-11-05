@@ -133,22 +133,6 @@
     };
   };
 
-  # virtualization:
-  virtualisation = {
-    waydroid.enable = true;
-    libvirtd = {
-      enable = true;
-    };
-    containers.enable = true;
-    podman = {
-      enable = true;
-      dockerCompat = true;
-    };
-    # qemu = {
-    #   guestAgent.enable = true;
-    # };
-  };
-  programs.virt-manager.enable = true;
   programs.java = {
     enable = true;
     package = pkgs.jdk.override {enableJavaFX = true;};

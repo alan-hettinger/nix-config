@@ -46,4 +46,18 @@
     #   options = ["defaults" "bind"];
     # };
   };
+
+  ## TODO handle this more programatically. Enable virtualization for desktop only
+  virtualisation = {
+    waydroid.enable = false;
+    libvirtd = {
+      enable = true;
+    };
+    containers.enable = true;
+    podman = {
+      enable = true;
+      dockerCompat = true;
+    };
+  };
+  programs.virt-manager.enable = true;
 }
