@@ -108,6 +108,15 @@
     };
   };
 
+  programs.waybar.style =
+    ## Custom waybar style. Use lib.mkAfter to append to stylix file.
+    lib.mkAfter ''
+      /* Manual changes: */
+      window#waybar {
+          border: 3px solid ${config.lib.stylix.colors.withHashtag.base02};
+      }
+    '';
+
   services.dunst = {
     enable = true;
     settings.global = {
