@@ -113,7 +113,7 @@
     lib.mkAfter ''
       /* Manual changes: */
       window#waybar {
-          border: 3px solid ${config.lib.stylix.colors.withHashtag.base02};
+          border: 3px solid ${config.lib.stylix.colors.withHashtag.base01};
       }
     '';
 
