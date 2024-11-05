@@ -32,14 +32,9 @@
       modules-left = []; # hyprland file places workspaces here
       modules-center = ["clock"];
       modules-right = [
-        "tray"
+        "group/tray"
         "custom/separator"
-        "network"
-        "custom/separator"
-        "wireplumber"
-        "custom/separator"
-        "cpu"
-        "temperature"
+        "group/stats"
       ]; # system-specific files add to this
       "cpu" = {
         format = "   {usage}%,";
@@ -51,10 +46,44 @@
       "temperature" = {
         format = "{temperatureC}°C";
       };
+      "group/tray" = {
+        orientation = "inherit";
+        drawer = {
+          transition-left-to-right = false;
+        };
+        modules = [
+          "custom/trayIcon"
+          "tray"
+        ];
+      };
+      "custom/trayIcon" = {
+        format = "  ";
+        tooltip = false;
+      };
       "tray" = {
         icon-size = 21;
         spacing = 10;
         show-passive-items = true;
+      };
+      "group/stats" = {
+        orientation = "inherit";
+        drawer = {
+          transition-left-to-right = false;
+          click-to-reveal = true;
+        };
+        modules = [
+          "custom/statIcon"
+          "network"
+          "custom/separator"
+          "wireplumber"
+          "custom/separator"
+          "cpu"
+          "temperature"
+        ];
+      };
+      "custom/statIcon" = {
+        format = "  ";
+        tooltip-format = "System stats";
       };
       "wireplumber" = {
         format = "  {volume}%";

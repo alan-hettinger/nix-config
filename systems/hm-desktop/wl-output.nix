@@ -10,7 +10,7 @@
   };
   programs.waybar = {
     settings.mainBar = {
-      modules-right = [
+      "group/stats".modules = [
         "custom/separator"
         "temperature#gpu"
       ];
