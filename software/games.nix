@@ -23,10 +23,12 @@
       gamemode
 
       # # xorg libraries, might be needed to run gamescope
+      attr
       xorg.libXcursor
       xorg.libXi
       xorg.libXinerama
       xorg.libXScrnSaver
+      xorg.libxcb
       libpng
       libpulseaudio
       libvorbis
