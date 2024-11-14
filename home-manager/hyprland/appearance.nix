@@ -29,12 +29,15 @@ in {
       blur = {
         enabled = true;
       };
+      shadow = {
+        enabled = true;
+        range = 4;
+        render_power = 3;
+        ignore_window = true;
+        offset = "8 12";
+        scale = 1.0;
+      };
       drop_shadow = true;
-      shadow_ignore_window = true;
-      shadow_offset = "8 12";
-      shadow_range = 4;
-      shadow_render_power = 3;
-      shadow_scale = 1.0;
 
       active_opacity = 1.0;
       inactive_opacity = 1.0;

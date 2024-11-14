@@ -31,7 +31,6 @@ in {
       mfact = 0.55;
       new_status = "slave";
       new_on_top = false;
-      no_gaps_when_only = 0;
       always_center_master = true;
       inherit_fullscreen = false;
     };

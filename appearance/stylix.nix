@@ -50,6 +50,7 @@
       alacritty.enable = true;
       emacs.enable = false;
       rofi.enable = false;
+      hyprlock.enable = false; ## hyprlock module throws error message
 
       waybar = {
         enable = true;
