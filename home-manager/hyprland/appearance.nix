@@ -37,7 +37,6 @@ in {
         offset = "8 12";
         scale = 1.0;
       };
-      drop_shadow = true;
 
       active_opacity = 1.0;
       inactive_opacity = 1.0;
