@@ -1,14 +1,16 @@
 {config, ...}: let
+  stylixColor = config.lib.stylix.colors;
   wallpaperLavender = config.lib.stylix.pixel "base07";
   wallpaperBase = config.lib.stylix.pixel "base00";
   wallpaperBlue = config.lib.stylix.pixel "base0D";
+  colors = {
+    foreground = stylixColor.base05;
+  };
 
   themeColors = {
     # FIXME this should be set by stylix
-    text = "rgb(cad3f5)";
-    bgInactive = "rgb(24273a)";
-    bgActive = "rgb(181926)";
-    borderMaximized = "rgb(ee99a0)";
+    text = "rgb(${colors.foreground})";
+    borderMaximized = "rgb(ee99a0)"; # FIXME 2024-11 this color doesn't appear in theme?
   };
 in {
   wayland.windowManager.hyprland.settings = {
@@ -55,10 +57,6 @@ in {
         height = 20;
 
         text_color = themeColors.text;
-        # "col.active" = themeColors.bgActive;
-        # "col.inactive" = themeColors.bgInactive;
-        # "col.locked_active" = themeColors.bgActive;
-        # "col.locked_inactive" = themeColors.bgInactive;
       };
     };
     exec-once = [
