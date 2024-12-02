@@ -23,17 +23,11 @@
       montserrat
       open-sans
       mononoki
-      # symbola # possibly a fix to some doom emacs issues with all-the-icons; though modeline readme claims this is usually a windows problem
-      # emacs-all-the-icons-fonts
-      (nerdfonts.override {
-        fonts = [
-          "FiraCode"
-          "JetBrainsMono"
-          "Iosevka"
-          "NerdFontsSymbolsOnly"
-          "Mononoki"
-        ];
-      })
+      nerd-fonts.fira-code
+      nerd-fonts.jetbrains-mono
+      nerd-fonts.iosevka
+      nerd-fonts.symbols-only
+      nerd-fonts.mononoki
     ];
   };
 }
