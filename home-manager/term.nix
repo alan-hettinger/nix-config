@@ -9,7 +9,7 @@
       zsh-nix-shell # FIXME what does this do
       zsh-autopair # FIXME not currently sourced
       most
-      cava
+      # cava # FIXME 2024-12-01: build failure
       bat
       fzf
       w3m
