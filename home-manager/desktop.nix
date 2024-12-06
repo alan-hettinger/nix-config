@@ -28,7 +28,6 @@
       brave
       spotify
       spicetify-cli
-      nemo-with-extensions
       qbittorrent
 
       rofi-power-menu # FIXME should be installed by rofi plugins but isnt
