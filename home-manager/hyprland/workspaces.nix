@@ -16,7 +16,7 @@ in {
       "3, defaultName:notes"
       "4, defaultName:doc"
       "5, defaultName:book"
-      "6, defaultName:mail"
+      "6, defaultName:chat, layoutopt:orientation:center"
       "7, defaultName:files"
       "8, defaultName:media"
       "9, defaultName:game"

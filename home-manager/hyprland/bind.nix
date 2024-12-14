@@ -64,17 +64,15 @@ in {
       bind =
         [
           "$mod, O, togglespecialworkspace, emacs"
-          "$mod, C, togglespecialworkspace, discord"
-          "$mod, Return, togglespecialworkspace, term"
+          "$mod, C, exec, [workspace 6] discord"
 
           "$mod, BackSpace, movetoworkspace, +0"
 
           "$mod, X, exec, [workspace 1] ${browser}"
           "$mod SHIFT, X, exec, [workspace 1] ${browser2}"
-          "$mod SHIFT, Return, exec, ${terminal}"
+          "$mod, Return, exec, ${terminal}"
 
-          "$mod, Z, togglespecialworkspace, file-manager"
-          "$mod SHIFT, Z, exec, ${filemanager}"
+          "$mod, Z, exec, ${filemanager}"
 
           "$mod, V, exec, ${editor}"
           "$mod, D, exec, ${launcher}"
