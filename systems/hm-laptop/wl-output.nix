@@ -14,7 +14,7 @@
         "battery"
       ];
       "battery" = {
-        format = "󰁹 {capacity}% {time}";
+        format = "󰁹 {capacity}% ";
       };
     };
   };
