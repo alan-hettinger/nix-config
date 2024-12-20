@@ -125,7 +125,7 @@
   :hook org-mode)
 
 (use-package mixed-pitch
-  :hook text-mode
+  ;; not enabling automatically to use fixed-pitch in org docs
   :config
   (dolist (face '(org-document-title
                   org-level-1
@@ -136,7 +136,8 @@
                   org-level-6
                   org-level-7
                   org-level-8))
-    (set-face-attribute face nil :family alan/sans-font)))
+    (set-face-attribute face nil :family alan/sans-font))
+  :custom (mixed-pitch-set-height t))
 
 ;; Exporting:
 (use-package ox-pandoc

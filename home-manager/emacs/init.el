@@ -129,10 +129,6 @@
 (use-package rainbow-delimiters
   :hook prog-mode)
 
-(use-package mixed-pitch
-  :hook text-mode
-  :custom (mixed-pitch-set-height t))
-
 (use-package ispell
   :hook ((prog-mode text-mode) . ispell-minor-mode)
   :custom (ispell-dictionary "en_US")
