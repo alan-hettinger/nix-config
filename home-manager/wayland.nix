@@ -120,13 +120,14 @@
   services.dunst = {
     enable = true;
     settings.global = {
-      follow = "mouse";
+      follow = "keyboard";
       layer = "overlay";
       format = "%a\\n<b>%s</b>\\n%b";
       history_length = 50;
 
+      # width and height are either int or string "([min], [max])"
       width = 400;
-      height = 300;
+      height = "(0, 300)";
       corner_radius = 15;
 
       mouse_left_click = "do_action, close_current";
