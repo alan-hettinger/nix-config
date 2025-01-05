@@ -165,7 +165,8 @@
   (projectile-switch-project-action 'projectile-dired))
 
 (use-package visual-fill-column
-  :hook ((text-mode prog-mode dired-mode) . visual-line-fill-column-mode)
+  :hook ((text-mode prog-mode dired-mode nov-mode) .
+         visual-line-fill-column-mode)
   :init
   (defun alan/visual-fill-prog ()
     (setq-local visual-fill-column-width 80)
@@ -273,6 +274,15 @@ Shamelessly stolen from Doom."
   :general
   (alan/leader-keys
     "ot" '(alan-vterm/toggle :which-key "vterm"))
+  )
+
+;; nov-mode for reading epubs:
+(use-package nov
+  :mode ("\\.epub\\'" . nov-mode)
+  :after visual-fill-column
+  :init
+  ;; inhibit text filling, handle with visual-fill-column-mode:
+  (setq nov-text-width t)
   )
 
 ;; TODO "server-after-make-frame-hook"

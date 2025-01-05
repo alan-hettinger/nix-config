@@ -133,6 +133,8 @@
           all-the-icons-ibuffer
           helpful
 
+          nov
+
           perspective
         ]
   ));
