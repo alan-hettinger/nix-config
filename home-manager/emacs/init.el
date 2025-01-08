@@ -156,7 +156,8 @@
   (add-hook 'projectile-before-switch-project-hook
             (lambda () (when persp-mode (persp-switch "project-switching"))))
   (add-hook 'projectile-after-switch-project-hook
-            (lambda () (when persp-mode (persp-rename (projectile-project-name)))))
+            (lambda ()
+              (when persp-mode (persp-rename (projectile-project-name)))))
   :general
   (alan/leader-keys
     "p" '(projectile-command-map :which-key "project"))
@@ -170,7 +171,8 @@
   :init
   (defun alan/visual-fill-prog ()
     (setq-local visual-fill-column-width 80)
-    (when (and (boundp 'diff-hl-mode) diff-hl-mode) (setq-local diff-hl-side 'right)))
+    (when (and (boundp 'diff-hl-mode) diff-hl-mode)
+      (setq-local diff-hl-side 'right)))
   (add-hook 'prog-mode-hook #'alan/visual-fill-prog)
   (defun alan/visual-fill-text-setup ()
     (setq-local visual-fill-column-width 120))
