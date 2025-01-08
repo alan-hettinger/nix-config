@@ -176,6 +176,10 @@
         };
       };
     };
+    chromium = {
+      package = pkgs.brave;
+      enable = true;
+    };
 
     home-manager.enable = true;
   };

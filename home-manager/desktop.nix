@@ -26,7 +26,7 @@
       gwenview
       inkscape
 
-      brave
+      # brave
       spotify
       spicetify-cli
       qbittorrent
