@@ -12,7 +12,8 @@
   screenshotPath = "~/Pictures/screenshots";
   screenshot = "wayshot -s \"$(slurp)\" -f ${screenshotPath}/$(date --iso-8601=seconds).jpg";
   screenshotFull = "wayshot -f ${screenshotPath}/$(date --iso-8601=seconds).jpg";
-  filemanager = "dolphin";
+  # filemanager = "dolphin";
+  filemanager = "nemo";
   browser2 = "brave";
   # powerMenu = "rofi -show power-menu -modi power-menu:rofi-power-menu -location 3";
   powerMenu = "pkill wlogout || wlogout";

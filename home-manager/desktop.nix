@@ -11,6 +11,7 @@
       libsForQt5.ark
       libsForQt5.dolphin
       libsForQt5.dolphin-plugins
+      nemo-with-extensions
       kio-fuse
       libsForQt5.kio
       libsForQt5.kio-admin

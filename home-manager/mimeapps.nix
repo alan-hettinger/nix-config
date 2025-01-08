@@ -6,11 +6,13 @@
       editor = "emacsclient.desktop";
       browser = "firefox.desktop";
       mediaPlayer = "vlc.desktop";
-      fileManager = "org.kde.dolphin.desktop";
+      # fileManager = "org.kde.dolphin.desktop";
+      fileManager = "nemo.desktop";
       emailClient = "userapp-Thunderbird-Y9ZY61.desktop";
       torrentApp = "userapp-transmission-gtk-06T351.desktop";
       imageViewer = "org.xfce.ristretto.desktop";
-      pdfReader = "okularApplication_pdf.desktop";
+      # pdfReader = "okularApplication_pdf.desktop";
+      pdfReader = "org.gnome.Evince.desktop";
       richTextEditor = "writer.desktop";
       presentation = "impress.desktop";
       spreadsheet = "calc.desktop";

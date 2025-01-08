@@ -5,6 +5,7 @@
     # calibre
     foliate
     libsForQt5.okular
+    evince
     pdfarranger
     thunderbird
     zotero

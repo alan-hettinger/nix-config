@@ -25,7 +25,7 @@ in {
       "special:emacs, on-created-empty:emacsclient -c, ${specialWorkspaceProps}"
       "special:discord, on-created-empty:discord, ${specialWorkspaceProps}"
       "special:term, on-created-empty:alacritty, ${specialWorkspaceProps}"
-      "special:file-manager, on-created-empty:dolphin, ${specialWorkspaceProps}"
+      # "special:file-manager, on-created-empty:dolphin, ${specialWorkspaceProps}"
     ];
     master = {
       mfact = 0.55;
@@ -34,8 +34,8 @@ in {
       always_center_master = true;
       inherit_fullscreen = false;
     };
-    windowrulev2 = [
-      "workspace +0, onworkspace:special:file-manager, title:^(?!.*Dolphin).*"
-    ];
+    # windowrulev2 = [
+    #   "workspace +0, onworkspace:special:file-manager, title:^(?!.*Dolphin).*"
+    # ];
   };
 }
