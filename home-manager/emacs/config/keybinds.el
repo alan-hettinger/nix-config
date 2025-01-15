@@ -60,6 +60,13 @@
     (interactive)
     (revert-buffer nil t))
 
+  (defun alan-binds/quit-dwim ()
+    "Complete server-edit, or delete frame, or kill emacs."
+    (interactive)
+    (cond (server-buffer-clients (server-edit))
+          ((< 2 (length (visible-frame-list))) (delete-frame))
+          (t (save-buffers-kill-emacs))))
+
 ;;; Leader key binds:
   (alan/leader-keys
     "SPC" '(alan-binds/switch-buffer-maybe-persp :which-key "switch buffers")
@@ -97,7 +104,9 @@
     :infix "q")
   (alan/quit-map-definer
     "" '(:ignore t :which-key "quit")
-    "q" 'save-buffers-kill-emacs
+    "q" 'alan-binds/quit-dwim
+    "e" 'server-edit
+    "E" 'server-edit-abort
     "f" 'delete-frame
     "b" 'kill-current-buffer
     "w" 'delete-window)
